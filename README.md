@@ -13,8 +13,3 @@ An open source interface for AnimeSwap -- a protocol for decentralized exchange 
 ## Accessing the AnimeSwap Interface
 
 To access the AnimeSwap Interface, visit [app.animeswap.org](https://app.animeswap.org).
-
-## Contributions
-
-For steps on local deployment, development, and code contribution, please see [CONTRIBUTING](./CONTRIBUTING.md).
-
