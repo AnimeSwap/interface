@@ -1,0 +1,66 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      // Allows for the parsing of JSX
+      "jsx": true
+    }
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "ignorePatterns": [
+    "src/abis/types",
+    "src/locales/**/*.js",
+    "src/locales/**/en-US.po",
+    "node_modules",
+    "coverage",
+    "build",
+    "dist",
+    ".DS_Store",
+    ".env.local",
+    ".env.development.local",
+    ".env.test.local",
+    ".env.production.local",
+    ".idea/",
+    ".vscode/",
+    "package-lock.json",
+    "yarn.lock"
+  ],
+  "extends": [
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": [
+    "simple-import-sort",
+    "unused-imports"
+  ],
+  "rules": {
+    "react-hooks/exhaustive-deps": "off",
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "prettier/prettier": [
+      "error"
+    ],
+    "unused-imports/no-unused-imports": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/ban-ts-ignore": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/prefer-as-const": "off",
+    "@typescript-eslint/no-empty-function": "off",
+    "react/react-in-jsx-scope": "off",
+    "object-shorthand": [
+      "error",
+      "always"
+    ]
+  }
+}

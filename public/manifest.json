@@ -1,0 +1,30 @@
+{
+  "background_color": "#fff",
+  "display": "standalone",
+  "homepage_url": "https://app.animeswap.org",
+  "providedBy": {
+    "name": "AnimeSwap",
+    "url": "https://animeswap.org"
+  },
+  "icons": [
+    {
+      "src": "./images/192x192_App_Icon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./images/512x512_App_Icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "orientation": "portrait",
+  "name": "AnimeSwap",
+  "description": "Swap or provide liquidity on the AnimeSwap Protocol",
+  "iconPath": "./images/256x256_App_Icon_Black.svg",
+  "short_name": "AnimeSwap",
+  "start_url": ".",
+  "theme_color": "#8A2BE2"
+}
