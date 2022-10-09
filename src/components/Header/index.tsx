@@ -206,7 +206,7 @@ export default function Header() {
 
   useEffect(() => {
     if (account) {
-      ConnectionInstance.getCoinBalance(account, nativeCoin.address)
+      ConnectionInstance.syncAccountResources(account)
     }
   }, [account, chainId])
 

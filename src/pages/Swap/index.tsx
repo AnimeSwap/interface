@@ -27,7 +27,7 @@ import SwapHeader from '../../components/swap/SwapHeader'
 import { SwitchLocaleLink } from '../../components/SwitchLocaleLink'
 import { Field } from '../../state/swap/actions'
 import { useDerivedSwapInfo, useSwapActionHandlers, useSwapState } from '../../state/swap/hooks'
-import { useChainId, useExpertModeManager } from '../../state/user/hooks'
+import { useChainId } from '../../state/user/hooks'
 import { LinkStyledButton, ThemedText } from '../../theme'
 import AppBody from '../AppBody'
 
@@ -39,9 +39,6 @@ export default function Swap() {
 
   // toggle wallet when disconnected
   const toggleWalletModal = useToggleWalletModal()
-
-  // for expert mode
-  const [isExpertMode] = useExpertModeManager()
 
   // swap state
   const { independentField, typedValue, recipient } = useSwapState()
@@ -297,17 +294,13 @@ export default function Swap() {
               ) : (
                 <ButtonError
                   onClick={() => {
-                    if (isExpertMode) {
-                      handleSwap()
-                    } else {
-                      setSwapState({
-                        tradeToConfirm: trade,
-                        attemptingTxn: false,
-                        swapErrorMessage: undefined,
-                        showConfirm: true,
-                        txHash: undefined,
-                      })
-                    }
+                    setSwapState({
+                      tradeToConfirm: trade,
+                      attemptingTxn: false,
+                      swapErrorMessage: undefined,
+                      showConfirm: true,
+                      txHash: undefined,
+                    })
                   }}
                   id="swap-button"
                   disabled={!isValid || routeIsSyncing || routeIsLoading}
