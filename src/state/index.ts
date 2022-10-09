@@ -14,8 +14,8 @@ import transactions from './transactions/reducer'
 import user from './user/reducer'
 import wallets from './wallets/reducer'
 
-// const PERSISTED_KEYS: string[] = ['user', 'transactions', 'lists']
-const PERSISTED_KEYS: string[] = []
+const PERSISTED_KEYS: string[] = ['user', 'transactions', 'lists']
+const NAMESPACE = 'AnimeSwap20221009'
 
 const store = configureStore({
   reducer: {
@@ -30,8 +30,20 @@ const store = configureStore({
     lists,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({ thunk: true }).concat(save({ states: PERSISTED_KEYS, debounce: 1000 })),
-  preloadedState: load({ states: PERSISTED_KEYS, disableWarnings: isTestEnv() }),
+    getDefaultMiddleware({ thunk: true }).concat(
+      save({
+        states: PERSISTED_KEYS,
+        debounce: 1000,
+        namespace: NAMESPACE,
+        namespaceSeparator: '::',
+      })
+    ),
+  preloadedState: load({
+    states: PERSISTED_KEYS,
+    namespace: NAMESPACE,
+    namespaceSeparator: '::',
+    disableWarnings: isTestEnv(),
+  }),
 })
 
 store.dispatch(updateVersion())
