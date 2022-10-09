@@ -3,30 +3,24 @@ import { Trans } from '@lingui/macro'
 import { sendEvent } from 'components/analytics'
 // import PriceImpactWarning from 'components/swap/PriceImpactWarning'
 import SwapDetailsDropdown from 'components/swap/SwapDetailsDropdown'
-import UnsupportedCoinFooter from 'components/swap/UnsupportedCoinFooter'
 import { MouseoverTooltip } from 'components/Tooltip'
 import { isSupportedChain } from 'constants/chains'
 import { Coin } from 'hooks/common/Coin'
 import { Trade, TradeState } from 'hooks/useBestTrade'
-// import { useSwapCallback } from 'hooks/useSwapCallback'
-import { Context, useCallback, useContext, useEffect, useMemo, useState } from 'react'
-import { ReactNode } from 'react'
-import { ArrowDown, CheckCircle, HelpCircle } from 'react-feather'
+import { Context, useCallback, useContext, useMemo, useState } from 'react'
+import { ArrowDown, HelpCircle } from 'react-feather'
 import { Text } from 'rebass'
 import { useToggleWalletModal } from 'state/application/hooks'
 import ConnectionInstance from 'state/connection/instance'
 import { SignAndSubmitTransaction, useAccount } from 'state/wallets/hooks'
 import styled, { DefaultTheme, ThemeContext } from 'styled-components/macro'
 
-import AddressInputPanel from '../../components/AddressInputPanel'
 import { ButtonConfirmed, ButtonError, ButtonLight, ButtonPrimary } from '../../components/Button'
 import { GreyCard } from '../../components/Card'
 import CoinInputPanel from '../../components/CoinInputPanel'
-import CoinLogo from '../../components/CoinLogo'
 import { AutoColumn } from '../../components/Column'
 import Loader from '../../components/Loader'
 import { AutoRow } from '../../components/Row'
-import confirmPriceImpactWithoutFee from '../../components/swap/confirmPriceImpactWithoutFee'
 import ConfirmSwapModal from '../../components/swap/ConfirmSwapModal'
 import { ArrowWrapper, SwapCallbackError, Wrapper } from '../../components/swap/styleds'
 import SwapHeader from '../../components/swap/SwapHeader'
@@ -37,16 +31,9 @@ import { useChainId, useExpertModeManager } from '../../state/user/hooks'
 import { LinkStyledButton, ThemedText } from '../../theme'
 import AppBody from '../AppBody'
 
-const AlertWrapper = styled.div`
-  max-width: 460px;
-  width: 100%;
-`
-
 export default function Swap() {
   const account = useAccount()
   const chainId = useChainId()
-  const [newSwapQuoteNeedsLogging, setNewSwapQuoteNeedsLogging] = useState(true)
-  const [fetchingSwapQuoteStartTime, setFetchingSwapQuoteStartTime] = useState<Date | undefined>()
 
   const theme = useContext(ThemeContext as Context<DefaultTheme>)
 
@@ -225,9 +212,6 @@ export default function Swap() {
     [onCoinSelection, account]
   )
 
-  // const swapIsUnsupported = useIsSwapUnsupported(currencies[Field.INPUT], currencies[Field.OUTPUT])
-  const swapIsUnsupported = false
-
   return (
     <>
       <AppBody>
@@ -289,20 +273,6 @@ export default function Swap() {
                 loading={independentField === Field.INPUT && routeIsSyncing}
               />
             </div>
-
-            {/* {recipient !== null && !showWrap ? (
-              <>
-                <AutoRow justify="space-between" style={{ padding: '0 1rem' }}>
-                  <ArrowWrapper clickable={false}>
-                    <ArrowDown size="16" color={theme.deprecated_text2} />
-                  </ArrowWrapper>
-                  <LinkStyledButton id="remove-recipient-button" onClick={() => onChangeRecipient(null)}>
-                    <Trans>- Remove recipient</Trans>
-                  </LinkStyledButton>
-                </AutoRow>
-                <AddressInputPanel id="recipient" value={recipient} onChange={onChangeRecipient} />
-              </>
-            ) : null} */}
             {userHasSpecifiedInputOutput && (trade || routeIsLoading || routeIsSyncing) && (
               <SwapDetailsDropdown
                 trade={trade}
@@ -314,13 +284,7 @@ export default function Swap() {
               />
             )}
             <div>
-              {swapIsUnsupported ? (
-                <ButtonPrimary disabled={true}>
-                  <ThemedText.DeprecatedMain mb="4px">
-                    <Trans>Unsupported Asset</Trans>
-                  </ThemedText.DeprecatedMain>
-                </ButtonPrimary>
-              ) : !account ? (
+              {!account ? (
                 <ButtonLight onClick={toggleWalletModal}>
                   <Trans>Connect Wallet</Trans>
                 </ButtonLight>
@@ -359,12 +323,6 @@ export default function Swap() {
         </Wrapper>
       </AppBody>
       <SwitchLocaleLink />
-      {/* {!swapIsUnsupported ? null : (
-        <UnsupportedCurrencyFooter
-          show={swapIsUnsupported}
-          currencies={[currencies[Field.INPUT], currencies[Field.OUTPUT]]}
-        />
-      )} */}
     </>
   )
 }

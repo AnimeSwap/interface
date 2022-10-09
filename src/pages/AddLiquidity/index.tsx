@@ -1,7 +1,6 @@
 import { Decimal } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
 import { sendEvent } from 'components/analytics'
-import UnsupportedCoinFooter from 'components/swap/UnsupportedCoinFooter'
 import { SwitchLocaleLink } from 'components/SwitchLocaleLink'
 import { useCallback, useContext, useState } from 'react'
 import { Plus } from 'react-feather'
