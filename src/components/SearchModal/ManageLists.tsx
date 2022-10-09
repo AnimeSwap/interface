@@ -342,7 +342,7 @@ export function ManageLists({
               </Row>
               <RowFixed mt="4px">
                 <StyledListUrlText active={true} mr="6px">
-                  <Trans>8 tokens</Trans>
+                  <Trans>{tokenCountByListName} tokens</Trans>
                 </StyledListUrlText>
               </RowFixed>
             </Column>

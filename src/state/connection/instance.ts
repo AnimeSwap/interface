@@ -38,7 +38,6 @@ class ConnectionInstance {
       store.dispatch(resetCoinBalances({ coinBalances }))
       return res
     } catch (error) {
-      console.log(`getAccountResources error ${account}`, error)
       return undefined
     }
   }
@@ -50,7 +49,6 @@ class ConnectionInstance {
       const data = res.data
       return data
     } catch (error) {
-      console.log(`getAccountResource error ${account} ${type}`, error)
       return undefined
     }
   }
@@ -67,7 +65,6 @@ class ConnectionInstance {
       store.dispatch(setCoinBalances({ coinBalances: { [type]: amount } }))
       return amount
     } catch (error) {
-      console.log(`getCoinBalance error ${account} ${type}`, error)
       return undefined
     }
   }

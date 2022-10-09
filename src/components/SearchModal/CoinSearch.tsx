@@ -1,6 +1,5 @@
 // eslint-disable-next-line no-restricted-imports
-import { t, Trans } from '@lingui/macro'
-import { sendEvent } from 'components/analytics'
+import { Trans } from '@lingui/macro'
 import useDebounce from 'hooks/useDebounce'
 import { useOnClickOutside } from 'hooks/useOnClickOutside'
 import useTheme from 'hooks/useTheme'
@@ -46,7 +45,7 @@ interface CoinSearchProps {
   onCoinSelect: (currency: Coin) => void
   otherSelectedCurrency?: Coin | null
   showCommonBases?: boolean
-  showCurrencyAmount?: boolean
+  showCoinAmount?: boolean
   disableNonToken?: boolean
   showManageView: () => void
   showImportView: () => void
@@ -58,7 +57,7 @@ export function CoinSearch({
   onCoinSelect,
   otherSelectedCurrency,
   showCommonBases,
-  showCurrencyAmount,
+  showCoinAmount: showCoinAmount,
   disableNonToken,
   onDismiss,
   isOpen,
@@ -79,16 +78,6 @@ export function CoinSearch({
 
   // if they input an address, use it
   const isAddressSearch = isAddress(debouncedQuery)
-
-  useEffect(() => {
-    if (isAddressSearch) {
-      sendEvent({
-        category: 'Currency Select',
-        action: 'Search by address',
-        label: isAddressSearch,
-      })
-    }
-  }, [isAddressSearch])
 
   const filteredTokens = []
 
@@ -147,14 +136,6 @@ export function CoinSearch({
   // if no results on main list, show option to expand into inactive
   const filteredInactiveTokens = []
 
-  // Timeout token loader after 3 seconds to avoid hanging in a loading state.
-  useEffect(() => {
-    const tokenLoaderTimer = setTimeout(() => {
-      setTokenLoaderTimerElapsed(true)
-    }, 3000)
-    return () => clearTimeout(tokenLoaderTimer)
-  }, [])
-
   const coinList = useCoinList()
 
   return (
@@ -179,14 +160,14 @@ export function CoinSearch({
             />
           </Row> */}
         {/* {showCommonBases && (
-            <CommonBases
-              chainId={chainId}
-              onSelect={handleCoinSelect}
-              selectedCurrency={selectedCurrency}
-              searchQuery={searchQuery}
-              isAddressSearch={isAddressSearch}
-            />
-          )} */}
+          <CommonBases
+            chainId={chainId}
+            onSelect={handleCoinSelect}
+            selectedCurrency={selectedCurrency}
+            searchQuery={searchQuery}
+            isAddressSearch={isAddressSearch}
+          />
+        )} */}
       </PaddedColumn>
       <Separator />
       <div style={{ flex: '1' }}>
@@ -202,7 +183,7 @@ export function CoinSearch({
               fixedListRef={fixedList}
               showImportView={showImportView}
               setImportToken={setImportToken}
-              showCurrencyAmount={showCurrencyAmount}
+              showCoinAmount={showCoinAmount}
               // isLoading={balancesIsLoading && !tokenLoaderTimerElapsed}
               isLoading={false}
               searchQuery={searchQuery}
@@ -229,7 +210,7 @@ export function CoinSearch({
                   fixedListRef={fixedList}
                   showImportView={showImportView}
                   setImportToken={setImportToken}
-                  showCurrencyAmount={showCurrencyAmount}
+                  showCoinAmount={showCoinAmount}
                   isLoading={balancesIsLoading && !tokenLoaderTimerElapsed}
                   searchQuery={searchQuery}
                   isAddressSearch={isAddressSearch}
