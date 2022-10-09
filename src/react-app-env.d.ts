@@ -7,4 +7,6 @@ declare module '@metamask/jazzicon' {
 interface Window {
   aptos?: any
   martian?: any
+  fewcha?: any
+  pontem?: any
 }

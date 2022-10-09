@@ -14,8 +14,10 @@ import { useModalIsOpen, useToggleWalletModal } from '../../state/application/ho
 import { ApplicationModal } from '../../state/application/reducer'
 import AccountDetails from '../AccountDetails'
 import Modal from '../Modal'
+import FewchaOption from './FewchaOption'
 import MartianOption from './MartianOption'
 import PetraOption from './PetraOption'
+import PontemOption from './PontemOption'
 
 const CloseIcon = styled.div`
   position: absolute;
@@ -229,6 +231,8 @@ export default function WalletModal({
               <OptionGrid data-testid="option-grid">
                 <PetraOption />
                 <MartianOption />
+                <FewchaOption />
+                <PontemOption />
               </OptionGrid>
             )}
             {/* {!pendingError && (

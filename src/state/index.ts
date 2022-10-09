@@ -14,7 +14,7 @@ import transactions from './transactions/reducer'
 import user from './user/reducer'
 import wallets from './wallets/reducer'
 
-const PERSISTED_KEYS: string[] = ['user', 'transactions', 'lists']
+const PERSISTED_KEYS: string[] = ['user', 'transactions', 'lists', 'wallets']
 const NAMESPACE = 'AnimeSwap20221009'
 
 const store = configureStore({

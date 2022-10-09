@@ -38,6 +38,7 @@ class ConnectionInstance {
       store.dispatch(resetCoinBalances({ coinBalances }))
       return res
     } catch (error) {
+      store.dispatch(resetCoinBalances({ coinBalances: {} }))
       return undefined
     }
   }

@@ -28,7 +28,7 @@ const walletsSlice = createSlice({
       state.coinBalances = { ...state.coinBalances, ...payload.coinBalances }
     },
     resetCoinBalances(state, { payload }: { payload: { coinBalances: { [address: string]: string } } }) {
-      state.coinBalances = { ...payload.coinBalances }
+      state.coinBalances = payload.coinBalances
     },
     setSelectedWallet(state, { payload }: { payload: { wallet: WalletType } }) {
       state.selectedWallet = payload.wallet

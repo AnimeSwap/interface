@@ -87,6 +87,8 @@ export default function AddressClaimModal({ isOpen, onDismiss }: { isOpen: boole
       if (res && res.since) {
         const date = new Date(Number(res.since * 1e3) + period)
         setSinceBTC(date)
+      } else {
+        setSinceBTC(new Date(0))
       }
     }
   }
@@ -113,6 +115,8 @@ export default function AddressClaimModal({ isOpen, onDismiss }: { isOpen: boole
       if (res && res.since) {
         const date = new Date(Number(res.since * 1e3) + period)
         setSinceUSDT(date)
+      } else {
+        setSinceUSDT(new Date(0))
       }
     }
   }
