@@ -6,21 +6,18 @@ export function RedirectPathToSwapOnly() {
   return <Navigate to={{ ...location, pathname: '/swap' }} replace />
 }
 
-// Redirects from the /swap/:outputCurrency path to the /swap?outputCurrency=:outputCurrency format
+// Redirects from the /swap/:toCoin path to the /swap?toCoin=:toCoin format
 export function RedirectToSwap() {
   const location = useLocation()
   const { search } = location
-  const { outputCurrency } = useParams<{ outputCurrency: string }>()
+  const { toCoin } = useParams<{ toCoin: string }>()
 
   return (
     <Navigate
       to={{
         ...location,
         pathname: '/swap',
-        search:
-          search && search.length > 1
-            ? `${search}&outputCurrency=${outputCurrency}`
-            : `?outputCurrency=${outputCurrency}`,
+        search: search && search.length > 1 ? `${search}&toCoin=${toCoin}` : `?toCoin=${toCoin}`,
       }}
       replace
     />

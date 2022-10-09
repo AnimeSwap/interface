@@ -1,4 +1,4 @@
-import PETRA_ICON_URL from 'assets/petra.jpg'
+import PETRA_ICON_URL from 'assets/petra.svg'
 import { ConnectPetra, useAccount, useWallet } from 'state/wallets/hooks'
 import { getWalletName, WalletType } from 'state/wallets/types'
 

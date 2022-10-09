@@ -51,10 +51,18 @@ export async function AutoConnectWallets() {
     case WalletType.MARTIAN:
       if (await AutoConnectMartian()) return
       break
+    case WalletType.FEWCHA:
+      if (await AutoConnectFewcha()) return
+      break
+    case WalletType.PONTEM:
+      if (await AutoConnectPontem()) return
+      break
   }
   // auto connect wallet in order
   if (await AutoConnectPetra()) return
   if (await AutoConnectMartian()) return
+  if (await AutoConnectFewcha()) return
+  if (await AutoConnectPontem()) return
 }
 
 export async function ConnectPetra() {
@@ -110,6 +118,61 @@ export async function AutoConnectMartian() {
   return false
 }
 
+export async function ConnectFewcha() {
+  try {
+    const res = await window.fewcha.connect()
+    if (res.status !== 200) return false
+    store.dispatch(setSelectedWallet({ wallet: WalletType.FEWCHA }))
+    store.dispatch(setAccount({ account: res.data.address }))
+    console.log('Fewcha wallet connect success')
+    return true
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export async function AutoConnectFewcha() {
+  if (!('fewcha' in window)) {
+    return false
+  }
+  try {
+    if (await ConnectFewcha()) {
+      console.log('Fewcha auto connected')
+      return true
+    }
+  } catch (error) {
+    console.error(error)
+  }
+  return false
+}
+
+export async function ConnectPontem() {
+  try {
+    const res = await window.pontem.connect()
+    store.dispatch(setSelectedWallet({ wallet: WalletType.PONTEM }))
+    store.dispatch(setAccount({ account: res.address }))
+    console.log('Pontem wallet connect success')
+    return true
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export async function AutoConnectPontem() {
+  if (!('pontem' in window)) {
+    return false
+  }
+  try {
+    if (await ConnectPontem()) {
+      console.log('Pontem auto connected')
+      return true
+    }
+  } catch (error) {
+    console.error(error)
+  }
+  return false
+}
+
 export const ResetConnection = () => {
   store.dispatch(setSelectedWallet({ wallet: WalletType.PETRA }))
   store.dispatch(setAccount({ account: undefined }))
@@ -129,12 +192,23 @@ export const SignAndSubmitTransaction = async (transaction: any) => {
       const martianRes = await window.martian.connect()
       const sender = martianRes.address
       console.log('Martian tx', payload)
-      const tx = await window.martian.generateTransaction(sender, payload)
-      const txnHash = await window.martian.signAndSubmitTransaction(tx)
-      console.log(txnHash)
-      return txnHash
+      const martianTx = await window.martian.generateTransaction(sender, payload)
+      const martianTxHash = await window.martian.signAndSubmitTransaction(martianTx)
+      console.log(martianTxHash)
+      return martianTxHash
+    case WalletType.FEWCHA:
+      const fewchaTx = await window.fewcha.generateTransaction(payload)
+      if (fewchaTx.status !== 200) {
+        throw new Error('Fewcha tx error')
+      }
+      const fewchaTxHash = await window.fewcha.signAndSubmitTransaction(fewchaTx.data)
+      console.log('Fewcha tx', fewchaTxHash)
+      break
+    case WalletType.PONTEM:
+      const pontemTx = await window.pontem.signAndSubmit(payload)
+      console.log('Pontem tx', pontemTx)
+      break
     default:
-      // TODO[Azard] open wallet
       break
   }
 }

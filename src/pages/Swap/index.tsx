@@ -3,58 +3,42 @@ import { Trans } from '@lingui/macro'
 import { sendEvent } from 'components/analytics'
 // import PriceImpactWarning from 'components/swap/PriceImpactWarning'
 import SwapDetailsDropdown from 'components/swap/SwapDetailsDropdown'
-import UnsupportedCoinFooter from 'components/swap/UnsupportedCoinFooter'
 import { MouseoverTooltip } from 'components/Tooltip'
 import { isSupportedChain } from 'constants/chains'
 import { Coin } from 'hooks/common/Coin'
 import { Trade, TradeState } from 'hooks/useBestTrade'
-// import { useSwapCallback } from 'hooks/useSwapCallback'
-import { Context, useCallback, useContext, useEffect, useMemo, useState } from 'react'
-import { ReactNode } from 'react'
-import { ArrowDown, CheckCircle, HelpCircle } from 'react-feather'
+import { Context, useCallback, useContext, useMemo, useState } from 'react'
+import { ArrowDown, HelpCircle } from 'react-feather'
 import { Text } from 'rebass'
 import { useToggleWalletModal } from 'state/application/hooks'
 import ConnectionInstance from 'state/connection/instance'
 import { SignAndSubmitTransaction, useAccount } from 'state/wallets/hooks'
 import styled, { DefaultTheme, ThemeContext } from 'styled-components/macro'
 
-import AddressInputPanel from '../../components/AddressInputPanel'
 import { ButtonConfirmed, ButtonError, ButtonLight, ButtonPrimary } from '../../components/Button'
 import { GreyCard } from '../../components/Card'
 import CoinInputPanel from '../../components/CoinInputPanel'
-import CoinLogo from '../../components/CoinLogo'
 import { AutoColumn } from '../../components/Column'
 import Loader from '../../components/Loader'
 import { AutoRow } from '../../components/Row'
-import confirmPriceImpactWithoutFee from '../../components/swap/confirmPriceImpactWithoutFee'
 import ConfirmSwapModal from '../../components/swap/ConfirmSwapModal'
 import { ArrowWrapper, SwapCallbackError, Wrapper } from '../../components/swap/styleds'
 import SwapHeader from '../../components/swap/SwapHeader'
 import { SwitchLocaleLink } from '../../components/SwitchLocaleLink'
 import { Field } from '../../state/swap/actions'
 import { useDerivedSwapInfo, useSwapActionHandlers, useSwapState } from '../../state/swap/hooks'
-import { useChainId, useExpertModeManager } from '../../state/user/hooks'
+import { useChainId } from '../../state/user/hooks'
 import { LinkStyledButton, ThemedText } from '../../theme'
 import AppBody from '../AppBody'
-
-const AlertWrapper = styled.div`
-  max-width: 460px;
-  width: 100%;
-`
 
 export default function Swap() {
   const account = useAccount()
   const chainId = useChainId()
-  const [newSwapQuoteNeedsLogging, setNewSwapQuoteNeedsLogging] = useState(true)
-  const [fetchingSwapQuoteStartTime, setFetchingSwapQuoteStartTime] = useState<Date | undefined>()
 
   const theme = useContext(ThemeContext as Context<DefaultTheme>)
 
   // toggle wallet when disconnected
   const toggleWalletModal = useToggleWalletModal()
-
-  // for expert mode
-  const [isExpertMode] = useExpertModeManager()
 
   // swap state
   const { independentField, typedValue, recipient } = useSwapState()
@@ -90,7 +74,7 @@ export default function Swap() {
     [trade, tradeState]
   )
 
-  const { onSwitchTokens, onCoinSelection, onUserInput, onChangeRecipient } = useSwapActionHandlers()
+  const { onSwitchCoins, onCoinSelection, onUserInput, onChangeRecipient } = useSwapActionHandlers()
   const isValid = !swapInputError
   const dependentField: Field = independentField === Field.INPUT ? Field.OUTPUT : Field.INPUT
 
@@ -225,9 +209,6 @@ export default function Swap() {
     [onCoinSelection, account]
   )
 
-  // const swapIsUnsupported = useIsSwapUnsupported(currencies[Field.INPUT], currencies[Field.OUTPUT])
-  const swapIsUnsupported = false
-
   return (
     <>
       <AppBody>
@@ -268,8 +249,7 @@ export default function Swap() {
                 <ArrowDown
                   size="16"
                   onClick={() => {
-                    // setApprovalSubmitted(false) // reset 2 step UI for approvals
-                    onSwitchTokens()
+                    onSwitchCoins()
                   }}
                   color={coins[Field.INPUT] && coins[Field.OUTPUT] ? theme.deprecated_text1 : theme.deprecated_text3}
                 />
@@ -289,20 +269,6 @@ export default function Swap() {
                 loading={independentField === Field.INPUT && routeIsSyncing}
               />
             </div>
-
-            {/* {recipient !== null && !showWrap ? (
-              <>
-                <AutoRow justify="space-between" style={{ padding: '0 1rem' }}>
-                  <ArrowWrapper clickable={false}>
-                    <ArrowDown size="16" color={theme.deprecated_text2} />
-                  </ArrowWrapper>
-                  <LinkStyledButton id="remove-recipient-button" onClick={() => onChangeRecipient(null)}>
-                    <Trans>- Remove recipient</Trans>
-                  </LinkStyledButton>
-                </AutoRow>
-                <AddressInputPanel id="recipient" value={recipient} onChange={onChangeRecipient} />
-              </>
-            ) : null} */}
             {userHasSpecifiedInputOutput && (trade || routeIsLoading || routeIsSyncing) && (
               <SwapDetailsDropdown
                 trade={trade}
@@ -314,13 +280,7 @@ export default function Swap() {
               />
             )}
             <div>
-              {swapIsUnsupported ? (
-                <ButtonPrimary disabled={true}>
-                  <ThemedText.DeprecatedMain mb="4px">
-                    <Trans>Unsupported Asset</Trans>
-                  </ThemedText.DeprecatedMain>
-                </ButtonPrimary>
-              ) : !account ? (
+              {!account ? (
                 <ButtonLight onClick={toggleWalletModal}>
                   <Trans>Connect Wallet</Trans>
                 </ButtonLight>
@@ -333,17 +293,13 @@ export default function Swap() {
               ) : (
                 <ButtonError
                   onClick={() => {
-                    if (isExpertMode) {
-                      handleSwap()
-                    } else {
-                      setSwapState({
-                        tradeToConfirm: trade,
-                        attemptingTxn: false,
-                        swapErrorMessage: undefined,
-                        showConfirm: true,
-                        txHash: undefined,
-                      })
-                    }
+                    setSwapState({
+                      tradeToConfirm: trade,
+                      attemptingTxn: false,
+                      swapErrorMessage: undefined,
+                      showConfirm: true,
+                      txHash: undefined,
+                    })
                   }}
                   id="swap-button"
                   disabled={!isValid || routeIsSyncing || routeIsLoading}
@@ -359,12 +315,6 @@ export default function Swap() {
         </Wrapper>
       </AppBody>
       <SwitchLocaleLink />
-      {/* {!swapIsUnsupported ? null : (
-        <UnsupportedCurrencyFooter
-          show={swapIsUnsupported}
-          currencies={[currencies[Field.INPUT], currencies[Field.OUTPUT]]}
-        />
-      )} */}
     </>
   )
 }

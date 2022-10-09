@@ -16,7 +16,7 @@ interface CoinSearchModalProps {
   onCoinSelect: (currency: Coin) => void
   otherSelectedCurrency?: Coin | null
   showCommonBases?: boolean
-  showCurrencyAmount?: boolean
+  showCoinAmount?: boolean
   disableNonToken?: boolean
 }
 
@@ -34,7 +34,7 @@ export default function CoinSearchModal({
   selectedCurrency,
   otherSelectedCurrency,
   showCommonBases = false,
-  showCurrencyAmount = true,
+  showCoinAmount = true,
   disableNonToken = false,
 }: CoinSearchModalProps) {
   const [modalView, setModalView] = useState<CoinModalView>(CoinModalView.manage)
@@ -84,7 +84,7 @@ export default function CoinSearchModal({
           selectedCurrency={selectedCurrency}
           otherSelectedCurrency={otherSelectedCurrency}
           showCommonBases={showCommonBases}
-          showCurrencyAmount={showCurrencyAmount}
+          showCoinAmount={showCoinAmount}
           disableNonToken={disableNonToken}
           showImportView={showImportView}
           setImportToken={setImportToken}

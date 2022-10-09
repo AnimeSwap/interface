@@ -5,11 +5,12 @@ import QuestionHelper from 'components/QuestionHelper'
 import TokenSafetyIcon from 'components/TokenSafety/TokenSafetyIcon'
 import { checkWarning } from 'constants/tokenSafety'
 import { Phase0Variant, usePhase0Flag } from 'featureFlags/flags/phase0'
-import { Coin } from 'hooks/common/Coin'
+import { Coin, CoinAmount } from 'hooks/common/Coin'
 import useTheme from 'hooks/useTheme'
 import { CSSProperties, MutableRefObject, useCallback, useMemo } from 'react'
 import { FixedSizeList } from 'react-window'
 import { Text } from 'rebass'
+import { useAccount, useCoinAmount } from 'state/wallets/hooks'
 import styled from 'styled-components/macro'
 
 import { ThemedText } from '../../../theme'
@@ -60,8 +61,8 @@ const FixedContentRow = styled.div`
   grid-gap: 16px;
   align-items: center;
 `
-function Balance({ balance }: { balance: Decimal }) {
-  return <StyledBalanceText title={balance.toString()}>{balance.toSignificantDigits(4).toString()}</StyledBalanceText>
+function Balance({ coinAmount }: { coinAmount: CoinAmount<Coin> }) {
+  return <StyledBalanceText title={coinAmount.coin.symbol}>{coinAmount.pretty(4)}</StyledBalanceText>
 }
 
 const TagContainer = styled.div`
@@ -100,7 +101,7 @@ function CurrencyRow({
   isSelected,
   otherSelected,
   style,
-  showCurrencyAmount,
+  showCoinAmount,
   eventProperties,
 }: {
   currency: Coin
@@ -108,14 +109,15 @@ function CurrencyRow({
   isSelected: boolean
   otherSelected: boolean
   style: CSSProperties
-  showCurrencyAmount?: boolean
+  showCoinAmount?: boolean
   eventProperties: Record<string, unknown>
 }) {
   const key = currencyKey(currency)
   // const selectedTokenList = useCombinedActiveList()
   const isOnSelectedList = true
   const customAdded = false
-  // const balance = coinBalance[currency.address]
+  const account = useAccount()
+  const coinAmount = useCoinAmount(currency.address)
   const warning = false
   const phase0Flag = usePhase0Flag()
 
@@ -146,11 +148,11 @@ function CurrencyRow({
           <TokenTags currency={currency} />
         </RowFixed>
       </Column>
-      {/* {showCurrencyAmount && (
+      {showCoinAmount && (
         <RowFixed style={{ justifySelf: 'flex-end' }}>
-          {balance ? <Balance balance={balance} /> : account ? <Loader /> : null}
+          {coinAmount ? <Balance coinAmount={coinAmount} /> : account ? <Loader /> : null}
         </RowFixed>
-      )} */}
+      )}
     </MenuItem>
   )
 }
@@ -220,7 +222,7 @@ export default function CoinList({
   fixedListRef,
   showImportView,
   setImportToken,
-  showCurrencyAmount,
+  showCoinAmount,
   isLoading,
   searchQuery,
   isAddressSearch,
@@ -234,7 +236,7 @@ export default function CoinList({
   fixedListRef?: MutableRefObject<FixedSizeList | undefined>
   showImportView: () => void
   setImportToken: (token: Coin) => void
-  showCurrencyAmount?: boolean
+  showCoinAmount?: boolean
   isLoading: boolean
   searchQuery: string
   isAddressSearch: string | false
@@ -284,7 +286,7 @@ export default function CoinList({
             isSelected={isSelected}
             onSelect={handleSelect}
             otherSelected={otherSelected}
-            showCurrencyAmount={showCurrencyAmount}
+            showCoinAmount={showCoinAmount}
             eventProperties={formatAnalyticsEventProperties(token, index, data, searchQuery, isAddressSearch)}
           />
         )
@@ -299,7 +301,7 @@ export default function CoinList({
       selectedCurrency,
       setImportToken,
       showImportView,
-      showCurrencyAmount,
+      showCoinAmount,
       isLoading,
       isAddressSearch,
       searchQuery,

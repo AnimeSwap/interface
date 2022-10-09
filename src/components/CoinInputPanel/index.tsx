@@ -183,7 +183,7 @@ interface CoinInputPanelProps {
   priceImpact?: Decimal
   id: string
   showCommonBases?: boolean
-  showCurrencyAmount?: boolean
+  showCoinAmount?: boolean
   disableNonToken?: boolean
   locked?: boolean
   loading?: boolean
@@ -199,7 +199,7 @@ export default function CoinInputPanel({
   otherCurrency,
   id,
   showCommonBases,
-  showCurrencyAmount,
+  showCoinAmount,
   disableNonToken,
   fiatValue,
   priceImpact,
@@ -324,7 +324,7 @@ export default function CoinInputPanel({
           selectedCurrency={coin}
           otherSelectedCurrency={otherCurrency}
           showCommonBases={showCommonBases}
-          showCurrencyAmount={showCurrencyAmount}
+          showCoinAmount={showCoinAmount}
           disableNonToken={disableNonToken}
         />
       )}

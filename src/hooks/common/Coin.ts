@@ -13,7 +13,7 @@ export class Coin {
 }
 
 export class CoinAmount<T extends Coin> {
-  public readonly coin: T
+  public coin: T
   public amount: Decimal
 
   constructor(coin: T, amount: Decimal) {
@@ -21,8 +21,11 @@ export class CoinAmount<T extends Coin> {
     this.amount = Utils.d(amount)
   }
 
-  pretty(): string {
-    return this.amount.div(Utils.pow10(this.coin.decimals)).toSignificantDigits(this.coin.decimals).toString()
+  pretty(decimals?: number): string {
+    return this.amount
+      .div(Utils.pow10(this.coin.decimals))
+      .toSignificantDigits(decimals || this.coin.decimals)
+      .toString()
   }
 }
 
