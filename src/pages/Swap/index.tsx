@@ -74,7 +74,7 @@ export default function Swap() {
     [trade, tradeState]
   )
 
-  const { onSwitchTokens, onCoinSelection, onUserInput, onChangeRecipient } = useSwapActionHandlers()
+  const { onSwitchCoins, onCoinSelection, onUserInput, onChangeRecipient } = useSwapActionHandlers()
   const isValid = !swapInputError
   const dependentField: Field = independentField === Field.INPUT ? Field.OUTPUT : Field.INPUT
 
@@ -249,8 +249,7 @@ export default function Swap() {
                 <ArrowDown
                   size="16"
                   onClick={() => {
-                    // setApprovalSubmitted(false) // reset 2 step UI for approvals
-                    onSwitchTokens()
+                    onSwitchCoins()
                   }}
                   color={coins[Field.INPUT] && coins[Field.OUTPUT] ? theme.deprecated_text1 : theme.deprecated_text3}
                 />
