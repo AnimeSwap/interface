@@ -110,6 +110,13 @@ const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(updateVersion, (state) => {
+      // update local coin list
+      state.coins = {
+        [SupportedChainId.APTOS]: APTOS_CoinInfo,
+        [SupportedChainId.APTOS_TESTNET]: APTOS_TESTNET_CoinInfo,
+        [SupportedChainId.APTOS_DEVNET]: APTOS_DEVNET_CoinInfo,
+      }
+
       // slippage isnt being tracked in local storage, reset to default
       // noinspection SuspiciousTypeOfGuard
       if (
