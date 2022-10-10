@@ -1,7 +1,6 @@
 import Loader from 'components/Loader'
 import TopLevelModals from 'components/TopLevelModals'
 import { useFeatureFlagsIsLoaded } from 'featureFlags'
-import ApeModeQueryParamReader from 'hooks/useApeModeQueryParamReader'
 import { Suspense, useEffect } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import styled from 'styled-components/macro'
@@ -83,7 +82,6 @@ export default function App() {
   return (
     <ErrorBoundary>
       <DarkModeQueryParamReader />
-      <ApeModeQueryParamReader />
       <AppWrapper>
         <HeaderWrapper>
           <Header />

@@ -5,13 +5,7 @@ import { useCallback, useMemo } from 'react'
 import { shallowEqual } from 'react-redux'
 import { useAppDispatch, useAppSelector } from 'state/hooks'
 
-import {
-  updateUserDarkMode,
-  updateUserDeadline,
-  updateUserExpertMode,
-  updateUserLocale,
-  updateUserSlippageTolerance,
-} from './reducer'
+import { updateUserDarkMode, updateUserDeadline, updateUserLocale, updateUserSlippageTolerance } from './reducer'
 
 export function useChainId(): SupportedChainId {
   return useAppSelector((state) => state.user.chainId)
@@ -55,21 +49,6 @@ export function useUserLocaleManager(): [SupportedLocale | null, (newLocale: Sup
   )
 
   return [locale, setLocale]
-}
-
-export function useIsExpertMode(): boolean {
-  return useAppSelector((state) => state.user.userExpertMode)
-}
-
-export function useExpertModeManager(): [boolean, () => void] {
-  const dispatch = useAppDispatch()
-  const expertMode = useIsExpertMode()
-
-  const toggleSetExpertMode = useCallback(() => {
-    dispatch(updateUserExpertMode({ userExpertMode: !expertMode }))
-  }, [expertMode, dispatch])
-
-  return [expertMode, toggleSetExpertMode]
 }
 
 export function useSetUserSlippageTolerance(): (slippageTolerance: Decimal | 'auto') => void {

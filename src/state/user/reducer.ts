@@ -23,8 +23,6 @@ export interface UserState {
   userDarkMode: boolean | null // the user's choice for dark mode or light mode
   userLocale: SupportedLocale | null
 
-  userExpertMode: boolean
-
   // user defined slippage tolerance in bips, used in all txns
   userSlippageTolerance: number | 'auto'
 
@@ -49,7 +47,6 @@ export const initialState: UserState = {
   chainId: SupportedChainId.APTOS_DEVNET,
   matchesDarkMode: false,
   userDarkMode: true,
-  userExpertMode: false,
   userLocale: null,
   userSlippageTolerance: 'auto',
   userDeadline: DEFAULT_DEADLINE_FROM_NOW,
@@ -73,9 +70,6 @@ const userSlice = createSlice({
     },
     updateMatchesDarkMode(state, action) {
       state.matchesDarkMode = action.payload.matchesDarkMode
-    },
-    updateUserExpertMode(state, action) {
-      state.userExpertMode = action.payload.userExpertMode
     },
     updateUserLocale(state, action) {
       state.userLocale = action.payload.userLocale
@@ -156,7 +150,6 @@ export const {
   updateMatchesDarkMode,
   updateUserDarkMode,
   updateUserDeadline,
-  updateUserExpertMode,
   updateUserLocale,
   updateUserSlippageTolerance,
 } = userSlice.actions

@@ -24,7 +24,7 @@ import { Field } from '../../state/mint/actions'
 import { useDerivedMintInfo, useMintActionHandlers, useMintState } from '../../state/mint/hooks'
 import { useTransactionAdder } from '../../state/transactions/hooks'
 import { TransactionType } from '../../state/transactions/types'
-import { useChainId, useIsExpertMode, useUserSlippageToleranceWithDefault } from '../../state/user/hooks'
+import { useChainId, useUserSlippageToleranceWithDefault } from '../../state/user/hooks'
 import { ThemedText } from '../../theme'
 import AppBody from '../AppBody'
 import { Dots, Wrapper } from '../Pool/styleds'
@@ -55,9 +55,6 @@ export default function AddLiquidity() {
   const theme = useContext(ThemeContext)
 
   const toggleWalletModal = useToggleWalletModal() // toggle wallet when disconnected
-
-  const expertMode = useIsExpertMode()
-
   // mint state
   const { independentField, typedValue, otherTypedValue } = useMintState()
   // const {
