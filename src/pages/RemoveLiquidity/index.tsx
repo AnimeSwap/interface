@@ -1,5 +1,5 @@
-import { Decimal, Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
+import { BP } from 'constants/misc'
 import { useCallback, useContext, useMemo, useState } from 'react'
 import { ArrowDown, Plus } from 'react-feather'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -140,7 +140,7 @@ export default function RemoveLiquidity() {
         >
           <Trans>
             Output is estimated. If the price changes by more than{' '}
-            {Utils.BP.mul(allowedSlippage).toSignificantDigits(4).toString()}% your transaction will revert.
+            {BP.mul(allowedSlippage).toSignificantDigits(4).toString()}% your transaction will revert.
           </Trans>
         </ThemedText.DeprecatedItalic>
       </AutoColumn>

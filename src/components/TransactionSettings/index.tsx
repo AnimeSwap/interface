@@ -1,15 +1,8 @@
-import { Decimal, Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
 import { DEFAULT_DEADLINE_FROM_NOW } from 'constants/misc'
-import ms from 'ms.macro'
 import { darken } from 'polished'
 import { useContext, useState } from 'react'
-import {
-  useChainId,
-  useSetUserSlippageTolerance,
-  useUserSlippageTolerance,
-  useUserTransactionTTL,
-} from 'state/user/hooks'
+import { useSetUserSlippageTolerance, useUserSlippageTolerance, useUserTransactionTTL } from 'state/user/hooks'
 import styled, { ThemeContext } from 'styled-components/macro'
 
 import { ThemedText } from '../../theme'
@@ -99,7 +92,6 @@ interface TransactionSettingsProps {
   placeholderSlippage: number // varies according to the context in which the settings dialog is placed
 }
 
-const THREE_DAYS_IN_SECONDS = ms`3 days` / 1000
 const DEFAULT_TOLERANCE = 50 // 50 BP = 0.5%
 
 export default function TransactionSettings({ placeholderSlippage }: TransactionSettingsProps) {
@@ -149,8 +141,8 @@ export default function TransactionSettings({ placeholderSlippage }: Transaction
       setDeadline(DEFAULT_DEADLINE_FROM_NOW)
     } else {
       try {
-        const parsed: number = Math.floor(Number.parseFloat(value) * 60)
-        if (!Number.isInteger(parsed) || parsed < 60 || parsed > THREE_DAYS_IN_SECONDS) {
+        const parsed: number = Math.floor(Number.parseFloat(value))
+        if (!Number.isInteger(parsed) || parsed < 5 || parsed > 1800) {
           setDeadlineError(DeadlineError.InvalidInput)
         } else {
           setDeadline(parsed)
@@ -162,7 +154,7 @@ export default function TransactionSettings({ placeholderSlippage }: Transaction
     }
   }
 
-  const showCustomDeadlineRow = false
+  const showCustomDeadlineRow = true
 
   return (
     <AutoColumn gap="md">
@@ -267,13 +259,13 @@ export default function TransactionSettings({ placeholderSlippage }: Transaction
           <RowFixed>
             <OptionCustom style={{ width: '80px' }} warning={!!deadlineError} tabIndex={-1}>
               <Input
-                placeholder={(DEFAULT_DEADLINE_FROM_NOW / 60).toString()}
+                placeholder={Math.floor(DEFAULT_DEADLINE_FROM_NOW).toString()}
                 value={
                   deadlineInput.length > 0
                     ? deadlineInput
                     : deadline === DEFAULT_DEADLINE_FROM_NOW
                     ? ''
-                    : (deadline / 60).toString()
+                    : deadline.toString()
                 }
                 onChange={(e) => parseCustomDeadline(e.target.value)}
                 onBlur={() => {
@@ -284,7 +276,7 @@ export default function TransactionSettings({ placeholderSlippage }: Transaction
               />
             </OptionCustom>
             <ThemedText.DeprecatedBody style={{ paddingLeft: '8px' }} fontSize={14}>
-              <Trans>minutes</Trans>
+              <Trans>Seconds</Trans>
             </ThemedText.DeprecatedBody>
           </RowFixed>
         </AutoColumn>
