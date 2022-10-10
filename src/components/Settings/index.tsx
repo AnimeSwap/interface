@@ -1,15 +1,48 @@
 // eslint-disable-next-line no-restricted-imports
 import { Decimal } from '@animeswap.org/v1-sdk'
-import { Trans } from '@lingui/macro'
+import { t, Trans } from '@lingui/macro'
 import { useRef } from 'react'
+import { Settings } from 'react-feather'
 import { Text } from 'rebass'
-import styled from 'styled-components/macro'
+import styled, { ThemeContext } from 'styled-components/macro'
 
 import { useOnClickOutside } from '../../hooks/useOnClickOutside'
 import { useModalIsOpen, useToggleSettingsMenu } from '../../state/application/hooks'
 import { ApplicationModal } from '../../state/application/reducer'
 import { AutoColumn } from '../Column'
 import TransactionSettings from '../TransactionSettings'
+
+const StyledMenuIcon = styled(Settings)`
+  height: 20px;
+  width: 20px;
+
+  > * {
+    stroke: ${({ theme }) => theme.deprecated_text1};
+  }
+`
+
+const StyledMenuButton = styled.button<{ disabled: boolean }>`
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border: none;
+  background-color: transparent;
+  margin: 0;
+  padding: 0;
+  border-radius: 0.5rem;
+  height: 20px;
+
+  ${({ disabled }) =>
+    !disabled &&
+    `
+    :hover,
+    :focus {
+      cursor: pointer;
+      outline: none;
+      opacity: 0.7;
+    }
+  `}
+`
 
 const StyledMenu = styled.div`
   margin-left: 0.5rem;
@@ -53,6 +86,14 @@ export default function SettingsTab({ placeholderSlippage }: { placeholderSlippa
   return (
     // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/30451
     <StyledMenu ref={node as any}>
+      <StyledMenuButton
+        disabled={false}
+        onClick={toggle}
+        id="open-settings-dialog-button"
+        aria-label={t`Transaction Settings`}
+      >
+        <StyledMenuIcon />
+      </StyledMenuButton>
       {open && (
         <MenuFlyout>
           <AutoColumn gap="md" style={{ padding: '1rem' }}>
