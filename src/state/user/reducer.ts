@@ -24,7 +24,7 @@ export interface UserState {
   userLocale: SupportedLocale | null
 
   // user defined slippage tolerance in bips, used in all txns
-  userSlippageTolerance: number | 'auto'
+  userSlippageTolerance: number
 
   // deadline set by user in minutes, used in all txns
   userDeadline: number
@@ -48,7 +48,7 @@ export const initialState: UserState = {
   matchesDarkMode: false,
   userDarkMode: true,
   userLocale: null,
-  userSlippageTolerance: 'auto',
+  userSlippageTolerance: 50, // 50BP
   userDeadline: DEFAULT_DEADLINE_FROM_NOW,
   coins: {
     [SupportedChainId.APTOS]: APTOS_CoinInfo,
@@ -118,11 +118,7 @@ const userSlice = createSlice({
         state.userSlippageTolerance < 0 ||
         state.userSlippageTolerance > 5000
       ) {
-        state.userSlippageTolerance = 'auto'
-      } else {
-        if ([10, 50, 100].indexOf(state.userSlippageTolerance) !== -1) {
-          state.userSlippageTolerance = 'auto'
-        }
+        state.userSlippageTolerance = 50
       }
 
       // deadline isnt being tracked in local storage, reset to default

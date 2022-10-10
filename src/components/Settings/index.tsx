@@ -76,7 +76,7 @@ const MenuFlyout = styled.span`
   user-select: none;
 `
 
-export default function SettingsTab({ placeholderSlippage }: { placeholderSlippage: Decimal }) {
+export default function SettingsTab({ placeholderSlippage }: { placeholderSlippage: number }) {
   const node = useRef<HTMLDivElement>()
   const open = useModalIsOpen(ApplicationModal.SETTINGS)
   const toggle = useToggleSettingsMenu()

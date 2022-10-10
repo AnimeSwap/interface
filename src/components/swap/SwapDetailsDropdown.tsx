@@ -113,7 +113,7 @@ interface SwapDetailsInlineProps {
   loading: boolean
   showInverted: boolean
   setShowInverted: React.Dispatch<React.SetStateAction<boolean>>
-  allowedSlippage: Decimal
+  allowedSlippage: number
 }
 
 export default function SwapDetailsDropdown({

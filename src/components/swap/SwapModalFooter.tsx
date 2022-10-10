@@ -20,7 +20,7 @@ export default function SwapModalFooter({
 }: {
   trade: Trade
   txHash: string | undefined
-  allowedSlippage: Decimal
+  allowedSlippage: number
   onConfirm: () => void
   swapErrorMessage: ReactNode | undefined
   disabledConfirm: boolean

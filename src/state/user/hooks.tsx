@@ -51,21 +51,11 @@ export function useUserLocaleManager(): [SupportedLocale | null, (newLocale: Sup
   return [locale, setLocale]
 }
 
-export function useSetUserSlippageTolerance(): (slippageTolerance: Decimal | 'auto') => void {
+export function useSetUserSlippageTolerance(): (slippageTolerance: number) => void {
   const dispatch = useAppDispatch()
   return useCallback(
-    (userSlippageTolerance: Decimal | 'auto') => {
-      let value: 'auto' | number
-      try {
-        value = userSlippageTolerance === 'auto' ? 'auto' : userSlippageTolerance.toNumber()
-      } catch (error) {
-        value = 'auto'
-      }
-      dispatch(
-        updateUserSlippageTolerance({
-          userSlippageTolerance: value,
-        })
-      )
+    (userSlippageTolerance: number) => {
+      dispatch(updateUserSlippageTolerance({ userSlippageTolerance }))
     },
     [dispatch]
   )
@@ -74,25 +64,22 @@ export function useSetUserSlippageTolerance(): (slippageTolerance: Decimal | 'au
 /**
  * Return the user's slippage tolerance, from the redux store, and a function to update the slippage tolerance
  */
-export function useUserSlippageTolerance(): Decimal | 'auto' {
+export function useUserSlippageTolerance(): number {
   const userSlippageTolerance = useAppSelector((state) => {
     return state.user.userSlippageTolerance
   })
 
-  return useMemo(
-    () => (userSlippageTolerance === 'auto' ? 'auto' : Utils.d(userSlippageTolerance)),
-    [userSlippageTolerance]
-  )
+  return useMemo(() => userSlippageTolerance, [userSlippageTolerance])
 }
 
 /**
  * Same as above but replaces the auto with a default value
  * @param defaultSlippageTolerance the default value to replace auto with
  */
-export function useUserSlippageToleranceWithDefault(defaultSlippageTolerance: Decimal): Decimal {
+export function useUserSlippageToleranceWithDefault(defaultSlippageTolerance: number): number {
   const allowedSlippage = useUserSlippageTolerance()
   return useMemo(
-    () => (allowedSlippage === 'auto' ? defaultSlippageTolerance : allowedSlippage),
+    () => (allowedSlippage ? allowedSlippage : defaultSlippageTolerance),
     [allowedSlippage, defaultSlippageTolerance]
   )
 }

@@ -48,7 +48,7 @@ export default function SwapModalHeader({
   trade: Trade
   shouldLogModalCloseEvent: boolean
   setShouldLogModalCloseEvent: (shouldLog: boolean) => void
-  allowedSlippage: Decimal
+  allowedSlippage: number
   recipient: string | null
   showAcceptChanges: boolean
   onAcceptChanges: () => void

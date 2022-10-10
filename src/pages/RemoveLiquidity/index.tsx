@@ -1,4 +1,4 @@
-import { Decimal } from '@animeswap.org/v1-sdk'
+import { Decimal, Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
 import { useCallback, useContext, useMemo, useState } from 'react'
 import { ArrowDown, Plus } from 'react-feather'
@@ -28,7 +28,7 @@ import { StyledInternalLink, ThemedText } from '../../theme'
 import AppBody from '../AppBody'
 import { ClickableText, MaxButton, Wrapper } from '../Pool/styleds'
 
-const DEFAULT_REMOVE_LIQUIDITY_SLIPPAGE_TOLERANCE = new Decimal(5).div(100)
+const DEFAULT_REMOVE_LIQUIDITY_SLIPPAGE_TOLERANCE = 50
 
 export default function RemoveLiquidity() {
   const navigate = useNavigate()
@@ -139,8 +139,8 @@ export default function RemoveLiquidity() {
           padding={'12px 0 0 0'}
         >
           <Trans>
-            Output is estimated. If the price changes by more than {allowedSlippage.toSignificantDigits(4).toString()}%
-            your transaction will revert.
+            Output is estimated. If the price changes by more than{' '}
+            {Utils.BP.mul(allowedSlippage).toSignificantDigits(4).toString()}% your transaction will revert.
           </Trans>
         </ThemedText.DeprecatedItalic>
       </AutoColumn>

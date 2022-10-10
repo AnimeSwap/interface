@@ -76,7 +76,7 @@ export function useDerivedSwapInfo(): {
     state: TradeState
     trade: Trade
   }
-  allowedSlippage: Decimal
+  allowedSlippage: number
 } {
   const account = useAccount()
   const allCoinBalances = useAllCoinBalance()
@@ -124,7 +124,7 @@ export function useDerivedSwapInfo(): {
     [inputCoin, outputCoin]
   )
 
-  const allowedSlippage = Utils.d(50).div(10000)
+  const allowedSlippage = 50
 
   const inputError = useMemo(() => {
     let inputError: ReactNode | undefined

@@ -31,7 +31,7 @@ import { Dots, Wrapper } from '../Pool/styleds'
 import { ConfirmAddModalBottom } from './ConfirmAddModalBottom'
 import { PoolPriceBar } from './PoolPriceBar'
 
-const DEFAULT_ADD_V2_SLIPPAGE_TOLERANCE = new Decimal(50).div(10000)
+const DEFAULT_ADD_V2_SLIPPAGE_TOLERANCE = 50
 
 const TitleContainer = styled.div`
   font-size: 32px;

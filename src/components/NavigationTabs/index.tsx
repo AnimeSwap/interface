@@ -62,7 +62,7 @@ export function AddRemoveTabs({
 }: {
   adding: boolean
   creating: boolean
-  defaultSlippage: Decimal
+  defaultSlippage: number
   positionID?: string | undefined
   showBackLink?: boolean
   children?: ReactNode | undefined

@@ -30,7 +30,7 @@ export default function ConfirmSwapModal({
   attemptingTxn: boolean
   txHash: string | undefined
   recipient: string | null
-  allowedSlippage: Decimal
+  allowedSlippage: number
   onAcceptChanges: () => void
   onConfirm: () => void
   swapErrorMessage: ReactNode | undefined
