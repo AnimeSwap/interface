@@ -68,8 +68,10 @@ export function useSwapActionHandlers(): {
 
 // from the current swap inputs, compute the best trade and return it.
 export function useDerivedSwapInfo(): {
-  coins: { [field in Field]?: Coin | null }
-  coinBalances: { [field in Field]?: Decimal }
+  inputCoin: Coin | null
+  outputCoin: Coin | null
+  inputCoinBalance: Decimal
+  outputCoinBalance: Decimal
   isExactIn: boolean
   parsedAmount: Decimal
   inputError?: ReactNode
@@ -80,8 +82,6 @@ export function useDerivedSwapInfo(): {
   allowedSlippage: number
 } {
   const account = useAccount()
-  const allCoinBalances = useAllCoinBalance()
-
   const {
     independentField,
     typedValue,
@@ -89,11 +89,12 @@ export function useDerivedSwapInfo(): {
     [Field.OUTPUT]: { coinId: outputCoinId },
     recipient,
   } = useSwapState()
-
   const inputCoin = useCoin(inputCoinId)
   const outputCoin = useCoin(outputCoinId)
+  const inputCoinBalance = Utils.d(useCoinBalance(inputCoin?.address))
+  const outputCoinBalance = Utils.d(useCoinBalance(outputCoin?.address))
 
-  const to: string | null = (recipient === null ? account : recipient) ?? null
+  const toAddress: string | null = (recipient === null ? account : recipient) ?? null
 
   const isExactIn: boolean = independentField === Field.INPUT
 
@@ -109,22 +110,6 @@ export function useDerivedSwapInfo(): {
     outputCoin
   )
 
-  const coinBalances = useMemo(
-    () => ({
-      [Field.INPUT]: Utils.d(allCoinBalances[inputCoin?.address]),
-      [Field.OUTPUT]: Utils.d(allCoinBalances[outputCoin?.address]),
-    }),
-    [allCoinBalances, inputCoin, outputCoin]
-  )
-
-  const coins: { [field in Field]?: Coin | null } = useMemo(
-    () => ({
-      [Field.INPUT]: inputCoin,
-      [Field.OUTPUT]: outputCoin,
-    }),
-    [inputCoin, outputCoin]
-  )
-
   const allowedSlippage = 50
 
   const inputError = useMemo(() => {
@@ -134,7 +119,7 @@ export function useDerivedSwapInfo(): {
       inputError = <Trans>Connect Wallet</Trans>
     }
 
-    if (!coins[Field.INPUT] || !coins[Field.OUTPUT]) {
+    if (!inputCoin || !outputCoin) {
       inputError = inputError ?? <Trans>Select a coin</Trans>
     }
 
@@ -142,13 +127,13 @@ export function useDerivedSwapInfo(): {
       inputError = inputError ?? <Trans>Enter an amount</Trans>
     }
 
-    const formattedTo = isAddress(to)
-    if (!to || !formattedTo) {
+    const formattedToAddress = isAddress(toAddress)
+    if (!toAddress || !formattedToAddress) {
       inputError = inputError ?? <Trans>Enter a recipient</Trans>
     }
     // compare input balance to max input based on version
-    const [balanceIn, amountIn] = [coinBalances[Field.INPUT], trade.trade?.maximumAmountIn]
-    if (balanceIn && amountIn && balanceIn < amountIn) {
+    const [balanceIn, amountIn] = [inputCoinBalance, trade.trade?.maximumAmountIn]
+    if (balanceIn && amountIn && balanceIn.lt(amountIn)) {
       inputError = <Trans>Insufficient {inputCoin.symbol} balance</Trans>
     }
 
@@ -157,19 +142,31 @@ export function useDerivedSwapInfo(): {
     }
 
     return inputError
-  }, [account, allowedSlippage, coins, coinBalances, parsedAmount, to, trade.trade])
+  }, [account, allowedSlippage, inputCoin, outputCoin, inputCoinBalance, parsedAmount, toAddress, trade.trade])
 
   return useMemo(
     () => ({
-      coins,
-      coinBalances,
+      inputCoin,
+      outputCoin,
+      inputCoinBalance,
+      outputCoinBalance,
       isExactIn,
       parsedAmount,
       inputError,
       trade,
       allowedSlippage,
     }),
-    [allowedSlippage, coins, isExactIn, inputError, parsedAmount, trade]
+    [
+      inputCoin,
+      outputCoin,
+      inputCoinBalance,
+      outputCoinBalance,
+      isExactIn,
+      inputError,
+      parsedAmount,
+      trade,
+      allowedSlippage,
+    ]
   )
 }
 

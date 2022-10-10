@@ -48,16 +48,16 @@ export default function Swap() {
   // swap state
   const { independentField, typedValue, recipient } = useSwapState()
   const {
-    coins,
-    coinBalances,
+    inputCoin,
+    outputCoin,
+    inputCoinBalance,
+    outputCoinBalance,
     isExactIn,
     parsedAmount,
     inputError: swapInputError,
     trade: { state: tradeState, trade },
     allowedSlippage,
   } = useDerivedSwapInfo()
-
-  const recipientAddress = recipient
 
   const parsedAmounts = useMemo(() => {
     const inputDecimal = trade?.inputCoin?.decimals || 0
@@ -120,9 +120,8 @@ export default function Swap() {
   )
 
   const userHasSpecifiedInputOutput =
-    coins[Field.INPUT] && coins[Field.OUTPUT] && new Decimal(parsedAmounts[independentField] || 0).greaterThan(0)
-  const showMaxButton =
-    (parsedAmounts[Field.INPUT] || 0) < coinBalances[Field.INPUT] && coinBalances[Field.INPUT].toNumber() > 0
+    inputCoin && outputCoin && new Decimal(parsedAmounts[independentField] || 0).greaterThan(0)
+  const showMaxButton = (parsedAmounts[Field.INPUT] || 0) < inputCoinBalance && inputCoinBalance.toNumber() > 0
 
   const swapCallback = async () => {
     try {
@@ -157,7 +156,7 @@ export default function Swap() {
         txHash: undefined,
       })
     }
-  }, [swapCallback, tradeToConfirm, showConfirm, recipient, recipientAddress, account])
+  }, [swapCallback, tradeToConfirm, showConfirm, recipient, recipient, account])
 
   // errors
   const [showInverted, setShowInverted] = useState<boolean>(false)
@@ -191,17 +190,14 @@ export default function Swap() {
   )
 
   const handleMaxInput = useCallback(() => {
-    const gasReserve = coins[Field.INPUT].symbol === 'APT' ? 500 : 0
-    coinBalances[Field.INPUT] &&
-      onUserInput(
-        Field.INPUT,
-        ((coinBalances[Field.INPUT].toNumber() - gasReserve) / 10 ** coins[Field.INPUT]?.decimals ?? 0).toString()
-      )
+    const gasReserve = inputCoin.symbol === 'APT' ? 500 : 0
+    inputCoinBalance &&
+      onUserInput(Field.INPUT, ((inputCoinBalance.toNumber() - gasReserve) / 10 ** inputCoin?.decimals ?? 0).toString())
     sendEvent({
       category: 'Swap',
       action: 'Max',
     })
-  }, [coins, coinBalances[Field.INPUT], onUserInput])
+  }, [inputCoin, inputCoinBalance, onUserInput])
 
   const handleOutputSelect = useCallback(
     (outputCurrency: Coin) => {
@@ -240,12 +236,12 @@ export default function Swap() {
                 label={<Trans>From</Trans>}
                 value={formattedAmounts[Field.INPUT]}
                 showMaxButton={showMaxButton}
-                coin={coins[Field.INPUT] ?? null}
+                coin={inputCoin ?? null}
                 onUserInput={handleTypeInput}
                 onMax={handleMaxInput}
                 fiatValue={undefined}
                 onCoinSelect={handleInputSelect}
-                otherCurrency={coins[Field.OUTPUT]}
+                otherCurrency={outputCoin}
                 showCommonBases={true}
                 id={'CURRENCY_INPUT_PANEL'}
                 loading={independentField === Field.OUTPUT && routeIsSyncing}
@@ -256,7 +252,7 @@ export default function Swap() {
                   onClick={() => {
                     onSwitchCoins()
                   }}
-                  color={coins[Field.INPUT] && coins[Field.OUTPUT] ? theme.deprecated_text1 : theme.deprecated_text3}
+                  color={inputCoin && outputCoin ? theme.deprecated_text1 : theme.deprecated_text3}
                 />
               </ArrowWrapper>
               <CoinInputPanel
@@ -266,9 +262,9 @@ export default function Swap() {
                 showMaxButton={false}
                 hideBalance={false}
                 fiatValue={undefined}
-                coin={coins[Field.OUTPUT] ?? null}
+                coin={outputCoin ?? null}
                 onCoinSelect={handleOutputSelect}
-                otherCurrency={coins[Field.INPUT]}
+                otherCurrency={inputCoin}
                 showCommonBases={true}
                 id={'CURRENCY_OUTPUT_PANEL'}
                 loading={independentField === Field.INPUT && routeIsSyncing}

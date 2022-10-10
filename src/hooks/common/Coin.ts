@@ -57,7 +57,6 @@ export class Price<T extends Coin, U extends Coin> {
 
 export function useCoin(address?: string | null): Coin | null | undefined {
   const chainId = useChainId()
-  if (!address) address = '0x1::aptos_coin::AptosCoin'
   return useAppSelector((state) => state.user.coins[chainId][address])
 }
 
