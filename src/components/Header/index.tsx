@@ -270,7 +270,7 @@ export default function Header() {
             {account && nativeCoinAmount ? (
               <BalanceText style={{ flexShrink: 0, userSelect: 'none' }} pl="0.75rem" pr=".4rem" fontWeight={500}>
                 <Trans>
-                  {nativeCoinAmount.pretty()} {nativeCoin.symbol}
+                  {nativeCoinAmount.pretty(6)} {nativeCoin.symbol}
                 </Trans>
               </BalanceText>
             ) : null}
