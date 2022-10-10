@@ -1,5 +1,6 @@
 import { Decimal, Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
+import { getChainInfo, getChainInfoOrDefault } from 'constants/chainInfo'
 import { Trade, TradeType, useAnimeSwapTempTrade } from 'hooks/useBestTrade'
 import { TradeState } from 'hooks/useBestTrade'
 import { ParsedQs } from 'qs'
@@ -11,7 +12,7 @@ import { tryParseCoinAmount } from 'utils/tryParseCoinAmount'
 
 import { Coin, useCoin } from '../../hooks/common/Coin'
 import useParsedQueryString from '../../hooks/useParsedQueryString'
-import { isAddress } from '../../utils'
+import { isAddress, isCoinAddress } from '../../utils'
 import { AppState } from '../index'
 import { Field, replaceSwapState, selectCoin, setRecipient, switchCoins, typeInput } from './actions'
 import { SwapState } from './reducer'
@@ -172,9 +173,9 @@ export function useDerivedSwapInfo(): {
   )
 }
 
-function parseCurrencyFromURLParameter(urlParam: ParsedQs[string]): string {
+function parseCoinFromURLParameter(urlParam: ParsedQs[string]): string {
   if (typeof urlParam === 'string') {
-    const valid = isAddress(urlParam)
+    const valid = isCoinAddress(urlParam)
     if (valid) return valid
   }
   return ''
@@ -188,32 +189,26 @@ function parseIndependentFieldURLParameter(urlParam: any): Field {
   return typeof urlParam === 'string' && urlParam.toLowerCase() === 'output' ? Field.OUTPUT : Field.INPUT
 }
 
-const ENS_NAME_REGEX = /^[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)?$/
-const ADDRESS_REGEX = /^0x[a-fA-F0-9]{40}$/
 function validatedRecipient(recipient: any): string | null {
   if (typeof recipient !== 'string') return null
   const address = isAddress(recipient)
   if (address) return address
-  if (ENS_NAME_REGEX.test(recipient)) return recipient
-  if (ADDRESS_REGEX.test(recipient)) return recipient
   return null
 }
 
 export function queryParametersToSwapState(parsedQs: ParsedQs): SwapState {
-  let inputCoin = parseCurrencyFromURLParameter(parsedQs.inputCoin)
-  let outputCoin = parseCurrencyFromURLParameter(parsedQs.outputCoin)
+  let inputCoin = parseCoinFromURLParameter(parsedQs.inputCoin)
+  let outputCoin = parseCoinFromURLParameter(parsedQs.outputCoin)
   const typedValue = parseTokenAmountURLParameter(parsedQs.exactAmount)
   const independentField = parseIndependentFieldURLParameter(parsedQs.exactField)
   if (inputCoin === '' && outputCoin === '' && typedValue === '' && independentField === Field.INPUT) {
-    // Defaults to having the native currency selected
-    inputCoin = '0x1::aptos_coin::AptosCoin' // default to APT
+    // Defaults to having the native coin selected
+    inputCoin = getChainInfoOrDefault(undefined).nativeCoin.address
   } else if (inputCoin === outputCoin) {
     // clear output if identical
     outputCoin = ''
   }
-
   const recipient = validatedRecipient(parsedQs.recipient)
-
   return {
     [Field.INPUT]: {
       coinId: inputCoin === '' ? null : inputCoin ?? null,
@@ -227,7 +222,6 @@ export function queryParametersToSwapState(parsedQs: ParsedQs): SwapState {
   }
 }
 
-// Azard: init swap token
 // updates the swap state to use the defaults for a given network
 export function useDefaultsFromURLSearch(): SwapState {
   const chainId = useChainId()

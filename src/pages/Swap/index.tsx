@@ -26,7 +26,12 @@ import { ArrowWrapper, SwapCallbackError, Wrapper } from '../../components/swap/
 import SwapHeader from '../../components/swap/SwapHeader'
 import { SwitchLocaleLink } from '../../components/SwitchLocaleLink'
 import { Field } from '../../state/swap/actions'
-import { useDerivedSwapInfo, useSwapActionHandlers, useSwapState } from '../../state/swap/hooks'
+import {
+  useDefaultsFromURLSearch,
+  useDerivedSwapInfo,
+  useSwapActionHandlers,
+  useSwapState,
+} from '../../state/swap/hooks'
 import { useChainId } from '../../state/user/hooks'
 import { LinkStyledButton, ThemedText } from '../../theme'
 import AppBody from '../AppBody'
@@ -34,7 +39,7 @@ import AppBody from '../AppBody'
 export default function Swap() {
   const account = useAccount()
   const chainId = useChainId()
-
+  const loadedUrlParams = useDefaultsFromURLSearch()
   const theme = useContext(ThemeContext as Context<DefaultTheme>)
 
   // toggle wallet when disconnected
@@ -199,11 +204,11 @@ export default function Swap() {
   }, [coins, coinBalances[Field.INPUT], onUserInput])
 
   const handleOutputSelect = useCallback(
-    (outputCoin: Coin) => {
-      onCoinSelection(Field.OUTPUT, outputCoin)
+    (outputCurrency: Coin) => {
+      onCoinSelection(Field.OUTPUT, outputCurrency)
       // update coin balance
-      if (account && outputCoin) {
-        ConnectionInstance.getCoinBalance(account, outputCoin.address)
+      if (account && outputCurrency) {
+        ConnectionInstance.getCoinBalance(account, outputCurrency.address)
       }
     },
     [onCoinSelection, account]
