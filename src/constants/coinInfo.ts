@@ -40,6 +40,15 @@ export const APTOS_TESTNET_CoinInfo: { [address: string]: Coin } = {
     symbol: 'tAPT',
     name: 'Tortuga Staked APT',
     logoURL: ['https://raw.githubusercontent.com/AnimeSwap/coin-list/main/icons/tAPT.svg'],
+    projectURL: 'https://tortuga.finance/',
+  },
+  '0xe4497a32bf4a9fd5601b27661aa0b933a923191bf403bd08669ab2468d43b379::move_coin::MoveCoin': {
+    address: '0xe4497a32bf4a9fd5601b27661aa0b933a923191bf403bd08669ab2468d43b379::move_coin::MoveCoin',
+    decimals: 8,
+    symbol: 'MOVE',
+    name: 'BlueMove Coin',
+    logoURL: ['https://raw.githubusercontent.com/AnimeSwap/coin-list/main/icons/MOVE.svg'],
+    projectURL: 'https://bluemove.net/',
   },
 }
 
@@ -72,6 +81,7 @@ export const APTOS_DEVNET_CoinInfo: { [address: string]: Coin } = {
     symbol: 'tAPT',
     name: 'Tortuga Staked APT',
     logoURL: ['https://raw.githubusercontent.com/AnimeSwap/coin-list/main/icons/tAPT.svg'],
+    projectURL: 'https://tortuga.finance/',
   },
   '0xbc954a7df993344c9fec9aaccdf96673a897025119fc38a8e0f637598496b47a::test_mint_dai_coin::TestMintCoin': {
     address: '0xbc954a7df993344c9fec9aaccdf96673a897025119fc38a8e0f637598496b47a::test_mint_dai_coin::TestMintCoin',
