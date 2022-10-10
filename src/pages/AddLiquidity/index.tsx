@@ -46,7 +46,7 @@ const TitleContainer = styled.div`
 `
 
 export default function AddLiquidity() {
-  const { currencyIdA, currencyIdB } = useParams<{ currencyIdA?: string; currencyIdB?: string }>()
+  const { coinIdA, coinIdB } = useParams<{ coinIdA?: string; coinIdB?: string }>()
   const navigate = useNavigate()
   const account = useAccount()
   const chainId = useChainId()
@@ -164,29 +164,29 @@ export default function AddLiquidity() {
 
   // const handleCurrencyASelect = useCallback(
   //   (currencyA: Currency) => {
-  //     const newCurrencyIdA = currencyId(currencyA)
-  //     if (newCurrencyIdA === currencyIdB) {
-  //       navigate(`/add/v2/${currencyIdB}/${currencyIdA}`)
+  //     const newCoinIdA = coinId(currencyA)
+  //     if (newCoinIdA === coinIdB) {
+  //       navigate(`/add/v2/${coinIdB}/${coinIdA}`)
   //     } else {
-  //       navigate(`/add/v2/${newCurrencyIdA}/${currencyIdB}`)
+  //       navigate(`/add/v2/${newCoinIdA}/${coinIdB}`)
   //     }
   //   },
-  //   [currencyIdB, navigate, currencyIdA]
+  //   [coinIdB, navigate, coinIdA]
   // )
   // const handleCurrencyBSelect = useCallback(
   //   (currencyB: Currency) => {
-  //     const newCurrencyIdB = currencyId(currencyB)
-  //     if (currencyIdA === newCurrencyIdB) {
-  //       if (currencyIdB) {
-  //         navigate(`/add/v2/${currencyIdB}/${newCurrencyIdB}`)
+  //     const newCoinIdB = coinId(currencyB)
+  //     if (coinIdA === newCoinIdB) {
+  //       if (coinIdB) {
+  //         navigate(`/add/v2/${coinIdB}/${newCoinIdB}`)
   //       } else {
-  //         navigate(`/add/v2/${newCurrencyIdB}`)
+  //         navigate(`/add/v2/${newCoinIdB}`)
   //       }
   //     } else {
-  //       navigate(`/add/v2/${currencyIdA ? currencyIdA : 'ETH'}/${newCurrencyIdB}`)
+  //       navigate(`/add/v2/${coinIdA ? coinIdA : 'ETH'}/${newCoinIdB}`)
   //     }
   //   },
-  //   [currencyIdA, navigate, currencyIdB]
+  //   [coinIdA, navigate, coinIdB]
   // )
 
   // const handleDismissConfirmation = useCallback(() => {

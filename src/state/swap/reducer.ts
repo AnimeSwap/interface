@@ -1,17 +1,17 @@
 import { createReducer } from '@reduxjs/toolkit'
 import { parsedQueryString } from 'hooks/useParsedQueryString'
 
-import { Field, replaceSwapState, selectCurrency, setRecipient, switchCurrencies, typeInput } from './actions'
+import { Field, replaceSwapState, selectCoin, setRecipient, switchCoins, typeInput } from './actions'
 import { queryParametersToSwapState } from './hooks'
 
 export interface SwapState {
   readonly independentField: Field
   readonly typedValue: string
   readonly [Field.INPUT]: {
-    readonly currencyId: string | undefined | null
+    readonly coinId: string | undefined | null
   }
   readonly [Field.OUTPUT]: {
-    readonly currencyId: string | undefined | null
+    readonly coinId: string | undefined | null
   }
   // the typed recipient address or ENS name, or null if swap should go to sender
   readonly recipient: string | null
@@ -21,46 +21,43 @@ const initialState: SwapState = queryParametersToSwapState(parsedQueryString())
 
 export default createReducer<SwapState>(initialState, (builder) =>
   builder
-    .addCase(
-      replaceSwapState,
-      (state, { payload: { typedValue, recipient, field, inputCurrencyId, outputCurrencyId } }) => {
-        return {
-          [Field.INPUT]: {
-            currencyId: inputCurrencyId ?? null,
-          },
-          [Field.OUTPUT]: {
-            currencyId: outputCurrencyId ?? null,
-          },
-          independentField: field,
-          typedValue,
-          recipient,
-        }
+    .addCase(replaceSwapState, (state, { payload: { typedValue, recipient, field, inputCoinId, outputCoinId } }) => {
+      return {
+        [Field.INPUT]: {
+          coinId: inputCoinId ?? null,
+        },
+        [Field.OUTPUT]: {
+          coinId: outputCoinId ?? null,
+        },
+        independentField: field,
+        typedValue,
+        recipient,
       }
-    )
-    .addCase(selectCurrency, (state, { payload: { currencyId, field } }) => {
+    })
+    .addCase(selectCoin, (state, { payload: { coinId, field } }) => {
       const otherField = field === Field.INPUT ? Field.OUTPUT : Field.INPUT
-      if (currencyId === state[otherField].currencyId) {
+      if (coinId === state[otherField].coinId) {
         // the case where we have to swap the order
         return {
           ...state,
           independentField: state.independentField === Field.INPUT ? Field.OUTPUT : Field.INPUT,
-          [field]: { currencyId },
-          [otherField]: { currencyId: state[field].currencyId },
+          [field]: { coinId },
+          [otherField]: { coinId: state[field].coinId },
         }
       } else {
         // the normal case
         return {
           ...state,
-          [field]: { currencyId },
+          [field]: { coinId },
         }
       }
     })
-    .addCase(switchCurrencies, (state) => {
+    .addCase(switchCoins, (state) => {
       return {
         ...state,
         independentField: state.independentField === Field.INPUT ? Field.OUTPUT : Field.INPUT,
-        [Field.INPUT]: { currencyId: state[Field.OUTPUT].currencyId },
-        [Field.OUTPUT]: { currencyId: state[Field.INPUT].currencyId },
+        [Field.INPUT]: { coinId: state[Field.OUTPUT].coinId },
+        [Field.OUTPUT]: { coinId: state[Field.INPUT].coinId },
       }
     })
     .addCase(typeInput, (state, { payload: { field, typedValue } }) => {

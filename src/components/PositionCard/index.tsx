@@ -278,7 +278,7 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
                   padding="8px"
                   $borderRadius="8px"
                   as={Link}
-                  // to={`/add/v2/${currencyId(currency0)}/${currencyId(currency1)}`}
+                  // to={`/add/v2/${coinId(currency0)}/${coinId(currency1)}`}
                   to={`/add/`}
                   width="32%"
                 >
@@ -289,7 +289,7 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
                   $borderRadius="8px"
                   as={Link}
                   width="32%"
-                  // to={`/remove/v2/${currencyId(currency0)}/${currencyId(currency1)}`}
+                  // to={`/remove/v2/${coinId(currency0)}/${coinId(currency1)}`}
                   to={`/remove/`}
                 >
                   <Trans>Remove</Trans>

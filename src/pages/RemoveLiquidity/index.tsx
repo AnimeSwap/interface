@@ -32,8 +32,8 @@ const DEFAULT_REMOVE_LIQUIDITY_SLIPPAGE_TOLERANCE = 50
 
 export default function RemoveLiquidity() {
   const navigate = useNavigate()
-  const { currencyIdA, currencyIdB } = useParams<{ currencyIdA: string; currencyIdB: string }>()
-  // const [currencyA, currencyB] = [useCurrency(currencyIdA) ?? undefined, useCurrency(currencyIdB) ?? undefined]
+  const { coinIdA, coinIdB } = useParams<{ coinIdA: string; coinIdB: string }>()
+  // const [currencyA, currencyB] = [useCurrency(coinIdA) ?? undefined, useCurrency(coinIdB) ?? undefined]
   const [currencyA, currencyB] = [undefined, undefined]
   const account = useAccount()
   const chainId = useChainId()
@@ -204,25 +204,25 @@ export default function RemoveLiquidity() {
     [onUserInput]
   )
 
-  // const handleSelectCurrencyA = useCallback(
+  // const handleSelectCoinA = useCallback(
   //   (currency: Currency) => {
-  //     if (currencyIdB && currencyId(currency) === currencyIdB) {
-  //       navigate(`/remove/v2/${currencyId(currency)}/${currencyIdA}`)
+  //     if (coinIdB && coinId(currency) === coinIdB) {
+  //       navigate(`/remove/v2/${coinId(currency)}/${coinIdA}`)
   //     } else {
-  //       navigate(`/remove/v2/${currencyId(currency)}/${currencyIdB}`)
+  //       navigate(`/remove/v2/${coinId(currency)}/${coinIdB}`)
   //     }
   //   },
-  //   [currencyIdA, currencyIdB, navigate]
+  //   [coinIdA, coinIdB, navigate]
   // )
-  // const handleSelectCurrencyB = useCallback(
+  // const handleSelectCoinB = useCallback(
   //   (currency: Currency) => {
-  //     if (currencyIdA && currencyId(currency) === currencyIdA) {
-  //       navigate(`/remove/v2/${currencyIdB}/${currencyId(currency)}`)
+  //     if (coinIdA && coinId(currency) === coinIdA) {
+  //       navigate(`/remove/v2/${coinIdB}/${coinId(currency)}`)
   //     } else {
-  //       navigate(`/remove/v2/${currencyIdA}/${currencyId(currency)}`)
+  //       navigate(`/remove/v2/${coinIdA}/${coinId(currency)}`)
   //     }
   //   },
-  //   [currencyIdA, currencyIdB, navigate]
+  //   [coinIdA, coinIdB, navigate]
   // )
 
   const handleDismissConfirmation = useCallback(() => {
@@ -369,7 +369,7 @@ export default function RemoveLiquidity() {
                   showMaxButton={!atMaxAmount}
                   currency={currencyA}
                   label={'Output'}
-                  onCoinSelect={handleSelectCurrencyA}
+                  onCoinSelect={handleSelectCoinA}
                   id="remove-liquidity-tokena"
                 /> */}
                 <ColumnCenter>
@@ -383,7 +383,7 @@ export default function RemoveLiquidity() {
                   showMaxButton={!atMaxAmount}
                   currency={currencyB}
                   label={'Output'}
-                  onCoinSelect={handleSelectCurrencyB}
+                  onCoinSelect={handleSelectCoinB}
                   id="remove-liquidity-tokenb"
                 /> */}
               </>

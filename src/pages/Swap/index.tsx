@@ -175,11 +175,11 @@ export default function Swap() {
   }, [attemptingTxn, showConfirm, swapErrorMessage, trade, txHash])
 
   const handleInputSelect = useCallback(
-    (inputCurrency: Coin) => {
-      onCoinSelection(Field.INPUT, inputCurrency)
+    (inputCoin: Coin) => {
+      onCoinSelection(Field.INPUT, inputCoin)
       // update coin balance
-      if (account && inputCurrency) {
-        ConnectionInstance.getCoinBalance(account, inputCurrency.address)
+      if (account && inputCoin) {
+        ConnectionInstance.getCoinBalance(account, inputCoin.address)
       }
     },
     [onCoinSelection, account]
@@ -199,11 +199,11 @@ export default function Swap() {
   }, [coins, coinBalances[Field.INPUT], onUserInput])
 
   const handleOutputSelect = useCallback(
-    (outputCurrency: Coin) => {
-      onCoinSelection(Field.OUTPUT, outputCurrency)
+    (outputCoin: Coin) => {
+      onCoinSelection(Field.OUTPUT, outputCoin)
       // update coin balance
-      if (account && outputCurrency) {
-        ConnectionInstance.getCoinBalance(account, outputCurrency.address)
+      if (account && outputCoin) {
+        ConnectionInstance.getCoinBalance(account, outputCoin.address)
       }
     },
     [onCoinSelection, account]

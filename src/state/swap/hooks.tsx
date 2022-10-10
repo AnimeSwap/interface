@@ -13,7 +13,7 @@ import { Coin, useCoin } from '../../hooks/common/Coin'
 import useParsedQueryString from '../../hooks/useParsedQueryString'
 import { isAddress } from '../../utils'
 import { AppState } from '../index'
-import { Field, replaceSwapState, selectCurrency, setRecipient, switchCurrencies, typeInput } from './actions'
+import { Field, replaceSwapState, selectCoin, setRecipient, switchCoins, typeInput } from './actions'
 import { SwapState } from './reducer'
 
 export function useSwapState(): AppState['swap'] {
@@ -30,9 +30,9 @@ export function useSwapActionHandlers(): {
   const onCoinSelection = useCallback(
     (field: Field, currency: Coin) => {
       dispatch(
-        selectCurrency({
+        selectCoin({
           field,
-          currencyId: currency.address,
+          coinId: currency.address,
         })
       )
     },
@@ -40,7 +40,7 @@ export function useSwapActionHandlers(): {
   )
 
   const onSwitchCoins = useCallback(() => {
-    dispatch(switchCurrencies())
+    dispatch(switchCoins())
   }, [dispatch])
 
   const onUserInput = useCallback(
@@ -84,13 +84,13 @@ export function useDerivedSwapInfo(): {
   const {
     independentField,
     typedValue,
-    [Field.INPUT]: { currencyId: inputCurrencyId },
-    [Field.OUTPUT]: { currencyId: outputCurrencyId },
+    [Field.INPUT]: { coinId: inputCoinId },
+    [Field.OUTPUT]: { coinId: outputCoinId },
     recipient,
   } = useSwapState()
 
-  const inputCoin = useCoin(inputCurrencyId)
-  const outputCoin = useCoin(outputCurrencyId)
+  const inputCoin = useCoin(inputCoinId)
+  const outputCoin = useCoin(outputCoinId)
 
   const to: string | null = (recipient === null ? account : recipient) ?? null
 
@@ -200,26 +200,26 @@ function validatedRecipient(recipient: any): string | null {
 }
 
 export function queryParametersToSwapState(parsedQs: ParsedQs): SwapState {
-  let inputCurrency = parseCurrencyFromURLParameter(parsedQs.inputCurrency)
-  let outputCurrency = parseCurrencyFromURLParameter(parsedQs.outputCurrency)
+  let inputCoin = parseCurrencyFromURLParameter(parsedQs.inputCoin)
+  let outputCoin = parseCurrencyFromURLParameter(parsedQs.outputCoin)
   const typedValue = parseTokenAmountURLParameter(parsedQs.exactAmount)
   const independentField = parseIndependentFieldURLParameter(parsedQs.exactField)
-  if (inputCurrency === '' && outputCurrency === '' && typedValue === '' && independentField === Field.INPUT) {
+  if (inputCoin === '' && outputCoin === '' && typedValue === '' && independentField === Field.INPUT) {
     // Defaults to having the native currency selected
-    inputCurrency = '0x1::aptos_coin::AptosCoin' // default to APT
-  } else if (inputCurrency === outputCurrency) {
+    inputCoin = '0x1::aptos_coin::AptosCoin' // default to APT
+  } else if (inputCoin === outputCoin) {
     // clear output if identical
-    outputCurrency = ''
+    outputCoin = ''
   }
 
   const recipient = validatedRecipient(parsedQs.recipient)
 
   return {
     [Field.INPUT]: {
-      currencyId: inputCurrency === '' ? null : inputCurrency ?? null,
+      coinId: inputCoin === '' ? null : inputCoin ?? null,
     },
     [Field.OUTPUT]: {
-      currencyId: outputCurrency === '' ? null : outputCurrency ?? null,
+      coinId: outputCoin === '' ? null : outputCoin ?? null,
     },
     typedValue,
     independentField,
@@ -240,15 +240,15 @@ export function useDefaultsFromURLSearch(): SwapState {
 
   useEffect(() => {
     if (!chainId) return
-    const inputCurrencyId = parsedSwapState[Field.INPUT].currencyId ?? undefined
-    const outputCurrencyId = parsedSwapState[Field.OUTPUT].currencyId ?? undefined
+    const inputCoinId = parsedSwapState[Field.INPUT].coinId ?? undefined
+    const outputCoinId = parsedSwapState[Field.OUTPUT].coinId ?? undefined
 
     dispatch(
       replaceSwapState({
         typedValue: parsedSwapState.typedValue,
         field: parsedSwapState.independentField,
-        inputCurrencyId,
-        outputCurrencyId,
+        inputCoinId,
+        outputCoinId,
         recipient: parsedSwapState.recipient,
       })
     )

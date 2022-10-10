@@ -65,19 +65,19 @@ export interface ApproveTransactionInfo extends BaseTransactionInfo {
 
 interface BaseSwapTransactionInfo extends BaseTransactionInfo {
   type: TransactionType.SWAP
-  inputCurrencyId: string
-  outputCurrencyId: string
+  inputCoinId: string
+  outputCoinId: string
 }
 
 export interface ExactInputSwapTransactionInfo extends BaseSwapTransactionInfo {
-  inputCurrencyAmountRaw: string
-  expectedOutputCurrencyAmountRaw: string
-  minimumOutputCurrencyAmountRaw: string
+  inputCoinAmountRaw: string
+  expectedoutputCoinAmountRaw: string
+  minimumoutputCoinAmountRaw: string
 }
 export interface ExactOutputSwapTransactionInfo extends BaseSwapTransactionInfo {
-  outputCurrencyAmountRaw: string
-  expectedInputCurrencyAmountRaw: string
-  maximumInputCurrencyAmountRaw: string
+  outputCoinAmountRaw: string
+  expectedinputCoinAmountRaw: string
+  maximuminputCoinAmountRaw: string
 }
 
 export interface DepositLiquidityStakingTransactionInfo {
@@ -107,16 +107,16 @@ export interface ClaimTransactionInfo {
 
 export interface AddLiquidityV2PoolTransactionInfo {
   type: TransactionType.ADD_LIQUIDITY_V2_POOL
-  baseCurrencyId: string
-  quoteCurrencyId: string
+  baseCoinId: string
+  quoteCoinId: string
   expectedAmountBaseRaw: string
   expectedAmountQuoteRaw: string
 }
 
 export interface CollectFeesTransactionInfo {
   type: TransactionType.COLLECT_FEES
-  currencyId0: string
-  currencyId1: string
+  coinId0: string
+  coinId1: string
 }
 
 export interface SubmitProposalTransactionInfo {
