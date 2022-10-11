@@ -124,13 +124,12 @@ export default function SwapDetailsDropdown({
   allowedSlippage,
 }: SwapDetailsInlineProps) {
   const theme = useTheme()
-  const chainId = useChainId()
   const [showDetails, setShowDetails] = useState(false)
 
   return (
     <Wrapper>
       <AutoColumn gap={'8px'} style={{ width: '100%', marginBottom: '-8px' }}>
-        <StyledHeaderRow onClick={() => setShowDetails(!showDetails)} disabled={!trade} open={showDetails}>
+        <StyledHeaderRow onClick={() => setShowDetails(!showDetails)} disabled={false} open={showDetails}>
           <RowFixed style={{ position: 'relative' }}>
             {loading || syncing ? (
               <StyledPolling>
