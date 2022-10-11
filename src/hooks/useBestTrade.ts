@@ -19,7 +19,7 @@ export enum TradeType {
 }
 
 export class BestTrade {
-  findTrade: Route.Trade
+  sdkTrade: Route.Trade
   tradeType: TradeType
   inputCoin: Coin
   outputCoin: Coin
@@ -67,25 +67,25 @@ export function useBestTrade(
         return
       }
       setTradeState(TradeState.VALID)
-      const findTrade = tradeList[0]
+      const sdkTrade = tradeList[0]
       const bestTrade = new BestTrade()
-      bestTrade.findTrade = findTrade
+      bestTrade.sdkTrade = sdkTrade
       bestTrade.tradeType = tradeType
       bestTrade.inputCoin = inputCoin
       bestTrade.outputCoin = outputCoin
-      bestTrade.route = findTrade.coinTypeList
-      bestTrade.inputAmount = findTrade.amountList[0]
-      bestTrade.outputAmount = findTrade.amountList[findTrade.amountList.length - 1]
+      bestTrade.route = sdkTrade.coinTypeList
+      bestTrade.inputAmount = sdkTrade.amountList[0]
+      bestTrade.outputAmount = sdkTrade.amountList[sdkTrade.amountList.length - 1]
       const payload =
         tradeType === TradeType.EXACT_INPUT
           ? ConnectionInstance.getSDK().route.swapExactCoinForCoinPayload({
-              trade: findTrade,
+              trade: sdkTrade,
               toAddress,
               slippage: BP.mul(allowedSlippage),
               deadline,
             })
           : ConnectionInstance.getSDK().route.swapCoinForExactCoinPayload({
-              trade: findTrade,
+              trade: sdkTrade,
               toAddress,
               slippage: BP.mul(allowedSlippage),
               deadline,
@@ -94,11 +94,12 @@ export function useBestTrade(
         tradeType === TradeType.EXACT_INPUT ? bestTrade.inputAmount : Utils.d(payload.arguments[1])
       bestTrade.miniumAmountOut =
         tradeType === TradeType.EXACT_OUTPUT ? bestTrade.outputAmount : Utils.d(payload.arguments[1])
-      bestTrade.price = bestTrade.outputAmount
-        .div(outputCoin.decimals)
-        .div(bestTrade.inputAmount.div(inputCoin.decimals))
+      bestTrade.price = bestTrade.inputAmount
+        .div(inputCoin.decimals)
+        .div(bestTrade.outputAmount.div(outputCoin.decimals))
       setBestTrade(bestTrade)
     }
+    console.log(bestTrade)
     // execution
     fetchRoute()
   }, [tradeType, amount, inputCoin, outputCoin])

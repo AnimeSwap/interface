@@ -33,8 +33,8 @@ function formatPrice(price: Decimal): string {
 
 export default function TradePrice({ trade }: TradePriceProps) {
   const theme = useContext(ThemeContext)
-  const text = `1 ${trade.inputCoin?.symbol} = ${formatPrice(new Decimal(trade?.price ?? 0))} ${
-    trade.outputCoin?.symbol
+  const text = `1 ${trade.outputCoin?.symbol} = ${formatPrice(new Decimal(trade?.price ?? 0))} ${
+    trade.inputCoin?.symbol
   }`
   // const text = `${'1 ' + labelInverted + ' = ' + formattedPrice ?? '-'} ${label}`
   // const text = `${'1 '}`
@@ -43,7 +43,7 @@ export default function TradePrice({ trade }: TradePriceProps) {
     <StyledPriceContainer title={text}>
       <Text fontWeight={500} color={theme.deprecated_text1}>
         {text}
-      </Text>{' '}
+      </Text>
     </StyledPriceContainer>
   )
 }

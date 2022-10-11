@@ -128,13 +128,13 @@ export default function Swap() {
       const payload =
         tradeToConfirm.tradeType === TradeType.EXACT_INPUT
           ? ConnectionInstance.getSDK().route.swapExactCoinForCoinPayload({
-              trade: tradeToConfirm.findTrade,
+              trade: tradeToConfirm.sdkTrade,
               toAddress,
               slippage: BP.mul(allowedSlippage),
               deadline,
             })
           : ConnectionInstance.getSDK().route.swapCoinForExactCoinPayload({
-              trade: tradeToConfirm.findTrade,
+              trade: tradeToConfirm.sdkTrade,
               toAddress,
               slippage: BP.mul(allowedSlippage),
               deadline,
