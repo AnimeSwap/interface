@@ -1,10 +1,8 @@
-import { Decimal, Utils } from '@animeswap.org/v1-sdk'
-import { Trans } from '@lingui/macro'
+import { Utils } from '@animeswap.org/v1-sdk'
 import { BestTrade } from 'hooks/useBestTrade'
 import { useCallback, useContext } from 'react'
 import { Text } from 'rebass'
 import styled, { ThemeContext } from 'styled-components/macro'
-import { ThemedText } from 'theme'
 
 interface TradePriceProps {
   trade: BestTrade
@@ -28,10 +26,6 @@ const StyledPriceContainer = styled.button`
   padding: 8px 0;
   user-select: text;
 `
-
-function formatPrice(price: Decimal): string {
-  return price.toSignificantDigits(8).toString()
-}
 
 export default function TradePrice({ trade, showInverted, setShowInverted }: TradePriceProps) {
   const theme = useContext(ThemeContext)

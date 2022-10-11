@@ -13,7 +13,6 @@ import { AutoColumn } from '../Column'
 import { RowBetween, RowFixed } from '../Row'
 import { MouseoverTooltip } from '../Tooltip'
 import FormattedPriceImpact from './FormattedPriceImpact'
-import { InterfaceTrade } from './SwapRoute'
 
 const StyledCard = styled(Card)`
   padding: 0;

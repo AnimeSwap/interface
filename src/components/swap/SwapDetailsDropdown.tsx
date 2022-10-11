@@ -172,8 +172,8 @@ export default function SwapDetailsDropdown({
               </ThemedText.DeprecatedMain>
             ) : null}
           </RowFixed>
-          {/* <RowFixed>
-              {!trade?.gasUseEstimateUSD ||
+          <RowFixed>
+            {/* {!trade?.gasUseEstimateUSD ||
               showDetails ||
               !chainId ||
               !SUPPORTED_GAS_ESTIMATE_CHAIN_IDS.includes(chainId) ? null : (
@@ -183,22 +183,22 @@ export default function SwapDetailsDropdown({
                   showRoute={!showDetails}
                   disableHover={showDetails}
                 />
-              )}
-              <RotatingArrow
-                stroke={trade ? theme.deprecated_text3 : theme.deprecated_bg3}
-                open={Boolean(trade && showDetails)}
-              />
-            </RowFixed> */}
+              )} */}
+            <RotatingArrow
+              stroke={trade ? theme.deprecated_text3 : theme.deprecated_bg3}
+              open={Boolean(trade && showDetails)}
+            />
+          </RowFixed>
         </StyledHeaderRow>
         <AnimatedDropdown open={showDetails}>
-          {/* <AutoColumn gap={'8px'} style={{ padding: '0', paddingBottom: '8px' }}>
+          <AutoColumn gap={'8px'} style={{ padding: '0', paddingBottom: '8px' }}>
             {trade ? (
               <StyledCard>
                 <AdvancedSwapDetails trade={trade} allowedSlippage={allowedSlippage} syncing={syncing} />
               </StyledCard>
             ) : null}
             {trade ? <SwapRoute trade={trade} syncing={syncing} /> : null}
-          </AutoColumn> */}
+          </AutoColumn>
         </AnimatedDropdown>
       </AutoColumn>
     </Wrapper>
