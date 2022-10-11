@@ -1,4 +1,3 @@
-import { Decimal, Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
 import { CoinAmount } from 'hooks/common/Coin'
 import { BestTrade } from 'hooks/useBestTrade'
@@ -79,9 +78,9 @@ export default function ConfirmSwapModal({
 
   // text to show while loading
   const pendingText = (
-    <Trans>
+    <>
       Swapping {trade?.inputAmount?.prettyWithSymbol(6)} for {trade?.outputAmount?.prettyWithSymbol(6)}
-    </Trans>
+    </>
   )
 
   const confirmationContent = useCallback(

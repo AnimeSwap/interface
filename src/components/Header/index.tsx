@@ -269,9 +269,7 @@ export default function Header() {
           <AccountElement active={!!account}>
             {account && nativeCoinAmount ? (
               <BalanceText style={{ flexShrink: 0, userSelect: 'none' }} pl="0.75rem" pr=".4rem" fontWeight={500}>
-                <Trans>
-                  {nativeCoinAmount.pretty(4)} {nativeCoin.symbol}
-                </Trans>
+                {nativeCoinAmount.pretty(4)} {nativeCoin.symbol}
               </BalanceText>
             ) : null}
             <HeaderStatus />
