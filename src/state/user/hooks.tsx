@@ -72,18 +72,6 @@ export function useUserSlippageTolerance(): number {
   return useMemo(() => userSlippageTolerance, [userSlippageTolerance])
 }
 
-/**
- * Same as above but replaces the auto with a default value
- * @param defaultSlippageTolerance the default value to replace auto with
- */
-export function useUserSlippageToleranceWithDefault(defaultSlippageTolerance: number): number {
-  const allowedSlippage = useUserSlippageTolerance()
-  return useMemo(
-    () => (allowedSlippage ? allowedSlippage : defaultSlippageTolerance),
-    [allowedSlippage, defaultSlippageTolerance]
-  )
-}
-
 export function useUserTransactionTTL(): [number, (slippage: number) => void] {
   const dispatch = useAppDispatch()
   const userDeadline = useAppSelector((state) => state.user.userDeadline)

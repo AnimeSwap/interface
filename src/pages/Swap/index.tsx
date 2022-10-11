@@ -1,4 +1,4 @@
-import { Decimal } from '@animeswap.org/v1-sdk'
+import { Decimal, Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
 import { sendEvent } from 'components/analytics'
 // import PriceImpactWarning from 'components/swap/PriceImpactWarning'
@@ -55,22 +55,20 @@ export default function Swap() {
     isExactIn,
     parsedAmount,
     inputError: swapInputError,
-    trade: { state: tradeState, trade },
+    trade: { tradeState, trade },
     allowedSlippage,
   } = useDerivedSwapInfo()
 
   const parsedAmounts = useMemo(() => {
-    const inputDecimal = trade?.inputCoin?.decimals || 0
-    const outDecimal = trade?.outputCoin?.decimals || 0
     return {
       [Field.INPUT]:
         independentField === Field.INPUT
           ? parsedAmount
-          : new Decimal(trade?.inputAmount || 0).mul(new Decimal(10).pow(-inputDecimal)),
+          : Utils.d(trade?.inputAmount).div(Utils.pow10(inputCoin?.decimals || 0)),
       [Field.OUTPUT]:
         independentField === Field.OUTPUT
           ? parsedAmount
-          : new Decimal(trade?.outputAmount || 0).mul(new Decimal(10).pow(-outDecimal)),
+          : Utils.d(trade?.outputAmount).div(Utils.pow10(outputCoin?.decimals || 0)),
     }
   }, [independentField, parsedAmount, trade])
 
@@ -121,7 +119,6 @@ export default function Swap() {
 
   const userHasSpecifiedInputOutput =
     inputCoin && outputCoin && new Decimal(parsedAmounts[independentField] || 0).greaterThan(0)
-  const showMaxButton = (parsedAmounts[Field.INPUT] || 0) < inputCoinBalance && inputCoinBalance.toNumber() > 0
 
   const swapCallback = async () => {
     try {
@@ -235,7 +232,7 @@ export default function Swap() {
               <CoinInputPanel
                 label={<Trans>From</Trans>}
                 value={formattedAmounts[Field.INPUT]}
-                showMaxButton={showMaxButton}
+                showMaxButton={inputCoinBalance.gt(0)}
                 coin={inputCoin ?? null}
                 onUserInput={handleTypeInput}
                 onMax={handleMaxInput}

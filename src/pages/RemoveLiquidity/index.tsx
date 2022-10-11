@@ -23,7 +23,7 @@ import useDebouncedChangeHandler from '../../hooks/useDebouncedChangeHandler'
 import { useToggleWalletModal } from '../../state/application/hooks'
 import { useTransactionAdder } from '../../state/transactions/hooks'
 import { TransactionType } from '../../state/transactions/types'
-import { useChainId, useUserSlippageToleranceWithDefault } from '../../state/user/hooks'
+import { useChainId, useUserSlippageTolerance } from '../../state/user/hooks'
 import { StyledInternalLink, ThemedText } from '../../theme'
 import AppBody from '../AppBody'
 import { ClickableText, MaxButton, Wrapper } from '../Pool/styleds'
@@ -55,7 +55,7 @@ export default function RemoveLiquidity() {
 
   // txn values
   const [txHash, setTxHash] = useState<string>('')
-  const allowedSlippage = useUserSlippageToleranceWithDefault(DEFAULT_REMOVE_LIQUIDITY_SLIPPAGE_TOLERANCE)
+  const allowedSlippage = useUserSlippageTolerance()
 
   // wrapped onUserInput to clear signatures
   // const onUserInput = useCallback(

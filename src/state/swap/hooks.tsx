@@ -1,13 +1,13 @@
 import { Decimal, Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
-import { getChainInfo, getChainInfoOrDefault } from 'constants/chainInfo'
+import { getChainInfoOrDefault } from 'constants/chainInfo'
 import { Trade, TradeType, useAnimeSwapTempTrade } from 'hooks/useBestTrade'
 import { TradeState } from 'hooks/useBestTrade'
 import { ParsedQs } from 'qs'
 import { ReactNode, useCallback, useEffect, useMemo } from 'react'
 import { useAppDispatch, useAppSelector } from 'state/hooks'
-import { useChainId, useUserSlippageToleranceWithDefault } from 'state/user/hooks'
-import { useAccount, useAllCoinBalance, useCoinBalance } from 'state/wallets/hooks'
+import { useChainId, useUserSlippageTolerance } from 'state/user/hooks'
+import { useAccount, useCoinBalance } from 'state/wallets/hooks'
 import { tryParseCoinAmount } from 'utils/tryParseCoinAmount'
 
 import { Coin, useCoin } from '../../hooks/common/Coin'
@@ -76,7 +76,7 @@ export function useDerivedSwapInfo(): {
   parsedAmount: Decimal
   inputError?: ReactNode
   trade: {
-    state: TradeState
+    tradeState: TradeState
     trade: Trade
   }
   allowedSlippage: number
@@ -103,6 +103,7 @@ export function useDerivedSwapInfo(): {
     [inputCoin, isExactIn, outputCoin, typedValue]
   )
 
+  // TODO[Azard]
   const trade = useAnimeSwapTempTrade(
     isExactIn ? TradeType.EXACT_INPUT : TradeType.EXACT_OUTPUT,
     parsedAmount,
@@ -110,7 +111,7 @@ export function useDerivedSwapInfo(): {
     outputCoin
   )
 
-  const allowedSlippage = 50
+  const allowedSlippage = useUserSlippageTolerance()
 
   const inputError = useMemo(() => {
     let inputError: ReactNode | undefined
@@ -137,7 +138,7 @@ export function useDerivedSwapInfo(): {
       inputError = <Trans>Insufficient {inputCoin.symbol} balance</Trans>
     }
 
-    if (trade.state === TradeState.NO_ROUTE_FOUND) {
+    if (trade.tradeState === TradeState.NO_ROUTE_FOUND) {
       inputError = inputError ?? <Trans>No route found</Trans>
     }
 

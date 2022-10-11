@@ -77,7 +77,7 @@ export function useAnimeSwapTempTrade(
   inputCoin: Coin,
   outputCoin: Coin
 ): {
-  state: TradeState
+  tradeState: TradeState
   trade: Trade
 } {
   const account = useAccount()
@@ -94,7 +94,7 @@ export function useAnimeSwapTempTrade(
           price: 1,
           inputSymbol: inputCoin.symbol,
           outputSymbol: outputCoin.symbol,
-          state: TradeState.NO_ROUTE_FOUND,
+          tradeState: TradeState.NO_ROUTE_FOUND,
         })
         return
       }
@@ -122,12 +122,12 @@ export function useAnimeSwapTempTrade(
   }, [tradeType, amount, inputCoin, outputCoin])
 
   return useMemo(() => {
-    let state =
+    let tradeState =
       reserve?.inputSymbol === inputCoin?.symbol && reserve?.outputSymbol === outputCoin?.symbol
         ? TradeState.VALID
         : TradeState.LOADING
-    if (reserve?.state === TradeState.NO_ROUTE_FOUND) {
-      state = TradeState.NO_ROUTE_FOUND
+    if (reserve?.tradeState === TradeState.NO_ROUTE_FOUND) {
+      tradeState = TradeState.NO_ROUTE_FOUND
     }
     // amout is value with no decimals
     const trade = new Trade()
@@ -135,7 +135,7 @@ export function useAnimeSwapTempTrade(
     trade.inputCoin = inputCoin
     trade.outputCoin = outputCoin
     trade.route = `${inputCoin?.address},${outputCoin?.address}`
-    if (!amount || !inputCoin || !outputCoin || state !== TradeState.VALID) {
+    if (!amount || !inputCoin || !outputCoin || tradeState !== TradeState.VALID) {
       // do nothing
     } else if (tradeType === TradeType.EXACT_INPUT) {
       trade.inputAmount = amount
@@ -143,7 +143,7 @@ export function useAnimeSwapTempTrade(
       trade.outputAmount = amount.mul(reserve.price).floor()
       trade.miniumAmountOut = trade.outputAmount.mul(0.98).floor()
       if (trade.outputAmount.lessThan(1)) {
-        state = TradeState.INVALID
+        tradeState = TradeState.INVALID
       }
       trade.price = trade.outputAmount
         .mul(new Decimal(10).pow(-trade.outputCoin.decimals))
@@ -161,7 +161,7 @@ export function useAnimeSwapTempTrade(
       trade.outputAmount = amount
       trade.miniumAmountOut = amount
       if (trade.inputAmount.lessThan(1)) {
-        state = TradeState.INVALID
+        tradeState = TradeState.INVALID
       }
       trade.price = trade.outputAmount
         .mul(new Decimal(10).pow(-trade.outputCoin.decimals))
@@ -175,7 +175,7 @@ export function useAnimeSwapTempTrade(
       }
     }
     return {
-      state,
+      tradeState,
       trade,
     }
   }, [tradeType, amount, inputCoin, outputCoin, reserve])

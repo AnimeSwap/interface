@@ -23,14 +23,12 @@ import { Field } from '../../state/mint/actions'
 import { useDerivedMintInfo, useMintActionHandlers, useMintState } from '../../state/mint/hooks'
 import { useTransactionAdder } from '../../state/transactions/hooks'
 import { TransactionType } from '../../state/transactions/types'
-import { useChainId, useUserSlippageToleranceWithDefault } from '../../state/user/hooks'
+import { useChainId, useUserSlippageTolerance } from '../../state/user/hooks'
 import { ThemedText } from '../../theme'
 import AppBody from '../AppBody'
 import { Dots, Wrapper } from '../Pool/styleds'
 import { ConfirmAddModalBottom } from './ConfirmAddModalBottom'
 import { PoolPriceBar } from './PoolPriceBar'
-
-const DEFAULT_ADD_V2_SLIPPAGE_TOLERANCE = 50
 
 const TitleContainer = styled.div`
   font-size: 32px;
@@ -79,7 +77,7 @@ export default function AddLiquidity() {
   const [attemptingTxn, setAttemptingTxn] = useState<boolean>(false) // clicked confirm
 
   // txn values
-  const allowedSlippage = useUserSlippageToleranceWithDefault(DEFAULT_ADD_V2_SLIPPAGE_TOLERANCE) // custom from users
+  const allowedSlippage = useUserSlippageTolerance() // custom from users
   const [txHash, setTxHash] = useState<string>('')
 
   // get formatted amounts
