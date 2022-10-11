@@ -1,6 +1,7 @@
-import { Decimal } from '@animeswap.org/v1-sdk'
+import { Decimal, Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
-import { Trade } from 'hooks/useBestTrade'
+import { CoinAmount } from 'hooks/common/Coin'
+import { BestTrade } from 'hooks/useBestTrade'
 import { ReactNode, useCallback, useMemo, useState } from 'react'
 
 import TransactionConfirmationModal, {
@@ -25,8 +26,8 @@ export default function ConfirmSwapModal({
   swapQuoteReceivedDate,
 }: {
   isOpen: boolean
-  trade: Trade | undefined
-  originalTrade: Trade | undefined
+  trade: BestTrade | undefined
+  originalTrade: BestTrade | undefined
   attemptingTxn: boolean
   txHash: string | undefined
   recipient: string | null
@@ -76,12 +77,12 @@ export default function ConfirmSwapModal({
     ) : null
   }, [onConfirm, showAcceptChanges, swapErrorMessage, trade, allowedSlippage, txHash, swapQuoteReceivedDate])
 
+  const inputCoinAmount = trade?.inputCoin ? new CoinAmount(trade.inputCoin, trade.inputAmount) : null
+  const outputAmount = trade?.outputCoin ? new CoinAmount(trade.outputCoin, trade.outputAmount) : null
   // text to show while loading
   const pendingText = (
     <Trans>
-      Swapping {new Decimal(trade.inputAmount || 0).mul(new Decimal(10).pow(-trade?.inputCoin?.decimals)).toString()}{' '}
-      {trade?.inputCoin?.symbol} for{' '}
-      {new Decimal(trade.outputAmount || 0).mul(new Decimal(10).pow(-trade?.outputCoin?.decimals)).toString()}{' '}
+      Swapping {inputCoinAmount?.pretty()} {trade?.inputCoin?.symbol} for {outputAmount?.pretty()}{' '}
       {trade?.outputCoin?.symbol}
     </Trans>
   )

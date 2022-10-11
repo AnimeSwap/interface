@@ -5,8 +5,9 @@ import { sendEvent } from 'components/analytics'
 import SwapDetailsDropdown from 'components/swap/SwapDetailsDropdown'
 import { MouseoverTooltip } from 'components/Tooltip'
 import { isSupportedChain } from 'constants/chains'
+import { BP } from 'constants/misc'
 import { Coin } from 'hooks/common/Coin'
-import { Trade, TradeState } from 'hooks/useBestTrade'
+import { BestTrade, TradeState, TradeType } from 'hooks/useBestTrade'
 import { Context, useCallback, useContext, useMemo, useState } from 'react'
 import { ArrowDown, HelpCircle } from 'react-feather'
 import { Text } from 'rebass'
@@ -55,8 +56,10 @@ export default function Swap() {
     isExactIn,
     parsedAmount,
     inputError: swapInputError,
-    trade: { tradeState, trade },
+    trade: { bestTrade, tradeState },
     allowedSlippage,
+    deadline,
+    toAddress,
   } = useDerivedSwapInfo()
 
   const parsedAmounts = useMemo(() => {
@@ -64,17 +67,17 @@ export default function Swap() {
       [Field.INPUT]:
         independentField === Field.INPUT
           ? parsedAmount
-          : Utils.d(trade?.inputAmount).div(Utils.pow10(inputCoin?.decimals || 0)),
+          : Utils.d(bestTrade?.inputAmount).div(Utils.pow10(inputCoin?.decimals || 0)),
       [Field.OUTPUT]:
         independentField === Field.OUTPUT
           ? parsedAmount
-          : Utils.d(trade?.outputAmount).div(Utils.pow10(outputCoin?.decimals || 0)),
+          : Utils.d(bestTrade?.outputAmount).div(Utils.pow10(outputCoin?.decimals || 0)),
     }
-  }, [independentField, parsedAmount, trade])
+  }, [independentField, parsedAmount, bestTrade])
 
   const [routeNotFound, routeIsLoading, routeIsSyncing] = useMemo(
     () => [TradeState.INVALID === tradeState, TradeState.LOADING === tradeState, TradeState.SYNCING === tradeState],
-    [trade, tradeState]
+    [bestTrade, tradeState]
   )
 
   const { onSwitchCoins, onCoinSelection, onUserInput, onChangeRecipient } = useSwapActionHandlers()
@@ -97,7 +100,7 @@ export default function Swap() {
   // modal and loading
   const [{ showConfirm, tradeToConfirm, swapErrorMessage, attemptingTxn, txHash }, setSwapState] = useState<{
     showConfirm: boolean
-    tradeToConfirm: Trade | undefined
+    tradeToConfirm: BestTrade | undefined
     attemptingTxn: boolean
     swapErrorMessage: string | undefined
     txHash: string | undefined
@@ -122,7 +125,21 @@ export default function Swap() {
 
   const swapCallback = async () => {
     try {
-      const txid = await SignAndSubmitTransaction(tradeToConfirm.transaction)
+      const payload =
+        tradeToConfirm.tradeType === TradeType.EXACT_INPUT
+          ? ConnectionInstance.getSDK().route.swapExactCoinForCoinPayload({
+              trade: tradeToConfirm.findTrade,
+              toAddress,
+              slippage: BP.mul(allowedSlippage),
+              deadline,
+            })
+          : ConnectionInstance.getSDK().route.swapCoinForExactCoinPayload({
+              trade: tradeToConfirm.findTrade,
+              toAddress,
+              slippage: BP.mul(allowedSlippage),
+              deadline,
+            })
+      const txid = await SignAndSubmitTransaction(payload)
       setTimeout(() => {
         ConnectionInstance.getCoinBalance(account, tradeToConfirm.inputCoin.address)
         ConnectionInstance.getCoinBalance(account, tradeToConfirm.outputCoin.address)
@@ -172,8 +189,8 @@ export default function Swap() {
   }, [attemptingTxn, onUserInput, swapErrorMessage, tradeToConfirm, txHash])
 
   const handleAcceptChanges = useCallback(() => {
-    setSwapState({ tradeToConfirm: trade, swapErrorMessage, txHash, attemptingTxn, showConfirm })
-  }, [attemptingTxn, showConfirm, swapErrorMessage, trade, txHash])
+    setSwapState({ tradeToConfirm: bestTrade, swapErrorMessage, txHash, attemptingTxn, showConfirm })
+  }, [attemptingTxn, showConfirm, swapErrorMessage, bestTrade, txHash])
 
   const handleInputSelect = useCallback(
     (inputCoin: Coin) => {
@@ -214,7 +231,7 @@ export default function Swap() {
         <Wrapper id="swap-page">
           <ConfirmSwapModal
             isOpen={showConfirm}
-            trade={trade}
+            trade={bestTrade}
             originalTrade={tradeToConfirm}
             onAcceptChanges={handleAcceptChanges}
             attemptingTxn={attemptingTxn}
@@ -267,9 +284,9 @@ export default function Swap() {
                 loading={independentField === Field.INPUT && routeIsSyncing}
               />
             </div>
-            {userHasSpecifiedInputOutput && (trade || routeIsLoading || routeIsSyncing) && (
+            {userHasSpecifiedInputOutput && (bestTrade || routeIsLoading || routeIsSyncing) && (
               <SwapDetailsDropdown
-                trade={trade}
+                trade={bestTrade}
                 syncing={routeIsSyncing}
                 loading={routeIsLoading}
                 showInverted={showInverted}
@@ -292,7 +309,7 @@ export default function Swap() {
                 <ButtonError
                   onClick={() => {
                     setSwapState({
-                      tradeToConfirm: trade,
+                      tradeToConfirm: bestTrade,
                       attemptingTxn: false,
                       swapErrorMessage: undefined,
                       showConfirm: true,

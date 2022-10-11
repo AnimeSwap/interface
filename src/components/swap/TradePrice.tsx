@@ -1,13 +1,13 @@
 import { Decimal } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
-import { Trade } from 'hooks/useBestTrade'
+import { BestTrade } from 'hooks/useBestTrade'
 import { useContext } from 'react'
 import { Text } from 'rebass'
 import styled, { ThemeContext } from 'styled-components/macro'
 import { ThemedText } from 'theme'
 
 interface TradePriceProps {
-  trade: Trade
+  trade: BestTrade
 }
 
 const StyledPriceContainer = styled.button`

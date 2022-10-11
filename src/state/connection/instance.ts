@@ -1,4 +1,4 @@
-import { AptosCoinStoreResource, AptosResource } from '@animeswap.org/v1-sdk'
+import SDK, { AptosCoinStoreResource, AptosResource, NetworkType } from '@animeswap.org/v1-sdk'
 import { AptosClient } from 'aptos'
 import { SupportedChainId } from 'constants/chains'
 import store from 'state'
@@ -8,6 +8,7 @@ import { ConnectionType, getRPCURL } from './reducer'
 
 class ConnectionInstance {
   private static aptosClient: AptosClient
+  private static sdk: SDK
 
   public static getAptosClient(): AptosClient {
     if (!ConnectionInstance.aptosClient) {
@@ -21,6 +22,22 @@ class ConnectionInstance {
 
   public static renewAptosClient(connection: ConnectionType, chainId: SupportedChainId) {
     ConnectionInstance.aptosClient = new AptosClient(getRPCURL(connection, chainId))
+  }
+
+  public static getSDK(): SDK {
+    if (!ConnectionInstance.sdk) {
+      const state = store.getState()
+      const networkType: NetworkType =
+        state.user.chainId === SupportedChainId.APTOS_DEVNET ? NetworkType.Devnet : NetworkType.Testnet
+      ConnectionInstance.sdk = new SDK(getRPCURL(state.connection.currentConnection, state.user.chainId), networkType)
+    }
+    return ConnectionInstance.sdk
+  }
+
+  public static renewSDK(connection: ConnectionType, chainId: SupportedChainId) {
+    const networkType: NetworkType =
+      chainId === SupportedChainId.APTOS_DEVNET ? NetworkType.Devnet : NetworkType.Testnet
+    ConnectionInstance.sdk = new SDK(getRPCURL(connection, chainId), networkType)
   }
 
   public static async syncAccountResources(account: string) {

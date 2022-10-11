@@ -6,7 +6,7 @@ import { AutoColumn } from 'components/Column'
 import { LoadingOpacityContainer } from 'components/Loader/styled'
 import Row, { RowBetween, RowFixed } from 'components/Row'
 import { MouseoverTooltipContent } from 'components/Tooltip'
-import { Trade } from 'hooks/useBestTrade'
+import { BestTrade } from 'hooks/useBestTrade'
 import { darken } from 'polished'
 import { useState } from 'react'
 import { ChevronDown, Info } from 'react-feather'
@@ -108,7 +108,7 @@ const Spinner = styled.div`
 `
 
 interface SwapDetailsInlineProps {
-  trade: Trade | undefined
+  trade: BestTrade | undefined
   syncing: boolean
   loading: boolean
   showInverted: boolean

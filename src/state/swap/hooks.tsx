@@ -1,12 +1,12 @@
 import { Decimal, Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
 import { getChainInfoOrDefault } from 'constants/chainInfo'
-import { Trade, TradeType, useAnimeSwapTempTrade } from 'hooks/useBestTrade'
+import { BestTrade, TradeType, useBestTrade } from 'hooks/useBestTrade'
 import { TradeState } from 'hooks/useBestTrade'
 import { ParsedQs } from 'qs'
 import { ReactNode, useCallback, useEffect, useMemo } from 'react'
 import { useAppDispatch, useAppSelector } from 'state/hooks'
-import { useChainId, useUserSlippageTolerance } from 'state/user/hooks'
+import { useChainId, useUserSlippageTolerance, useUserTransactionTTL } from 'state/user/hooks'
 import { useAccount, useCoinBalance } from 'state/wallets/hooks'
 import { tryParseCoinAmount } from 'utils/tryParseCoinAmount'
 
@@ -76,10 +76,12 @@ export function useDerivedSwapInfo(): {
   parsedAmount: Decimal
   inputError?: ReactNode
   trade: {
+    bestTrade: BestTrade
     tradeState: TradeState
-    trade: Trade
   }
   allowedSlippage: number
+  deadline: number
+  toAddress: string
 } {
   const account = useAccount()
   const {
@@ -93,6 +95,8 @@ export function useDerivedSwapInfo(): {
   const outputCoin = useCoin(outputCoinId)
   const inputCoinBalance = Utils.d(useCoinBalance(inputCoin?.address))
   const outputCoinBalance = Utils.d(useCoinBalance(outputCoin?.address))
+  const allowedSlippage = useUserSlippageTolerance()
+  const deadline = useUserTransactionTTL()[0]
 
   const toAddress: string | null = (recipient === null ? account : recipient) ?? null
 
@@ -103,15 +107,15 @@ export function useDerivedSwapInfo(): {
     [inputCoin, isExactIn, outputCoin, typedValue]
   )
 
-  // TODO[Azard]
-  const trade = useAnimeSwapTempTrade(
+  const trade = useBestTrade(
     isExactIn ? TradeType.EXACT_INPUT : TradeType.EXACT_OUTPUT,
     parsedAmount,
     inputCoin,
-    outputCoin
+    outputCoin,
+    toAddress,
+    allowedSlippage,
+    deadline
   )
-
-  const allowedSlippage = useUserSlippageTolerance()
 
   const inputError = useMemo(() => {
     let inputError: ReactNode | undefined
@@ -133,7 +137,7 @@ export function useDerivedSwapInfo(): {
       inputError = inputError ?? <Trans>Enter a recipient</Trans>
     }
     // compare input balance to max input based on version
-    const [balanceIn, amountIn] = [inputCoinBalance, trade.trade?.maximumAmountIn]
+    const [balanceIn, amountIn] = [inputCoinBalance, trade.bestTrade?.maximumAmountIn]
     if (balanceIn && amountIn && balanceIn.lt(amountIn)) {
       inputError = <Trans>Insufficient {inputCoin.symbol} balance</Trans>
     }
@@ -143,7 +147,7 @@ export function useDerivedSwapInfo(): {
     }
 
     return inputError
-  }, [account, allowedSlippage, inputCoin, outputCoin, inputCoinBalance, parsedAmount, toAddress, trade.trade])
+  }, [account, allowedSlippage, inputCoin, outputCoin, inputCoinBalance, parsedAmount, toAddress, trade])
 
   return useMemo(
     () => ({
@@ -156,6 +160,8 @@ export function useDerivedSwapInfo(): {
       inputError,
       trade,
       allowedSlippage,
+      deadline,
+      toAddress,
     }),
     [
       inputCoin,
@@ -167,6 +173,8 @@ export function useDerivedSwapInfo(): {
       parsedAmount,
       trade,
       allowedSlippage,
+      deadline,
+      toAddress,
     ]
   )
 }

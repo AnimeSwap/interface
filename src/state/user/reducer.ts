@@ -110,6 +110,12 @@ const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(updateVersion, (state) => {
+      // init chainId
+      if (
+        ![SupportedChainId.APTOS, SupportedChainId.APTOS_TESTNET, SupportedChainId.APTOS_DEVNET].includes(state.chainId)
+      ) {
+        state.chainId = SupportedChainId.APTOS_DEVNET
+      }
       // update local coin list
       state.coins = {
         [SupportedChainId.APTOS]: APTOS_CoinInfo,

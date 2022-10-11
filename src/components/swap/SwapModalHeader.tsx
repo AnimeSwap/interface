@@ -1,6 +1,6 @@
 import { Decimal } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
-import { Trade } from 'hooks/useBestTrade'
+import { BestTrade } from 'hooks/useBestTrade'
 import { useContext, useEffect, useState } from 'react'
 import { AlertTriangle, ArrowDown } from 'react-feather'
 import { Text } from 'rebass'
@@ -45,7 +45,7 @@ export default function SwapModalHeader({
   showAcceptChanges,
   onAcceptChanges,
 }: {
-  trade: Trade
+  trade: BestTrade
   shouldLogModalCloseEvent: boolean
   setShouldLogModalCloseEvent: (shouldLog: boolean) => void
   allowedSlippage: number
