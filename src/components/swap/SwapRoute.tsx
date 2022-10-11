@@ -1,11 +1,11 @@
-import { Decimal } from '@animeswap.org/v1-sdk'
+import { Decimal, Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
 import AnimatedDropdown from 'components/AnimatedDropdown'
 import { AutoColumn } from 'components/Column'
 import { LoadingRows } from 'components/Loader/styled'
 import RoutingDiagram from 'components/RoutingDiagram/RoutingDiagram'
 import { AutoRow, RowBetween } from 'components/Row'
-import { Coin, CoinAmount } from 'hooks/common/Coin'
+import { Coin, useCoin, useCoinMap } from 'hooks/common/Coin'
 import { BestTrade, TradeType } from 'hooks/useBestTrade'
 import { memo, useState } from 'react'
 import { Plus } from 'react-feather'
@@ -42,11 +42,25 @@ interface SwapRouteProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export default memo(function SwapRoute({ trade, syncing, fixedOpen = false, ...rest }: SwapRouteProps) {
-  // const routes = getRoutePath(trade)
-  const [open, setOpen] = useState(false)
-  const chainId = useChainId()
-
+  const [open, setOpen] = useState(true)
+  // const routes = [trade.route.slice(1, -1)] // delete first and last
+  const coinMap = useCoinMap()
   const [darkMode] = useDarkModeManager()
+  const routes: RoutingDiagramEntry[] = [
+    {
+      percent: Utils.d(100),
+      path: [],
+      protocol: 'v1',
+    },
+  ]
+  // TODO[Azard] not safe search coin
+  try {
+    for (let i = 0; i < trade.route.length - 1; i++) {
+      routes[0].path.push([coinMap[trade.route[i]], coinMap[trade.route[i + 1]], 1000000])
+    }
+  } catch (e) {
+    console.log(e)
+  }
 
   return (
     <Wrapper {...rest} darkMode={darkMode} fixedOpen={fixedOpen}>
@@ -59,12 +73,12 @@ export default memo(function SwapRoute({ trade, syncing, fixedOpen = false, ...r
       </RowBetween>
       <AnimatedDropdown open={open || fixedOpen}>
         <AutoRow gap="4px" width="auto" style={{ paddingTop: '12px', margin: 0 }}>
-          {syncing ? (
+          {false ? (
             <LoadingRows>
               <div style={{ width: '400px', height: '30px' }} />
             </LoadingRows>
           ) : (
-            <RoutingDiagram currencyIn={trade.inputAmount.coin} currencyOut={trade.outputAmount.coin} routes={[]} />
+            <RoutingDiagram inputCoin={trade.inputCoin} outputCoin={trade.outputCoin} routes={routes} />
           )}
           <Separator />
           {syncing ? (
@@ -86,40 +100,5 @@ export default memo(function SwapRoute({ trade, syncing, fixedOpen = false, ...r
 export interface RoutingDiagramEntry {
   percent: Decimal
   path: [Coin, Coin, number][]
-  // protocol: Protocol
   protocol: string
 }
-
-const V2_DEFAULT_FEE_TIER = 3000
-
-/**
- * Loops through all routes on a trade and returns an array of diagram entries.
- */
-// export function getRoutePath(trade: BestTrade): RoutingDiagramEntry[] {
-//   return trade.swaps.map(({ route: { path: tokenPath, pools, protocol }, inputAmount, outputAmount }) => {
-//     // const portion =
-//     //   trade.tradeType === TradeType.EXACT_INPUT
-//     //     ? inputAmount.divide(trade.inputAmount)
-//     //     : outputAmount.divide(trade.outputAmount)
-//     // const percent = new Decimal(portion.numerator).div(portion.denominator)
-//     const percent = new Decimal(0.5)
-//     const path: RoutingDiagramEntry['path'] = []
-//     // for (let i = 0; i < pools.length; i++) {
-//     //   const nextPool = pools[i]
-//     //   const tokenIn = tokenPath[i]
-//     //   const tokenOut = tokenPath[i + 1]
-//     //   const entry: RoutingDiagramEntry['path'][0] = [
-//     //     tokenIn,
-//     //     tokenOut,
-//     //     V2_DEFAULT_FEE_TIER,
-//     //     // nextPool instanceof Pair ? V2_DEFAULT_FEE_TIER : nextPool.fee,
-//     //   ]
-//     //   path.push(entry)
-//     // }
-//     return {
-//       percent,
-//       path,
-//       protocol,
-//     }
-//   })
-// }

@@ -1,4 +1,3 @@
-import { Decimal } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
 import AnimatedDropdown from 'components/AnimatedDropdown'
 import Card, { OutlineCard } from 'components/Card'

@@ -77,24 +77,21 @@ const BadgeText = styled(ThemedText.DeprecatedSmall)`
 `
 
 export default function RoutingDiagram({
-  currencyIn,
-  currencyOut,
+  inputCoin,
+  outputCoin,
   routes,
 }: {
-  currencyIn: Coin
-  currencyOut: Coin
+  inputCoin: Coin
+  outputCoin: Coin
   routes: RoutingDiagramEntry[]
 }) {
-  const tokenIn = useTokenInfoFromActiveList(currencyIn)
-  const tokenOut = useTokenInfoFromActiveList(currencyOut)
-
   return (
     <Wrapper>
       {routes.map((entry, index) => (
         <RouteContainerRow key={index}>
-          <CoinLogo coin={tokenIn} size={'20px'} />
+          <CoinLogo coin={inputCoin} size={'20px'} />
           <Route entry={entry} />
-          <CoinLogo coin={tokenOut} size={'20px'} />
+          <CoinLogo coin={outputCoin} size={'20px'} />
         </RouteContainerRow>
       ))}
     </Wrapper>

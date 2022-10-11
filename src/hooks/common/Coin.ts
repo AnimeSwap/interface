@@ -76,3 +76,9 @@ export function useCoinList(): Coin[] {
   const coinMap = useAppSelector((state) => state.user.coins[chainId])
   return Object.values(coinMap)
 }
+
+export function useCoinMap() {
+  const chainId = useChainId()
+  const coinMap = useAppSelector((state) => state.user.coins[chainId])
+  return coinMap
+}
