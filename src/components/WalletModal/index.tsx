@@ -120,30 +120,11 @@ export default function WalletModal({
 
   const [walletView, setWalletView] = useState(WALLET_VIEWS.ACCOUNT)
   const [lastActiveWalletAddress, setLastActiveWalletAddress] = useState<string | undefined>(account)
-  const [shouldLogWalletBalances, setShouldLogWalletBalances] = useState(false)
 
   const [pendingConnector, setPendingConnector] = useState<ConnectionType | undefined>()
 
   const walletModalOpen = useModalIsOpen(ApplicationModal.WALLET)
   const toggleWalletModal = useToggleWalletModal()
-
-  // const [tokenBalances, tokenBalancesIsLoading] = useAllTokenBalances()
-  // const sortedTokens: Token[] = useMemo(
-  //   () => (!tokenBalancesIsLoading ? Object.values(allTokens).sort(tokenComparator.bind(null, tokenBalances)) : []),
-  //   [tokenBalances, allTokens, tokenBalancesIsLoading]
-  // )
-  // const native = usenativeCoin()
-
-  // const sortedTokensWithETH: Currency[] = useMemo(
-  //   () =>
-  //     // Always bump the native token to the top of the list.
-  //     native ? [native, ...sortedTokens.filter((t) => !t.equals(native))] : sortedTokens,
-  //   [native, sortedTokens]
-  // )
-
-  // const balances = useCurrencyBalances(account, sortedTokensWithETH)
-  const balances = useMemo(() => [], [])
-  const nativeBalance = balances.length > 0 ? balances[0] : null
 
   const openOptions = useCallback(() => {
     setWalletView(WALLET_VIEWS.OPTIONS)
@@ -161,30 +142,14 @@ export default function WalletModal({
     }
   }, [pendingConnector, walletView])
 
-  // When new wallet is successfully set by the user, trigger logging of Amplitude analytics event.
   useEffect(() => {
     if (account && account !== lastActiveWalletAddress) {
       const isReconnect =
         connectedWallets.filter((wallet) => wallet.account === account && wallet.walletType === walletType).length > 0
-      setShouldLogWalletBalances(true)
       if (!isReconnect) addWalletToConnectedWallets({ account, walletType })
     }
     setLastActiveWalletAddress(account)
   }, [connectedWallets, addWalletToConnectedWallets, lastActiveWalletAddress, account, walletType, chainId])
-
-  // Send wallet balance info once it becomes available.
-  useEffect(() => {
-    // if (!tokenBalancesIsLoading && shouldLogWalletBalances && balances && nativeCoinBalanceUsdValue) {
-    if (shouldLogWalletBalances && balances) {
-      setShouldLogWalletBalances(false)
-    }
-  }, [
-    balances,
-    shouldLogWalletBalances,
-    setShouldLogWalletBalances,
-    // tokenBalancesIsLoading,
-    // native,
-  ])
 
   function getModalContent() {
     if (walletView === WALLET_VIEWS.ACCOUNT) {
