@@ -41,7 +41,7 @@ interface SwapRouteProps extends React.HTMLAttributes<HTMLDivElement> {
   fixedOpen?: boolean // fixed in open state, hide open/close icon
 }
 
-export default memo(function SwapRoute({ trade, syncing, fixedOpen = false, ...rest }: SwapRouteProps) {
+export default memo(function SwapRoute({ trade, syncing, fixedOpen = true, ...rest }: SwapRouteProps) {
   const [open, setOpen] = useState(true)
   // const routes = [trade.route.slice(1, -1)] // delete first and last
   const coinMap = useCoinMap()
@@ -55,8 +55,9 @@ export default memo(function SwapRoute({ trade, syncing, fixedOpen = false, ...r
   ]
   // TODO[Azard] not safe search coin
   try {
+    routes[0].path = []
     for (let i = 0; i < trade.route.length - 1; i++) {
-      routes[0].path.push([coinMap[trade.route[i]], coinMap[trade.route[i + 1]], 1000000])
+      routes[0].path.push([coinMap[trade.route[i]], coinMap[trade.route[i + 1]], 100])
     }
   } catch (e) {
     console.log(e)
