@@ -77,13 +77,10 @@ export default function ConfirmSwapModal({
     ) : null
   }, [onConfirm, showAcceptChanges, swapErrorMessage, trade, allowedSlippage, txHash, swapQuoteReceivedDate])
 
-  const inputCoinAmount = trade?.inputCoin ? new CoinAmount(trade.inputCoin, trade.inputAmount) : null
-  const outputAmount = trade?.outputCoin ? new CoinAmount(trade.outputCoin, trade.outputAmount) : null
   // text to show while loading
   const pendingText = (
     <Trans>
-      Swapping {inputCoinAmount?.pretty()} {trade?.inputCoin?.symbol} for {outputAmount?.pretty()}{' '}
-      {trade?.outputCoin?.symbol}
+      Swapping {trade?.inputAmount?.prettyWithSymbol(6)} for {trade?.outputAmount?.prettyWithSymbol(6)}
     </Trans>
   )
 

@@ -27,6 +27,17 @@ export class CoinAmount<T extends Coin> {
       .toSignificantDigits(decimals || this.coin.decimals)
       .toString()
   }
+
+  prettyWithSymbol(decimals?: number): string {
+    return (
+      this.amount
+        .div(Utils.pow10(this.coin.decimals))
+        .toSignificantDigits(decimals || this.coin.decimals)
+        .toString() +
+      ' ' +
+      this.coin.symbol
+    )
+  }
 }
 
 export class ImportCoinList {

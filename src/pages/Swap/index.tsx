@@ -67,11 +67,11 @@ export default function Swap() {
       [Field.INPUT]:
         independentField === Field.INPUT
           ? parsedAmount
-          : Utils.d(bestTrade?.inputAmount).div(Utils.pow10(inputCoin?.decimals || 0)),
+          : Utils.d(bestTrade?.inputAmount.amount).div(Utils.pow10(inputCoin?.decimals || 0)),
       [Field.OUTPUT]:
         independentField === Field.OUTPUT
           ? parsedAmount
-          : Utils.d(bestTrade?.outputAmount).div(Utils.pow10(outputCoin?.decimals || 0)),
+          : Utils.d(bestTrade?.outputAmount.amount).div(Utils.pow10(outputCoin?.decimals || 0)),
     }
   }, [independentField, parsedAmount, bestTrade])
 
@@ -115,7 +115,7 @@ export default function Swap() {
   const formattedAmounts = useMemo(
     () => ({
       [independentField]: typedValue,
-      [dependentField]: parsedAmounts[dependentField]?.toString() ?? '',
+      [dependentField]: parsedAmounts[dependentField]?.toSignificantDigits(6).toString() ?? '',
     }),
     [dependentField, independentField, parsedAmounts, typedValue]
   )
@@ -257,7 +257,7 @@ export default function Swap() {
                 onCoinSelect={handleInputSelect}
                 otherCurrency={outputCoin}
                 showCommonBases={true}
-                id={'CURRENCY_INPUT_PANEL'}
+                id={'COIN_INPUT_PANEL'}
                 loading={independentField === Field.OUTPUT && routeIsSyncing}
               />
               <ArrowWrapper clickable={isSupportedChain(chainId)}>
@@ -280,7 +280,7 @@ export default function Swap() {
                 onCoinSelect={handleOutputSelect}
                 otherCurrency={inputCoin}
                 showCommonBases={true}
-                id={'CURRENCY_OUTPUT_PANEL'}
+                id={'COIN_OUTPUT_PANEL'}
                 loading={independentField === Field.INPUT && routeIsSyncing}
               />
             </div>

@@ -3,7 +3,7 @@ import { Trans } from '@lingui/macro'
 import Card from 'components/Card'
 import { LoadingRows } from 'components/Loader/styled'
 import { Coin, CoinAmount } from 'hooks/common/Coin'
-import { TradeType } from 'hooks/useBestTrade'
+import { BestTrade, TradeType } from 'hooks/useBestTrade'
 import { useContext, useMemo } from 'react'
 import { useChainId } from 'state/user/hooks'
 import styled, { ThemeContext } from 'styled-components/macro'
@@ -20,8 +20,8 @@ const StyledCard = styled(Card)`
 `
 
 interface AdvancedSwapDetailsProps {
-  trade?: InterfaceTrade
-  allowedSlippage: Decimal
+  trade?: BestTrade
+  allowedSlippage: number
   syncing?: boolean
   hideInfoTooltips?: boolean
 }
@@ -82,11 +82,7 @@ export function AdvancedSwapDetails({
           </RowFixed>
           <TextWithLoadingPlaceholder syncing={syncing} width={65}>
             <ThemedText.DeprecatedBlack textAlign="right" fontSize={14}>
-              {expectedOutputAmount
-                ? `${expectedOutputAmount.amount.toSignificantDigits(6).toString()}  ${
-                    expectedOutputAmount.coin.symbol
-                  }`
-                : '-'}
+              {expectedOutputAmount ? expectedOutputAmount.prettyWithSymbol(6) : '-'}
             </ThemedText.DeprecatedBlack>
           </TextWithLoadingPlaceholder>
         </RowBetween>

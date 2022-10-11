@@ -3,7 +3,7 @@ import { BP } from 'constants/misc'
 import { useEffect, useMemo, useState } from 'react'
 import ConnectionInstance from 'state/connection/instance'
 
-import { Coin } from './common/Coin'
+import { Coin, CoinAmount } from './common/Coin'
 
 export enum TradeState {
   LOADING,
@@ -24,10 +24,10 @@ export class BestTrade {
   inputCoin: Coin
   outputCoin: Coin
   route: string[]
-  inputAmount: Decimal
-  outputAmount: Decimal
-  maximumAmountIn: Decimal
-  miniumAmountOut: Decimal
+  inputAmount: CoinAmount<Coin>
+  outputAmount: CoinAmount<Coin>
+  maximumAmountIn: CoinAmount<Coin>
+  miniumAmountOut: CoinAmount<Coin>
   price: Decimal
 }
 
@@ -74,8 +74,8 @@ export function useBestTrade(
       bestTrade.inputCoin = inputCoin
       bestTrade.outputCoin = outputCoin
       bestTrade.route = sdkTrade.coinTypeList
-      bestTrade.inputAmount = sdkTrade.amountList[0]
-      bestTrade.outputAmount = sdkTrade.amountList[sdkTrade.amountList.length - 1]
+      bestTrade.inputAmount = new CoinAmount(inputCoin, sdkTrade.amountList[0])
+      bestTrade.outputAmount = new CoinAmount(outputCoin, sdkTrade.amountList[sdkTrade.amountList.length - 1])
       const payload =
         tradeType === TradeType.EXACT_INPUT
           ? ConnectionInstance.getSDK().route.swapExactCoinForCoinPayload({
@@ -91,18 +91,23 @@ export function useBestTrade(
               deadline,
             })
       bestTrade.maximumAmountIn =
-        tradeType === TradeType.EXACT_INPUT ? bestTrade.inputAmount : Utils.d(payload.arguments[1])
+        tradeType === TradeType.EXACT_INPUT
+          ? bestTrade.inputAmount
+          : new CoinAmount(inputCoin, Utils.d(payload.arguments[1]))
+
       bestTrade.miniumAmountOut =
-        tradeType === TradeType.EXACT_OUTPUT ? bestTrade.outputAmount : Utils.d(payload.arguments[1])
-      bestTrade.price = bestTrade.inputAmount
+        tradeType === TradeType.EXACT_OUTPUT
+          ? bestTrade.outputAmount
+          : new CoinAmount(outputCoin, Utils.d(payload.arguments[1]))
+      bestTrade.price = bestTrade.inputAmount.amount
         .div(inputCoin.decimals)
-        .div(bestTrade.outputAmount.div(outputCoin.decimals))
+        .div(bestTrade.outputAmount.amount.div(outputCoin.decimals))
       setBestTrade(bestTrade)
       console.log(bestTrade)
     }
     // execution
     fetchRoute()
-  }, [tradeType, amount, inputCoin, outputCoin])
+  }, [tradeType, amount, inputCoin, outputCoin, allowedSlippage])
 
   return useMemo(() => {
     return {
