@@ -107,11 +107,9 @@ const WALLET_VIEWS = {
 export default function WalletModal({
   pendingTransactions,
   confirmedTransactions,
-  ENSName,
 }: {
   pendingTransactions: string[] // hashes of pending
   confirmedTransactions: string[] // hashes of confirmed
-  ENSName?: string
 }) {
   const account = useAccount()
   const walletType = useWallet()
@@ -158,7 +156,6 @@ export default function WalletModal({
           toggleWalletModal={toggleWalletModal}
           pendingTransactions={pendingTransactions}
           confirmedTransactions={confirmedTransactions}
-          ENSName={ENSName}
           openOptions={openOptions}
         />
       )

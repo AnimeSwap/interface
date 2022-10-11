@@ -187,7 +187,7 @@ export default function HeaderStatus() {
   return (
     <>
       <StatusInner />
-      <WalletModal ENSName={undefined} pendingTransactions={pending} confirmedTransactions={confirmed} />
+      <WalletModal pendingTransactions={pending} confirmedTransactions={confirmed} />
     </>
   )
 }
