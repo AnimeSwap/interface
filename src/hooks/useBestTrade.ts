@@ -29,6 +29,7 @@ export class BestTrade {
   maximumAmountIn: CoinAmount<Coin>
   miniumAmountOut: CoinAmount<Coin>
   price: Decimal
+  priceImpact: Decimal
 }
 
 export function useBestTrade(
@@ -102,6 +103,7 @@ export function useBestTrade(
       bestTrade.price = bestTrade.inputAmount.amount
         .div(inputCoin.decimals)
         .div(bestTrade.outputAmount.amount.div(outputCoin.decimals))
+      bestTrade.priceImpact = sdkTrade.priceImpact
       setBestTrade(bestTrade)
       console.log(bestTrade)
     }
