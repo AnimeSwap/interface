@@ -8,7 +8,6 @@ import { Coin, CoinAmount } from './common/Coin'
 export enum TradeState {
   LOADING,
   INVALID,
-  NO_ROUTE_FOUND,
   VALID,
   SYNCING,
 }
@@ -64,7 +63,7 @@ export function useBestTrade(
               amount,
             })
       if (tradeList.length === 0) {
-        setTradeState(TradeState.NO_ROUTE_FOUND)
+        setTradeState(TradeState.INVALID)
         return
       }
       setTradeState(TradeState.VALID)
@@ -105,7 +104,7 @@ export function useBestTrade(
         .div(bestTrade.outputAmount.amount.div(outputCoin.decimals))
       bestTrade.priceImpact = sdkTrade.priceImpact
       setBestTrade(bestTrade)
-      console.log(bestTrade)
+      // console.log(bestTrade)
     }
     // execution
     fetchRoute()

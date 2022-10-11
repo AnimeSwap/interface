@@ -142,10 +142,6 @@ export function useDerivedSwapInfo(): {
       inputError = <Trans>Insufficient {inputCoin.symbol} balance</Trans>
     }
 
-    if (trade.tradeState === TradeState.NO_ROUTE_FOUND) {
-      inputError = inputError ?? <Trans>No route found</Trans>
-    }
-
     return inputError
   }, [account, allowedSlippage, inputCoin, outputCoin, inputCoinBalance, parsedAmount, toAddress, trade])
 
