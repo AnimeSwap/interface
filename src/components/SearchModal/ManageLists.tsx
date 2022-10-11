@@ -13,7 +13,6 @@ import { usePopper } from 'react-popper'
 import { useAppDispatch, useAppSelector } from 'state/hooks'
 import { useChainId } from 'state/user/hooks'
 import styled from 'styled-components/macro'
-import parseENSAddress from 'utils/parseENSAddress'
 import uriToHttp from 'utils/uriToHttp'
 
 import { useOnClickOutside } from '../../hooks/useOnClickOutside'
@@ -251,7 +250,7 @@ export function ManageLists({
   }, [])
 
   const validUrl: boolean = useMemo(() => {
-    return uriToHttp(listUrlInput).length > 0 || Boolean(parseENSAddress(listUrlInput))
+    return uriToHttp(listUrlInput).length > 0
   }, [listUrlInput])
 
   const sortedLists = useMemo(() => {
