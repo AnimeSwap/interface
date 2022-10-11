@@ -57,12 +57,16 @@ export async function AutoConnectWallets() {
     case WalletType.PONTEM:
       if (await AutoConnectPontem()) return
       break
+    case WalletType.RISE:
+      if (await AutoConnectRise()) return
+      break
   }
   // auto connect wallet in order
   if (await AutoConnectPetra()) return
   if (await AutoConnectMartian()) return
   if (await AutoConnectFewcha()) return
   if (await AutoConnectPontem()) return
+  if (await AutoConnectRise()) return
 }
 
 export async function ConnectPetra() {
@@ -173,6 +177,33 @@ export async function AutoConnectPontem() {
   return false
 }
 
+export async function ConnectRise() {
+  try {
+    const res = await window.rise.connect()
+    store.dispatch(setSelectedWallet({ wallet: WalletType.RISE }))
+    store.dispatch(setAccount({ account: window.rise.address }))
+    console.log('Rise wallet connect success')
+    return true
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export async function AutoConnectRise() {
+  if (!('rise' in window)) {
+    return false
+  }
+  try {
+    if (await ConnectRise()) {
+      console.log('Rise auto connected')
+      return true
+    }
+  } catch (error) {
+    console.error(error)
+  }
+  return false
+}
+
 export const ResetConnection = () => {
   store.dispatch(setSelectedWallet({ wallet: WalletType.PETRA }))
   store.dispatch(setAccount({ account: undefined }))
@@ -207,6 +238,10 @@ export const SignAndSubmitTransaction = async (transaction: any) => {
     case WalletType.PONTEM:
       const pontemTx = await window.pontem.signAndSubmit(payload)
       console.log('Pontem tx', pontemTx)
+      break
+    case WalletType.RISE:
+      const riseTx = await window.rise.signAndSubmitTransaction(payload)
+      console.log('Rise tx', riseTx)
       break
     default:
       break

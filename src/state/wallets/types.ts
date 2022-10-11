@@ -8,6 +8,7 @@ export enum WalletType {
   MARTIAN = 'MARTIAN',
   FEWCHA = 'FEWCHA',
   PONTEM = 'PONTEM',
+  RISE = 'RISE',
 }
 
 export function getWalletName(walletType: WalletType) {
@@ -20,5 +21,7 @@ export function getWalletName(walletType: WalletType) {
       return 'Fewcha Wallet'
     case WalletType.PONTEM:
       return 'Pontem Wallet'
+    case WalletType.RISE:
+      return 'Rise Wallet'
   }
 }

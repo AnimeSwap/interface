@@ -18,6 +18,7 @@ import FewchaOption from './FewchaOption'
 import MartianOption from './MartianOption'
 import PetraOption from './PetraOption'
 import PontemOption from './PontemOption'
+import RiseOption from './RiseOption'
 
 const CloseIcon = styled.div`
   position: absolute;
@@ -233,30 +234,9 @@ export default function WalletModal({
                 <MartianOption />
                 <FewchaOption />
                 <PontemOption />
+                <RiseOption />
               </OptionGrid>
             )}
-            {/* {!pendingError && (
-              <LightCard>
-                <AutoRow style={{ flexWrap: 'nowrap' }}>
-                  <ThemedText.DeprecatedBody fontSize={12}>
-                    <Trans>
-                      By connecting a wallet, you agree to Uniswap Labs’{' '}
-                      <ExternalLink
-                        style={{ textDecoration: 'underline' }}
-                        href="https://uniswap.org/terms-of-service/"
-                      >
-                        Terms of Service
-                      </ExternalLink>{' '}
-                      and acknowledge that you have read and understand the Uniswap{' '}
-                      <ExternalLink style={{ textDecoration: 'underline' }} href="https://uniswap.org/disclaimer/">
-                        Protocol Disclaimer
-                      </ExternalLink>
-                      .
-                    </Trans>
-                  </ThemedText.DeprecatedBody>
-                </AutoRow>
-              </LightCard>
-            )} */}
           </AutoColumn>
         </ContentWrapper>
       </UpperSection>

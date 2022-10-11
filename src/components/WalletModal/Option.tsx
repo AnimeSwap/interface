@@ -54,6 +54,20 @@ const GreenCircle = styled.div`
   }
 `
 
+const GrayCircle = styled.div`
+  ${({ theme }) => theme.flexRowNoWrap}
+  justify-content: center;
+  align-items: center;
+
+  &:first-child {
+    height: 8px;
+    width: 8px;
+    margin-right: 8px;
+    background-color: ${({ theme }) => theme.deprecated_yellow1};
+    border-radius: 50%;
+  }
+`
+
 const CircleWrapper = styled.div`
   color: ${({ theme }) => theme.deprecated_green1};
   display: flex;
@@ -99,6 +113,7 @@ export default function Option({
   subheader,
   icon,
   isActive = false,
+  isInstall = false,
   id,
 }: {
   link?: string | null
@@ -110,6 +125,7 @@ export default function Option({
   subheader?: React.ReactNode
   icon: string
   isActive?: boolean
+  isInstall?: boolean
   id: string
 }) {
   const content = (
@@ -127,6 +143,12 @@ export default function Option({
               <GreenCircle>
                 <div />
               </GreenCircle>
+            </CircleWrapper>
+          ) : isInstall ? (
+            <CircleWrapper>
+              <GrayCircle>
+                <div />
+              </GrayCircle>
             </CircleWrapper>
           ) : (
             ''

@@ -7,17 +7,19 @@ import Option from './Option'
 const BASE_PROPS = {
   color: '#6748FF',
   icon: PETRA_ICON_URL,
-  id: 'petra',
+  id: 'petra-option',
 }
 
 export default function PetraOption() {
   const account = useAccount()
   const walletType = useWallet()
   const isActive = walletType === WalletType.PETRA && account !== undefined
+  const isInstall = 'aptos' in window
   return (
     <Option
       {...BASE_PROPS}
       isActive={isActive}
+      isInstall={isInstall}
       onClick={async () => {
         if ('aptos' in window) {
           await ConnectPetra()
