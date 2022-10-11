@@ -128,7 +128,7 @@ export function useDerivedSwapInfo(): {
       inputError = inputError ?? <Trans>Select a coin</Trans>
     }
 
-    if (!parsedAmount) {
+    if (!parsedAmount || parsedAmount.lte(0)) {
       inputError = inputError ?? <Trans>Enter an amount</Trans>
     }
 

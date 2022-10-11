@@ -48,7 +48,7 @@ export function useBestTrade(
 
   useEffect(() => {
     const fetchRoute = async () => {
-      if (!amount || !inputCoin || !outputCoin) return
+      if (!amount || !inputCoin || !outputCoin || amount.eq(0)) return
       setTradeState(TradeState.LOADING)
       const tradeList =
         tradeType === TradeType.EXACT_INPUT
@@ -98,8 +98,8 @@ export function useBestTrade(
         .div(inputCoin.decimals)
         .div(bestTrade.outputAmount.div(outputCoin.decimals))
       setBestTrade(bestTrade)
+      console.log(bestTrade)
     }
-    console.log(bestTrade)
     // execution
     fetchRoute()
   }, [tradeType, amount, inputCoin, outputCoin])
