@@ -1,4 +1,3 @@
-import { Decimal, Utils } from '@animeswap.org/v1-sdk'
 import { getChainInfoOrDefault } from 'constants/chainInfo'
 import { SupportedChainId } from 'constants/chains'
 import { SupportedLocale } from 'constants/locales'
@@ -92,4 +91,8 @@ export function useUserTransactionTTL(): [number, (slippage: number) => void] {
   )
 
   return [userDeadline, setUserDeadline]
+}
+
+export function useShowSwapDropdownDetails(): boolean {
+  return useAppSelector((state) => state.user.showSwapDropdownDetails)
 }
