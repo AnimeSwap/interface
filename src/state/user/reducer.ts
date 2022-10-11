@@ -23,10 +23,8 @@ export interface UserState {
   userDarkMode: boolean | null // the user's choice for dark mode or light mode
   userLocale: SupportedLocale | null
 
-  userExpertMode: boolean
-
   // user defined slippage tolerance in bips, used in all txns
-  userSlippageTolerance: number | 'auto'
+  userSlippageTolerance: number
 
   // deadline set by user in minutes, used in all txns
   userDeadline: number
@@ -49,9 +47,8 @@ export const initialState: UserState = {
   chainId: SupportedChainId.APTOS_DEVNET,
   matchesDarkMode: false,
   userDarkMode: true,
-  userExpertMode: false,
   userLocale: null,
-  userSlippageTolerance: 'auto',
+  userSlippageTolerance: 50, // 50BP
   userDeadline: DEFAULT_DEADLINE_FROM_NOW,
   coins: {
     [SupportedChainId.APTOS]: APTOS_CoinInfo,
@@ -73,9 +70,6 @@ const userSlice = createSlice({
     },
     updateMatchesDarkMode(state, action) {
       state.matchesDarkMode = action.payload.matchesDarkMode
-    },
-    updateUserExpertMode(state, action) {
-      state.userExpertMode = action.payload.userExpertMode
     },
     updateUserLocale(state, action) {
       state.userLocale = action.payload.userLocale
@@ -116,6 +110,19 @@ const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(updateVersion, (state) => {
+      // init chainId
+      if (
+        ![SupportedChainId.APTOS, SupportedChainId.APTOS_TESTNET, SupportedChainId.APTOS_DEVNET].includes(state.chainId)
+      ) {
+        state.chainId = SupportedChainId.APTOS_DEVNET
+      }
+      // update local coin list
+      state.coins = {
+        [SupportedChainId.APTOS]: APTOS_CoinInfo,
+        [SupportedChainId.APTOS_TESTNET]: APTOS_TESTNET_CoinInfo,
+        [SupportedChainId.APTOS_DEVNET]: APTOS_DEVNET_CoinInfo,
+      }
+
       // slippage isnt being tracked in local storage, reset to default
       // noinspection SuspiciousTypeOfGuard
       if (
@@ -124,11 +131,7 @@ const userSlice = createSlice({
         state.userSlippageTolerance < 0 ||
         state.userSlippageTolerance > 5000
       ) {
-        state.userSlippageTolerance = 'auto'
-      } else {
-        if ([10, 50, 100].indexOf(state.userSlippageTolerance) !== -1) {
-          state.userSlippageTolerance = 'auto'
-        }
+        state.userSlippageTolerance = 50
       }
 
       // deadline isnt being tracked in local storage, reset to default
@@ -156,7 +159,6 @@ export const {
   updateMatchesDarkMode,
   updateUserDarkMode,
   updateUserDeadline,
-  updateUserExpertMode,
   updateUserLocale,
   updateUserSlippageTolerance,
 } = userSlice.actions

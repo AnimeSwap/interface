@@ -1,9 +1,9 @@
-import { Decimal } from '@animeswap.org/v1-sdk'
+import { Decimal, Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
 import Card from 'components/Card'
 import { LoadingRows } from 'components/Loader/styled'
 import { Coin, CoinAmount } from 'hooks/common/Coin'
-import { TradeType } from 'hooks/useBestTrade'
+import { BestTrade, TradeType } from 'hooks/useBestTrade'
 import { useContext, useMemo } from 'react'
 import { useChainId } from 'state/user/hooks'
 import styled, { ThemeContext } from 'styled-components/macro'
@@ -13,15 +13,14 @@ import { AutoColumn } from '../Column'
 import { RowBetween, RowFixed } from '../Row'
 import { MouseoverTooltip } from '../Tooltip'
 import FormattedPriceImpact from './FormattedPriceImpact'
-import { InterfaceTrade } from './SwapRoute'
 
 const StyledCard = styled(Card)`
   padding: 0;
 `
 
 interface AdvancedSwapDetailsProps {
-  trade?: InterfaceTrade
-  allowedSlippage: Decimal
+  trade?: BestTrade
+  allowedSlippage: number
   syncing?: boolean
   hideInfoTooltips?: boolean
 }
@@ -51,13 +50,12 @@ export function AdvancedSwapDetails({
   hideInfoTooltips = false,
 }: AdvancedSwapDetailsProps) {
   const theme = useContext(ThemeContext)
-  const chainId = useChainId()
+  // const chainId = useChainId()
 
   const { expectedOutputAmount, priceImpact } = useMemo(() => {
     return {
       expectedOutputAmount: trade?.outputAmount,
-      priceImpact: undefined,
-      // priceImpact: trade ? computeRealizedPriceImpact(trade) : undefined,
+      priceImpact: trade.priceImpact,
     }
   }, [trade])
 
@@ -82,11 +80,7 @@ export function AdvancedSwapDetails({
           </RowFixed>
           <TextWithLoadingPlaceholder syncing={syncing} width={65}>
             <ThemedText.DeprecatedBlack textAlign="right" fontSize={14}>
-              {expectedOutputAmount
-                ? `${expectedOutputAmount.amount.toSignificantDigits(6).toString()}  ${
-                    expectedOutputAmount.coin.symbol
-                  }`
-                : '-'}
+              {expectedOutputAmount ? expectedOutputAmount.prettyWithSymbol(6) : '-'}
             </ThemedText.DeprecatedBlack>
           </TextWithLoadingPlaceholder>
         </RowBetween>
@@ -125,15 +119,15 @@ export function AdvancedSwapDetails({
                 ) : (
                   <Trans>Maximum sent</Trans>
                 )}{' '}
-                <Trans>after slippage</Trans> ({allowedSlippage.toFixed(2)}%)
+                <Trans>after slippage</Trans> ({Utils.d(allowedSlippage).div(100).toFixed(2)}%)
               </ThemedText.DeprecatedSubHeader>
             </MouseoverTooltip>
           </RowFixed>
           <TextWithLoadingPlaceholder syncing={syncing} width={70}>
             <ThemedText.DeprecatedBlack textAlign="right" fontSize={14} color={theme.deprecated_text3}>
-              {/* {trade.tradeType === TradeType.EXACT_INPUT
-                ? `${trade.minimumAmountOut(allowedSlippage).toSignificant(6)} ${trade.outputAmount.currency.symbol}`
-                : `${trade.maximumAmountIn(allowedSlippage).toSignificant(6)} ${trade.inputAmount.currency.symbol}`} */}
+              {trade.tradeType === TradeType.EXACT_INPUT
+                ? `${trade.miniumAmountOut.prettyWithSymbol(6)}`
+                : `${trade.maximumAmountIn.prettyWithSymbol(6)}`}
             </ThemedText.DeprecatedBlack>
           </TextWithLoadingPlaceholder>
         </RowBetween>

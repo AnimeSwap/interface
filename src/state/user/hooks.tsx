@@ -5,13 +5,7 @@ import { useCallback, useMemo } from 'react'
 import { shallowEqual } from 'react-redux'
 import { useAppDispatch, useAppSelector } from 'state/hooks'
 
-import {
-  updateUserDarkMode,
-  updateUserDeadline,
-  updateUserExpertMode,
-  updateUserLocale,
-  updateUserSlippageTolerance,
-} from './reducer'
+import { updateUserDarkMode, updateUserDeadline, updateUserLocale, updateUserSlippageTolerance } from './reducer'
 
 export function useChainId(): SupportedChainId {
   return useAppSelector((state) => state.user.chainId)
@@ -57,36 +51,11 @@ export function useUserLocaleManager(): [SupportedLocale | null, (newLocale: Sup
   return [locale, setLocale]
 }
 
-export function useIsExpertMode(): boolean {
-  return useAppSelector((state) => state.user.userExpertMode)
-}
-
-export function useExpertModeManager(): [boolean, () => void] {
-  const dispatch = useAppDispatch()
-  const expertMode = useIsExpertMode()
-
-  const toggleSetExpertMode = useCallback(() => {
-    dispatch(updateUserExpertMode({ userExpertMode: !expertMode }))
-  }, [expertMode, dispatch])
-
-  return [expertMode, toggleSetExpertMode]
-}
-
-export function useSetUserSlippageTolerance(): (slippageTolerance: Decimal | 'auto') => void {
+export function useSetUserSlippageTolerance(): (slippageTolerance: number) => void {
   const dispatch = useAppDispatch()
   return useCallback(
-    (userSlippageTolerance: Decimal | 'auto') => {
-      let value: 'auto' | number
-      try {
-        value = userSlippageTolerance === 'auto' ? 'auto' : userSlippageTolerance.toNumber()
-      } catch (error) {
-        value = 'auto'
-      }
-      dispatch(
-        updateUserSlippageTolerance({
-          userSlippageTolerance: value,
-        })
-      )
+    (userSlippageTolerance: number) => {
+      dispatch(updateUserSlippageTolerance({ userSlippageTolerance }))
     },
     [dispatch]
   )
@@ -95,27 +64,12 @@ export function useSetUserSlippageTolerance(): (slippageTolerance: Decimal | 'au
 /**
  * Return the user's slippage tolerance, from the redux store, and a function to update the slippage tolerance
  */
-export function useUserSlippageTolerance(): Decimal | 'auto' {
+export function useUserSlippageTolerance(): number {
   const userSlippageTolerance = useAppSelector((state) => {
     return state.user.userSlippageTolerance
   })
 
-  return useMemo(
-    () => (userSlippageTolerance === 'auto' ? 'auto' : Utils.d(userSlippageTolerance)),
-    [userSlippageTolerance]
-  )
-}
-
-/**
- * Same as above but replaces the auto with a default value
- * @param defaultSlippageTolerance the default value to replace auto with
- */
-export function useUserSlippageToleranceWithDefault(defaultSlippageTolerance: Decimal): Decimal {
-  const allowedSlippage = useUserSlippageTolerance()
-  return useMemo(
-    () => (allowedSlippage === 'auto' ? defaultSlippageTolerance : allowedSlippage),
-    [allowedSlippage, defaultSlippageTolerance]
-  )
+  return useMemo(() => userSlippageTolerance, [userSlippageTolerance])
 }
 
 export function useUserTransactionTTL(): [number, (slippage: number) => void] {

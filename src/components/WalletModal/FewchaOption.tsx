@@ -7,17 +7,19 @@ import Option from './Option'
 const BASE_PROPS = {
   color: '#6748FF',
   icon: FEWCHA_ICON_URL,
-  id: 'fewcha',
+  id: 'fewcha-option',
 }
 
 export default function FewchaOption() {
   const account = useAccount()
   const walletType = useWallet()
   const isActive = walletType === WalletType.FEWCHA && account !== undefined
+  const isInstall = 'fewcha' in window
   return (
     <Option
       {...BASE_PROPS}
       isActive={isActive}
+      isInstall={isInstall}
       onClick={async () => {
         if ('fewcha' in window) {
           await ConnectFewcha()

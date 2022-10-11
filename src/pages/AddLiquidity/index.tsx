@@ -18,20 +18,17 @@ import DoubleCoinLogo from '../../components/DoubleLogo'
 import { AddRemoveTabs } from '../../components/NavigationTabs'
 import Row, { RowBetween, RowFlat } from '../../components/Row'
 import TransactionConfirmationModal, { ConfirmationModalContent } from '../../components/TransactionConfirmationModal'
-import { ZERO_PERCENT } from '../../constants/misc'
 import { useToggleWalletModal } from '../../state/application/hooks'
 import { Field } from '../../state/mint/actions'
 import { useDerivedMintInfo, useMintActionHandlers, useMintState } from '../../state/mint/hooks'
 import { useTransactionAdder } from '../../state/transactions/hooks'
 import { TransactionType } from '../../state/transactions/types'
-import { useChainId, useIsExpertMode, useUserSlippageToleranceWithDefault } from '../../state/user/hooks'
+import { useChainId, useUserSlippageTolerance } from '../../state/user/hooks'
 import { ThemedText } from '../../theme'
 import AppBody from '../AppBody'
 import { Dots, Wrapper } from '../Pool/styleds'
 import { ConfirmAddModalBottom } from './ConfirmAddModalBottom'
 import { PoolPriceBar } from './PoolPriceBar'
-
-const DEFAULT_ADD_V2_SLIPPAGE_TOLERANCE = new Decimal(50).div(10000)
 
 const TitleContainer = styled.div`
   font-size: 32px;
@@ -47,7 +44,7 @@ const TitleContainer = styled.div`
 `
 
 export default function AddLiquidity() {
-  const { currencyIdA, currencyIdB } = useParams<{ currencyIdA?: string; currencyIdB?: string }>()
+  const { coinIdA, coinIdB } = useParams<{ coinIdA?: string; coinIdB?: string }>()
   const navigate = useNavigate()
   const account = useAccount()
   const chainId = useChainId()
@@ -55,9 +52,6 @@ export default function AddLiquidity() {
   const theme = useContext(ThemeContext)
 
   const toggleWalletModal = useToggleWalletModal() // toggle wallet when disconnected
-
-  const expertMode = useIsExpertMode()
-
   // mint state
   const { independentField, typedValue, otherTypedValue } = useMintState()
   // const {
@@ -83,7 +77,7 @@ export default function AddLiquidity() {
   const [attemptingTxn, setAttemptingTxn] = useState<boolean>(false) // clicked confirm
 
   // txn values
-  const allowedSlippage = useUserSlippageToleranceWithDefault(DEFAULT_ADD_V2_SLIPPAGE_TOLERANCE) // custom from users
+  const allowedSlippage = useUserSlippageTolerance() // custom from users
   const [txHash, setTxHash] = useState<string>('')
 
   // get formatted amounts
@@ -168,29 +162,29 @@ export default function AddLiquidity() {
 
   // const handleCurrencyASelect = useCallback(
   //   (currencyA: Currency) => {
-  //     const newCurrencyIdA = currencyId(currencyA)
-  //     if (newCurrencyIdA === currencyIdB) {
-  //       navigate(`/add/v2/${currencyIdB}/${currencyIdA}`)
+  //     const newCoinIdA = coinId(currencyA)
+  //     if (newCoinIdA === coinIdB) {
+  //       navigate(`/add/v2/${coinIdB}/${coinIdA}`)
   //     } else {
-  //       navigate(`/add/v2/${newCurrencyIdA}/${currencyIdB}`)
+  //       navigate(`/add/v2/${newCoinIdA}/${coinIdB}`)
   //     }
   //   },
-  //   [currencyIdB, navigate, currencyIdA]
+  //   [coinIdB, navigate, coinIdA]
   // )
   // const handleCurrencyBSelect = useCallback(
   //   (currencyB: Currency) => {
-  //     const newCurrencyIdB = currencyId(currencyB)
-  //     if (currencyIdA === newCurrencyIdB) {
-  //       if (currencyIdB) {
-  //         navigate(`/add/v2/${currencyIdB}/${newCurrencyIdB}`)
+  //     const newCoinIdB = coinId(currencyB)
+  //     if (coinIdA === newCoinIdB) {
+  //       if (coinIdB) {
+  //         navigate(`/add/v2/${coinIdB}/${newCoinIdB}`)
   //       } else {
-  //         navigate(`/add/v2/${newCurrencyIdB}`)
+  //         navigate(`/add/v2/${newCoinIdB}`)
   //       }
   //     } else {
-  //       navigate(`/add/v2/${currencyIdA ? currencyIdA : 'ETH'}/${newCurrencyIdB}`)
+  //       navigate(`/add/v2/${coinIdA ? coinIdA : 'ETH'}/${newCoinIdB}`)
   //     }
   //   },
-  //   [currencyIdA, navigate, currencyIdB]
+  //   [coinIdA, navigate, coinIdB]
   // )
 
   // const handleDismissConfirmation = useCallback(() => {

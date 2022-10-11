@@ -1,5 +1,5 @@
-import { Decimal } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
+import { BP } from 'constants/misc'
 import { useCallback, useContext, useMemo, useState } from 'react'
 import { ArrowDown, Plus } from 'react-feather'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -23,17 +23,17 @@ import useDebouncedChangeHandler from '../../hooks/useDebouncedChangeHandler'
 import { useToggleWalletModal } from '../../state/application/hooks'
 import { useTransactionAdder } from '../../state/transactions/hooks'
 import { TransactionType } from '../../state/transactions/types'
-import { useChainId, useUserSlippageToleranceWithDefault } from '../../state/user/hooks'
+import { useChainId, useUserSlippageTolerance } from '../../state/user/hooks'
 import { StyledInternalLink, ThemedText } from '../../theme'
 import AppBody from '../AppBody'
 import { ClickableText, MaxButton, Wrapper } from '../Pool/styleds'
 
-const DEFAULT_REMOVE_LIQUIDITY_SLIPPAGE_TOLERANCE = new Decimal(5).div(100)
+const DEFAULT_REMOVE_LIQUIDITY_SLIPPAGE_TOLERANCE = 50
 
 export default function RemoveLiquidity() {
   const navigate = useNavigate()
-  const { currencyIdA, currencyIdB } = useParams<{ currencyIdA: string; currencyIdB: string }>()
-  // const [currencyA, currencyB] = [useCurrency(currencyIdA) ?? undefined, useCurrency(currencyIdB) ?? undefined]
+  const { coinIdA, coinIdB } = useParams<{ coinIdA: string; coinIdB: string }>()
+  // const [currencyA, currencyB] = [useCurrency(coinIdA) ?? undefined, useCurrency(coinIdB) ?? undefined]
   const [currencyA, currencyB] = [undefined, undefined]
   const account = useAccount()
   const chainId = useChainId()
@@ -55,7 +55,7 @@ export default function RemoveLiquidity() {
 
   // txn values
   const [txHash, setTxHash] = useState<string>('')
-  const allowedSlippage = useUserSlippageToleranceWithDefault(DEFAULT_REMOVE_LIQUIDITY_SLIPPAGE_TOLERANCE)
+  const allowedSlippage = useUserSlippageTolerance()
 
   // wrapped onUserInput to clear signatures
   // const onUserInput = useCallback(
@@ -139,8 +139,8 @@ export default function RemoveLiquidity() {
           padding={'12px 0 0 0'}
         >
           <Trans>
-            Output is estimated. If the price changes by more than {allowedSlippage.toSignificantDigits(4).toString()}%
-            your transaction will revert.
+            Output is estimated. If the price changes by more than{' '}
+            {BP.mul(allowedSlippage).toSignificantDigits(4).toString()}% your transaction will revert.
           </Trans>
         </ThemedText.DeprecatedItalic>
       </AutoColumn>
@@ -204,25 +204,25 @@ export default function RemoveLiquidity() {
     [onUserInput]
   )
 
-  // const handleSelectCurrencyA = useCallback(
+  // const handleSelectCoinA = useCallback(
   //   (currency: Currency) => {
-  //     if (currencyIdB && currencyId(currency) === currencyIdB) {
-  //       navigate(`/remove/v2/${currencyId(currency)}/${currencyIdA}`)
+  //     if (coinIdB && coinId(currency) === coinIdB) {
+  //       navigate(`/remove/v2/${coinId(currency)}/${coinIdA}`)
   //     } else {
-  //       navigate(`/remove/v2/${currencyId(currency)}/${currencyIdB}`)
+  //       navigate(`/remove/v2/${coinId(currency)}/${coinIdB}`)
   //     }
   //   },
-  //   [currencyIdA, currencyIdB, navigate]
+  //   [coinIdA, coinIdB, navigate]
   // )
-  // const handleSelectCurrencyB = useCallback(
+  // const handleSelectCoinB = useCallback(
   //   (currency: Currency) => {
-  //     if (currencyIdA && currencyId(currency) === currencyIdA) {
-  //       navigate(`/remove/v2/${currencyIdB}/${currencyId(currency)}`)
+  //     if (coinIdA && coinId(currency) === coinIdA) {
+  //       navigate(`/remove/v2/${coinIdB}/${coinId(currency)}`)
   //     } else {
-  //       navigate(`/remove/v2/${currencyIdA}/${currencyId(currency)}`)
+  //       navigate(`/remove/v2/${coinIdA}/${coinId(currency)}`)
   //     }
   //   },
-  //   [currencyIdA, currencyIdB, navigate]
+  //   [coinIdA, coinIdB, navigate]
   // )
 
   const handleDismissConfirmation = useCallback(() => {
@@ -369,7 +369,7 @@ export default function RemoveLiquidity() {
                   showMaxButton={!atMaxAmount}
                   currency={currencyA}
                   label={'Output'}
-                  onCoinSelect={handleSelectCurrencyA}
+                  onCoinSelect={handleSelectCoinA}
                   id="remove-liquidity-tokena"
                 /> */}
                 <ColumnCenter>
@@ -383,7 +383,7 @@ export default function RemoveLiquidity() {
                   showMaxButton={!atMaxAmount}
                   currency={currencyB}
                   label={'Output'}
-                  onCoinSelect={handleSelectCurrencyB}
+                  onCoinSelect={handleSelectCoinB}
                   id="remove-liquidity-tokenb"
                 /> */}
               </>

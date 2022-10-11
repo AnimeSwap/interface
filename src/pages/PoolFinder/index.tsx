@@ -191,7 +191,7 @@ export default function PoolFinder() {
   //                     <Text textAlign="center">
   //                       <Trans>You don’t have liquidity in this pool yet.</Trans>
   //                     </Text>
-  //                     <StyledInternalLink to={`/add/${currencyId(currency0)}/${currencyId(currency1)}`}>
+  //                     <StyledInternalLink to={`/add/${coinId(currency0)}/${coinId(currency1)}`}>
   //                       <Text textAlign="center">
   //                         <Trans>Add liquidity.</Trans>
   //                       </Text>
@@ -205,7 +205,7 @@ export default function PoolFinder() {
   //                   <Text textAlign="center">
   //                     <Trans>No pool found.</Trans>
   //                   </Text>
-  //                   <StyledInternalLink to={`/add/${currencyId(currency0)}/${currencyId(currency1)}`}>
+  //                   <StyledInternalLink to={`/add/${coinId(currency0)}/${coinId(currency1)}`}>
   //                     <Trans>Create pool.</Trans>
   //                   </StyledInternalLink>
   //                 </AutoColumn>

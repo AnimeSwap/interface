@@ -9,4 +9,5 @@ interface Window {
   martian?: any
   fewcha?: any
   pontem?: any
+  rise?: any
 }

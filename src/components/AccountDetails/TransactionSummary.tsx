@@ -39,14 +39,14 @@ function FormattedCoinAmount({
 
 function FormattedCoinAmountManaged({
   rawAmount,
-  currencyId,
+  coinId,
   sigFigs = 6,
 }: {
   rawAmount: string
-  currencyId: string
+  coinId: string
   sigFigs: number
 }) {
-  // const currency = useCurrency(currencyId)
+  // const currency = useCurrency(coinId)
   // return currency ? (
   //   <FormattedCoinAmount
   //     rawAmount={rawAmount}
@@ -93,15 +93,14 @@ function WithdrawLiquidityStakingSummary(_: { info: WithdrawLiquidityStakingTran
 }
 
 function AddLiquidityV2PoolSummary({
-  info: { quoteCurrencyId, expectedAmountBaseRaw, expectedAmountQuoteRaw, baseCurrencyId },
+  info: { quoteCoinId, expectedAmountBaseRaw, expectedAmountQuoteRaw, baseCoinId },
 }: {
   info: AddLiquidityV2PoolTransactionInfo
 }) {
   return (
     <Trans>
-      Add <FormattedCoinAmountManaged rawAmount={expectedAmountBaseRaw} currencyId={baseCurrencyId} sigFigs={3} /> and{' '}
-      <FormattedCoinAmountManaged rawAmount={expectedAmountQuoteRaw} currencyId={quoteCurrencyId} sigFigs={3} /> to
-      Uniswap V2
+      Add <FormattedCoinAmountManaged rawAmount={expectedAmountBaseRaw} coinId={baseCoinId} sigFigs={3} /> and{' '}
+      <FormattedCoinAmountManaged rawAmount={expectedAmountQuoteRaw} coinId={quoteCoinId} sigFigs={3} /> to Uniswap V2
     </Trans>
   )
 }
@@ -114,14 +113,14 @@ function SwapSummary({ info }: { info: ExactInputSwapTransactionInfo | ExactOutp
   //     <Trans>
   //       Swap exactly{' '}
   //       <FormattedCoinAmountManaged
-  //         rawAmount={info.inputCurrencyAmountRaw}
-  //         currencyId={info.inputCurrencyId}
+  //         rawAmount={info.inputCoinAmountRaw}
+  //         coinId={info.inputCoinId}
   //         sigFigs={6}
   //       />{' '}
   //       for{' '}
   //       <FormattedCoinAmountManaged
-  //         rawAmount={info.expectedOutputCurrencyAmountRaw}
-  //         currencyId={info.outputCurrencyId}
+  //         rawAmount={info.expectedoutputCoinAmountRaw}
+  //         coinId={info.outputCoinId}
   //         sigFigs={6}
   //       />
   //     </Trans>
@@ -131,14 +130,14 @@ function SwapSummary({ info }: { info: ExactInputSwapTransactionInfo | ExactOutp
   //     <Trans>
   //       Swap{' '}
   //       <FormattedCoinAmountManaged
-  //         rawAmount={info.expectedInputCurrencyAmountRaw}
-  //         currencyId={info.inputCurrencyId}
+  //         rawAmount={info.expectedinputCoinAmountRaw}
+  //         coinId={info.inputCoinId}
   //         sigFigs={6}
   //       />{' '}
   //       for exactly{' '}
   //       <FormattedCoinAmountManaged
-  //         rawAmount={info.outputCurrencyAmountRaw}
-  //         currencyId={info.outputCurrencyId}
+  //         rawAmount={info.outputCoinAmountRaw}
+  //         coinId={info.outputCoinId}
   //         sigFigs={6}
   //       />
   //     </Trans>

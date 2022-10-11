@@ -1,6 +1,6 @@
 import { Decimal } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
-import { Trade } from 'hooks/useBestTrade'
+import { BestTrade } from 'hooks/useBestTrade'
 import { ReactNode } from 'react'
 import { Text } from 'rebass'
 
@@ -18,9 +18,9 @@ export default function SwapModalFooter({
   disabledConfirm,
   swapQuoteReceivedDate,
 }: {
-  trade: Trade
+  trade: BestTrade
   txHash: string | undefined
-  allowedSlippage: Decimal
+  allowedSlippage: number
   onConfirm: () => void
   swapErrorMessage: ReactNode | undefined
   disabledConfirm: boolean

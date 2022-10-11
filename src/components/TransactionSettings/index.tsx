@@ -1,15 +1,8 @@
-import { Decimal } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
 import { DEFAULT_DEADLINE_FROM_NOW } from 'constants/misc'
-import ms from 'ms.macro'
 import { darken } from 'polished'
 import { useContext, useState } from 'react'
-import {
-  useChainId,
-  useSetUserSlippageTolerance,
-  useUserSlippageTolerance,
-  useUserTransactionTTL,
-} from 'state/user/hooks'
+import { useSetUserSlippageTolerance, useUserSlippageTolerance, useUserTransactionTTL } from 'state/user/hooks'
 import styled, { ThemeContext } from 'styled-components/macro'
 
 import { ThemedText } from '../../theme'
@@ -45,7 +38,7 @@ const FancyButton = styled.button`
 `
 
 const Option = styled(FancyButton)<{ active: boolean }>`
-  margin-right: 8px;
+  margin-right: 4px;
   :hover {
     cursor: pointer;
   }
@@ -96,13 +89,12 @@ const SlippageEmojiContainer = styled.span`
 `
 
 interface TransactionSettingsProps {
-  placeholderSlippage: Decimal // varies according to the context in which the settings dialog is placed
+  placeholderSlippage: number // varies according to the context in which the settings dialog is placed
 }
 
-const THREE_DAYS_IN_SECONDS = ms`3 days` / 1000
+const DEFAULT_TOLERANCE = 50 // 50 BP = 0.5%
 
 export default function TransactionSettings({ placeholderSlippage }: TransactionSettingsProps) {
-  const chainId = useChainId()
   const theme = useContext(ThemeContext)
 
   const userSlippageTolerance = useUserSlippageTolerance()
@@ -122,23 +114,23 @@ export default function TransactionSettings({ placeholderSlippage }: Transaction
     setSlippageError(false)
 
     if (value.length === 0) {
-      setUserSlippageTolerance('auto')
+      setUserSlippageTolerance(DEFAULT_TOLERANCE)
     } else {
-      const parsed = Math.floor(Number.parseFloat(value) * 100)
+      const parsed = Math.floor(Number.parseFloat(value) * 100) // unit: 1BP
 
       if (!Number.isInteger(parsed) || parsed < 0 || parsed > 5000) {
-        setUserSlippageTolerance('auto')
+        setUserSlippageTolerance(DEFAULT_TOLERANCE)
         if (value !== '.') {
           setSlippageError(SlippageError.InvalidInput)
         }
       } else {
-        setUserSlippageTolerance(new Decimal(parsed).div(10000))
+        setUserSlippageTolerance(parsed)
       }
     }
   }
 
-  const tooLow = userSlippageTolerance !== 'auto' && userSlippageTolerance.lessThan(new Decimal(5).div(10000))
-  const tooHigh = userSlippageTolerance !== 'auto' && userSlippageTolerance.greaterThan(new Decimal(1).div(100))
+  const tooLow = userSlippageTolerance < 5 // 0.05%
+  const tooHigh = userSlippageTolerance > 500 // 5%
 
   function parseCustomDeadline(value: string) {
     // populate what the user typed and clear the error
@@ -149,8 +141,8 @@ export default function TransactionSettings({ placeholderSlippage }: Transaction
       setDeadline(DEFAULT_DEADLINE_FROM_NOW)
     } else {
       try {
-        const parsed: number = Math.floor(Number.parseFloat(value) * 60)
-        if (!Number.isInteger(parsed) || parsed < 60 || parsed > THREE_DAYS_IN_SECONDS) {
+        const parsed: number = Math.floor(Number.parseFloat(value))
+        if (!Number.isInteger(parsed) || parsed < 30 || parsed > 1800) {
           setDeadlineError(DeadlineError.InvalidInput)
         } else {
           setDeadline(parsed)
@@ -162,7 +154,7 @@ export default function TransactionSettings({ placeholderSlippage }: Transaction
     }
   }
 
-  const showCustomDeadlineRow = false
+  const showCustomDeadlineRow = true
 
   return (
     <AutoColumn gap="md">
@@ -180,13 +172,33 @@ export default function TransactionSettings({ placeholderSlippage }: Transaction
         <RowBetween>
           <Option
             onClick={() => {
-              parseSlippageInput('')
+              parseSlippageInput('0.5')
             }}
-            active={userSlippageTolerance === 'auto'}
+            active={userSlippageTolerance === 50}
           >
-            <Trans>Auto</Trans>
+            <Trans>0.5%</Trans>
           </Option>
-          <OptionCustom active={userSlippageTolerance !== 'auto'} warning={!!slippageError} tabIndex={-1}>
+          <Option
+            onClick={() => {
+              parseSlippageInput('1.0')
+            }}
+            active={userSlippageTolerance === 100}
+          >
+            <Trans>1.0%</Trans>
+          </Option>
+          <Option
+            onClick={() => {
+              parseSlippageInput('2.0')
+            }}
+            active={userSlippageTolerance === 200}
+          >
+            <Trans>2.0%</Trans>
+          </Option>
+          <OptionCustom
+            active={[50, 100, 200].indexOf(userSlippageTolerance) === -1}
+            warning={!!slippageError}
+            tabIndex={-1}
+          >
             <RowBetween>
               {tooLow || tooHigh ? (
                 <SlippageEmojiContainer>
@@ -196,13 +208,13 @@ export default function TransactionSettings({ placeholderSlippage }: Transaction
                 </SlippageEmojiContainer>
               ) : null}
               <Input
-                placeholder={placeholderSlippage.toFixed(2)}
+                placeholder={'Custom'}
                 value={
                   slippageInput.length > 0
                     ? slippageInput
-                    : userSlippageTolerance === 'auto'
-                    ? ''
-                    : userSlippageTolerance.toFixed(2)
+                    : [50, 100, 200].indexOf(userSlippageTolerance) === -1
+                    ? (userSlippageTolerance / 100).toFixed(2)
+                    : ''
                 }
                 onChange={(e) => parseSlippageInput(e.target.value)}
                 onBlur={() => {
@@ -247,13 +259,13 @@ export default function TransactionSettings({ placeholderSlippage }: Transaction
           <RowFixed>
             <OptionCustom style={{ width: '80px' }} warning={!!deadlineError} tabIndex={-1}>
               <Input
-                placeholder={(DEFAULT_DEADLINE_FROM_NOW / 60).toString()}
+                placeholder={Math.floor(DEFAULT_DEADLINE_FROM_NOW).toString()}
                 value={
                   deadlineInput.length > 0
                     ? deadlineInput
                     : deadline === DEFAULT_DEADLINE_FROM_NOW
                     ? ''
-                    : (deadline / 60).toString()
+                    : deadline.toString()
                 }
                 onChange={(e) => parseCustomDeadline(e.target.value)}
                 onBlur={() => {
@@ -264,7 +276,7 @@ export default function TransactionSettings({ placeholderSlippage }: Transaction
               />
             </OptionCustom>
             <ThemedText.DeprecatedBody style={{ paddingLeft: '8px' }} fontSize={14}>
-              <Trans>minutes</Trans>
+              <Trans>Seconds</Trans>
             </ThemedText.DeprecatedBody>
           </RowFixed>
         </AutoColumn>

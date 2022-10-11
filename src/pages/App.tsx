@@ -1,7 +1,6 @@
 import Loader from 'components/Loader'
 import TopLevelModals from 'components/TopLevelModals'
 import { useFeatureFlagsIsLoaded } from 'featureFlags'
-import ApeModeQueryParamReader from 'hooks/useApeModeQueryParamReader'
 import { Suspense, useEffect } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import styled from 'styled-components/macro'
@@ -83,7 +82,6 @@ export default function App() {
   return (
     <ErrorBoundary>
       <DarkModeQueryParamReader />
-      <ApeModeQueryParamReader />
       <AppWrapper>
         <HeaderWrapper>
           <Header />
@@ -100,10 +98,10 @@ export default function App() {
                 <Route path="pool/find" element={<PoolFinder />} />
                 <Route path="pool" element={<PoolV2 />} />
                 <Route path="add" element={<RedirectDuplicateTokenIds />}>
-                  <Route path=":currencyIdA" />
-                  <Route path=":currencyIdA/:currencyIdB" />
+                  <Route path=":coinIdA" />
+                  <Route path=":coinIdA/:coinIdB" />
                 </Route>
-                <Route path="remove/:currencyIdA/:currencyIdB" element={<RemoveLiquidity />} />
+                <Route path="remove/:coinIdA/:coinIdB" element={<RemoveLiquidity />} />
 
                 <Route path="explore" element={<Explore />} />
 

@@ -27,5 +27,6 @@ export function switchChain(connection: ConnectionType, chainId: SupportedChainI
     throw new Error(`Chain ${chainId} not supported for connection (${connection})`)
   }
   ConnectionInstance.renewAptosClient(connection, chainId)
+  ConnectionInstance.renewSDK(connection, chainId)
   store.dispatch(updateChainId({ chainId }))
 }

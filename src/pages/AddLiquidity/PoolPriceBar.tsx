@@ -1,4 +1,4 @@
-import { Decimal } from '@animeswap.org/v1-sdk'
+import { Decimal, Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
 import { Coin, Price } from 'hooks/common/Coin'
 import { useContext } from 'react'
@@ -7,7 +7,7 @@ import { ThemeContext } from 'styled-components/macro'
 
 import { AutoColumn } from '../../components/Column'
 import { AutoRow } from '../../components/Row'
-import { ONE_BIPS } from '../../constants/misc'
+import { BP } from '../../constants/misc'
 import { Field } from '../../state/mint/actions'
 import { ThemedText } from '../../theme'
 
@@ -48,7 +48,7 @@ export function PoolPriceBar({
           <ThemedText.DeprecatedBlack>
             {noLiquidity && price
               ? '100'
-              : (poolTokenPercentage?.lessThan(ONE_BIPS) ? '<0.01' : poolTokenPercentage?.toFixed(2)) ?? '0'}
+              : (poolTokenPercentage?.lessThan(BP) ? '<0.01' : poolTokenPercentage?.toFixed(2)) ?? '0'}
             %
           </ThemedText.DeprecatedBlack>
           <Text fontWeight={500} fontSize={14} color={theme.deprecated_text2} pt={1}>

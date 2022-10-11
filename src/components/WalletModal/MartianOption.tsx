@@ -7,17 +7,19 @@ import Option from './Option'
 const BASE_PROPS = {
   color: '#6748FF',
   icon: MARTIAN_ICON_URL,
-  id: 'martian',
+  id: 'martian-option',
 }
 
 export default function MartianOption() {
   const account = useAccount()
   const walletType = useWallet()
   const isActive = walletType === WalletType.MARTIAN && account !== undefined
+  const isInstall = 'martian' in window
   return (
     <Option
       {...BASE_PROPS}
       isActive={isActive}
+      isInstall={isInstall}
       onClick={async () => {
         if ('martian' in window) {
           await ConnectMartian()

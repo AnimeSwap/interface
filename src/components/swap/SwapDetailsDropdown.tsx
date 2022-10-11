@@ -1,4 +1,3 @@
-import { Decimal } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
 import AnimatedDropdown from 'components/AnimatedDropdown'
 import Card, { OutlineCard } from 'components/Card'
@@ -6,7 +5,7 @@ import { AutoColumn } from 'components/Column'
 import { LoadingOpacityContainer } from 'components/Loader/styled'
 import Row, { RowBetween, RowFixed } from 'components/Row'
 import { MouseoverTooltipContent } from 'components/Tooltip'
-import { Trade } from 'hooks/useBestTrade'
+import { BestTrade } from 'hooks/useBestTrade'
 import { darken } from 'polished'
 import { useState } from 'react'
 import { ChevronDown, Info } from 'react-feather'
@@ -108,12 +107,12 @@ const Spinner = styled.div`
 `
 
 interface SwapDetailsInlineProps {
-  trade: Trade | undefined
+  trade: BestTrade | undefined
   syncing: boolean
   loading: boolean
   showInverted: boolean
   setShowInverted: React.Dispatch<React.SetStateAction<boolean>>
-  allowedSlippage: Decimal
+  allowedSlippage: number
 }
 
 export default function SwapDetailsDropdown({
@@ -133,16 +132,38 @@ export default function SwapDetailsDropdown({
       <AutoColumn gap={'8px'} style={{ width: '100%', marginBottom: '-8px' }}>
         <StyledHeaderRow onClick={() => setShowDetails(!showDetails)} disabled={!trade} open={showDetails}>
           <RowFixed style={{ position: 'relative' }}>
-            {loading && (
+            {loading || syncing ? (
               <StyledPolling>
                 <StyledPollingDot>
                   <Spinner />
                 </StyledPollingDot>
               </StyledPolling>
+            ) : (
+              <HideSmall>
+                <MouseoverTooltipContent
+                  wrap={false}
+                  content={
+                    <ResponsiveTooltipContainer origin="top right" style={{ padding: '0' }}>
+                      <Card padding="12px">
+                        <AdvancedSwapDetails
+                          trade={trade}
+                          allowedSlippage={allowedSlippage}
+                          syncing={syncing}
+                          hideInfoTooltips={true}
+                        />
+                      </Card>
+                    </ResponsiveTooltipContainer>
+                  }
+                  placement="bottom"
+                  disableHover={showDetails}
+                >
+                  <StyledInfoIcon color={trade ? theme.deprecated_text3 : theme.deprecated_bg3} />
+                </MouseoverTooltipContent>
+              </HideSmall>
             )}
             {trade && !loading && !syncing ? (
               <LoadingOpacityContainer $loading={syncing}>
-                <TradePrice trade={trade} />
+                <TradePrice trade={trade} showInverted={showInverted} setShowInverted={setShowInverted} />
               </LoadingOpacityContainer>
             ) : loading || syncing ? (
               <ThemedText.DeprecatedMain fontSize={14}>
@@ -150,8 +171,8 @@ export default function SwapDetailsDropdown({
               </ThemedText.DeprecatedMain>
             ) : null}
           </RowFixed>
-          {/* <RowFixed>
-              {!trade?.gasUseEstimateUSD ||
+          <RowFixed>
+            {/* {!trade?.gasUseEstimateUSD ||
               showDetails ||
               !chainId ||
               !SUPPORTED_GAS_ESTIMATE_CHAIN_IDS.includes(chainId) ? null : (
@@ -161,22 +182,22 @@ export default function SwapDetailsDropdown({
                   showRoute={!showDetails}
                   disableHover={showDetails}
                 />
-              )}
-              <RotatingArrow
-                stroke={trade ? theme.deprecated_text3 : theme.deprecated_bg3}
-                open={Boolean(trade && showDetails)}
-              />
-            </RowFixed> */}
+              )} */}
+            <RotatingArrow
+              stroke={trade ? theme.deprecated_text3 : theme.deprecated_bg3}
+              open={Boolean(trade && showDetails)}
+            />
+          </RowFixed>
         </StyledHeaderRow>
         <AnimatedDropdown open={showDetails}>
-          {/* <AutoColumn gap={'8px'} style={{ padding: '0', paddingBottom: '8px' }}>
+          <AutoColumn gap={'8px'} style={{ padding: '0', paddingBottom: '8px' }}>
             {trade ? (
               <StyledCard>
                 <AdvancedSwapDetails trade={trade} allowedSlippage={allowedSlippage} syncing={syncing} />
               </StyledCard>
             ) : null}
             {trade ? <SwapRoute trade={trade} syncing={syncing} /> : null}
-          </AutoColumn> */}
+          </AutoColumn>
         </AnimatedDropdown>
       </AutoColumn>
     </Wrapper>

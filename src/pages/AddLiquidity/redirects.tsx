@@ -3,10 +3,10 @@ import { Navigate, useParams } from 'react-router-dom'
 import AddLiquidity from './index'
 
 export function RedirectDuplicateTokenIds() {
-  const { currencyIdA, currencyIdB } = useParams<{ currencyIdA: string; currencyIdB: string }>()
+  const { coinIdA, coinIdB } = useParams<{ coinIdA: string; coinIdB: string }>()
 
-  if (currencyIdA && currencyIdB && currencyIdA.toLowerCase() === currencyIdB.toLowerCase()) {
-    return <Navigate to={`/add/${currencyIdA}`} replace />
+  if (coinIdA && coinIdB && coinIdA.toLowerCase() === coinIdB.toLowerCase()) {
+    return <Navigate to={`/add/${coinIdA}`} replace />
   }
 
   return <AddLiquidity />

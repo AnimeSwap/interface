@@ -12,7 +12,7 @@ const StyledSwapHeader = styled.div`
   color: ${({ theme }) => theme.deprecated_text2};
 `
 
-export default function SwapHeader({ allowedSlippage }: { allowedSlippage: Decimal }) {
+export default function SwapHeader({ allowedSlippage }: { allowedSlippage: number }) {
   return (
     <StyledSwapHeader>
       <RowBetween>

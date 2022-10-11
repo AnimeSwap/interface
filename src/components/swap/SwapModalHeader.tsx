@@ -1,6 +1,6 @@
 import { Decimal } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
-import { Trade } from 'hooks/useBestTrade'
+import { BestTrade } from 'hooks/useBestTrade'
 import { useContext, useEffect, useState } from 'react'
 import { AlertTriangle, ArrowDown } from 'react-feather'
 import { Text } from 'rebass'
@@ -45,10 +45,10 @@ export default function SwapModalHeader({
   showAcceptChanges,
   onAcceptChanges,
 }: {
-  trade: Trade
+  trade: BestTrade
   shouldLogModalCloseEvent: boolean
   setShouldLogModalCloseEvent: (shouldLog: boolean) => void
-  allowedSlippage: Decimal
+  allowedSlippage: number
   recipient: string | null
   showAcceptChanges: boolean
   onAcceptChanges: () => void
@@ -74,7 +74,7 @@ export default function SwapModalHeader({
                 // color={showAcceptChanges && trade.tradeType === TradeType.EXACT_OUTPUT ? theme.deprecated_primary1 : ''}
                 color={showAcceptChanges && theme.deprecated_primary1}
               >
-                {trade.inputAmount.mul(new Decimal(10).pow(-trade?.inputCoin?.decimals)).toString()}{' '}
+                {trade.inputAmount.pretty(6)}{' '}
               </TruncatedText>
             </RowFixed>
             <RowFixed gap={'0px'}>
@@ -97,7 +97,7 @@ export default function SwapModalHeader({
           <RowBetween align="flex-end">
             <RowFixed gap={'0px'}>
               <TruncatedText fontSize={24} fontWeight={500}>
-                {trade.outputAmount.mul(new Decimal(10).pow(-trade?.outputCoin?.decimals)).toString()}{' '}
+                {trade.outputAmount.pretty(6)}{' '}
               </TruncatedText>
             </RowFixed>
             <RowFixed gap={'0px'}>
@@ -117,12 +117,12 @@ export default function SwapModalHeader({
           </RowBetween> */}
         </AutoColumn>
       </LightCard>
-      {/* <RowBetween style={{ marginTop: '0.25rem', padding: '0 1rem' }}>
-        <TradePrice price={trade.executionPrice} showInverted={showInverted} setShowInverted={setShowInverted} />
-      </RowBetween> */}
-      {/* <LightCard style={{ padding: '.75rem', marginTop: '0.5rem' }}>
+      <RowBetween style={{ marginTop: '0.25rem', padding: '0 1rem' }}>
+        <TradePrice trade={trade} showInverted={showInverted} setShowInverted={setShowInverted} />
+      </RowBetween>
+      <LightCard style={{ padding: '.75rem', marginTop: '0.5rem' }}>
         <AdvancedSwapDetails trade={trade} allowedSlippage={allowedSlippage} />
-      </LightCard> */}
+      </LightCard>
       {/* {showAcceptChanges ? (
         <SwapShowAcceptChanges justify="flex-start" gap={'0px'}>
           <RowBetween>
@@ -147,23 +147,15 @@ export default function SwapModalHeader({
         {true ? (
           <ThemedText.DeprecatedItalic fontWeight={400} textAlign="left" style={{ width: '100%' }}>
             <Trans>
-              Output is estimated. You will receive at least{' '}
-              <b>
-                {trade.miniumAmountOut.mul(new Decimal(10).pow(-trade?.outputCoin?.decimals)).toString()}{' '}
-                {trade.outputCoin.symbol}
-              </b>{' '}
-              or the transaction will revert.
+              Output is estimated. You will receive at least <b>{trade.miniumAmountOut.prettyWithSymbol(6)}</b> or the
+              transaction will revert.
             </Trans>
           </ThemedText.DeprecatedItalic>
         ) : (
           <ThemedText.DeprecatedItalic fontWeight={400} textAlign="left" style={{ width: '100%' }}>
             <Trans>
-              Input is estimated. You will sell at most{' '}
-              <b>
-                {trade.maximumAmountIn.mul(new Decimal(10).pow(-trade?.inputCoin?.decimals)).toString()}{' '}
-                {trade.inputCoin.symbol}
-              </b>{' '}
-              or the transaction will revert.
+              Input is estimated. You will sell at most <b>{trade.maximumAmountIn.prettyWithSymbol(6)}</b> or the
+              transaction will revert.
             </Trans>
           </ThemedText.DeprecatedItalic>
         )}

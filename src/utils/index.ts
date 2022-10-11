@@ -3,7 +3,16 @@ import { SupportedChainId } from '../constants/chains'
 // returns the checksummed address if the address is valid, otherwise returns false
 export function isAddress(value: any): string | false {
   try {
-    return value.match(/^(0x)?[0-9a-fA-F]{62,}$/) ? value : false
+    return value.match(/^(0x)?[0-9a-fA-F]{60,}$/) ? value : false
+  } catch {
+    return false
+  }
+}
+
+// Azard: not very strict check
+export function isCoinAddress(value: any): string | false {
+  try {
+    return value.match(/0x[0-9a-zA-Z:]{10,}$/) ? value : false
   } catch {
     return false
   }

@@ -1,19 +1,20 @@
 import { Decimal, Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
-import { Trade, TradeType, useAnimeSwapTempTrade } from 'hooks/useBestTrade'
+import { getChainInfoOrDefault } from 'constants/chainInfo'
+import { BestTrade, TradeType, useBestTrade } from 'hooks/useBestTrade'
 import { TradeState } from 'hooks/useBestTrade'
 import { ParsedQs } from 'qs'
 import { ReactNode, useCallback, useEffect, useMemo } from 'react'
 import { useAppDispatch, useAppSelector } from 'state/hooks'
-import { useChainId, useUserSlippageToleranceWithDefault } from 'state/user/hooks'
-import { useAccount, useAllCoinBalance, useCoinBalance } from 'state/wallets/hooks'
+import { useChainId, useUserSlippageTolerance, useUserTransactionTTL } from 'state/user/hooks'
+import { useAccount, useCoinBalance } from 'state/wallets/hooks'
 import { tryParseCoinAmount } from 'utils/tryParseCoinAmount'
 
 import { Coin, useCoin } from '../../hooks/common/Coin'
 import useParsedQueryString from '../../hooks/useParsedQueryString'
-import { isAddress } from '../../utils'
+import { isAddress, isCoinAddress } from '../../utils'
 import { AppState } from '../index'
-import { Field, replaceSwapState, selectCurrency, setRecipient, switchCurrencies, typeInput } from './actions'
+import { Field, replaceSwapState, selectCoin, setRecipient, switchCoins, typeInput } from './actions'
 import { SwapState } from './reducer'
 
 export function useSwapState(): AppState['swap'] {
@@ -30,9 +31,9 @@ export function useSwapActionHandlers(): {
   const onCoinSelection = useCallback(
     (field: Field, currency: Coin) => {
       dispatch(
-        selectCurrency({
+        selectCoin({
           field,
-          currencyId: currency.address,
+          coinId: currency.address,
         })
       )
     },
@@ -40,7 +41,7 @@ export function useSwapActionHandlers(): {
   )
 
   const onSwitchCoins = useCallback(() => {
-    dispatch(switchCurrencies())
+    dispatch(switchCoins())
   }, [dispatch])
 
   const onUserInput = useCallback(
@@ -67,32 +68,37 @@ export function useSwapActionHandlers(): {
 
 // from the current swap inputs, compute the best trade and return it.
 export function useDerivedSwapInfo(): {
-  coins: { [field in Field]?: Coin | null }
-  coinBalances: { [field in Field]?: Decimal }
+  inputCoin: Coin | null
+  outputCoin: Coin | null
+  inputCoinBalance: Decimal
+  outputCoinBalance: Decimal
   isExactIn: boolean
   parsedAmount: Decimal
   inputError?: ReactNode
   trade: {
-    state: TradeState
-    trade: Trade
+    bestTrade: BestTrade
+    tradeState: TradeState
   }
-  allowedSlippage: Decimal
+  allowedSlippage: number
+  deadline: number
+  toAddress: string
 } {
   const account = useAccount()
-  const allCoinBalances = useAllCoinBalance()
-
   const {
     independentField,
     typedValue,
-    [Field.INPUT]: { currencyId: inputCurrencyId },
-    [Field.OUTPUT]: { currencyId: outputCurrencyId },
+    [Field.INPUT]: { coinId: inputCoinId },
+    [Field.OUTPUT]: { coinId: outputCoinId },
     recipient,
   } = useSwapState()
+  const inputCoin = useCoin(inputCoinId)
+  const outputCoin = useCoin(outputCoinId)
+  const inputCoinBalance = Utils.d(useCoinBalance(inputCoin?.address))
+  const outputCoinBalance = Utils.d(useCoinBalance(outputCoin?.address))
+  const allowedSlippage = useUserSlippageTolerance()
+  const deadline = useUserTransactionTTL()[0]
 
-  const inputCoin = useCoin(inputCurrencyId)
-  const outputCoin = useCoin(outputCurrencyId)
-
-  const to: string | null = (recipient === null ? account : recipient) ?? null
+  const toAddress: string | null = (recipient === null ? account : recipient) ?? null
 
   const isExactIn: boolean = independentField === Field.INPUT
 
@@ -101,30 +107,15 @@ export function useDerivedSwapInfo(): {
     [inputCoin, isExactIn, outputCoin, typedValue]
   )
 
-  const trade = useAnimeSwapTempTrade(
+  const trade = useBestTrade(
     isExactIn ? TradeType.EXACT_INPUT : TradeType.EXACT_OUTPUT,
     parsedAmount,
     inputCoin,
-    outputCoin
+    outputCoin,
+    toAddress,
+    allowedSlippage,
+    deadline
   )
-
-  const coinBalances = useMemo(
-    () => ({
-      [Field.INPUT]: Utils.d(allCoinBalances[inputCoin?.address]),
-      [Field.OUTPUT]: Utils.d(allCoinBalances[outputCoin?.address]),
-    }),
-    [allCoinBalances, inputCoin, outputCoin]
-  )
-
-  const coins: { [field in Field]?: Coin | null } = useMemo(
-    () => ({
-      [Field.INPUT]: inputCoin,
-      [Field.OUTPUT]: outputCoin,
-    }),
-    [inputCoin, outputCoin]
-  )
-
-  const allowedSlippage = Utils.d(50).div(10000)
 
   const inputError = useMemo(() => {
     let inputError: ReactNode | undefined
@@ -133,48 +124,60 @@ export function useDerivedSwapInfo(): {
       inputError = <Trans>Connect Wallet</Trans>
     }
 
-    if (!coins[Field.INPUT] || !coins[Field.OUTPUT]) {
+    if (!inputCoin || !outputCoin) {
       inputError = inputError ?? <Trans>Select a coin</Trans>
     }
 
-    if (!parsedAmount) {
+    if (!parsedAmount || parsedAmount.lte(0)) {
       inputError = inputError ?? <Trans>Enter an amount</Trans>
     }
 
-    const formattedTo = isAddress(to)
-    if (!to || !formattedTo) {
+    const formattedToAddress = isAddress(toAddress)
+    if (!toAddress || !formattedToAddress) {
       inputError = inputError ?? <Trans>Enter a recipient</Trans>
     }
     // compare input balance to max input based on version
-    const [balanceIn, amountIn] = [coinBalances[Field.INPUT], trade.trade?.maximumAmountIn]
-    if (balanceIn && amountIn && balanceIn < amountIn) {
+    const [balanceIn, amountIn] = [inputCoinBalance, trade.bestTrade?.maximumAmountIn]
+    if (balanceIn && amountIn && balanceIn.lt(amountIn.amount)) {
       inputError = <Trans>Insufficient {inputCoin.symbol} balance</Trans>
     }
 
-    if (trade.state === TradeState.NO_ROUTE_FOUND) {
-      inputError = inputError ?? <Trans>No route found</Trans>
-    }
-
     return inputError
-  }, [account, allowedSlippage, coins, coinBalances, parsedAmount, to, trade.trade])
+  }, [account, allowedSlippage, inputCoin, outputCoin, inputCoinBalance, parsedAmount, toAddress, trade])
 
   return useMemo(
     () => ({
-      coins,
-      coinBalances,
+      inputCoin,
+      outputCoin,
+      inputCoinBalance,
+      outputCoinBalance,
       isExactIn,
       parsedAmount,
       inputError,
       trade,
       allowedSlippage,
+      deadline,
+      toAddress,
     }),
-    [allowedSlippage, coins, isExactIn, inputError, parsedAmount, trade]
+    [
+      inputCoin,
+      outputCoin,
+      inputCoinBalance,
+      outputCoinBalance,
+      isExactIn,
+      inputError,
+      parsedAmount,
+      trade,
+      allowedSlippage,
+      deadline,
+      toAddress,
+    ]
   )
 }
 
-function parseCurrencyFromURLParameter(urlParam: ParsedQs[string]): string {
+function parseCoinFromURLParameter(urlParam: ParsedQs[string]): string {
   if (typeof urlParam === 'string') {
-    const valid = isAddress(urlParam)
+    const valid = isCoinAddress(urlParam)
     if (valid) return valid
   }
   return ''
@@ -188,38 +191,32 @@ function parseIndependentFieldURLParameter(urlParam: any): Field {
   return typeof urlParam === 'string' && urlParam.toLowerCase() === 'output' ? Field.OUTPUT : Field.INPUT
 }
 
-const ENS_NAME_REGEX = /^[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)?$/
-const ADDRESS_REGEX = /^0x[a-fA-F0-9]{40}$/
 function validatedRecipient(recipient: any): string | null {
   if (typeof recipient !== 'string') return null
   const address = isAddress(recipient)
   if (address) return address
-  if (ENS_NAME_REGEX.test(recipient)) return recipient
-  if (ADDRESS_REGEX.test(recipient)) return recipient
   return null
 }
 
 export function queryParametersToSwapState(parsedQs: ParsedQs): SwapState {
-  let inputCurrency = parseCurrencyFromURLParameter(parsedQs.inputCurrency)
-  let outputCurrency = parseCurrencyFromURLParameter(parsedQs.outputCurrency)
+  let inputCoin = parseCoinFromURLParameter(parsedQs.inputCoin)
+  let outputCoin = parseCoinFromURLParameter(parsedQs.outputCoin)
   const typedValue = parseTokenAmountURLParameter(parsedQs.exactAmount)
   const independentField = parseIndependentFieldURLParameter(parsedQs.exactField)
-  if (inputCurrency === '' && outputCurrency === '' && typedValue === '' && independentField === Field.INPUT) {
-    // Defaults to having the native currency selected
-    inputCurrency = '0x1::aptos_coin::AptosCoin' // default to APT
-  } else if (inputCurrency === outputCurrency) {
+  if (inputCoin === '' && outputCoin === '' && typedValue === '' && independentField === Field.INPUT) {
+    // Defaults to having the native coin selected
+    inputCoin = getChainInfoOrDefault(undefined).nativeCoin.address
+  } else if (inputCoin === outputCoin) {
     // clear output if identical
-    outputCurrency = ''
+    outputCoin = ''
   }
-
   const recipient = validatedRecipient(parsedQs.recipient)
-
   return {
     [Field.INPUT]: {
-      currencyId: inputCurrency === '' ? null : inputCurrency ?? null,
+      coinId: inputCoin === '' ? null : inputCoin ?? null,
     },
     [Field.OUTPUT]: {
-      currencyId: outputCurrency === '' ? null : outputCurrency ?? null,
+      coinId: outputCoin === '' ? null : outputCoin ?? null,
     },
     typedValue,
     independentField,
@@ -227,7 +224,6 @@ export function queryParametersToSwapState(parsedQs: ParsedQs): SwapState {
   }
 }
 
-// Azard: init swap token
 // updates the swap state to use the defaults for a given network
 export function useDefaultsFromURLSearch(): SwapState {
   const chainId = useChainId()
@@ -240,15 +236,15 @@ export function useDefaultsFromURLSearch(): SwapState {
 
   useEffect(() => {
     if (!chainId) return
-    const inputCurrencyId = parsedSwapState[Field.INPUT].currencyId ?? undefined
-    const outputCurrencyId = parsedSwapState[Field.OUTPUT].currencyId ?? undefined
+    const inputCoinId = parsedSwapState[Field.INPUT].coinId ?? undefined
+    const outputCoinId = parsedSwapState[Field.OUTPUT].coinId ?? undefined
 
     dispatch(
       replaceSwapState({
         typedValue: parsedSwapState.typedValue,
         field: parsedSwapState.independentField,
-        inputCurrencyId,
-        outputCurrencyId,
+        inputCoinId,
+        outputCoinId,
         recipient: parsedSwapState.recipient,
       })
     )

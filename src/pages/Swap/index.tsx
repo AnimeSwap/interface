@@ -1,12 +1,13 @@
-import { Decimal } from '@animeswap.org/v1-sdk'
+import { Decimal, Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
 import { sendEvent } from 'components/analytics'
 // import PriceImpactWarning from 'components/swap/PriceImpactWarning'
 import SwapDetailsDropdown from 'components/swap/SwapDetailsDropdown'
 import { MouseoverTooltip } from 'components/Tooltip'
 import { isSupportedChain } from 'constants/chains'
+import { BP } from 'constants/misc'
 import { Coin } from 'hooks/common/Coin'
-import { Trade, TradeState } from 'hooks/useBestTrade'
+import { BestTrade, TradeState, TradeType } from 'hooks/useBestTrade'
 import { Context, useCallback, useContext, useMemo, useState } from 'react'
 import { ArrowDown, HelpCircle } from 'react-feather'
 import { Text } from 'rebass'
@@ -26,7 +27,12 @@ import { ArrowWrapper, SwapCallbackError, Wrapper } from '../../components/swap/
 import SwapHeader from '../../components/swap/SwapHeader'
 import { SwitchLocaleLink } from '../../components/SwitchLocaleLink'
 import { Field } from '../../state/swap/actions'
-import { useDerivedSwapInfo, useSwapActionHandlers, useSwapState } from '../../state/swap/hooks'
+import {
+  useDefaultsFromURLSearch,
+  useDerivedSwapInfo,
+  useSwapActionHandlers,
+  useSwapState,
+} from '../../state/swap/hooks'
 import { useChainId } from '../../state/user/hooks'
 import { LinkStyledButton, ThemedText } from '../../theme'
 import AppBody from '../AppBody'
@@ -34,7 +40,7 @@ import AppBody from '../AppBody'
 export default function Swap() {
   const account = useAccount()
   const chainId = useChainId()
-
+  const loadedUrlParams = useDefaultsFromURLSearch()
   const theme = useContext(ThemeContext as Context<DefaultTheme>)
 
   // toggle wallet when disconnected
@@ -43,35 +49,35 @@ export default function Swap() {
   // swap state
   const { independentField, typedValue, recipient } = useSwapState()
   const {
-    coins,
-    coinBalances,
+    inputCoin,
+    outputCoin,
+    inputCoinBalance,
+    outputCoinBalance,
     isExactIn,
     parsedAmount,
     inputError: swapInputError,
-    trade: { state: tradeState, trade },
+    trade: { bestTrade, tradeState },
     allowedSlippage,
+    deadline,
+    toAddress,
   } = useDerivedSwapInfo()
 
-  const recipientAddress = recipient
-
   const parsedAmounts = useMemo(() => {
-    const inputDecimal = trade?.inputCoin?.decimals || 0
-    const outDecimal = trade?.outputCoin?.decimals || 0
     return {
       [Field.INPUT]:
         independentField === Field.INPUT
           ? parsedAmount
-          : new Decimal(trade?.inputAmount || 0).mul(new Decimal(10).pow(-inputDecimal)),
+          : Utils.d(bestTrade?.inputAmount.amount).div(Utils.pow10(inputCoin?.decimals || 0)),
       [Field.OUTPUT]:
         independentField === Field.OUTPUT
           ? parsedAmount
-          : new Decimal(trade?.outputAmount || 0).mul(new Decimal(10).pow(-outDecimal)),
+          : Utils.d(bestTrade?.outputAmount.amount).div(Utils.pow10(outputCoin?.decimals || 0)),
     }
-  }, [independentField, parsedAmount, trade])
+  }, [independentField, parsedAmount, bestTrade])
 
   const [routeNotFound, routeIsLoading, routeIsSyncing] = useMemo(
     () => [TradeState.INVALID === tradeState, TradeState.LOADING === tradeState, TradeState.SYNCING === tradeState],
-    [trade, tradeState]
+    [bestTrade, tradeState]
   )
 
   const { onSwitchCoins, onCoinSelection, onUserInput, onChangeRecipient } = useSwapActionHandlers()
@@ -94,7 +100,7 @@ export default function Swap() {
   // modal and loading
   const [{ showConfirm, tradeToConfirm, swapErrorMessage, attemptingTxn, txHash }, setSwapState] = useState<{
     showConfirm: boolean
-    tradeToConfirm: Trade | undefined
+    tradeToConfirm: BestTrade | undefined
     attemptingTxn: boolean
     swapErrorMessage: string | undefined
     txHash: string | undefined
@@ -109,19 +115,31 @@ export default function Swap() {
   const formattedAmounts = useMemo(
     () => ({
       [independentField]: typedValue,
-      [dependentField]: parsedAmounts[dependentField]?.toString() ?? '',
+      [dependentField]: parsedAmounts[dependentField]?.toSignificantDigits(6).toString() ?? '',
     }),
     [dependentField, independentField, parsedAmounts, typedValue]
   )
 
   const userHasSpecifiedInputOutput =
-    coins[Field.INPUT] && coins[Field.OUTPUT] && new Decimal(parsedAmounts[independentField] || 0).greaterThan(0)
-  const showMaxButton =
-    (parsedAmounts[Field.INPUT] || 0) < coinBalances[Field.INPUT] && coinBalances[Field.INPUT].toNumber() > 0
+    inputCoin && outputCoin && new Decimal(parsedAmounts[independentField] || 0).greaterThan(0)
 
   const swapCallback = async () => {
     try {
-      const txid = await SignAndSubmitTransaction(tradeToConfirm.transaction)
+      const payload =
+        tradeToConfirm.tradeType === TradeType.EXACT_INPUT
+          ? ConnectionInstance.getSDK().route.swapExactCoinForCoinPayload({
+              trade: tradeToConfirm.sdkTrade,
+              toAddress,
+              slippage: BP.mul(allowedSlippage),
+              deadline,
+            })
+          : ConnectionInstance.getSDK().route.swapCoinForExactCoinPayload({
+              trade: tradeToConfirm.sdkTrade,
+              toAddress,
+              slippage: BP.mul(allowedSlippage),
+              deadline,
+            })
+      const txid = await SignAndSubmitTransaction(payload)
       setTimeout(() => {
         ConnectionInstance.getCoinBalance(account, tradeToConfirm.inputCoin.address)
         ConnectionInstance.getCoinBalance(account, tradeToConfirm.outputCoin.address)
@@ -152,7 +170,7 @@ export default function Swap() {
         txHash: undefined,
       })
     }
-  }, [swapCallback, tradeToConfirm, showConfirm, recipient, recipientAddress, account])
+  }, [swapCallback, tradeToConfirm, showConfirm, recipient, recipient, account])
 
   // errors
   const [showInverted, setShowInverted] = useState<boolean>(false)
@@ -171,32 +189,29 @@ export default function Swap() {
   }, [attemptingTxn, onUserInput, swapErrorMessage, tradeToConfirm, txHash])
 
   const handleAcceptChanges = useCallback(() => {
-    setSwapState({ tradeToConfirm: trade, swapErrorMessage, txHash, attemptingTxn, showConfirm })
-  }, [attemptingTxn, showConfirm, swapErrorMessage, trade, txHash])
+    setSwapState({ tradeToConfirm: bestTrade, swapErrorMessage, txHash, attemptingTxn, showConfirm })
+  }, [attemptingTxn, showConfirm, swapErrorMessage, bestTrade, txHash])
 
   const handleInputSelect = useCallback(
-    (inputCurrency: Coin) => {
-      onCoinSelection(Field.INPUT, inputCurrency)
+    (inputCoin: Coin) => {
+      onCoinSelection(Field.INPUT, inputCoin)
       // update coin balance
-      if (account && inputCurrency) {
-        ConnectionInstance.getCoinBalance(account, inputCurrency.address)
+      if (account && inputCoin) {
+        ConnectionInstance.getCoinBalance(account, inputCoin.address)
       }
     },
     [onCoinSelection, account]
   )
 
   const handleMaxInput = useCallback(() => {
-    const gasReserve = coins[Field.INPUT].symbol === 'APT' ? 500 : 0
-    coinBalances[Field.INPUT] &&
-      onUserInput(
-        Field.INPUT,
-        ((coinBalances[Field.INPUT].toNumber() - gasReserve) / 10 ** coins[Field.INPUT]?.decimals ?? 0).toString()
-      )
+    const gasReserve = inputCoin.symbol === 'APT' ? 500 : 0
+    inputCoinBalance &&
+      onUserInput(Field.INPUT, ((inputCoinBalance.toNumber() - gasReserve) / 10 ** inputCoin?.decimals ?? 0).toString())
     sendEvent({
       category: 'Swap',
       action: 'Max',
     })
-  }, [coins, coinBalances[Field.INPUT], onUserInput])
+  }, [inputCoin, inputCoinBalance, onUserInput])
 
   const handleOutputSelect = useCallback(
     (outputCurrency: Coin) => {
@@ -216,7 +231,7 @@ export default function Swap() {
         <Wrapper id="swap-page">
           <ConfirmSwapModal
             isOpen={showConfirm}
-            trade={trade}
+            trade={bestTrade}
             originalTrade={tradeToConfirm}
             onAcceptChanges={handleAcceptChanges}
             attemptingTxn={attemptingTxn}
@@ -234,15 +249,15 @@ export default function Swap() {
               <CoinInputPanel
                 label={<Trans>From</Trans>}
                 value={formattedAmounts[Field.INPUT]}
-                showMaxButton={showMaxButton}
-                coin={coins[Field.INPUT] ?? null}
+                showMaxButton={inputCoinBalance.gt(0)}
+                coin={inputCoin ?? null}
                 onUserInput={handleTypeInput}
                 onMax={handleMaxInput}
                 fiatValue={undefined}
                 onCoinSelect={handleInputSelect}
-                otherCurrency={coins[Field.OUTPUT]}
+                otherCurrency={outputCoin}
                 showCommonBases={true}
-                id={'CURRENCY_INPUT_PANEL'}
+                id={'COIN_INPUT_PANEL'}
                 loading={independentField === Field.OUTPUT && routeIsSyncing}
               />
               <ArrowWrapper clickable={isSupportedChain(chainId)}>
@@ -251,7 +266,7 @@ export default function Swap() {
                   onClick={() => {
                     onSwitchCoins()
                   }}
-                  color={coins[Field.INPUT] && coins[Field.OUTPUT] ? theme.deprecated_text1 : theme.deprecated_text3}
+                  color={inputCoin && outputCoin ? theme.deprecated_text1 : theme.deprecated_text3}
                 />
               </ArrowWrapper>
               <CoinInputPanel
@@ -261,17 +276,17 @@ export default function Swap() {
                 showMaxButton={false}
                 hideBalance={false}
                 fiatValue={undefined}
-                coin={coins[Field.OUTPUT] ?? null}
+                coin={outputCoin ?? null}
                 onCoinSelect={handleOutputSelect}
-                otherCurrency={coins[Field.INPUT]}
+                otherCurrency={inputCoin}
                 showCommonBases={true}
-                id={'CURRENCY_OUTPUT_PANEL'}
+                id={'COIN_OUTPUT_PANEL'}
                 loading={independentField === Field.INPUT && routeIsSyncing}
               />
             </div>
-            {userHasSpecifiedInputOutput && (trade || routeIsLoading || routeIsSyncing) && (
+            {userHasSpecifiedInputOutput && (bestTrade || routeIsLoading || routeIsSyncing) && (
               <SwapDetailsDropdown
-                trade={trade}
+                trade={bestTrade}
                 syncing={routeIsSyncing}
                 loading={routeIsLoading}
                 showInverted={showInverted}
@@ -294,7 +309,7 @@ export default function Swap() {
                 <ButtonError
                   onClick={() => {
                     setSwapState({
-                      tradeToConfirm: trade,
+                      tradeToConfirm: bestTrade,
                       attemptingTxn: false,
                       swapErrorMessage: undefined,
                       showConfirm: true,

@@ -24,8 +24,19 @@ export class CoinAmount<T extends Coin> {
   pretty(decimals?: number): string {
     return this.amount
       .div(Utils.pow10(this.coin.decimals))
-      .toSignificantDigits(decimals || this.coin.decimals)
+      .toSignificantDigits(decimals || 6)
       .toString()
+  }
+
+  prettyWithSymbol(decimals?: number): string {
+    return (
+      this.amount
+        .div(Utils.pow10(this.coin.decimals))
+        .toSignificantDigits(decimals || 6)
+        .toString() +
+      ' ' +
+      this.coin.symbol
+    )
   }
 }
 
@@ -57,7 +68,6 @@ export class Price<T extends Coin, U extends Coin> {
 
 export function useCoin(address?: string | null): Coin | null | undefined {
   const chainId = useChainId()
-  if (!address) address = '0x1::aptos_coin::AptosCoin'
   return useAppSelector((state) => state.user.coins[chainId][address])
 }
 
@@ -65,4 +75,10 @@ export function useCoinList(): Coin[] {
   const chainId = useChainId()
   const coinMap = useAppSelector((state) => state.user.coins[chainId])
   return Object.values(coinMap)
+}
+
+export function useCoinMap() {
+  const chainId = useChainId()
+  const coinMap = useAppSelector((state) => state.user.coins[chainId])
+  return coinMap
 }
