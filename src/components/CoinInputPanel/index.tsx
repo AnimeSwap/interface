@@ -300,7 +300,7 @@ export default function CoinInputPanel({
                     style={{ display: 'inline', cursor: 'pointer' }}
                   >
                     {!hideBalance && coin && selectedCoinAmount ? (
-                      <Trans>Balance: {selectedCoinAmount.pretty()}</Trans>
+                      <Trans>Balance: {selectedCoinAmount.pretty(4)}</Trans>
                     ) : null}
                   </ThemedText.DeprecatedBody>
                   {showMaxButton && selectedCoinAmount ? (
