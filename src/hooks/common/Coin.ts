@@ -24,7 +24,7 @@ export class CoinAmount<T extends Coin> {
   pretty(decimals?: number): string {
     return this.amount
       .div(Utils.pow10(this.coin.decimals))
-      .toSignificantDigits(decimals || this.coin.decimals)
+      .toSignificantDigits(decimals || 6)
       .toString()
   }
 
@@ -32,7 +32,7 @@ export class CoinAmount<T extends Coin> {
     return (
       this.amount
         .div(Utils.pow10(this.coin.decimals))
-        .toSignificantDigits(decimals || this.coin.decimals)
+        .toSignificantDigits(decimals || 6)
         .toString() +
       ' ' +
       this.coin.symbol
