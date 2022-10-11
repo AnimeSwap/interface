@@ -1,13 +1,15 @@
-import { Decimal } from '@animeswap.org/v1-sdk'
+import { Decimal, Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
 import { BestTrade } from 'hooks/useBestTrade'
-import { useContext } from 'react'
+import { useCallback, useContext } from 'react'
 import { Text } from 'rebass'
 import styled, { ThemeContext } from 'styled-components/macro'
 import { ThemedText } from 'theme'
 
 interface TradePriceProps {
   trade: BestTrade
+  showInverted: boolean
+  setShowInverted: (showInverted: boolean) => void
 }
 
 const StyledPriceContainer = styled.button`
@@ -31,16 +33,25 @@ function formatPrice(price: Decimal): string {
   return price.toSignificantDigits(8).toString()
 }
 
-export default function TradePrice({ trade }: TradePriceProps) {
+export default function TradePrice({ trade, showInverted, setShowInverted }: TradePriceProps) {
   const theme = useContext(ThemeContext)
-  const text = `1 ${trade.outputCoin?.symbol} = ${trade.price.toSignificantDigits(6)} ${trade.inputCoin?.symbol}`
-  // const text = `${'1 ' + labelInverted + ' = ' + formattedPrice ?? '-'} ${label}`
-  // const text = `${'1 '}`
 
+  const text = `1 ${trade.outputCoin?.symbol} = ${trade.price.toSignificantDigits(6)} ${trade.inputCoin?.symbol}`
+  const invertText = `1 ${trade.inputCoin?.symbol} = ${Utils.d(1).div(trade.price).toSignificantDigits(6)} ${
+    trade.outputCoin?.symbol
+  }`
+  const flipPrice = useCallback(() => setShowInverted(!showInverted), [setShowInverted, showInverted])
   return (
-    <StyledPriceContainer title={text}>
+    <StyledPriceContainer
+      onClick={(e) => {
+        e.stopPropagation() // dont want this click to affect dropdowns / hovers
+        flipPrice()
+      }}
+      title={text}
+    >
       <Text fontWeight={500} color={theme.deprecated_text1}>
-        {text}
+        {!showInverted && text}
+        {showInverted && invertText}
       </Text>
     </StyledPriceContainer>
   )

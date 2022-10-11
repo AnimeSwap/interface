@@ -51,7 +51,7 @@ export function AdvancedSwapDetails({
   hideInfoTooltips = false,
 }: AdvancedSwapDetailsProps) {
   const theme = useContext(ThemeContext)
-  const chainId = useChainId()
+  // const chainId = useChainId()
 
   const { expectedOutputAmount, priceImpact } = useMemo(() => {
     return {

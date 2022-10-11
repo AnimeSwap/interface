@@ -164,7 +164,7 @@ export default function SwapDetailsDropdown({
             )}
             {trade && !loading && !syncing ? (
               <LoadingOpacityContainer $loading={syncing}>
-                <TradePrice trade={trade} />
+                <TradePrice trade={trade} showInverted={showInverted} setShowInverted={setShowInverted} />
               </LoadingOpacityContainer>
             ) : loading || syncing ? (
               <ThemedText.DeprecatedMain fontSize={14}>

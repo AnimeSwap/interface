@@ -117,12 +117,12 @@ export default function SwapModalHeader({
           </RowBetween> */}
         </AutoColumn>
       </LightCard>
-      {/* <RowBetween style={{ marginTop: '0.25rem', padding: '0 1rem' }}>
-        <TradePrice price={trade.executionPrice} showInverted={showInverted} setShowInverted={setShowInverted} />
-      </RowBetween> */}
-      {/* <LightCard style={{ padding: '.75rem', marginTop: '0.5rem' }}>
+      <RowBetween style={{ marginTop: '0.25rem', padding: '0 1rem' }}>
+        <TradePrice trade={trade} showInverted={showInverted} setShowInverted={setShowInverted} />
+      </RowBetween>
+      <LightCard style={{ padding: '.75rem', marginTop: '0.5rem' }}>
         <AdvancedSwapDetails trade={trade} allowedSlippage={allowedSlippage} />
-      </LightCard> */}
+      </LightCard>
       {/* {showAcceptChanges ? (
         <SwapShowAcceptChanges justify="flex-start" gap={'0px'}>
           <RowBetween>
