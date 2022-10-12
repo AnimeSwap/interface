@@ -5,7 +5,7 @@ import { sendEvent } from 'components/analytics'
 import SwapDetailsDropdown from 'components/swap/SwapDetailsDropdown'
 import { MouseoverTooltip } from 'components/Tooltip'
 import { isSupportedChain } from 'constants/chains'
-import { BP } from 'constants/misc'
+import { BIG_INT_ZERO, BP } from 'constants/misc'
 import { Coin } from 'hooks/common/Coin'
 import { BestTrade, TradeState, TradeType } from 'hooks/useBestTrade'
 import { Context, useCallback, useContext, useMemo, useState } from 'react'
@@ -67,11 +67,15 @@ export default function Swap() {
       [Field.INPUT]:
         independentField === Field.INPUT
           ? parsedAmount
-          : Utils.d(bestTrade?.inputAmount.amount).div(Utils.pow10(inputCoin?.decimals || 0)),
+          : bestTrade && inputCoin
+          ? Utils.d(bestTrade?.inputAmount.amount).div(Utils.pow10(inputCoin?.decimals || 0))
+          : BIG_INT_ZERO,
       [Field.OUTPUT]:
         independentField === Field.OUTPUT
           ? parsedAmount
-          : Utils.d(bestTrade?.outputAmount.amount).div(Utils.pow10(outputCoin?.decimals || 0)),
+          : bestTrade && outputCoin
+          ? Utils.d(bestTrade?.outputAmount.amount).div(Utils.pow10(outputCoin?.decimals || 0))
+          : BIG_INT_ZERO,
     }
   }, [independentField, parsedAmount, bestTrade])
 

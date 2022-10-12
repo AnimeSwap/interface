@@ -57,7 +57,7 @@ const FooterWrapper = styled.div`
   width: 100%;
   justify-content: center;
   position: fixed;
-  bottom: 100px;
+  bottom: 80px;
   z-index: 2;
 `
 

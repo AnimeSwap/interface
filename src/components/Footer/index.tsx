@@ -6,7 +6,8 @@ import { ReactComponent as Twitter } from 'assets/twitter.svg'
 import styled from 'styled-components/macro'
 
 const FooterItem = styled.a`
-  margin-right: 1.5rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
   fill: ${({ theme }) => theme.deprecated_text3};
   :hover {
     fill: ${({ theme }) => theme.deprecated_text2};
