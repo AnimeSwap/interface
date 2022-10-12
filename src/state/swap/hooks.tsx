@@ -128,7 +128,7 @@ export function useDerivedSwapInfo(): {
     // compare input balance to max input based on version
     const [balanceIn, amountIn] = [inputCoinBalance, trade.bestTrade?.maximumAmountIn]
     if (balanceIn && amountIn && balanceIn.lt(amountIn.amount)) {
-      inputError = <Trans>Insufficient {inputCoin.symbol} balance</Trans>
+      inputError = <Trans>Insufficient {inputCoin?.symbol} balance</Trans>
     }
 
     return inputError

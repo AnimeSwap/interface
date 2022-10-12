@@ -1,13 +1,11 @@
 // eslint-disable-next-line no-restricted-imports
 import { Trans } from '@lingui/macro'
-// import { getIsValidSwapQuote } from 'pages/Swap'
 import { darken } from 'polished'
 import { useMemo } from 'react'
 import { AlertTriangle } from 'react-feather'
 import { useAppSelector } from 'state/hooks'
 import { useChainId } from 'state/user/hooks'
 import { useAccount, useWallet } from 'state/wallets/hooks'
-// import { useDerivedSwapInfo } from 'state/swap/hooks'
 import styled, { css } from 'styled-components/macro'
 
 import { useToggleWalletModal } from '../../state/application/hooks'
@@ -116,11 +114,6 @@ function newTransactionsFirst(a: TransactionDetails, b: TransactionDetails) {
 function StatusInner() {
   const account = useAccount()
   const chainId = useChainId()
-  // const {
-  //   trade: { state: tradeState, trade },
-  //   inputError: swapInputError,
-  // } = useDerivedSwapInfo()
-  // const validSwapQuote = getIsValidSwapQuote(trade, tradeState, swapInputError)
 
   const error = useAppSelector((state) => state.connection.error[chainId])
 
