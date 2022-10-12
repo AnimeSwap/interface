@@ -3,7 +3,6 @@ import { Trans } from '@lingui/macro'
 
 import {
   AddLiquidityV2PoolTransactionInfo,
-  ClaimTransactionInfo,
   DepositLiquidityStakingTransactionInfo,
   ExactInputSwapTransactionInfo,
   ExactOutputSwapTransactionInfo,
@@ -56,16 +55,6 @@ function FormattedCoinAmountManaged({
   //   />
   // ) : null
   return null
-}
-
-function ClaimSummary({ info: { recipient, uniAmountRaw } }: { info: ClaimTransactionInfo }) {
-  return typeof uniAmountRaw === 'string' ? (
-    <Trans>
-      Claim <FormattedCoinAmount rawAmount={uniAmountRaw} symbol={'UNI'} decimals={18} sigFigs={4} /> for {recipient}
-    </Trans>
-  ) : (
-    <Trans>Claim UNI reward for {recipient}</Trans>
-  )
 }
 
 function SubmitProposalTransactionSummary(_: { info: SubmitProposalTransactionInfo }) {
@@ -149,9 +138,6 @@ export function TransactionSummary({ info }: { info: TransactionInfo }) {
   switch (info.type) {
     case TransactionType.ADD_LIQUIDITY_V2_POOL:
       return <AddLiquidityV2PoolSummary info={info} />
-
-    case TransactionType.CLAIM:
-      return <ClaimSummary info={info} />
 
     case TransactionType.DEPOSIT_LIQUIDITY_STAKING:
       return <DepositLiquidityStakingSummary info={info} />

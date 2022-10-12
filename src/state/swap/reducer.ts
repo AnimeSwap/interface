@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit'
 import { parsedQueryString } from 'hooks/useParsedQueryString'
 
-import { Field, replaceSwapState, selectCoin, setRecipient, switchCoins, typeInput } from './actions'
+import { Field, replaceSwapState, selectCoin, switchCoins, typeInput } from './actions'
 import { queryParametersToSwapState } from './hooks'
 
 export interface SwapState {
@@ -13,15 +13,13 @@ export interface SwapState {
   readonly [Field.OUTPUT]: {
     readonly coinId: string | undefined | null
   }
-  // the typed recipient address, or null if swap should go to sender
-  readonly recipient: string | null
 }
 
 const initialState: SwapState = queryParametersToSwapState(parsedQueryString())
 
 export default createReducer<SwapState>(initialState, (builder) =>
   builder
-    .addCase(replaceSwapState, (state, { payload: { typedValue, recipient, field, inputCoinId, outputCoinId } }) => {
+    .addCase(replaceSwapState, (state, { payload: { typedValue, field, inputCoinId, outputCoinId } }) => {
       return {
         [Field.INPUT]: {
           coinId: inputCoinId ?? null,
@@ -31,7 +29,6 @@ export default createReducer<SwapState>(initialState, (builder) =>
         },
         independentField: field,
         typedValue,
-        recipient,
       }
     })
     .addCase(selectCoin, (state, { payload: { coinId, field } }) => {
@@ -66,8 +63,5 @@ export default createReducer<SwapState>(initialState, (builder) =>
         independentField: field,
         typedValue,
       }
-    })
-    .addCase(setRecipient, (state, { payload: { recipient } }) => {
-      state.recipient = recipient
     })
 )

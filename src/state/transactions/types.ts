@@ -99,12 +99,6 @@ export interface WrapTransactionInfo {
   chainId?: number
 }
 
-export interface ClaimTransactionInfo {
-  type: TransactionType.CLAIM
-  recipient: string
-  uniAmountRaw?: string
-}
-
 export interface AddLiquidityV2PoolTransactionInfo {
   type: TransactionType.ADD_LIQUIDITY_V2_POOL
   baseCoinId: string
@@ -127,7 +121,6 @@ export type TransactionInfo =
   | ApproveTransactionInfo
   | ExactOutputSwapTransactionInfo
   | ExactInputSwapTransactionInfo
-  | ClaimTransactionInfo
   | VoteTransactionInfo
   | QueueTransactionInfo
   | ExecuteTransactionInfo

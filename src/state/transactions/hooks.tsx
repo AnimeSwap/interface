@@ -68,23 +68,3 @@ export function useIsTransactionConfirmed(transactionHash?: string): boolean {
 export function isTransactionRecent(tx: TransactionDetails): boolean {
   return new Date().getTime() - tx.addedTime < 86_400_000
 }
-
-// watch for submissions to claim
-// return null if not done loading, return undefined if not found
-export function useUserHasSubmittedClaim(account?: string): {
-  claimSubmitted: boolean
-  claimTxn: TransactionDetails | undefined
-} {
-  const allTransactions = useAllTransactions()
-
-  // get the txn if it has been submitted
-  const claimTxn = useMemo(() => {
-    const txnIndex = Object.keys(allTransactions).find((hash) => {
-      const tx = allTransactions[hash]
-      return tx.info.type === TransactionType.CLAIM && tx.info.recipient === account
-    })
-    return txnIndex && allTransactions[txnIndex] ? allTransactions[txnIndex] : undefined
-  }, [account, allTransactions])
-
-  return { claimSubmitted: Boolean(claimTxn), claimTxn }
-}

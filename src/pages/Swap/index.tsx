@@ -47,7 +47,7 @@ export default function Swap() {
   const toggleWalletModal = useToggleWalletModal()
 
   // swap state
-  const { independentField, typedValue, recipient } = useSwapState()
+  const { independentField, typedValue } = useSwapState()
   const {
     inputCoin,
     outputCoin,
@@ -80,7 +80,7 @@ export default function Swap() {
     [bestTrade, tradeState]
   )
 
-  const { onSwitchCoins, onCoinSelection, onUserInput, onChangeRecipient } = useSwapActionHandlers()
+  const { onSwitchCoins, onCoinSelection, onUserInput } = useSwapActionHandlers()
   const isValid = !swapInputError
   const dependentField: Field = independentField === Field.INPUT ? Field.OUTPUT : Field.INPUT
 
@@ -170,7 +170,7 @@ export default function Swap() {
         txHash: undefined,
       })
     }
-  }, [swapCallback, tradeToConfirm, showConfirm, recipient, recipient, account])
+  }, [swapCallback, tradeToConfirm, showConfirm, account])
 
   // errors
   const [showInverted, setShowInverted] = useState<boolean>(false)
@@ -231,12 +231,11 @@ export default function Swap() {
         <Wrapper id="swap-page">
           <ConfirmSwapModal
             isOpen={showConfirm}
-            trade={bestTrade}
-            originalTrade={tradeToConfirm}
+            trade={tradeToConfirm}
+            originalTrade={bestTrade}
             onAcceptChanges={handleAcceptChanges}
             attemptingTxn={attemptingTxn}
             txHash={txHash}
-            recipient={recipient}
             allowedSlippage={allowedSlippage}
             onConfirm={handleSwap}
             swapErrorMessage={swapErrorMessage}

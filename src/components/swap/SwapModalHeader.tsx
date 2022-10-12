@@ -41,7 +41,6 @@ export default function SwapModalHeader({
   shouldLogModalCloseEvent,
   setShouldLogModalCloseEvent,
   allowedSlippage,
-  recipient,
   showAcceptChanges,
   onAcceptChanges,
 }: {
@@ -49,7 +48,6 @@ export default function SwapModalHeader({
   shouldLogModalCloseEvent: boolean
   setShouldLogModalCloseEvent: (shouldLog: boolean) => void
   allowedSlippage: number
-  recipient: string | null
   showAcceptChanges: boolean
   onAcceptChanges: () => void
 }) {
@@ -154,14 +152,6 @@ export default function SwapModalHeader({
           </ThemedText.DeprecatedItalic>
         )}
       </AutoColumn>
-      {recipient !== null ? (
-        <AutoColumn justify="flex-start" gap="sm" style={{ padding: '12px 0 0 0px' }}>
-          <ThemedText.DeprecatedMain>
-            Output will be sent to{' '}
-            <b title={recipient}>{isAddress(recipient) ? shortenAddress(recipient) : recipient}</b>
-          </ThemedText.DeprecatedMain>
-        </AutoColumn>
-      ) : null}
     </AutoColumn>
   )
 }

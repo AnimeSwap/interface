@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/macro'
-import { CoinAmount } from 'hooks/common/Coin'
 import { BestTrade } from 'hooks/useBestTrade'
 import { ReactNode, useCallback, useMemo, useState } from 'react'
 
@@ -17,7 +16,6 @@ export default function ConfirmSwapModal({
   allowedSlippage,
   onConfirm,
   onDismiss,
-  recipient,
   swapErrorMessage,
   isOpen,
   attemptingTxn,
@@ -29,7 +27,6 @@ export default function ConfirmSwapModal({
   originalTrade: BestTrade | undefined
   attemptingTxn: boolean
   txHash: string | undefined
-  recipient: string | null
   allowedSlippage: number
   onAcceptChanges: () => void
   onConfirm: () => void
@@ -55,12 +52,11 @@ export default function ConfirmSwapModal({
         shouldLogModalCloseEvent={shouldLogModalCloseEvent}
         setShouldLogModalCloseEvent={setShouldLogModalCloseEvent}
         allowedSlippage={allowedSlippage}
-        recipient={recipient}
         showAcceptChanges={showAcceptChanges}
         onAcceptChanges={onAcceptChanges}
       />
     ) : null
-  }, [allowedSlippage, onAcceptChanges, recipient, showAcceptChanges, trade, shouldLogModalCloseEvent])
+  }, [allowedSlippage, onAcceptChanges, showAcceptChanges, trade, shouldLogModalCloseEvent])
 
   const modalBottom = useCallback(() => {
     return trade ? (
