@@ -194,9 +194,9 @@ export default function WalletModal({
               <OptionGrid data-testid="option-grid">
                 <PetraOption />
                 <MartianOption />
-                <FewchaOption />
+                {/* <FewchaOption /> */}
                 <PontemOption />
-                <RiseOption />
+                {/* <RiseOption /> */}
               </OptionGrid>
             )}
           </AutoColumn>

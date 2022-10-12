@@ -51,22 +51,22 @@ export async function AutoConnectWallets() {
     case WalletType.MARTIAN:
       if (await AutoConnectMartian()) return
       break
-    case WalletType.FEWCHA:
-      if (await AutoConnectFewcha()) return
-      break
+    // case WalletType.FEWCHA:
+    //   if (await AutoConnectFewcha()) return
+    //   break
     case WalletType.PONTEM:
       if (await AutoConnectPontem()) return
       break
-    case WalletType.RISE:
-      if (await AutoConnectRise()) return
-      break
+    // case WalletType.RISE:
+    //   if (await AutoConnectRise()) return
+    //   break
   }
   // auto connect wallet in order
   if (await AutoConnectPetra()) return
   if (await AutoConnectMartian()) return
-  if (await AutoConnectFewcha()) return
+  // if (await AutoConnectFewcha()) return
   if (await AutoConnectPontem()) return
-  if (await AutoConnectRise()) return
+  // if (await AutoConnectRise()) return
 }
 
 export async function ConnectPetra() {
