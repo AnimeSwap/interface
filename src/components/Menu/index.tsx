@@ -7,19 +7,15 @@ import { useActiveLocale } from 'hooks/useActiveLocale'
 import { useLocationLinkProps } from 'hooks/useLocationLinkProps'
 import { FunctionComponent, PropsWithChildren, useEffect, useRef, useState } from 'react'
 import {
-  BookOpen,
   Check,
   ChevronLeft,
-  GitHub,
   // Coffee,
   // FileText,
   Globe,
   // HelpCircle,
   Info,
-  MessageCircle,
   Moon,
   Sun,
-  Twitter,
 } from 'react-feather'
 import { Link } from 'react-router-dom'
 import { useDarkModeManager } from 'state/user/hooks'
@@ -244,30 +240,6 @@ export default function Menu() {
                       <div>{darkMode ? <Trans>Light Theme</Trans> : <Trans>Dark Theme</Trans>}</div>
                       {darkMode ? <Moon opacity={0.6} size={16} /> : <Sun opacity={0.6} size={16} />}
                     </ToggleMenuItem>
-                    <MenuItem href="https://docs.animeswap.org/">
-                      <div>
-                        <Trans>Documents</Trans>
-                      </div>
-                      <BookOpen opacity={0.6} size={16} />
-                    </MenuItem>
-                    <MenuItem href="https://twitter.com/animeswap_org">
-                      <div>
-                        <Trans>Twitter</Trans>
-                      </div>
-                      <Twitter opacity={0.6} size={16} />
-                    </MenuItem>
-                    <MenuItem href="https://discord.gg/rbUG6SpRAM">
-                      <div>
-                        <Trans>Discord</Trans>
-                      </div>
-                      <MessageCircle opacity={0.6} size={16} />
-                    </MenuItem>
-                    <MenuItem href="https://github.com/AnimeSwap">
-                      <div>
-                        <Trans>GitHub</Trans>
-                      </div>
-                      <GitHub opacity={0.6} size={16} />
-                    </MenuItem>
                     <MenuItem href="https://animeswap.org/">
                       <div>
                         <Trans>About</Trans>
