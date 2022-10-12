@@ -217,7 +217,7 @@ export const SignAndSubmitTransaction = async (transaction: any) => {
       payload.arguments = payload.arguments.map(String)
       console.log('Petra tx', payload)
       const pendingTransaction = await window.aptos.signAndSubmitTransaction(payload, {
-        max_gas_amount: 60000,
+        max_gas_amount: 200000,
         gas_unit_price: 1000,
       })
       console.log(pendingTransaction)
@@ -227,7 +227,7 @@ export const SignAndSubmitTransaction = async (transaction: any) => {
       const sender = martianRes.address
       console.log('Martian tx', payload)
       const martianTx = await window.martian.generateTransaction(sender, payload, {
-        max_gas_amount: 60000,
+        max_gas_amount: 200000,
         gas_unit_price: 1000,
       })
       const martianTxHash = await window.martian.signAndSubmitTransaction(martianTx)
@@ -235,7 +235,7 @@ export const SignAndSubmitTransaction = async (transaction: any) => {
       return martianTxHash
     case WalletType.FEWCHA:
       const fewchaTx = await window.fewcha.generateTransaction(payload, {
-        max_gas_amount: 60000,
+        max_gas_amount: 200000,
         gas_unit_price: 1000,
       })
       if (fewchaTx.status !== 200) {
