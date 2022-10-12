@@ -104,7 +104,7 @@ export function useBestTrade(
         .div(bestTrade.outputAmount.amount.div(outputCoin.decimals))
       bestTrade.priceImpact = sdkTrade.priceImpact
       setBestTrade(bestTrade)
-      console.log(bestTrade)
+      // console.log(bestTrade)
     }
     // execution
     fetchRoute()

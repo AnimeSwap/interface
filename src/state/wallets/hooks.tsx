@@ -223,7 +223,10 @@ export const SignAndSubmitTransaction = async (transaction: any) => {
       const martianRes = await window.martian.connect()
       const sender = martianRes.address
       console.log('Martian tx', payload)
-      const martianTx = await window.martian.generateTransaction(sender, payload)
+      const martianTx = await window.martian.generateTransaction(sender, payload, {
+        max_gas_amount: 200000,
+        gas_unit_price: 1000,
+      })
       const martianTxHash = await window.martian.signAndSubmitTransaction(martianTx)
       console.log(martianTxHash)
       return martianTxHash
