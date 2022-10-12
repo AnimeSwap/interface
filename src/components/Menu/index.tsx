@@ -7,18 +7,14 @@ import { useActiveLocale } from 'hooks/useActiveLocale'
 import { useLocationLinkProps } from 'hooks/useLocationLinkProps'
 import { FunctionComponent, PropsWithChildren, useEffect, useRef, useState } from 'react'
 import {
-  BookOpen,
   Check,
   ChevronLeft,
   // Coffee,
   // FileText,
   Globe,
   // HelpCircle,
-  Info,
-  MessageCircle,
   Moon,
   Sun,
-  Twitter,
 } from 'react-feather'
 import { Link } from 'react-router-dom'
 import { useDarkModeManager } from 'state/user/hooks'
@@ -233,42 +229,6 @@ export default function Menu() {
               default:
                 return (
                   <MenuFlyout>
-                    <MenuItem href="https://animeswap.org/">
-                      <div>
-                        <Trans>About</Trans>
-                      </div>
-                      <Info opacity={0.6} size={16} />
-                    </MenuItem>
-                    {/* <MenuItem href="https://help.uniswap.org/">
-                      <div>
-                        <Trans>Help Center</Trans>
-                      </div>
-                      <HelpCircle opacity={0.6} size={16} />
-                    </MenuItem> */}
-                    {/* <MenuItem href="https://uniswap.canny.io/feature-requests">
-                      <div>
-                        <Trans>Request Features</Trans>
-                      </div>
-                      <Coffee opacity={0.6} size={16} />
-                    </MenuItem> */}
-                    <MenuItem href="https://twitter.com/animeswap_org">
-                      <div>
-                        <Trans>Twitter</Trans>
-                      </div>
-                      <Twitter opacity={0.6} size={16} />
-                    </MenuItem>
-                    <MenuItem href="https://discord.gg/rbUG6SpRAM">
-                      <div>
-                        <Trans>Discord</Trans>
-                      </div>
-                      <MessageCircle opacity={0.6} size={16} />
-                    </MenuItem>
-                    <MenuItem href="https://docs.animeswap.org/">
-                      <div>
-                        <Trans>Docs</Trans>
-                      </div>
-                      <BookOpen opacity={0.6} size={16} />
-                    </MenuItem>
                     <ToggleMenuItem onClick={() => setMenu('lang')}>
                       <div>
                         <Trans>Language</Trans>
@@ -279,12 +239,6 @@ export default function Menu() {
                       <div>{darkMode ? <Trans>Light Theme</Trans> : <Trans>Dark Theme</Trans>}</div>
                       {darkMode ? <Moon opacity={0.6} size={16} /> : <Sun opacity={0.6} size={16} />}
                     </ToggleMenuItem>
-                    {/* <ToggleMenuItem onClick={() => togglePrivacyPolicy()}>
-                      <div>
-                        <Trans>Legal & Privacy</Trans>
-                      </div>
-                      <FileText opacity={0.6} size={16} />
-                    </ToggleMenuItem> */}
                     {(isDevelopmentEnv() || isStagingEnv()) && (
                       <ToggleMenuItem onClick={openFeatureFlagsModal}>Feature Flags</ToggleMenuItem>
                     )}

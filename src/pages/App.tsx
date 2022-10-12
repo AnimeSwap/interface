@@ -1,3 +1,4 @@
+import Footer from 'components/Footer'
 import Loader from 'components/Loader'
 import TopLevelModals from 'components/TopLevelModals'
 import { useFeatureFlagsIsLoaded } from 'featureFlags'
@@ -51,6 +52,14 @@ const Marginer = styled.div`
   margin-top: 5rem;
 `
 
+const FooterWrapper = styled.div`
+  ${({ theme }) => theme.flexRowNoWrap}
+  width: 100%;
+  justify-content: center;
+  position: fixed;
+  bottom: 80px;
+`
+
 const BottomRightLogo = styled.div`
   background: url('images/33_open.43a09438.png');
   width: 216px;
@@ -58,6 +67,18 @@ const BottomRightLogo = styled.div`
   position: fixed;
   right: 0px;
   bottom: 0px;
+
+  ${({ theme }) => theme.mediaWidth.upToMedium`
+    scale: 0.8;
+    right: -22px;
+    bottom: -22px;
+  `};
+
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+    scale: 0.5;
+    right: -56px;
+    bottom: -54px;
+  `};
 `
 
 const BottomLeftLogo = styled.div`
@@ -67,6 +88,18 @@ const BottomLeftLogo = styled.div`
   position: fixed;
   left: 0px;
   bottom: 0px;
+
+  ${({ theme }) => theme.mediaWidth.upToMedium`
+    scale: 0.8;
+    left: -22px;
+    bottom: -22px;
+  `};
+
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+    scale: 0.5;
+    left: -56px;
+    bottom: -54px;
+  `};
 `
 
 export default function App() {
@@ -111,10 +144,13 @@ export default function App() {
               <Loader />
             )}
           </Suspense>
-          <BottomRightLogo />
-          <BottomLeftLogo />
           <Marginer />
         </BodyWrapper>
+        <FooterWrapper>
+          <Footer />
+        </FooterWrapper>
+        <BottomRightLogo />
+        <BottomLeftLogo />
       </AppWrapper>
     </ErrorBoundary>
   )

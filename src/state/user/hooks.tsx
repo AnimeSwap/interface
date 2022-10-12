@@ -1,6 +1,7 @@
-import { Decimal, Utils } from '@animeswap.org/v1-sdk'
+import { getChainInfoOrDefault } from 'constants/chainInfo'
 import { SupportedChainId } from 'constants/chains'
 import { SupportedLocale } from 'constants/locales'
+import { Coin } from 'hooks/common/Coin'
 import { useCallback, useMemo } from 'react'
 import { shallowEqual } from 'react-redux'
 import { useAppDispatch, useAppSelector } from 'state/hooks'
@@ -9,6 +10,12 @@ import { updateUserDarkMode, updateUserDeadline, updateUserLocale, updateUserSli
 
 export function useChainId(): SupportedChainId {
   return useAppSelector((state) => state.user.chainId)
+}
+
+export function useNativeCoin(): Coin {
+  const chainId = useChainId()
+  const { nativeCoin } = getChainInfoOrDefault(chainId)
+  return nativeCoin
 }
 
 export function useIsDarkMode(): boolean {
@@ -84,4 +91,8 @@ export function useUserTransactionTTL(): [number, (slippage: number) => void] {
   )
 
   return [userDeadline, setUserDeadline]
+}
+
+export function useShowSwapDropdownDetails(): boolean {
+  return useAppSelector((state) => state.user.showSwapDropdownDetails)
 }

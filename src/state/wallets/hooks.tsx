@@ -51,22 +51,22 @@ export async function AutoConnectWallets() {
     case WalletType.MARTIAN:
       if (await AutoConnectMartian()) return
       break
-    case WalletType.FEWCHA:
-      if (await AutoConnectFewcha()) return
-      break
+    // case WalletType.FEWCHA:
+    //   if (await AutoConnectFewcha()) return
+    //   break
     case WalletType.PONTEM:
       if (await AutoConnectPontem()) return
       break
-    case WalletType.RISE:
-      if (await AutoConnectRise()) return
-      break
+    // case WalletType.RISE:
+    //   if (await AutoConnectRise()) return
+    //   break
   }
   // auto connect wallet in order
   if (await AutoConnectPetra()) return
   if (await AutoConnectMartian()) return
-  if (await AutoConnectFewcha()) return
+  // if (await AutoConnectFewcha()) return
   if (await AutoConnectPontem()) return
-  if (await AutoConnectRise()) return
+  // if (await AutoConnectRise()) return
 }
 
 export async function ConnectPetra() {
@@ -216,19 +216,28 @@ export const SignAndSubmitTransaction = async (transaction: any) => {
       await window.aptos.connect()
       payload.arguments = payload.arguments.map(String)
       console.log('Petra tx', payload)
-      const pendingTransaction = await window.aptos.signAndSubmitTransaction(payload)
+      const pendingTransaction = await window.aptos.signAndSubmitTransaction(payload, {
+        max_gas_amount: 60000,
+        gas_unit_price: 1000,
+      })
       console.log(pendingTransaction)
       return pendingTransaction.hash
     case WalletType.MARTIAN:
       const martianRes = await window.martian.connect()
       const sender = martianRes.address
       console.log('Martian tx', payload)
-      const martianTx = await window.martian.generateTransaction(sender, payload)
+      const martianTx = await window.martian.generateTransaction(sender, payload, {
+        max_gas_amount: 60000,
+        gas_unit_price: 1000,
+      })
       const martianTxHash = await window.martian.signAndSubmitTransaction(martianTx)
       console.log(martianTxHash)
       return martianTxHash
     case WalletType.FEWCHA:
-      const fewchaTx = await window.fewcha.generateTransaction(payload)
+      const fewchaTx = await window.fewcha.generateTransaction(payload, {
+        max_gas_amount: 60000,
+        gas_unit_price: 1000,
+      })
       if (fewchaTx.status !== 200) {
         throw new Error('Fewcha tx error')
       }
@@ -236,11 +245,17 @@ export const SignAndSubmitTransaction = async (transaction: any) => {
       console.log('Fewcha tx', fewchaTxHash)
       break
     case WalletType.PONTEM:
-      const pontemTx = await window.pontem.signAndSubmit(payload)
+      const pontemTx = await window.pontem.signAndSubmit(payload, {
+        max_gas_amount: 200000,
+        gas_unit_price: 1000,
+      })
       console.log('Pontem tx', pontemTx)
       break
     case WalletType.RISE:
-      const riseTx = await window.rise.signAndSubmitTransaction(payload)
+      const riseTx = await window.rise.signAndSubmitTransaction(payload, {
+        max_gas_amount: 200000,
+        gas_unit_price: 1000,
+      })
       console.log('Rise tx', riseTx)
       break
     default:

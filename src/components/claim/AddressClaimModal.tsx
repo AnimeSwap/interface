@@ -151,10 +151,10 @@ export default function AddressClaimModal({ isOpen, onDismiss }: { isOpen: boole
           </ModalUpper>
           <AutoColumn gap="md" style={{ padding: '1rem', paddingTop: '0', paddingBottom: '0' }} justify="start">
             <ThemedText.DeprecatedSubHeader fontWeight={500}>
-              <Trans>Get APT coin from wallet airdrop.</Trans>
+              Get APT coin from wallet airdrop.
             </ThemedText.DeprecatedSubHeader>
             <ThemedText.DeprecatedSubHeader fontWeight={500}>
-              <Trans>Get test BTC USDT for AnimeSwap testing, test coins are no practical value on Aptos DevNet.</Trans>
+              Get test BTC USDT for AnimeSwap testing, test coins are no practical value on Aptos DevNet.
             </ThemedText.DeprecatedSubHeader>
           </AutoColumn>
           <AutoColumn gap="md" style={{ padding: '1rem', paddingTop: '0', paddingBottom: '2rem' }} justify="center">
@@ -168,7 +168,7 @@ export default function AddressClaimModal({ isOpen, onDismiss }: { isOpen: boole
                 faucetBTC()
               }}
             >
-              <Trans>{formatTime(sinceBTC.getTime() - timeNow)} Get BTC</Trans>
+              {formatTime(sinceBTC.getTime() - timeNow)} Get BTC
             </ButtonPrimary>
             <ButtonPrimary
               disabled={!account || sinceUSDT.getTime() > timeNow}
@@ -180,7 +180,7 @@ export default function AddressClaimModal({ isOpen, onDismiss }: { isOpen: boole
                 faucetUSDT()
               }}
             >
-              <Trans>{formatTime(sinceUSDT.getTime() - timeNow)} Get USDT</Trans>
+              {formatTime(sinceUSDT.getTime() - timeNow)} Get USDT
             </ButtonPrimary>
           </AutoColumn>
         </ContentWrapper>

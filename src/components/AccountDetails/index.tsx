@@ -129,7 +129,7 @@ const AccountControl = styled.div`
   }
 `
 
-const AddressLink = styled(ExternalLink)<{ hasENS: boolean; isENS: boolean }>`
+const AddressLink = styled(ExternalLink)`
   font-size: 0.825rem;
   color: ${({ theme }) => theme.deprecated_text3};
   margin-left: 1rem;
@@ -193,7 +193,6 @@ interface AccountDetailsProps {
   toggleWalletModal: () => void
   pendingTransactions: string[]
   confirmedTransactions: string[]
-  ENSName?: string
   openOptions: () => void
 }
 
@@ -201,7 +200,6 @@ export default function AccountDetails({
   toggleWalletModal,
   pendingTransactions,
   confirmedTransactions,
-  ENSName,
   openOptions,
 }: AccountDetailsProps) {
   const account = useAccount()
@@ -263,64 +261,30 @@ export default function AccountDetails({
               <AccountGroupingRow data-testid="web3-account-identifier-row">
                 <AccountControl>
                   <div>
-                    <p>{ENSName ? ENSName : account && shortenAddress(account)}</p>
+                    <p>{account && shortenAddress(account)}</p>
                   </div>
                 </AccountControl>
               </AccountGroupingRow>
               <AccountGroupingRow>
-                {ENSName ? (
-                  <>
-                    <AccountControl>
-                      <div>
-                        {account && (
-                          <CopyHelper toCopy={account} iconPosition="left">
-                            <span style={{ marginLeft: '4px' }}>
-                              <Trans>Copy Address</Trans>
-                            </span>
-                          </CopyHelper>
-                        )}
-                        {chainId && account && (
-                          <AddressLink
-                            hasENS={!!ENSName}
-                            isENS={true}
-                            href={getExplorerLink(chainId, ENSName, ExplorerDataType.ADDRESS)}
-                          >
-                            <LinkIcon size={16} />
-                            <span style={{ marginLeft: '4px' }}>
-                              <Trans>View on Explorer</Trans>
-                            </span>
-                          </AddressLink>
-                        )}
-                      </div>
-                    </AccountControl>
-                  </>
-                ) : (
-                  <>
-                    <AccountControl>
-                      <div>
-                        {account && (
-                          <CopyHelper toCopy={account} iconPosition="left">
-                            <span style={{ marginLeft: '4px' }}>
-                              <Trans>Copy Address</Trans>
-                            </span>
-                          </CopyHelper>
-                        )}
-                        {chainId && account && (
-                          <AddressLink
-                            hasENS={!!ENSName}
-                            isENS={false}
-                            href={getExplorerLink(chainId, account, ExplorerDataType.ADDRESS)}
-                          >
-                            <LinkIcon size={16} />
-                            <span style={{ marginLeft: '4px' }}>
-                              <Trans>View on Explorer</Trans>
-                            </span>
-                          </AddressLink>
-                        )}
-                      </div>
-                    </AccountControl>
-                  </>
-                )}
+                <AccountControl>
+                  <div>
+                    {account && (
+                      <CopyHelper toCopy={account} iconPosition="left">
+                        <span style={{ marginLeft: '4px' }}>
+                          <Trans>Copy Address</Trans>
+                        </span>
+                      </CopyHelper>
+                    )}
+                    {chainId && account && (
+                      <AddressLink href={getExplorerLink(chainId, account, ExplorerDataType.ADDRESS)}>
+                        <LinkIcon size={16} />
+                        <span style={{ marginLeft: '4px' }}>
+                          <Trans>View on Explorer</Trans>
+                        </span>
+                      </AddressLink>
+                    )}
+                  </div>
+                </AccountControl>
               </AccountGroupingRow>
             </InfoCard>
           </YourAccount>

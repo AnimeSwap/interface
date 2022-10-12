@@ -41,6 +41,7 @@ export interface UserState {
       [key: string]: Pair
     }
   }
+  showSwapDropdownDetails: boolean
 }
 
 export const initialState: UserState = {
@@ -56,6 +57,7 @@ export const initialState: UserState = {
     [SupportedChainId.APTOS_DEVNET]: APTOS_DEVNET_CoinInfo,
   },
   pairs: {},
+  showSwapDropdownDetails: false,
 }
 
 const userSlice = createSlice({
@@ -106,6 +108,12 @@ const userSlice = createSlice({
         delete state.pairs[chainId][pairKey(coinXAddress, coinYAddress)]
         delete state.pairs[chainId][pairKey(coinYAddress, coinXAddress)]
       }
+    },
+    setShowSwapDropdownDetails(
+      state,
+      { payload: { showSwapDropdownDetails } }: { payload: { showSwapDropdownDetails: boolean } }
+    ) {
+      state.showSwapDropdownDetails = showSwapDropdownDetails
     },
   },
   extraReducers: (builder) => {
@@ -161,5 +169,6 @@ export const {
   updateUserDeadline,
   updateUserLocale,
   updateUserSlippageTolerance,
+  setShowSwapDropdownDetails,
 } = userSlice.actions
 export default userSlice.reducer

@@ -14,7 +14,7 @@ import { Coin, useCoin } from '../../hooks/common/Coin'
 import useParsedQueryString from '../../hooks/useParsedQueryString'
 import { isAddress, isCoinAddress } from '../../utils'
 import { AppState } from '../index'
-import { Field, replaceSwapState, selectCoin, setRecipient, switchCoins, typeInput } from './actions'
+import { Field, replaceSwapState, selectCoin, switchCoins, typeInput } from './actions'
 import { SwapState } from './reducer'
 
 export function useSwapState(): AppState['swap'] {
@@ -25,7 +25,6 @@ export function useSwapActionHandlers(): {
   onCoinSelection: (field: Field, currency: Coin) => void
   onSwitchCoins: () => void
   onUserInput: (field: Field, typedValue: string) => void
-  onChangeRecipient: (recipient: string | null) => void
 } {
   const dispatch = useAppDispatch()
   const onCoinSelection = useCallback(
@@ -51,18 +50,10 @@ export function useSwapActionHandlers(): {
     [dispatch]
   )
 
-  const onChangeRecipient = useCallback(
-    (recipient: string | null) => {
-      dispatch(setRecipient({ recipient }))
-    },
-    [dispatch]
-  )
-
   return {
     onSwitchCoins,
     onCoinSelection,
     onUserInput,
-    onChangeRecipient,
   }
 }
 
@@ -89,7 +80,6 @@ export function useDerivedSwapInfo(): {
     typedValue,
     [Field.INPUT]: { coinId: inputCoinId },
     [Field.OUTPUT]: { coinId: outputCoinId },
-    recipient,
   } = useSwapState()
   const inputCoin = useCoin(inputCoinId)
   const outputCoin = useCoin(outputCoinId)
@@ -98,7 +88,7 @@ export function useDerivedSwapInfo(): {
   const allowedSlippage = useUserSlippageTolerance()
   const deadline = useUserTransactionTTL()[0]
 
-  const toAddress: string | null = (recipient === null ? account : recipient) ?? null
+  const toAddress: string | null = account ?? null
 
   const isExactIn: boolean = independentField === Field.INPUT
 
@@ -132,14 +122,13 @@ export function useDerivedSwapInfo(): {
       inputError = inputError ?? <Trans>Enter an amount</Trans>
     }
 
-    const formattedToAddress = isAddress(toAddress)
-    if (!toAddress || !formattedToAddress) {
+    if (!toAddress) {
       inputError = inputError ?? <Trans>Enter a recipient</Trans>
     }
     // compare input balance to max input based on version
     const [balanceIn, amountIn] = [inputCoinBalance, trade.bestTrade?.maximumAmountIn]
     if (balanceIn && amountIn && balanceIn.lt(amountIn.amount)) {
-      inputError = <Trans>Insufficient {inputCoin.symbol} balance</Trans>
+      inputError = <Trans>Insufficient {inputCoin?.symbol} balance</Trans>
     }
 
     return inputError
@@ -191,13 +180,6 @@ function parseIndependentFieldURLParameter(urlParam: any): Field {
   return typeof urlParam === 'string' && urlParam.toLowerCase() === 'output' ? Field.OUTPUT : Field.INPUT
 }
 
-function validatedRecipient(recipient: any): string | null {
-  if (typeof recipient !== 'string') return null
-  const address = isAddress(recipient)
-  if (address) return address
-  return null
-}
-
 export function queryParametersToSwapState(parsedQs: ParsedQs): SwapState {
   let inputCoin = parseCoinFromURLParameter(parsedQs.inputCoin)
   let outputCoin = parseCoinFromURLParameter(parsedQs.outputCoin)
@@ -210,7 +192,6 @@ export function queryParametersToSwapState(parsedQs: ParsedQs): SwapState {
     // clear output if identical
     outputCoin = ''
   }
-  const recipient = validatedRecipient(parsedQs.recipient)
   return {
     [Field.INPUT]: {
       coinId: inputCoin === '' ? null : inputCoin ?? null,
@@ -220,7 +201,6 @@ export function queryParametersToSwapState(parsedQs: ParsedQs): SwapState {
     },
     typedValue,
     independentField,
-    recipient,
   }
 }
 
@@ -245,7 +225,6 @@ export function useDefaultsFromURLSearch(): SwapState {
         field: parsedSwapState.independentField,
         inputCoinId,
         outputCoinId,
-        recipient: parsedSwapState.recipient,
       })
     )
 

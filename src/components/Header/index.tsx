@@ -67,12 +67,12 @@ const HeaderElement = styled.div`
   align-items: center;
 
   &:not(:first-child) {
-    margin-left: 0.5em;
+    margin-left: 0.25em;
   }
 
   /* addresses safaris lack of support for "gap" */
   & > *:not(:first-child) {
-    margin-left: 8px;
+    margin-left: 4px;
   }
 
   ${({ theme }) => theme.mediaWidth.upToMedium`
@@ -258,6 +258,9 @@ export default function Header() {
 
       <HeaderControls>
         <HeaderElement>
+          <Menu />
+        </HeaderElement>
+        <HeaderElement>
           <ANIbutton onClick={faucetOnClick} padding="8px 16px" width="100%" $borderRadius="12px">
             <Trans>Faucet</Trans>
           </ANIbutton>
@@ -269,16 +272,11 @@ export default function Header() {
           <AccountElement active={!!account}>
             {account && nativeCoinAmount ? (
               <BalanceText style={{ flexShrink: 0, userSelect: 'none' }} pl="0.75rem" pr=".4rem" fontWeight={500}>
-                <Trans>
-                  {nativeCoinAmount.pretty(4)} {nativeCoin.symbol}
-                </Trans>
+                {nativeCoinAmount.pretty(4)} {nativeCoin.symbol}
               </BalanceText>
             ) : null}
             <HeaderStatus />
           </AccountElement>
-        </HeaderElement>
-        <HeaderElement>
-          <Menu />
         </HeaderElement>
       </HeaderControls>
     </HeaderFrame>

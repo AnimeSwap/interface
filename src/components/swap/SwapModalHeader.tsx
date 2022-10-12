@@ -1,6 +1,6 @@
 import { Decimal } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
-import { BestTrade } from 'hooks/useBestTrade'
+import { BestTrade, TradeType } from 'hooks/useBestTrade'
 import { useContext, useEffect, useState } from 'react'
 import { AlertTriangle, ArrowDown } from 'react-feather'
 import { Text } from 'rebass'
@@ -41,7 +41,6 @@ export default function SwapModalHeader({
   shouldLogModalCloseEvent,
   setShouldLogModalCloseEvent,
   allowedSlippage,
-  recipient,
   showAcceptChanges,
   onAcceptChanges,
 }: {
@@ -49,7 +48,6 @@ export default function SwapModalHeader({
   shouldLogModalCloseEvent: boolean
   setShouldLogModalCloseEvent: (shouldLog: boolean) => void
   allowedSlippage: number
-  recipient: string | null
   showAcceptChanges: boolean
   onAcceptChanges: () => void
 }) {
@@ -141,35 +139,19 @@ export default function SwapModalHeader({
           </RowBetween>
         </SwapShowAcceptChanges>
       ) : null} */}
-
       <AutoColumn justify="flex-start" gap="sm" style={{ padding: '.75rem 1rem' }}>
-        {/* {trade.tradeType === TradeType.EXACT_INPUT ? ( */}
-        {true ? (
+        {trade.tradeType === TradeType.EXACT_INPUT ? (
           <ThemedText.DeprecatedItalic fontWeight={400} textAlign="left" style={{ width: '100%' }}>
-            <Trans>
-              Output is estimated. You will receive at least <b>{trade.miniumAmountOut.prettyWithSymbol(6)}</b> or the
-              transaction will revert.
-            </Trans>
+            Output is estimated. You will receive at least <b>{trade.miniumAmountOut.prettyWithSymbol(6)}</b> or the
+            transaction will revert.
           </ThemedText.DeprecatedItalic>
         ) : (
           <ThemedText.DeprecatedItalic fontWeight={400} textAlign="left" style={{ width: '100%' }}>
-            <Trans>
-              Input is estimated. You will sell at most <b>{trade.maximumAmountIn.prettyWithSymbol(6)}</b> or the
-              transaction will revert.
-            </Trans>
+            Input is estimated. You will sell at most <b>{trade.maximumAmountIn.prettyWithSymbol(6)}</b> or the
+            transaction will revert.
           </ThemedText.DeprecatedItalic>
         )}
       </AutoColumn>
-      {recipient !== null ? (
-        <AutoColumn justify="flex-start" gap="sm" style={{ padding: '12px 0 0 0px' }}>
-          <ThemedText.DeprecatedMain>
-            <Trans>
-              Output will be sent to{' '}
-              <b title={recipient}>{isAddress(recipient) ? shortenAddress(recipient) : recipient}</b>
-            </Trans>
-          </ThemedText.DeprecatedMain>
-        </AutoColumn>
-      ) : null}
     </AutoColumn>
   )
 }

@@ -7,9 +7,10 @@ import Row, { RowBetween, RowFixed } from 'components/Row'
 import { MouseoverTooltipContent } from 'components/Tooltip'
 import { BestTrade } from 'hooks/useBestTrade'
 import { darken } from 'polished'
-import { useState } from 'react'
 import { ChevronDown, Info } from 'react-feather'
-import { useChainId } from 'state/user/hooks'
+import store from 'state'
+import { useShowSwapDropdownDetails } from 'state/user/hooks'
+import { setShowSwapDropdownDetails } from 'state/user/reducer'
 import styled, { keyframes, useTheme } from 'styled-components/macro'
 import { HideSmall, ThemedText } from 'theme'
 
@@ -124,13 +125,17 @@ export default function SwapDetailsDropdown({
   allowedSlippage,
 }: SwapDetailsInlineProps) {
   const theme = useTheme()
-  const chainId = useChainId()
-  const [showDetails, setShowDetails] = useState(false)
-
+  const showSwapDropdownDetails = useShowSwapDropdownDetails()
   return (
     <Wrapper>
       <AutoColumn gap={'8px'} style={{ width: '100%', marginBottom: '-8px' }}>
-        <StyledHeaderRow onClick={() => setShowDetails(!showDetails)} disabled={!trade} open={showDetails}>
+        <StyledHeaderRow
+          onClick={() =>
+            store.dispatch(setShowSwapDropdownDetails({ showSwapDropdownDetails: !showSwapDropdownDetails }))
+          }
+          disabled={false}
+          open={showSwapDropdownDetails}
+        >
           <RowFixed style={{ position: 'relative' }}>
             {loading || syncing ? (
               <StyledPolling>
@@ -155,7 +160,7 @@ export default function SwapDetailsDropdown({
                     </ResponsiveTooltipContainer>
                   }
                   placement="bottom"
-                  disableHover={showDetails}
+                  disableHover={showSwapDropdownDetails}
                 >
                   <StyledInfoIcon color={trade ? theme.deprecated_text3 : theme.deprecated_bg3} />
                 </MouseoverTooltipContent>
@@ -185,11 +190,11 @@ export default function SwapDetailsDropdown({
               )} */}
             <RotatingArrow
               stroke={trade ? theme.deprecated_text3 : theme.deprecated_bg3}
-              open={Boolean(trade && showDetails)}
+              open={Boolean(trade && showSwapDropdownDetails)}
             />
           </RowFixed>
         </StyledHeaderRow>
-        <AnimatedDropdown open={showDetails}>
+        <AnimatedDropdown open={showSwapDropdownDetails}>
           <AutoColumn gap={'8px'} style={{ padding: '0', paddingBottom: '8px' }}>
             {trade ? (
               <StyledCard>

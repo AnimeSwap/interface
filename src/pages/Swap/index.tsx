@@ -5,7 +5,7 @@ import { sendEvent } from 'components/analytics'
 import SwapDetailsDropdown from 'components/swap/SwapDetailsDropdown'
 import { MouseoverTooltip } from 'components/Tooltip'
 import { isSupportedChain } from 'constants/chains'
-import { BP } from 'constants/misc'
+import { BIG_INT_ZERO, BP } from 'constants/misc'
 import { Coin } from 'hooks/common/Coin'
 import { BestTrade, TradeState, TradeType } from 'hooks/useBestTrade'
 import { Context, useCallback, useContext, useMemo, useState } from 'react'
@@ -47,7 +47,7 @@ export default function Swap() {
   const toggleWalletModal = useToggleWalletModal()
 
   // swap state
-  const { independentField, typedValue, recipient } = useSwapState()
+  const { independentField, typedValue } = useSwapState()
   const {
     inputCoin,
     outputCoin,
@@ -67,11 +67,15 @@ export default function Swap() {
       [Field.INPUT]:
         independentField === Field.INPUT
           ? parsedAmount
-          : Utils.d(bestTrade?.inputAmount.amount).div(Utils.pow10(inputCoin?.decimals || 0)),
+          : bestTrade && inputCoin && parsedAmount && parsedAmount.gt(0)
+          ? Utils.d(bestTrade?.inputAmount.amount).div(Utils.pow10(inputCoin?.decimals || 0))
+          : null,
       [Field.OUTPUT]:
         independentField === Field.OUTPUT
           ? parsedAmount
-          : Utils.d(bestTrade?.outputAmount.amount).div(Utils.pow10(outputCoin?.decimals || 0)),
+          : bestTrade && outputCoin && parsedAmount && parsedAmount.gt(0)
+          ? Utils.d(bestTrade?.outputAmount.amount).div(Utils.pow10(outputCoin?.decimals || 0))
+          : null,
     }
   }, [independentField, parsedAmount, bestTrade])
 
@@ -80,7 +84,7 @@ export default function Swap() {
     [bestTrade, tradeState]
   )
 
-  const { onSwitchCoins, onCoinSelection, onUserInput, onChangeRecipient } = useSwapActionHandlers()
+  const { onSwitchCoins, onCoinSelection, onUserInput } = useSwapActionHandlers()
   const isValid = !swapInputError
   const dependentField: Field = independentField === Field.INPUT ? Field.OUTPUT : Field.INPUT
 
@@ -111,7 +115,6 @@ export default function Swap() {
     swapErrorMessage: undefined,
     txHash: undefined,
   })
-
   const formattedAmounts = useMemo(
     () => ({
       [independentField]: typedValue,
@@ -119,9 +122,7 @@ export default function Swap() {
     }),
     [dependentField, independentField, parsedAmounts, typedValue]
   )
-
-  const userHasSpecifiedInputOutput =
-    inputCoin && outputCoin && new Decimal(parsedAmounts[independentField] || 0).greaterThan(0)
+  const userHasSpecifiedInputOutput = inputCoin && outputCoin && Utils.d(parsedAmounts[independentField]).greaterThan(0)
 
   const swapCallback = async () => {
     try {
@@ -170,7 +171,7 @@ export default function Swap() {
         txHash: undefined,
       })
     }
-  }, [swapCallback, tradeToConfirm, showConfirm, recipient, recipient, account])
+  }, [swapCallback, tradeToConfirm, showConfirm, account])
 
   // errors
   const [showInverted, setShowInverted] = useState<boolean>(false)
@@ -204,9 +205,15 @@ export default function Swap() {
   )
 
   const handleMaxInput = useCallback(() => {
-    const gasReserve = inputCoin.symbol === 'APT' ? 500 : 0
+    const gasReserve = inputCoin.symbol === 'APT' ? Utils.d(40000) : BIG_INT_ZERO
     inputCoinBalance &&
-      onUserInput(Field.INPUT, ((inputCoinBalance.toNumber() - gasReserve) / 10 ** inputCoin?.decimals ?? 0).toString())
+      onUserInput(
+        Field.INPUT,
+        inputCoinBalance
+          .sub(gasReserve)
+          .div(Utils.pow10(inputCoin?.decimals ?? 0))
+          .toString()
+      )
     sendEvent({
       category: 'Swap',
       action: 'Max',
@@ -231,12 +238,11 @@ export default function Swap() {
         <Wrapper id="swap-page">
           <ConfirmSwapModal
             isOpen={showConfirm}
-            trade={bestTrade}
-            originalTrade={tradeToConfirm}
+            trade={tradeToConfirm}
+            originalTrade={bestTrade}
             onAcceptChanges={handleAcceptChanges}
             attemptingTxn={attemptingTxn}
             txHash={txHash}
-            recipient={recipient}
             allowedSlippage={allowedSlippage}
             onConfirm={handleSwap}
             swapErrorMessage={swapErrorMessage}
