@@ -115,7 +115,6 @@ export default function Swap() {
     swapErrorMessage: undefined,
     txHash: undefined,
   })
-
   const formattedAmounts = useMemo(
     () => ({
       [independentField]: typedValue,
@@ -123,9 +122,7 @@ export default function Swap() {
     }),
     [dependentField, independentField, parsedAmounts, typedValue]
   )
-
-  const userHasSpecifiedInputOutput =
-    inputCoin && outputCoin && new Decimal(parsedAmounts[independentField] || 0).greaterThan(0)
+  const userHasSpecifiedInputOutput = inputCoin && outputCoin && Utils.d(parsedAmounts[independentField]).greaterThan(0)
 
   const swapCallback = async () => {
     try {
@@ -208,9 +205,15 @@ export default function Swap() {
   )
 
   const handleMaxInput = useCallback(() => {
-    const gasReserve = inputCoin.symbol === 'APT' ? 500 : 0
+    const gasReserve = inputCoin.symbol === 'APT' ? Utils.d(40000) : BIG_INT_ZERO
     inputCoinBalance &&
-      onUserInput(Field.INPUT, ((inputCoinBalance.toNumber() - gasReserve) / 10 ** inputCoin?.decimals ?? 0).toString())
+      onUserInput(
+        Field.INPUT,
+        inputCoinBalance
+          .sub(gasReserve)
+          .div(Utils.pow10(inputCoin?.decimals ?? 0))
+          .toString()
+      )
     sendEvent({
       category: 'Swap',
       action: 'Max',

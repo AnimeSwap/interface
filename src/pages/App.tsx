@@ -58,7 +58,6 @@ const FooterWrapper = styled.div`
   justify-content: center;
   position: fixed;
   bottom: 80px;
-  z-index: 2;
 `
 
 const BottomRightLogo = styled.div`
