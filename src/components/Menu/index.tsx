@@ -10,6 +10,7 @@ import {
   BookOpen,
   Check,
   ChevronLeft,
+  GitHub,
   // Coffee,
   // FileText,
   Globe,
@@ -233,24 +234,22 @@ export default function Menu() {
               default:
                 return (
                   <MenuFlyout>
-                    <MenuItem href="https://animeswap.org/">
+                    <ToggleMenuItem onClick={() => setMenu('lang')}>
                       <div>
-                        <Trans>About</Trans>
+                        <Trans>Language</Trans>
                       </div>
-                      <Info opacity={0.6} size={16} />
+                      <Globe opacity={0.6} size={16} />
+                    </ToggleMenuItem>
+                    <ToggleMenuItem onClick={() => toggleDarkMode()}>
+                      <div>{darkMode ? <Trans>Light Theme</Trans> : <Trans>Dark Theme</Trans>}</div>
+                      {darkMode ? <Moon opacity={0.6} size={16} /> : <Sun opacity={0.6} size={16} />}
+                    </ToggleMenuItem>
+                    <MenuItem href="https://docs.animeswap.org/">
+                      <div>
+                        <Trans>Documents</Trans>
+                      </div>
+                      <BookOpen opacity={0.6} size={16} />
                     </MenuItem>
-                    {/* <MenuItem href="https://help.uniswap.org/">
-                      <div>
-                        <Trans>Help Center</Trans>
-                      </div>
-                      <HelpCircle opacity={0.6} size={16} />
-                    </MenuItem> */}
-                    {/* <MenuItem href="https://uniswap.canny.io/feature-requests">
-                      <div>
-                        <Trans>Request Features</Trans>
-                      </div>
-                      <Coffee opacity={0.6} size={16} />
-                    </MenuItem> */}
                     <MenuItem href="https://twitter.com/animeswap_org">
                       <div>
                         <Trans>Twitter</Trans>
@@ -263,28 +262,18 @@ export default function Menu() {
                       </div>
                       <MessageCircle opacity={0.6} size={16} />
                     </MenuItem>
-                    <MenuItem href="https://docs.animeswap.org/">
+                    <MenuItem href="https://github.com/AnimeSwap">
                       <div>
-                        <Trans>Docs</Trans>
+                        <Trans>GitHub</Trans>
                       </div>
-                      <BookOpen opacity={0.6} size={16} />
+                      <GitHub opacity={0.6} size={16} />
                     </MenuItem>
-                    <ToggleMenuItem onClick={() => setMenu('lang')}>
+                    <MenuItem href="https://animeswap.org/">
                       <div>
-                        <Trans>Language</Trans>
+                        <Trans>About</Trans>
                       </div>
-                      <Globe opacity={0.6} size={16} />
-                    </ToggleMenuItem>
-                    <ToggleMenuItem onClick={() => toggleDarkMode()}>
-                      <div>{darkMode ? <Trans>Light Theme</Trans> : <Trans>Dark Theme</Trans>}</div>
-                      {darkMode ? <Moon opacity={0.6} size={16} /> : <Sun opacity={0.6} size={16} />}
-                    </ToggleMenuItem>
-                    {/* <ToggleMenuItem onClick={() => togglePrivacyPolicy()}>
-                      <div>
-                        <Trans>Legal & Privacy</Trans>
-                      </div>
-                      <FileText opacity={0.6} size={16} />
-                    </ToggleMenuItem> */}
+                      <Info opacity={0.6} size={16} />
+                    </MenuItem>
                     {(isDevelopmentEnv() || isStagingEnv()) && (
                       <ToggleMenuItem onClick={openFeatureFlagsModal}>Feature Flags</ToggleMenuItem>
                     )}

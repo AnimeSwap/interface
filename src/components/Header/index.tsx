@@ -67,12 +67,12 @@ const HeaderElement = styled.div`
   align-items: center;
 
   &:not(:first-child) {
-    margin-left: 0.5em;
+    margin-left: 0.25em;
   }
 
   /* addresses safaris lack of support for "gap" */
   & > *:not(:first-child) {
-    margin-left: 8px;
+    margin-left: 4px;
   }
 
   ${({ theme }) => theme.mediaWidth.upToMedium`
@@ -258,6 +258,9 @@ export default function Header() {
 
       <HeaderControls>
         <HeaderElement>
+          <Menu />
+        </HeaderElement>
+        <HeaderElement>
           <ANIbutton onClick={faucetOnClick} padding="8px 16px" width="100%" $borderRadius="12px">
             <Trans>Faucet</Trans>
           </ANIbutton>
@@ -274,9 +277,6 @@ export default function Header() {
             ) : null}
             <HeaderStatus />
           </AccountElement>
-        </HeaderElement>
-        <HeaderElement>
-          <Menu />
         </HeaderElement>
       </HeaderControls>
     </HeaderFrame>

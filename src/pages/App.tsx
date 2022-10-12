@@ -53,7 +53,7 @@ const Marginer = styled.div`
 
 const BottomRightLogo = styled.div`
   background: url('images/33_open.43a09438.png');
-  width: 216px
+  width: 216px;
   height: 212px;
   position: fixed;
   right: 0px;
