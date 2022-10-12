@@ -13,7 +13,6 @@ import {
   // FileText,
   Globe,
   // HelpCircle,
-  Info,
   Moon,
   Sun,
 } from 'react-feather'
@@ -240,12 +239,6 @@ export default function Menu() {
                       <div>{darkMode ? <Trans>Light Theme</Trans> : <Trans>Dark Theme</Trans>}</div>
                       {darkMode ? <Moon opacity={0.6} size={16} /> : <Sun opacity={0.6} size={16} />}
                     </ToggleMenuItem>
-                    <MenuItem href="https://animeswap.org/">
-                      <div>
-                        <Trans>About</Trans>
-                      </div>
-                      <Info opacity={0.6} size={16} />
-                    </MenuItem>
                     {(isDevelopmentEnv() || isStagingEnv()) && (
                       <ToggleMenuItem onClick={openFeatureFlagsModal}>Feature Flags</ToggleMenuItem>
                     )}

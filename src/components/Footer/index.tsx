@@ -16,7 +16,7 @@ const FooterItem = styled.a`
 export default function Footer() {
   return (
     <>
-      <FooterItem target="_blank" href="https://docs.animeswap.org/blog" rel="noreferrer">
+      <FooterItem target="_blank" href="https://docs.animeswap.org" rel="noreferrer">
         <Blog width="36px" height="36px"></Blog>
       </FooterItem>
       <FooterItem target="_blank" href="https://discord.gg/rbUG6SpRAM" rel="noreferrer">
@@ -28,7 +28,7 @@ export default function Footer() {
       <FooterItem target="_blank" href="https://github.com/AnimeSwap" rel="noreferrer">
         <GitHub width="36px" height="36px"></GitHub>
       </FooterItem>
-      <FooterItem target="_blank" href="https://docs.animeswap.org/" rel="noreferrer">
+      <FooterItem target="_blank" href="https://animeswap.org" rel="noreferrer">
         <Help width="36px" height="36px"></Help>
       </FooterItem>
     </>
