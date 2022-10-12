@@ -67,15 +67,15 @@ export default function Swap() {
       [Field.INPUT]:
         independentField === Field.INPUT
           ? parsedAmount
-          : bestTrade && inputCoin
+          : bestTrade && inputCoin && parsedAmount && parsedAmount.gt(0)
           ? Utils.d(bestTrade?.inputAmount.amount).div(Utils.pow10(inputCoin?.decimals || 0))
-          : BIG_INT_ZERO,
+          : null,
       [Field.OUTPUT]:
         independentField === Field.OUTPUT
           ? parsedAmount
-          : bestTrade && outputCoin
+          : bestTrade && outputCoin && parsedAmount && parsedAmount.gt(0)
           ? Utils.d(bestTrade?.outputAmount.amount).div(Utils.pow10(outputCoin?.decimals || 0))
-          : BIG_INT_ZERO,
+          : null,
     }
   }, [independentField, parsedAmount, bestTrade])
 
