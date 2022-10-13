@@ -1004,7 +1004,7 @@ msgid "Liquidity provider rewards"
 msgstr "Belonings vir likiditeitsverskaffer"
 
 #: src/pages/Pool/v2.tsx
-msgid "Liquidity providers earn a 0.3% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
+msgid "Liquidity providers earn a 0.25% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
 msgstr "Likiditeitsverskaffers verdien 'n fooi van 0,3% op alle transaksies wat eweredig is aan hul deel van die poel. Fooie word by die poel gevoeg, intyds toegeval en kan geëis word deur u likiditeit te onttrek."
 
 #: src/components/SearchModal/Manage.tsx

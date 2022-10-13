@@ -1,8 +1,8 @@
-import SDK, { AptosCoinStoreResource, AptosResource, NetworkType } from '@animeswap.org/v1-sdk'
+import SDK, { AptosCoinStoreResource, AptosResource, NetworkType, Utils } from '@animeswap.org/v1-sdk'
 import { AptosClient } from 'aptos'
 import { SupportedChainId } from 'constants/chains'
 import store from 'state'
-import { resetCoinBalances, setCoinBalances } from 'state/wallets/reducer'
+import { resetCoinBalances, resetLpBalances, setCoinBalances } from 'state/wallets/reducer'
 
 import { ConnectionType, getRPCURL } from './reducer'
 
@@ -44,18 +44,29 @@ class ConnectionInstance {
     try {
       const aptosClient = ConnectionInstance.getAptosClient()
       const res: AptosResource<any>[] = await aptosClient.getAccountResources(account)
-      // coin balance filter
+      const coinStore = this.getSDK().networkOptions.modules.CoinStore
+      const lpCoinNamespace = Utils.composeLPCoinType(this.getSDK().networkOptions.modules.ResourceAccountAddress)
       const coinBalances = {}
+      const lpBalances = {}
       for (const resource of res) {
         const type = resource.type
-        if (!type.startsWith('0x1::coin::CoinStore<')) continue
-        const coinType = type.substring(21, type.length - 1)
-        coinBalances[coinType] = resource.data.coin.value
+        // coin balance filter
+        if (type.startsWith(`${coinStore}<`)) {
+          const coinType = type.substring(coinStore.length + 1, type.length - 1)
+          coinBalances[coinType] = resource.data.coin.value
+          // LP balance filter
+          if (coinType.startsWith(`${lpCoinNamespace}<`)) {
+            const lpCoinType = coinType.substring(lpCoinNamespace.length + 1, coinType.length - 1)
+            lpBalances[lpCoinType] = resource.data.coin.value
+          }
+        }
       }
       store.dispatch(resetCoinBalances({ coinBalances }))
+      store.dispatch(resetLpBalances({ lpBalances }))
       return res
     } catch (error) {
       store.dispatch(resetCoinBalances({ coinBalances: {} }))
+      store.dispatch(resetLpBalances({ lpBalances: {} }))
       return undefined
     }
   }

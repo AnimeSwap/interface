@@ -1004,7 +1004,7 @@ msgid "Liquidity provider rewards"
 msgstr "Επιβραβεύσεις παρόχου ρευστότητας"
 
 #: src/pages/Pool/v2.tsx
-msgid "Liquidity providers earn a 0.3% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
+msgid "Liquidity providers earn a 0.25% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
 msgstr "Οι πάροχοι ρευστότητας κερδίζουν μια χρέωση της τάξεως του 0,3% σε όλες τις συναλλαγές ανάλογα με το μερίδιο τους στη δεξαμενή. Οι χρεώσεις προστίθενται στην ψηφοφορία, συσσωρεύονται σε πραγματικό χρόνο και μπορούν να ζητηθούν μέσω της ανάληψης σας ρευστότητας."
 
 #: src/components/SearchModal/Manage.tsx

@@ -37,7 +37,7 @@ export interface UserState {
 
   pairs: {
     [chainId: number]: {
-      // keyed by coin0Address;coin1Address
+      // keyed by coin0Address, coin1Address
       [key: string]: Pair
     }
   }

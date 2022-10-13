@@ -18,19 +18,19 @@ export default function Footer() {
   return (
     <>
       <FooterItem target="_blank" href="https://docs.animeswap.org" rel="noreferrer">
-        <Blog width="32px" height="32px"></Blog>
+        <Blog width="28px" height="28px"></Blog>
       </FooterItem>
       <FooterItem target="_blank" href="https://discord.gg/rbUG6SpRAM" rel="noreferrer">
-        <Discord width="32px" height="32px"></Discord>
+        <Discord width="28px" height="28px"></Discord>
       </FooterItem>
       <FooterItem target="_blank" href="https://twitter.com/animeswap_org" rel="noreferrer">
-        <Twitter width="32px" height="32px"></Twitter>
+        <Twitter width="28px" height="28px"></Twitter>
       </FooterItem>
       <FooterItem target="_blank" href="https://github.com/AnimeSwap" rel="noreferrer">
-        <GitHub width="32px" height="32px"></GitHub>
+        <GitHub width="28px" height="28px"></GitHub>
       </FooterItem>
       <FooterItem target="_blank" href="https://animeswap.org" rel="noreferrer">
-        <Help width="32px" height="32px"></Help>
+        <Help width="28px" height="28px"></Help>
       </FooterItem>
     </>
   )

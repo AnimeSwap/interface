@@ -1004,7 +1004,7 @@ msgid "Liquidity provider rewards"
 msgstr "Recompensas do fornecedor de liquidez"
 
 #: src/pages/Pool/v2.tsx
-msgid "Liquidity providers earn a 0.3% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
+msgid "Liquidity providers earn a 0.25% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
 msgstr "Os fornecedores de liquidez ganham uma taxa de 0,3% em todas as trocas, proporcional à sua participação na pool. As comissões são adicionadas à pool, acumulam em tempo real e podem ser reivindicadas retirando a sua liquidez."
 
 #: src/components/SearchModal/Manage.tsx

@@ -1004,7 +1004,7 @@ msgid "Liquidity provider rewards"
 msgstr "รางวัลผู้ให้บริการสภาพคล่อง"
 
 #: src/pages/Pool/v2.tsx
-msgid "Liquidity providers earn a 0.3% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
+msgid "Liquidity providers earn a 0.25% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
 msgstr "ผู้ให้บริการสภาพคล่องจะได้รับค่าธรรมเนียม 0.3% จากการซื้อขายทั้งหมดตามสัดส่วนของส่วนแบ่งในพูล ค่าธรรมเนียมจะถูกเพิ่มเข้าในพูล สะสมตามเวลาจริง และสามารถอ้างสิทธิ์ได้โดยการถอนสภาพคล่องของคุณ"
 
 #: src/components/SearchModal/Manage.tsx
