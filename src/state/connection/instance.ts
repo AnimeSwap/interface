@@ -8,7 +8,9 @@ import SDK, {
 } from '@animeswap.org/v1-sdk'
 import { AptosClient } from 'aptos'
 import { SupportedChainId } from 'constants/chains'
+import { Pair } from 'hooks/common/Pair'
 import store from 'state'
+import { updatePair } from 'state/user/reducer'
 import { resetCoinBalances, resetLpBalances, setCoinBalances } from 'state/wallets/reducer'
 
 import { ConnectionType, getRPCURL } from './reducer'
@@ -65,7 +67,8 @@ class ConnectionInstance {
           if (coinType.startsWith(`${lpCoinNamespace}<`)) {
             const lpCoinType = coinType.substring(lpCoinNamespace.length + 1, coinType.length - 1)
             lpBalances[lpCoinType] = resource.data.coin.value
-            // const [coinX, coinY] = lpCoinType.split(', ')
+            const [coinX, coinY] = lpCoinType.split(', ')
+            this.getPair(coinX, coinY)
           }
         }
       }
@@ -107,7 +110,7 @@ class ConnectionInstance {
     }
   }
 
-  public static async getLPData(coinX: string, coinY: string) {
+  public static async getPair(coinX: string, coinY: string) {
     try {
       const modules = this.getSDK().networkOptions.modules
       const lpCoin = Utils.composeLPCoin(modules.ResourceAccountAddress, coinX, coinY)
@@ -124,6 +127,14 @@ class ConnectionInstance {
       const lpTotal = lpCoinInfo.supply.vec[0].integer.vec[0].value
       const coinXReserve = lpPool.coin_x_reserve.value
       const coinYReserve = lpPool.coin_y_reserve.value
+      const pair = {
+        coinX,
+        coinY,
+        lpTotal,
+        coinXReserve,
+        coinYReserve,
+      }
+      store.dispatch(updatePair({ pair }))
       return {
         lpTotal,
         coinXReserve,

@@ -30,7 +30,13 @@ const store = configureStore({
     lists,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({ thunk: true }).concat(
+    getDefaultMiddleware({
+      // serializableCheck: {
+      //   ignoredActions: ['user/updatePair'],
+      //   ignoredPaths: ['user.pairs'],
+      // },
+      thunk: true,
+    }).concat(
       save({
         states: PERSISTED_KEYS,
         debounce: 1000,

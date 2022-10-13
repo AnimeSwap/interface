@@ -11,10 +11,6 @@ function URIForEthToken(address: string) {
 }
 
 async function getColorFromToken(coin: Coin): Promise<string | null> {
-  if (!(coin instanceof Coin)) {
-    return null
-  }
-
   const { address } = coin
   let logoURL = coin?.logoURL[0]
   if (!logoURL) {

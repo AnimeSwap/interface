@@ -2,14 +2,14 @@ import { Decimal, Utils } from '@animeswap.org/v1-sdk'
 import { useAppSelector } from 'state/hooks'
 import { useChainId } from 'state/user/hooks'
 
-export class Coin {
-  public address: string
-  public decimals: number
-  public symbol: string
-  public name: string
-  public logoURL: string[]
-  public projectURL?: string
-  public extensions?: object
+export interface Coin {
+  address: string
+  decimals: number
+  symbol: string
+  name: string
+  logoURL: string[]
+  projectURL?: string
+  extensions?: object
 }
 
 export class CoinAmount<T extends Coin> {

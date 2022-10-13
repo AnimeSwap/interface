@@ -99,7 +99,7 @@ const userSlice = createSlice({
     updatePair(state, { payload: { pair } }: { payload: { pair: Pair } }) {
       const chainId = state.chainId
       state.pairs[chainId] = state.pairs[chainId] || {}
-      state.pairs[chainId][pair.getLPType()] = pair
+      state.pairs[chainId][pairKey(pair.coinX, pair.coinY)] = pair
     },
     removePair(state, { payload: { coinX, coinY } }: { payload: { coinX: string; coinY: string } }) {
       const chainId = state.chainId
