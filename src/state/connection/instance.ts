@@ -1,4 +1,11 @@
-import SDK, { AptosCoinStoreResource, AptosResource, NetworkType, Utils } from '@animeswap.org/v1-sdk'
+import SDK, {
+  AptosCoinInfoResource,
+  AptosCoinStoreResource,
+  AptosResource,
+  NetworkType,
+  SwapPoolResource,
+  Utils,
+} from '@animeswap.org/v1-sdk'
 import { AptosClient } from 'aptos'
 import { SupportedChainId } from 'constants/chains'
 import store from 'state'
@@ -58,6 +65,7 @@ class ConnectionInstance {
           if (coinType.startsWith(`${lpCoinNamespace}<`)) {
             const lpCoinType = coinType.substring(lpCoinNamespace.length + 1, coinType.length - 1)
             lpBalances[lpCoinType] = resource.data.coin.value
+            // const [coinX, coinY] = lpCoinType.split(', ')
           }
         }
       }
@@ -85,14 +93,42 @@ class ConnectionInstance {
   public static async getCoinBalance(account: string, type: string) {
     try {
       console.log(`getCoinBalance ${account} ${type}`)
+      const coinStore = this.getSDK().networkOptions.modules.CoinStore
       const res: AptosCoinStoreResource = await ConnectionInstance.getAccountResource(
         account,
-        `0x1::coin::CoinStore<${type}>`
+        Utils.composeCoinStore(coinStore, type)
       )
       console.log(`getCoinBalance return`, res)
       const amount = res.coin.value
       store.dispatch(setCoinBalances({ coinBalances: { [type]: amount } }))
       return amount
+    } catch (error) {
+      return undefined
+    }
+  }
+
+  public static async getLPData(coinX: string, coinY: string) {
+    try {
+      const modules = this.getSDK().networkOptions.modules
+      const lpCoin = Utils.composeLPCoin(modules.ResourceAccountAddress, coinX, coinY)
+      const lpType = Utils.composeLP(modules.DeployerAddress, modules.ResourceAccountAddress, coinX, coinY)
+      const getLPCoinInfo: AptosCoinInfoResource = await ConnectionInstance.getAccountResource(
+        modules.ResourceAccountAddress,
+        Utils.composeType(modules.CoinInfo, [lpCoin])
+      )
+      const getLPPool: SwapPoolResource = await ConnectionInstance.getAccountResource(
+        modules.ResourceAccountAddress,
+        lpType
+      )
+      const [lpCoinInfo, lpPool] = await Promise.all([getLPCoinInfo, getLPPool])
+      const lpTotal = lpCoinInfo.supply.vec[0].integer.vec[0].value
+      const coinXReserve = lpPool.coin_x_reserve.value
+      const coinYReserve = lpPool.coin_y_reserve.value
+      return {
+        lpTotal,
+        coinXReserve,
+        coinYReserve,
+      }
     } catch (error) {
       return undefined
     }

@@ -8,8 +8,8 @@ import { Pair } from 'hooks/common/Pair'
 import { DEFAULT_DEADLINE_FROM_NOW } from '../../constants/misc'
 import { updateVersion } from '../global/actions'
 
-function pairKey(coinXAddress: string, coinYAddress: string) {
-  return `${coinXAddress};${coinYAddress}`
+export function pairKey(coinXAddress: string, coinYAddress: string) {
+  return `${coinXAddress}, ${coinYAddress}`
 }
 
 export interface UserState {
@@ -96,17 +96,16 @@ const userSlice = createSlice({
       state.coins[chainId] = state.coins[chainId] || {}
       delete state.coins[chainId][address]
     },
-    addPair(state, { payload: { pair } }) {
-      if (pair.coinX.chainId === pair.coinY.chainId && pair.coinX.address !== pair.coinY.address) {
-        const chainId = pair.coinX.chainId
-        state.pairs[chainId] = state.pairs[chainId] || {}
-        state.pairs[chainId][pairKey(pair.coinX.address, pair.coinY.address)] = pair
-      }
+    updatePair(state, { payload: { pair } }: { payload: { pair: Pair } }) {
+      const chainId = state.chainId
+      state.pairs[chainId] = state.pairs[chainId] || {}
+      state.pairs[chainId][pair.getLPType()] = pair
     },
-    removePair(state, { payload: { chainId, coinXAddress, coinYAddress } }) {
+    removePair(state, { payload: { coinX, coinY } }: { payload: { coinX: string; coinY: string } }) {
+      const chainId = state.chainId
       if (state.pairs[chainId]) {
-        delete state.pairs[chainId][pairKey(coinXAddress, coinYAddress)]
-        delete state.pairs[chainId][pairKey(coinYAddress, coinXAddress)]
+        delete state.pairs[chainId][pairKey(coinX, coinY)]
+        delete state.pairs[chainId][pairKey(coinY, coinX)]
       }
     },
     setShowSwapDropdownDetails(
@@ -161,7 +160,7 @@ const userSlice = createSlice({
 export const {
   addCoin,
   removeCoin,
-  addPair,
+  updatePair,
   removePair,
   updateChainId,
   updateMatchesDarkMode,

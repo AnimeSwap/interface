@@ -170,6 +170,9 @@ export default function Pool() {
                 </ThemedText.DeprecatedMediumHeader>
               </HideSmall>
               <ButtonRow>
+                <ResponsiveButtonSecondary as={Link} padding="6px 8px" to="/add">
+                  <Trans>Create a pair</Trans>
+                </ResponsiveButtonSecondary>
                 <ResponsiveButtonPrimary id="join-pool-button" as={Link} to="/add" padding="6px 8px">
                   <Text fontWeight={500} fontSize={16}>
                     <Trans>Add Liquidity</Trans>

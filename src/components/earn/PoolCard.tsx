@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro'
-import { Coin, useCoin } from 'hooks/common/Coin'
+import { useCoin } from 'hooks/common/Coin'
 import styled from 'styled-components/macro'
 
 import { BIG_INT_SECONDS_IN_WEEK } from '../../constants/misc'
