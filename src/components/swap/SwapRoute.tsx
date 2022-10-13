@@ -60,7 +60,7 @@ export default memo(function SwapRoute({ trade, syncing, fixedOpen = true, ...re
       routes[0].path.push([
         coinMap[trade.route[i]] || coinMap['0x1::aptos_coin::AptosCoin'],
         coinMap[trade.route[i + 1]] || coinMap['0x1::aptos_coin::AptosCoin'],
-        1000000,
+        3000,
       ])
     }
   } catch (e) {
