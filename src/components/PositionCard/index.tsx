@@ -11,7 +11,6 @@ import { Text } from 'rebass'
 import { useAccount, useLpBalance } from 'state/wallets/hooks'
 import styled from 'styled-components/macro'
 
-import { BIG_INT_ZERO } from '../../constants/misc'
 import { useColor } from '../../hooks/useColor'
 import { ExternalLink, ThemedText } from '../../theme'
 import { ButtonEmpty, ButtonPrimary, ButtonSecondary } from '../Button'
@@ -146,7 +145,6 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
   const lpBalance = Utils.d(useLpBalance(pairKey(pair.coinX, pair.coinY)))
   const coinXAmount = new CoinAmount(coinX, Utils.d(pair.coinXReserve))
   const coinYAmount = new CoinAmount(coinY, Utils.d(pair.coinYReserve))
-  console.log('Azard', lpBalance.toString(), pair.lpTotal)
   const poolLpPercentage = lpBalance.div(Utils.d(pair.lpTotal)).mul(100)
 
   const [showMore, setShowMore] = useState(false)
@@ -267,8 +265,7 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
                 padding="8px"
                 $borderRadius="8px"
                 as={Link}
-                // to={`/add/v2/${coinId(currency0)}/${coinId(currency1)}`}
-                to={`/add/`}
+                to={`/add/${pair.coinX}/${pair.coinY}`}
                 width="40%"
               >
                 <Trans>Add</Trans>
@@ -278,8 +275,7 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
                 $borderRadius="8px"
                 as={Link}
                 width="40%"
-                // to={`/remove/v2/${coinId(currency0)}/${coinId(currency1)}`}
-                to={`/remove/`}
+                to={`/remove/${pair.coinX}/${pair.coinY}`}
               >
                 <Trans>Remove</Trans>
               </ButtonPrimary>
