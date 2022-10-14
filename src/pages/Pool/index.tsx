@@ -179,11 +179,7 @@ export default function Pool() {
                   </RowBetween>
                 </ButtonSecondary> */}
                 {pairs.map((pair) => (
-                  <FullPositionCard
-                    key={pairKey(pair.coinX, pair.coinY)}
-                    pair={pair}
-                    lpBalance={allLpBalances[`${pair.coinX}, ${pair.coinY}`]}
-                  />
+                  <FullPositionCard key={pairKey(pair.coinX, pair.coinY)} pair={pair} />
                 ))}
               </>
             ) : (

@@ -36,6 +36,16 @@ export class CoinAmount<T extends Coin> {
   }
 }
 
+export function amountPretty(amount: Decimal, coinDecimal: number, decimals?: number): string {
+  const significant = decimals || 6
+  const value = amount.div(Utils.pow10(coinDecimal))
+  if (value.greaterThan(Utils.pow10(significant))) {
+    return value.toDP(0).toString()
+  } else {
+    return value.toSD(significant).toString()
+  }
+}
+
 export class ImportCoinList {
   name: string
   logoURL: string

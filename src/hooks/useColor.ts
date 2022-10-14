@@ -6,38 +6,18 @@ import { hex } from 'wcag-contrast'
 
 import { Coin } from './common/Coin'
 
-function URIForEthToken(address: string) {
-  return `https://raw.githubusercontent.com/uniswap/assets/master/blockchains/ethereum/assets/${address}/logo.png`
-}
-
 async function getColorFromToken(coin: Coin): Promise<string | null> {
-  const { address } = coin
-  let logoURL = coin?.logoURL[0]
-  if (!logoURL) {
-    logoURL = URIForEthToken(address)
-  }
-
+  const logoURL = coin?.logoURL[0]
   try {
     return await getColorFromUriPath(logoURL)
   } catch (e) {
-    if (logoURL === URIForEthToken(address)) {
-      return null
-    }
-
-    try {
-      logoURL = URIForEthToken(address)
-      return await getColorFromUriPath(logoURL)
-    } catch (e) {}
+    return null
   }
-
-  return null
 }
 
 async function getColorFromUriPath(uri: string): Promise<string | null> {
   const formattedPath = uriToHttp(uri)[0]
-
   let palette
-
   try {
     palette = await Vibrant.from(formattedPath).getPalette()
   } catch (err) {
@@ -58,7 +38,7 @@ async function getColorFromUriPath(uri: string): Promise<string | null> {
 }
 
 export function useColor(coin?: Coin) {
-  const [color, setColor] = useState('#2172E5')
+  const [color, setColor] = useState('#8A2BE2')
 
   useEffect(() => {
     let stale = false
@@ -73,7 +53,7 @@ export function useColor(coin?: Coin) {
 
     return () => {
       stale = true
-      setColor('#2172E5')
+      setColor('#8A2BE2')
     }
   }, [coin])
 
@@ -81,7 +61,7 @@ export function useColor(coin?: Coin) {
 }
 
 export function useListColor(listImageUri?: string) {
-  const [color, setColor] = useState('#2172E5')
+  const [color, setColor] = useState('#8A2BE2')
 
   useEffect(() => {
     let stale = false
@@ -96,7 +76,7 @@ export function useListColor(listImageUri?: string) {
 
     return () => {
       stale = true
-      setColor('#2172E5')
+      setColor('#8A2BE2')
     }
   }, [listImageUri])
 
