@@ -38,6 +38,7 @@ interface PositionCardProps {
   pair: any
   showUnwrapped?: boolean
   border?: string
+  lpBalance?: string
   stakedBalance?: Decimal // optional balance to indicate that liquidity is deposited in mining pool
 }
 

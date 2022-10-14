@@ -111,7 +111,7 @@ class ConnectionInstance {
   }
 
   // sync from pool pair
-  public static async getPair(coinX: string, coinY: string) {
+  public static async getPair(coinX: string, coinY: string): Promise<Pair> {
     try {
       const modules = this.getSDK().networkOptions.modules
       const lpCoin = Utils.composeLPCoin(modules.ResourceAccountAddress, coinX, coinY)
@@ -136,11 +136,7 @@ class ConnectionInstance {
         coinYReserve,
       }
       store.dispatch(updatePair({ pair }))
-      return {
-        lpTotal,
-        coinXReserve,
-        coinYReserve,
-      }
+      return pair
     } catch (error) {
       return undefined
     }

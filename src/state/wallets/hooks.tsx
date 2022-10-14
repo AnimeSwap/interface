@@ -21,6 +21,14 @@ export function useAllCoinBalance(): { [address: string]: string } {
   return useAppSelector((state) => state.wallets.coinBalances)
 }
 
+export function useLpBalance(pairKey: string): string | undefined {
+  return useAppSelector((state) => state.wallets.lpBalances[pairKey])
+}
+
+export function useAllLpBalance(): { [pairKey: string]: string } {
+  return useAppSelector((state) => state.wallets.lpBalances)
+}
+
 export function useAccount(): string | undefined {
   return useAppSelector((state) => state.wallets.account)
 }
