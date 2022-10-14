@@ -263,7 +263,7 @@ export default function CoinInputPanel({
               <RowFixed>
                 {pair ? (
                   <span style={{ marginRight: '0.5rem' }}>
-                    <DoubleCoinLogo currency0={pair[0]} currency1={pair[1]} size={24} margin={true} />
+                    <DoubleCoinLogo coinX={pair[0]} coinY={pair[1]} size={24} margin={true} />
                   </span>
                 ) : coin ? (
                   <CoinLogo style={{ marginRight: '0.5rem' }} coin={coin} size={'24px'} />

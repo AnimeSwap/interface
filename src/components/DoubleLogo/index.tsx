@@ -13,8 +13,8 @@ const Wrapper = styled.div<{ margin: boolean; sizeraw: number }>`
 interface DoubleCoinLogoProps {
   margin?: boolean
   size?: number
-  currency0?: Coin
-  currency1?: Coin
+  coinX?: Coin
+  coinY?: Coin
 }
 
 const HigherLogo = styled(CoinLogo)`
@@ -25,11 +25,11 @@ const CoveredLogo = styled(CoinLogo)<{ sizeraw: number }>`
   left: ${({ sizeraw }) => '-' + (sizeraw / 2).toString() + 'px'} !important;
 `
 
-export default function DoubleCoinLogo({ currency0, currency1, size = 16, margin = false }: DoubleCoinLogoProps) {
+export default function DoubleCoinLogo({ coinX, coinY, size = 16, margin = false }: DoubleCoinLogoProps) {
   return (
     <Wrapper sizeraw={size} margin={margin}>
-      {currency0 && <HigherLogo coin={currency0} size={size.toString() + 'px'} />}
-      {currency1 && <CoveredLogo coin={currency1} size={size.toString() + 'px'} sizeraw={size} />}
+      {coinX && <HigherLogo coin={coinX} size={size.toString() + 'px'} />}
+      {coinY && <CoveredLogo coin={coinY} size={size.toString() + 'px'} sizeraw={size} />}
     </Wrapper>
   )
 }

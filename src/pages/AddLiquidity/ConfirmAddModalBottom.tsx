@@ -12,40 +12,39 @@ import { ThemedText } from '../../theme'
 export function ConfirmAddModalBottom({
   noLiquidity,
   price,
-  currencies,
+  coins,
   parsedAmounts,
   poolTokenPercentage,
   onAdd,
 }: {
   noLiquidity?: boolean
   price?: Decimal
-  currencies: { [field in Field]?: Coin }
-  parsedAmounts: { [field in Field]?: CoinAmount<Coin> }
+  coins: { [field in Field]?: Coin }
+  parsedAmounts: { [field in Field]?: Decimal }
   poolTokenPercentage?: Decimal
   onAdd: () => void
 }) {
+  const coinA_amount = new CoinAmount(coins[Field.COIN_A], parsedAmounts[Field.COIN_A])
+  const coinB_amount = new CoinAmount(coins[Field.COIN_B], parsedAmounts[Field.COIN_B])
+
   return (
     <>
       <RowBetween>
         <ThemedText.DeprecatedBody>
-          <Trans>{currencies[Field.CURRENCY_A]?.symbol} Deposited</Trans>
+          <Trans>{coins[Field.COIN_A]?.symbol} Deposited</Trans>
         </ThemedText.DeprecatedBody>
         <RowFixed>
-          <CoinLogo coin={currencies[Field.CURRENCY_A]} style={{ marginRight: '8px' }} />
-          <ThemedText.DeprecatedBody>
-            {parsedAmounts[Field.CURRENCY_A]?.amount.toSD(6).toString()}
-          </ThemedText.DeprecatedBody>
+          <CoinLogo coin={coins[Field.COIN_A]} style={{ marginRight: '8px' }} />
+          <ThemedText.DeprecatedBody>{coinA_amount.pretty()}</ThemedText.DeprecatedBody>
         </RowFixed>
       </RowBetween>
       <RowBetween>
         <ThemedText.DeprecatedBody>
-          <Trans>{currencies[Field.CURRENCY_B]?.symbol} Deposited</Trans>
+          <Trans>{coins[Field.COIN_B]?.symbol} Deposited</Trans>
         </ThemedText.DeprecatedBody>
         <RowFixed>
-          <CoinLogo coin={currencies[Field.CURRENCY_B]} style={{ marginRight: '8px' }} />
-          <ThemedText.DeprecatedBody>
-            {parsedAmounts[Field.CURRENCY_B]?.amount.toSD(6).toString()}
-          </ThemedText.DeprecatedBody>
+          <CoinLogo coin={coins[Field.COIN_B]} style={{ marginRight: '8px' }} />
+          <ThemedText.DeprecatedBody>{coinB_amount.pretty()}</ThemedText.DeprecatedBody>
         </RowFixed>
       </RowBetween>
       <RowBetween>
@@ -53,15 +52,13 @@ export function ConfirmAddModalBottom({
           <Trans>Rates</Trans>
         </ThemedText.DeprecatedBody>
         <ThemedText.DeprecatedBody>
-          {`1 ${currencies[Field.CURRENCY_A]?.symbol} = ${price?.toSD(4).toString()} ${
-            currencies[Field.CURRENCY_B]?.symbol
-          }`}
+          {`1 ${coins[Field.COIN_A]?.symbol} = ${price?.toSD(4).toString()} ${coins[Field.COIN_B]?.symbol}`}
         </ThemedText.DeprecatedBody>
       </RowBetween>
       <RowBetween style={{ justifyContent: 'flex-end' }}>
         <ThemedText.DeprecatedBody>
-          {`1 ${currencies[Field.CURRENCY_B]?.symbol} = ${new Decimal(1).div(price).toSD(4).toString()} ${
-            currencies[Field.CURRENCY_A]?.symbol
+          {`1 ${coins[Field.COIN_B]?.symbol} = ${new Decimal(1).div(price).toSD(4).toString()} ${
+            coins[Field.COIN_A]?.symbol
           }`}
         </ThemedText.DeprecatedBody>
       </RowBetween>

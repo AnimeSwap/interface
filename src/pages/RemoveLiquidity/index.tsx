@@ -1,5 +1,6 @@
 import { Trans } from '@lingui/macro'
 import { BP } from 'constants/misc'
+import { useCoin } from 'hooks/common/Coin'
 import { useCallback, useContext, useMemo, useState } from 'react'
 import { ArrowDown, Plus } from 'react-feather'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -32,12 +33,11 @@ const DEFAULT_REMOVE_LIQUIDITY_SLIPPAGE_TOLERANCE = 50
 
 export default function RemoveLiquidity() {
   const navigate = useNavigate()
-  const { coinIdA, coinIdB } = useParams<{ coinIdA: string; coinIdB: string }>()
-  // const [currencyA, currencyB] = [useCurrency(coinIdA) ?? undefined, useCurrency(coinIdB) ?? undefined]
-  const [currencyA, currencyB] = [undefined, undefined]
+  const { CoinIdA, CoinIdB } = useParams<{ CoinIdA: string; CoinIdB: string }>()
+  const CoinA = useCoin(CoinIdA)
+  const CoinB = useCoin(CoinIdB)
   const account = useAccount()
   const chainId = useChainId()
-  const [tokenA, tokenB] = useMemo(() => [currencyA?.wrapped, currencyB?.wrapped], [currencyA, currencyB])
 
   const theme = useContext(ThemeContext)
 
@@ -93,12 +93,9 @@ export default function RemoveLiquidity() {
     //   [Field.CURRENCY_B]: calculateSlippageAmount(currencyAmountB, allowedSlippage)[0],
     // }
 
-    if (!currencyA || !currencyB) throw new Error('missing tokens')
+    if (!CoinA || !CoinB) throw new Error('missing tokens')
     // const liquidityAmount = parsedAmounts[Field.LIQUIDITY]
     // if (!liquidityAmount) throw new Error('missing liquidity amount')
-
-    const currencyBIsETH = currencyB.isNative
-    if (!tokenA || !tokenB) throw new Error('could not wrap')
 
     let methodNames: string[], args: Array<string | string[] | number | boolean>
   }
@@ -111,9 +108,9 @@ export default function RemoveLiquidity() {
             {0}
           </Text>
           <RowFixed gap="4px">
-            <CoinLogo coin={currencyA} size={'24px'} />
+            <CoinLogo coin={CoinA} size={'24px'} />
             <Text fontSize={24} fontWeight={500} style={{ marginLeft: '10px' }}>
-              {currencyA?.symbol}
+              {CoinA?.symbol}
             </Text>
           </RowFixed>
         </RowBetween>
@@ -125,9 +122,9 @@ export default function RemoveLiquidity() {
             {0}
           </Text>
           <RowFixed gap="4px">
-            <CoinLogo coin={currencyB} size={'24px'} />
+            <CoinLogo coin={CoinB} size={'24px'} />
             <Text fontSize={24} fontWeight={500} style={{ marginLeft: '10px' }}>
-              {currencyB?.symbol}
+              {CoinB?.symbol}
             </Text>
           </RowFixed>
         </RowBetween>
@@ -153,11 +150,11 @@ export default function RemoveLiquidity() {
         <RowBetween>
           <Text color={theme.deprecated_text2} fontWeight={500} fontSize={16}>
             <Trans>
-              UNI {currencyA?.symbol}/{currencyB?.symbol} Burned
+              UNI {CoinA?.symbol}/{CoinB?.symbol} Burned
             </Trans>
           </Text>
           <RowFixed>
-            <DoubleCoinLogo currency0={currencyA} currency1={currencyB} margin={true} />
+            <DoubleCoinLogo CoinA={CoinA} CoinB={CoinB} margin={true} />
             <Text fontWeight={500} fontSize={16}>
               {0}
             </Text>
@@ -206,23 +203,23 @@ export default function RemoveLiquidity() {
 
   // const handleSelectCoinA = useCallback(
   //   (currency: Currency) => {
-  //     if (coinIdB && coinId(currency) === coinIdB) {
-  //       navigate(`/remove/v2/${coinId(currency)}/${coinIdA}`)
+  //     if (CoinIdB && coinId(currency) === CoinIdB) {
+  //       navigate(`/remove/v2/${coinId(currency)}/${CoinIdA}`)
   //     } else {
-  //       navigate(`/remove/v2/${coinId(currency)}/${coinIdB}`)
+  //       navigate(`/remove/v2/${coinId(currency)}/${CoinIdB}`)
   //     }
   //   },
-  //   [coinIdA, coinIdB, navigate]
+  //   [CoinIdA, CoinIdB, navigate]
   // )
   // const handleSelectCoinB = useCallback(
   //   (currency: Currency) => {
-  //     if (coinIdA && coinId(currency) === coinIdA) {
-  //       navigate(`/remove/v2/${coinIdB}/${coinId(currency)}`)
+  //     if (CoinIdA && coinId(currency) === CoinIdA) {
+  //       navigate(`/remove/v2/${CoinIdB}/${coinId(currency)}`)
   //     } else {
-  //       navigate(`/remove/v2/${coinIdA}/${coinId(currency)}`)
+  //       navigate(`/remove/v2/${CoinIdA}/${coinId(currency)}`)
   //     }
   //   },
-  //   [coinIdA, coinIdB, navigate]
+  //   [CoinIdA, CoinIdB, navigate]
   // )
 
   const handleDismissConfirmation = useCallback(() => {
@@ -323,9 +320,9 @@ export default function RemoveLiquidity() {
                         APT
                       </Text>
                       <RowFixed>
-                        <CoinLogo coin={currencyA} style={{ marginRight: '12px' }} />
+                        <CoinLogo coin={CoinA} style={{ marginRight: '12px' }} />
                         <Text fontSize={24} fontWeight={500} id="remove-liquidity-tokena-symbol">
-                          {currencyA?.symbol}
+                          {CoinA?.symbol}
                         </Text>
                       </RowFixed>
                     </RowBetween>
@@ -334,9 +331,9 @@ export default function RemoveLiquidity() {
                         APT
                       </Text>
                       <RowFixed>
-                        <CoinLogo coin={currencyB} style={{ marginRight: '12px' }} />
+                        <CoinLogo coin={CoinB} style={{ marginRight: '12px' }} />
                         <Text fontSize={24} fontWeight={500} id="remove-liquidity-tokenb-symbol">
-                          {currencyB?.symbol}
+                          {CoinB?.symbol}
                         </Text>
                       </RowFixed>
                     </RowBetween>

@@ -52,7 +52,11 @@ export const initialState: UserState = {
     [SupportedChainId.APTOS_TESTNET]: APTOS_TESTNET_CoinInfo,
     [SupportedChainId.APTOS_DEVNET]: APTOS_DEVNET_CoinInfo,
   },
-  pairs: {},
+  pairs: {
+    [SupportedChainId.APTOS]: {},
+    [SupportedChainId.APTOS_TESTNET]: {},
+    [SupportedChainId.APTOS_DEVNET]: {},
+  },
   showSwapDropdownDetails: false,
 }
 
@@ -125,7 +129,10 @@ const userSlice = createSlice({
         [SupportedChainId.APTOS_TESTNET]: APTOS_TESTNET_CoinInfo,
         [SupportedChainId.APTOS_DEVNET]: APTOS_DEVNET_CoinInfo,
       }
-
+      // init local pair
+      state.pairs[SupportedChainId.APTOS] = state.pairs[SupportedChainId.APTOS] || {}
+      state.pairs[SupportedChainId.APTOS_TESTNET] = state.pairs[SupportedChainId.APTOS_TESTNET] || {}
+      state.pairs[SupportedChainId.APTOS_DEVNET] = state.pairs[SupportedChainId.APTOS_DEVNET] || {}
       // slippage isnt being tracked in local storage, reset to default
       // noinspection SuspiciousTypeOfGuard
       if (

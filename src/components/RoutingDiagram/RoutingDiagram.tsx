@@ -132,7 +132,7 @@ function Pool({ currency0, currency1, feeAmount }: { currency0: Coin; currency1:
     >
       <PoolBadge>
         <Box margin="0 4px 0 12px">
-          <DoubleCoinLogo currency0={tokenInfo1} currency1={tokenInfo0} size={20} />
+          <DoubleCoinLogo coinX={tokenInfo1} coinY={tokenInfo0} size={20} />
         </Box>
         {/* <ThemedText.DeprecatedSmall fontSize={14}>{feeAmount / 10000}%</ThemedText.DeprecatedSmall> */}
       </PoolBadge>

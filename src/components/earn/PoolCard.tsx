@@ -67,16 +67,13 @@ const BottomSection = styled.div<{ showBackground: boolean }>`
 `
 
 export default function PoolCard({ stakingInfo }: any) {
-  const token0 = useCoin()
-  const token1 = useCoin()
-
-  const currency0 = token0
-  const currency1 = token1
+  const coinX = useCoin()
+  const coinY = useCoin()
 
   const isStaking = Boolean(stakingInfo.stakedAmount.greaterThan('0'))
 
   // get the color of the token
-  const backgroundColor = useColor(token0)
+  const backgroundColor = useColor(coinX)
 
   return (
     <Wrapper showBackground={isStaking} bgColor={backgroundColor}>
@@ -84,13 +81,12 @@ export default function PoolCard({ stakingInfo }: any) {
       <CardNoise />
 
       <TopSection>
-        {/* <DoubleCoinLogo currency0={currency0} currency1={currency1} size={24} /> */}
-        <DoubleCoinLogo currency0={null} currency1={null} size={24} />
+        <DoubleCoinLogo coinX={coinX} coinY={coinY} size={24} />
         <ThemedText.DeprecatedWhite fontWeight={600} fontSize={24} style={{ marginLeft: '8px' }}>
-          {currency0.symbol}-{currency1.symbol}
+          {coinX.symbol}-{coinY.symbol}
         </ThemedText.DeprecatedWhite>
 
-        <StyledInternalLink to={`/uni/${currency0.address}/${currency1.address}`} style={{ width: '100%' }}>
+        <StyledInternalLink to={`/uni/${coinX.address}/${coinY.address}`} style={{ width: '100%' }}>
           <ButtonPrimary padding="8px" $borderRadius="8px">
             {isStaking ? <Trans>Manage</Trans> : <Trans>Deposit</Trans>}
           </ButtonPrimary>
