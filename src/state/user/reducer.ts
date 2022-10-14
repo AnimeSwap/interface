@@ -3,14 +3,10 @@ import { SupportedChainId } from 'constants/chains'
 import { APTOS_CoinInfo, APTOS_DEVNET_CoinInfo, APTOS_TESTNET_CoinInfo } from 'constants/coinInfo'
 import { SupportedLocale } from 'constants/locales'
 import { Coin } from 'hooks/common/Coin'
-import { Pair } from 'hooks/common/Pair'
+import { Pair, pairKey } from 'hooks/common/Pair'
 
 import { DEFAULT_DEADLINE_FROM_NOW } from '../../constants/misc'
 import { updateVersion } from '../global/actions'
-
-export function pairKey(coinXAddress: string, coinYAddress: string) {
-  return `${coinXAddress}, ${coinYAddress}`
-}
 
 export interface UserState {
   chainId: SupportedChainId

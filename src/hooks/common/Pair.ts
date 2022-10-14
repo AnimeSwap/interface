@@ -5,3 +5,7 @@ export interface Pair {
   coinXReserve: string
   coinYReserve: string
 }
+
+export function pairKey(coinXAddress: string, coinYAddress: string) {
+  return `${coinXAddress}, ${coinYAddress}`
+}

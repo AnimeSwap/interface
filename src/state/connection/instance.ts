@@ -110,6 +110,7 @@ class ConnectionInstance {
     }
   }
 
+  // sync from pool pair
   public static async getPair(coinX: string, coinY: string) {
     try {
       const modules = this.getSDK().networkOptions.modules
@@ -127,7 +128,7 @@ class ConnectionInstance {
       const lpTotal = lpCoinInfo.supply.vec[0].integer.vec[0].value
       const coinXReserve = lpPool.coin_x_reserve.value
       const coinYReserve = lpPool.coin_y_reserve.value
-      const pair = {
+      const pair: Pair = {
         coinX,
         coinY,
         lpTotal,
