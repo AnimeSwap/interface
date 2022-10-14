@@ -47,9 +47,9 @@ const HeaderWrapper = styled.div`
   z-index: 2;
 `
 
-// const Marginer = styled.div`
-//   margin-top: 5rem;
-// `
+const Marginer = styled.div`
+  margin-top: 2rem;
+`
 
 const FooterWrapper = styled.div`
   ${({ theme }) => theme.flexRowNoWrap}
@@ -139,7 +139,7 @@ export default function App() {
               <Loader />
             )}
           </Suspense>
-          {/* <Marginer /> */}
+          <Marginer />
         </BodyWrapper>
         <FooterWrapper>
           <Footer />

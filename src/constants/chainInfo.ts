@@ -27,6 +27,7 @@ const CHAIN_INFO: ChainInfoMap = {
     nativeCoin: APTOS_CoinInfo['0x1::aptos_coin::AptosCoin'],
   },
   [SupportedChainId.APTOS_TESTNET]: {
+    bridge: 'https://cbridge-aptos-testnet.netlify.app/5/12360002/USDC',
     docs: 'https://aptoslabs.com/',
     explorer: 'https://explorer.aptoslabs.com/?network=testnet',
     label: 'AptosTest',

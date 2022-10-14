@@ -45,7 +45,7 @@ export interface UserState {
 }
 
 export const initialState: UserState = {
-  chainId: SupportedChainId.APTOS_DEVNET,
+  chainId: SupportedChainId.APTOS_TESTNET,
   matchesDarkMode: false,
   userDarkMode: true,
   userLocale: null,
