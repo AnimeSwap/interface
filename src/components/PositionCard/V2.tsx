@@ -101,7 +101,7 @@ export default function V2PositionCard({ pair, border, stakedBalance }: Position
                 <Trans>Your total pool tokens:</Trans>
               </Text>
               <Text fontSize={16} fontWeight={500}>
-                {userPoolBalance ? userPoolBalance.toSignificantDigits(4).toString() : '-'}
+                {userPoolBalance ? userPoolBalance.toSD(4).toString() : '-'}
               </Text>
             </FixedHeightRow>
             {stakedBalance && (
@@ -110,7 +110,7 @@ export default function V2PositionCard({ pair, border, stakedBalance }: Position
                   <Trans>Pool tokens in rewards pool:</Trans>
                 </Text>
                 <Text fontSize={16} fontWeight={500}>
-                  {stakedBalance.toSignificantDigits(4).toString()}
+                  {stakedBalance.toSD(4).toString()}
                 </Text>
               </FixedHeightRow>
             )}
@@ -123,7 +123,7 @@ export default function V2PositionCard({ pair, border, stakedBalance }: Position
               {token0Deposited ? (
                 <RowFixed>
                   <Text fontSize={16} fontWeight={500} marginLeft={'6px'}>
-                    {token0Deposited?.toSignificantDigits(6).toString()}
+                    {token0Deposited?.toSD(6).toString()}
                   </Text>
                   <CoinLogo size="20px" style={{ marginLeft: '8px' }} coin={currency0} />
                 </RowFixed>
@@ -141,7 +141,7 @@ export default function V2PositionCard({ pair, border, stakedBalance }: Position
               {token1Deposited ? (
                 <RowFixed>
                   <Text fontSize={16} fontWeight={500} marginLeft={'6px'}>
-                    {token1Deposited?.toSignificantDigits(6).toString()}
+                    {token1Deposited?.toSD(6).toString()}
                   </Text>
                   <CoinLogo size="20px" style={{ marginLeft: '8px' }} coin={currency1} />
                 </RowFixed>

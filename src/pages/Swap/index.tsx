@@ -116,7 +116,7 @@ export default function Swap() {
   const formattedAmounts = useMemo(
     () => ({
       [independentField]: typedValue,
-      [dependentField]: parsedAmounts[dependentField]?.toSignificantDigits(6).toString() ?? '',
+      [dependentField]: parsedAmounts[dependentField]?.toSD(6).toString() ?? '',
     }),
     [dependentField, independentField, parsedAmounts, typedValue]
   )

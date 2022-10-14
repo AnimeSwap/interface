@@ -33,7 +33,7 @@ export function ConfirmAddModalBottom({
         <RowFixed>
           <CoinLogo coin={currencies[Field.CURRENCY_A]} style={{ marginRight: '8px' }} />
           <ThemedText.DeprecatedBody>
-            {parsedAmounts[Field.CURRENCY_A]?.amount.toSignificantDigits(6).toString()}
+            {parsedAmounts[Field.CURRENCY_A]?.amount.toSD(6).toString()}
           </ThemedText.DeprecatedBody>
         </RowFixed>
       </RowBetween>
@@ -44,7 +44,7 @@ export function ConfirmAddModalBottom({
         <RowFixed>
           <CoinLogo coin={currencies[Field.CURRENCY_B]} style={{ marginRight: '8px' }} />
           <ThemedText.DeprecatedBody>
-            {parsedAmounts[Field.CURRENCY_B]?.amount.toSignificantDigits(6).toString()}
+            {parsedAmounts[Field.CURRENCY_B]?.amount.toSD(6).toString()}
           </ThemedText.DeprecatedBody>
         </RowFixed>
       </RowBetween>
@@ -53,17 +53,16 @@ export function ConfirmAddModalBottom({
           <Trans>Rates</Trans>
         </ThemedText.DeprecatedBody>
         <ThemedText.DeprecatedBody>
-          {`1 ${currencies[Field.CURRENCY_A]?.symbol} = ${price?.toSignificantDigits(4).toString()} ${
+          {`1 ${currencies[Field.CURRENCY_A]?.symbol} = ${price?.toSD(4).toString()} ${
             currencies[Field.CURRENCY_B]?.symbol
           }`}
         </ThemedText.DeprecatedBody>
       </RowBetween>
       <RowBetween style={{ justifyContent: 'flex-end' }}>
         <ThemedText.DeprecatedBody>
-          {`1 ${currencies[Field.CURRENCY_B]?.symbol} = ${new Decimal(1)
-            .div(price)
-            .toSignificantDigits(4)
-            .toString()} ${currencies[Field.CURRENCY_A]?.symbol}`}
+          {`1 ${currencies[Field.CURRENCY_B]?.symbol} = ${new Decimal(1).div(price).toSD(4).toString()} ${
+            currencies[Field.CURRENCY_A]?.symbol
+          }`}
         </ThemedText.DeprecatedBody>
       </RowBetween>
       <RowBetween>
@@ -71,7 +70,7 @@ export function ConfirmAddModalBottom({
           <Trans>Share of Pool:</Trans>
         </ThemedText.DeprecatedBody>
         <ThemedText.DeprecatedBody>
-          <Trans>{noLiquidity ? '100' : poolTokenPercentage?.toSignificantDigits(4).toString()}%</Trans>
+          <Trans>{noLiquidity ? '100' : poolTokenPercentage?.toSD(4).toString()}%</Trans>
         </ThemedText.DeprecatedBody>
       </RowBetween>
       <ButtonPrimary style={{ margin: '20px 0 0 0' }} onClick={onAdd}>

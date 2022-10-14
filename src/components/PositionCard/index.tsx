@@ -77,7 +77,7 @@ export function MinimalPositionCard({ pair, showUnwrapped = false, border }: Pos
               </RowFixed>
               <RowFixed>
                 <Text fontWeight={500} fontSize={20}>
-                  {userPoolBalance ? userPoolBalance.toSignificantDigits(4).toString() : '-'}
+                  {userPoolBalance ? userPoolBalance.toSD(4).toString() : '-'}
                 </Text>
               </RowFixed>
             </FixedHeightRow>
@@ -97,7 +97,7 @@ export function MinimalPositionCard({ pair, showUnwrapped = false, border }: Pos
                 {token0Deposited ? (
                   <RowFixed>
                     <Text fontSize={16} fontWeight={500} marginLeft={'6px'}>
-                      {token0Deposited?.toSignificantDigits(6).toString()}
+                      {token0Deposited?.toSD(6).toString()}
                     </Text>
                   </RowFixed>
                 ) : (
@@ -111,7 +111,7 @@ export function MinimalPositionCard({ pair, showUnwrapped = false, border }: Pos
                 {token1Deposited ? (
                   <RowFixed>
                     <Text fontSize={16} fontWeight={500} marginLeft={'6px'}>
-                      {token1Deposited?.toSignificantDigits(6).toString()}
+                      {token1Deposited?.toSD(6).toString()}
                     </Text>
                   </RowFixed>
                 ) : (
@@ -207,7 +207,7 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
                   <Trans>Pool tokens in rewards pool:</Trans>
                 </Text>
                 <Text fontSize={16} fontWeight={500}>
-                  {stakedBalance.toSignificantDigits(4).toString()}
+                  {stakedBalance.toSD(4).toString()}
                 </Text>
               </FixedHeightRow>
             )}

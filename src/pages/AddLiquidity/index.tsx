@@ -132,7 +132,7 @@ export default function AddLiquidity() {
   //       </Row>
   //       <ThemedText.DeprecatedItalic fontSize={12} textAlign="left" padding={'8px 0 0 0 '}>
   //         <Trans>
-  //           Output is estimated. If the price changes by more than {allowedSlippage.toSignificantDigits(4).toString()}%
+  //           Output is estimated. If the price changes by more than {allowedSlippage.toSD(4).toString()}%
   //           your transaction will revert.
   //         </Trans>
   //       </ThemedText.DeprecatedItalic>

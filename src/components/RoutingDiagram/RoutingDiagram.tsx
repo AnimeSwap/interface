@@ -109,7 +109,7 @@ function Route({ entry: { percent, path, protocol } }: { entry: RoutingDiagramEn
           <BadgeText fontSize={12}>{protocol.toUpperCase()}</BadgeText>
         </ProtocolBadge>
         <BadgeText fontSize={14} style={{ minWidth: 'auto' }}>
-          {percent.toSignificantDigits(2).toString()}%
+          {percent.toSD(2).toString()}%
         </BadgeText>
       </OpaqueBadge>
       <AutoRow gap="1px" width="100%" style={{ justifyContent: 'space-evenly', zIndex: 2 }}>

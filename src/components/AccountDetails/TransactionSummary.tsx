@@ -15,7 +15,7 @@ import {
 } from '../../state/transactions/types'
 
 function formatAmount(amountRaw: string, decimals: number, sigFigs: number): string {
-  return Utils.d(amountRaw).mul(new Decimal(10).pow(-decimals)).toSignificantDigits(sigFigs).toString()
+  return Utils.d(amountRaw).mul(new Decimal(10).pow(-decimals)).toSD(sigFigs).toString()
 }
 
 function FormattedCoinAmount({

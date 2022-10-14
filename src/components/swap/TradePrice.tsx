@@ -30,10 +30,8 @@ const StyledPriceContainer = styled.button`
 export default function TradePrice({ trade, showInverted, setShowInverted }: TradePriceProps) {
   const theme = useContext(ThemeContext)
 
-  const text = `1 ${trade.outputCoin?.symbol} = ${trade.price.toSignificantDigits(6)} ${trade.inputCoin?.symbol}`
-  const invertText = `1 ${trade.inputCoin?.symbol} = ${Utils.d(1).div(trade.price).toSignificantDigits(6)} ${
-    trade.outputCoin?.symbol
-  }`
+  const text = `1 ${trade.outputCoin?.symbol} = ${trade.price.toSD(6)} ${trade.inputCoin?.symbol}`
+  const invertText = `1 ${trade.inputCoin?.symbol} = ${Utils.d(1).div(trade.price).toSD(6)} ${trade.outputCoin?.symbol}`
   const flipPrice = useCallback(() => setShowInverted(!showInverted), [setShowInverted, showInverted])
   return (
     <StyledPriceContainer

@@ -22,21 +22,17 @@ export class CoinAmount<T extends Coin> {
   }
 
   pretty(decimals?: number): string {
-    return this.amount
-      .div(Utils.pow10(this.coin.decimals))
-      .toSignificantDigits(decimals || 6)
-      .toString()
+    const significant = decimals || 6
+    const value = this.amount.div(Utils.pow10(this.coin.decimals))
+    if (value.greaterThan(Utils.pow10(significant))) {
+      return value.toDP(0).toString()
+    } else {
+      return value.toSD(significant).toString()
+    }
   }
 
   prettyWithSymbol(decimals?: number): string {
-    return (
-      this.amount
-        .div(Utils.pow10(this.coin.decimals))
-        .toSignificantDigits(decimals || 6)
-        .toString() +
-      ' ' +
-      this.coin.symbol
-    )
+    return this.pretty(decimals) + ' ' + this.coin.symbol
   }
 }
 

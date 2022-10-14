@@ -27,7 +27,7 @@ export function PoolPriceBar({
     <AutoColumn gap="md">
       <AutoRow justify="space-around" gap="4px">
         <AutoColumn justify="center">
-          <ThemedText.DeprecatedBlack>{price?.raw.toSignificantDigits(6).toString() ?? '-'}</ThemedText.DeprecatedBlack>
+          <ThemedText.DeprecatedBlack>{price?.raw.toSD(6).toString() ?? '-'}</ThemedText.DeprecatedBlack>
           <Text fontWeight={500} fontSize={14} color={theme.deprecated_text2} pt={1}>
             <Trans>
               {currencies[Field.CURRENCY_B]?.symbol} per {currencies[Field.CURRENCY_A]?.symbol}
@@ -35,9 +35,7 @@ export function PoolPriceBar({
           </Text>
         </AutoColumn>
         <AutoColumn justify="center">
-          <ThemedText.DeprecatedBlack>
-            {price?.invert()?.toSignificantDigits(6).toString() ?? '-'}
-          </ThemedText.DeprecatedBlack>
+          <ThemedText.DeprecatedBlack>{price?.invert()?.toSD(6).toString() ?? '-'}</ThemedText.DeprecatedBlack>
           <Text fontWeight={500} fontSize={14} color={theme.deprecated_text2} pt={1}>
             <Trans>
               {currencies[Field.CURRENCY_A]?.symbol} per {currencies[Field.CURRENCY_B]?.symbol}

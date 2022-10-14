@@ -139,8 +139,8 @@ export default function RemoveLiquidity() {
           padding={'12px 0 0 0'}
         >
           <Trans>
-            Output is estimated. If the price changes by more than{' '}
-            {BP.mul(allowedSlippage).toSignificantDigits(4).toString()}% your transaction will revert.
+            Output is estimated. If the price changes by more than {BP.mul(allowedSlippage).toSD(4).toString()}% your
+            transaction will revert.
           </Trans>
         </ThemedText.DeprecatedItalic>
       </AutoColumn>

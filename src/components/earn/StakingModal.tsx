@@ -105,7 +105,7 @@ export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiqui
               <Trans>
                 {hypotheticalRewardRate
                   .mul((60 * 60 * 24 * 7).toString())
-                  .toSignificantDigits(4)
+                  .toSD(4)
                   .toString()}{' '}
                 UNI / week
               </Trans>
@@ -130,7 +130,7 @@ export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiqui
               <Trans>Depositing Liquidity</Trans>
             </ThemedText.DeprecatedLargeHeader>
             <ThemedText.DeprecatedBody fontSize={20}>
-              <Trans>{parsedAmount?.toSignificantDigits(4).toString()} UNI-V2</Trans>
+              <Trans>{parsedAmount?.toSD(4).toString()} UNI-V2</Trans>
             </ThemedText.DeprecatedBody>
           </AutoColumn>
         </LoadingView>
@@ -142,7 +142,7 @@ export default function StakingModal({ isOpen, onDismiss, stakingInfo, userLiqui
               <Trans>Transaction Submitted</Trans>
             </ThemedText.DeprecatedLargeHeader>
             <ThemedText.DeprecatedBody fontSize={20}>
-              <Trans>Deposited {parsedAmount?.toSignificantDigits(4).toString()} UNI-V2</Trans>
+              <Trans>Deposited {parsedAmount?.toSD(4).toString()} UNI-V2</Trans>
             </ThemedText.DeprecatedBody>
           </AutoColumn>
         </SubmittedView>
