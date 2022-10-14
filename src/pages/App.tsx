@@ -22,6 +22,7 @@ const AppWrapper = styled.div`
   display: flex;
   flex-flow: column;
   align-items: flex-start;
+  min-height: 100vh;
 `
 
 const BodyWrapper = styled.div`
@@ -47,16 +48,12 @@ const HeaderWrapper = styled.div`
   z-index: 2;
 `
 
-const Marginer = styled.div`
-  margin-top: 2rem;
-`
-
 const FooterWrapper = styled.div`
   ${({ theme }) => theme.flexRowNoWrap}
   width: 100%;
   justify-content: center;
-  position: fixed;
-  bottom: 80px;
+  position: flex;
+  padding: 20px 0px 100px 0px;
 `
 
 const BottomRightLogo = styled.div`
@@ -139,7 +136,6 @@ export default function App() {
               <Loader />
             )}
           </Suspense>
-          <Marginer />
         </BodyWrapper>
         <FooterWrapper>
           <Footer />
