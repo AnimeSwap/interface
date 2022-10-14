@@ -209,6 +209,11 @@ export const ResetConnection = () => {
   store.dispatch(setAccount({ account: undefined }))
 }
 
+const payloadOptions = {
+  max_gas_amount: 200000,
+  gas_unit_price: 1000,
+}
+
 export const SignAndSubmitTransaction = async (transaction: any) => {
   const payload = Object.assign({}, transaction)
   switch (store.getState().wallets.selectedWallet) {
@@ -216,28 +221,19 @@ export const SignAndSubmitTransaction = async (transaction: any) => {
       await window.aptos.connect()
       payload.arguments = payload.arguments.map(String)
       console.log('Petra tx', payload)
-      const pendingTransaction = await window.aptos.signAndSubmitTransaction(payload, {
-        max_gas_amount: 200000,
-        gas_unit_price: 1000,
-      })
+      const pendingTransaction = await window.aptos.signAndSubmitTransaction(payload)
       console.log(pendingTransaction)
       return pendingTransaction.hash
     case WalletType.MARTIAN:
       const martianRes = await window.martian.connect()
       const sender = martianRes.address
       console.log('Martian tx', payload)
-      const martianTx = await window.martian.generateTransaction(sender, payload, {
-        max_gas_amount: 200000,
-        gas_unit_price: 1000,
-      })
+      const martianTx = await window.martian.generateTransaction(sender, payload)
       const martianTxHash = await window.martian.signAndSubmitTransaction(martianTx)
       console.log(martianTxHash)
       return martianTxHash
     case WalletType.FEWCHA:
-      const fewchaTx = await window.fewcha.generateTransaction(payload, {
-        max_gas_amount: 200000,
-        gas_unit_price: 1000,
-      })
+      const fewchaTx = await window.fewcha.generateTransaction(payload)
       if (fewchaTx.status !== 200) {
         throw new Error('Fewcha tx error')
       }
@@ -245,17 +241,11 @@ export const SignAndSubmitTransaction = async (transaction: any) => {
       console.log('Fewcha tx', fewchaTxHash)
       break
     case WalletType.PONTEM:
-      const pontemTx = await window.pontem.signAndSubmit(payload, {
-        max_gas_amount: 200000,
-        gas_unit_price: 1000,
-      })
+      const pontemTx = await window.pontem.signAndSubmit(payload)
       console.log('Pontem tx', pontemTx)
       break
     case WalletType.RISE:
-      const riseTx = await window.rise.signAndSubmitTransaction(payload, {
-        max_gas_amount: 200000,
-        gas_unit_price: 1000,
-      })
+      const riseTx = await window.rise.signAndSubmitTransaction(payload)
       console.log('Rise tx', riseTx)
       break
     default:

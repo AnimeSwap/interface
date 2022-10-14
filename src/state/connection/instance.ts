@@ -114,7 +114,7 @@ class ConnectionInstance {
     try {
       const modules = this.getSDK().networkOptions.modules
       const lpCoin = Utils.composeLPCoin(modules.ResourceAccountAddress, coinX, coinY)
-      const lpType = Utils.composeLP(modules.DeployerAddress, modules.ResourceAccountAddress, coinX, coinY)
+      const lpType = Utils.composeLP(modules.Scripts, coinX, coinY)
       const getLPCoinInfo: AptosCoinInfoResource = await ConnectionInstance.getAccountResource(
         modules.ResourceAccountAddress,
         Utils.composeType(modules.CoinInfo, [lpCoin])

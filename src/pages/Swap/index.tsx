@@ -58,8 +58,6 @@ export default function Swap() {
     inputError: swapInputError,
     trade: { bestTrade, tradeState },
     allowedSlippage,
-    deadline,
-    toAddress,
   } = useDerivedSwapInfo()
 
   const parsedAmounts = useMemo(() => {
@@ -130,15 +128,11 @@ export default function Swap() {
         tradeToConfirm.tradeType === TradeType.EXACT_INPUT
           ? ConnectionInstance.getSDK().route.swapExactCoinForCoinPayload({
               trade: tradeToConfirm.sdkTrade,
-              toAddress,
               slippage: BP.mul(allowedSlippage),
-              deadline,
             })
           : ConnectionInstance.getSDK().route.swapCoinForExactCoinPayload({
               trade: tradeToConfirm.sdkTrade,
-              toAddress,
               slippage: BP.mul(allowedSlippage),
-              deadline,
             })
       const txid = await SignAndSubmitTransaction(payload)
       setTimeout(() => {
