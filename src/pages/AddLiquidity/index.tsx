@@ -219,7 +219,7 @@ export default function AddLiquidity() {
               />
             )}
             pendingText={pendingText}
-            currencyToAdd={coinLP}
+            coinToAdd={coinLP}
           />
           <AutoColumn gap="20px">
             {noLiquidity ||

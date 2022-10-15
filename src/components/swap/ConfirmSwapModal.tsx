@@ -102,7 +102,7 @@ export default function ConfirmSwapModal({
       hash={txHash}
       content={confirmationContent}
       pendingText={pendingText}
-      currencyToAdd={trade?.outputCoin}
+      coinToAdd={trade?.outputCoin}
     />
   )
 }
