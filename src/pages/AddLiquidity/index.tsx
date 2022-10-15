@@ -33,14 +33,18 @@ import { PoolPriceBar } from './PoolPriceBar'
 const DEFAULT_ADD_SLIPPAGE_TOLERANCE = 50
 
 export default function AddLiquidity() {
-  const { coinIdA, coinIdB } = useParams<{ coinIdA?: string; coinIdB?: string }>()
-  const coinA = useCoin(coinIdA)
-  const coinB = useCoin(coinIdB)
   const navigate = useNavigate()
   const account = useAccount()
   const chainId = useChainId()
   const nativeCoin = useNativeCoin()
-  const lpBalance = Utils.d(useLpBalance(pairKey(coinA?.address, coinB?.address)))
+  const { coinIdA, coinIdB } = useParams<{ coinIdA?: string; coinIdB?: string }>()
+  const coinA = useCoin(coinIdA)
+  const coinB = useCoin(coinIdB)
+
+  // 'A, B' revert is false, 'B, A' revert is true
+  const revert = coinA && coinB && !Utils.isSortedSymbols(coinA.address, coinB.address)
+  const lpKey = revert ? pairKey(coinB?.address, coinA?.address) : pairKey(coinA?.address, coinB?.address)
+  const lpBalance = Utils.d(useLpBalance(lpKey))
 
   const theme = useContext(ThemeContext)
 
@@ -59,7 +63,7 @@ export default function AddLiquidity() {
     liquidityMinted,
     poolCoinPercentage,
     error,
-  } = useDerivedMintInfo(coinA, coinB)
+  } = useDerivedMintInfo(coinA, coinB, revert)
 
   const { onFieldAInput, onFieldBInput } = useMintActionHandlers(noLiquidity)
 

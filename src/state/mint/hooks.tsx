@@ -43,7 +43,8 @@ export function useMintActionHandlers(noLiquidity: boolean | undefined): {
 
 export function useDerivedMintInfo(
   coinA: Coin | undefined,
-  coinB: Coin | undefined
+  coinB: Coin | undefined,
+  revert: boolean
 ): {
   dependentField: Field
   coins: { [field in Field]?: Coin }
@@ -65,11 +66,10 @@ export function useDerivedMintInfo(
 
   const coins: { [field in Field]?: Coin } = useMemo(() => {
     if (coinA && coinB) {
-      const isSorted = Utils.isSortedSymbols(coinA.address, coinB.address)
-      if (isSorted) {
-        ConnectionInstance.getPair(coinA.address, coinB.address)
-      } else {
+      if (revert) {
         ConnectionInstance.getPair(coinB.address, coinA.address)
+      } else {
+        ConnectionInstance.getPair(coinA.address, coinB.address)
       }
     }
     return {
@@ -79,7 +79,10 @@ export function useDerivedMintInfo(
   }, [coinA, coinB])
 
   const [pairState, pair] = usePair(coinA?.address, coinB?.address)
+  // coin X Y is chain data sort
   const coinYdivXReserve = Utils.d(pair?.coinYReserve).div(Utils.d(pair?.coinXReserve))
+  // coin A B is user select sort
+  const coinBdivAReserve = revert ? Utils.d(1).div(coinYdivXReserve) : coinYdivXReserve
 
   const noLiquidity =
     pairState === PairState.NOT_EXISTS ||
@@ -106,8 +109,8 @@ export function useDerivedMintInfo(
     } else if (independentAmount && coinA && coinB && pair) {
       const dependentCoinAmount =
         dependentField === Field.COIN_B
-          ? independentAmount.mul(coinYdivXReserve)
-          : independentAmount.div(coinYdivXReserve)
+          ? independentAmount.mul(coinBdivAReserve)
+          : independentAmount.div(coinBdivAReserve)
       return dependentCoinAmount
     } else {
       return undefined
@@ -129,7 +132,7 @@ export function useDerivedMintInfo(
       }
       return undefined
     } else {
-      return pair && coinA && coinB ? coinYdivXReserve.mul(Utils.pow10(coinA.decimals - coinB.decimals)) : undefined
+      return pair && coinA && coinB ? coinBdivAReserve.mul(Utils.pow10(coinA.decimals - coinB.decimals)) : undefined
     }
   }, [coinA, noLiquidity, pair, parsedAmounts])
 
@@ -138,7 +141,11 @@ export function useDerivedMintInfo(
     const { [Field.COIN_A]: CoinAAmount, [Field.COIN_B]: CoinBAmount } = parsedAmounts
     try {
       if (pair && pairState === PairState.EXISTS && CoinAAmount && CoinBAmount) {
-        return Utils.d(pair.lpTotal).mul(CoinAAmount).div(Utils.d(pair.coinXReserve))
+        if (revert) {
+          return Utils.d(pair.lpTotal).mul(CoinAAmount).div(Utils.d(pair.coinYReserve))
+        } else {
+          return Utils.d(pair.lpTotal).mul(CoinAAmount).div(Utils.d(pair.coinXReserve))
+        }
       } else if (pairState === PairState.NOT_EXISTS && CoinAAmount && CoinBAmount) {
         return CoinAAmount.mul(CoinBAmount).sqrt().floor().sub(1000)
       }
