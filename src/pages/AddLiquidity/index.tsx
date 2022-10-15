@@ -4,7 +4,7 @@ import { MinimalPositionCard } from 'components/PositionCard'
 import { SwitchLocaleLink } from 'components/SwitchLocaleLink'
 import { BIG_INT_ZERO } from 'constants/misc'
 import { amountPretty, Coin, CoinAmount, useCoin } from 'hooks/common/Coin'
-import { pairKey, PairState } from 'hooks/common/Pair'
+import { PairState } from 'hooks/common/Pair'
 import { useCallback, useContext, useState } from 'react'
 import { Plus } from 'react-feather'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
@@ -27,29 +27,16 @@ import { useDerivedMintInfo, useMintActionHandlers, useMintState } from '../../s
 import { useChainId, useNativeCoin, useUserSlippageTolerance } from '../../state/user/hooks'
 import { ThemedText } from '../../theme'
 import AppBody from '../AppBody'
-import { Dots, Wrapper } from '../Pool/styleds'
+import { Wrapper } from '../Pool/styleds'
 import { ConfirmAddModalBottom } from './ConfirmAddModalBottom'
 import { PoolPriceBar } from './PoolPriceBar'
-
-const TitleContainer = styled.div`
-  font-size: 32px;
-  margin-bottom: 16px;
-  max-width: 960px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 2rem;
-  display: flex;
-  align-items: center;
-  jusitfy-content: center;
-  flex-direction: column;
-`
 
 const DEFAULT_ADD_SLIPPAGE_TOLERANCE = 50
 
 export default function AddLiquidity() {
-  const { CoinIdA, CoinIdB } = useParams<{ CoinIdA?: string; CoinIdB?: string }>()
-  const coinA = useCoin(CoinIdA)
-  const coinB = useCoin(CoinIdB)
+  const { coinIdA, coinIdB } = useParams<{ coinIdA?: string; coinIdB?: string }>()
+  const coinA = useCoin(coinIdA)
+  const coinB = useCoin(coinIdB)
   const navigate = useNavigate()
   const account = useAccount()
   const chainId = useChainId()
@@ -73,7 +60,6 @@ export default function AddLiquidity() {
     poolCoinPercentage,
     error,
   } = useDerivedMintInfo(coinA, coinB)
-  const coinLP = useCoin(pairKey(pair.coinX, pair.coinY))
 
   const { onFieldAInput, onFieldBInput } = useMintActionHandlers(noLiquidity)
 
@@ -93,12 +79,12 @@ export default function AddLiquidity() {
     [dependentField]: noLiquidity ? otherTypedValue : parsedAmounts[dependentField]?.toSD(6).toString() ?? '',
   }
 
-  const maxAmounts = {
-    [Field.COIN_A]: parsedAmounts[Field.COIN_A],
-    [Field.COIN_B]: parsedAmounts[Field.COIN_B],
-  }
-  const coinA_amount = new CoinAmount(coins[Field.COIN_A], parsedAmounts[Field.COIN_A])
-  const coinB_amount = new CoinAmount(coins[Field.COIN_B], parsedAmounts[Field.COIN_B])
+  const coinA_amount = coins[Field.COIN_A]
+    ? new CoinAmount(coins[Field.COIN_A], parsedAmounts[Field.COIN_A])
+    : undefined
+  const coinB_amount = coins[Field.COIN_B]
+    ? new CoinAmount(coins[Field.COIN_B], parsedAmounts[Field.COIN_B])
+    : undefined
 
   async function onAdd() {
     if (!chainId || !account) return
@@ -155,35 +141,35 @@ export default function AddLiquidity() {
 
   const pendingText = (
     <Trans>
-      Supplying {coinA_amount.prettyWithSymbol()} and {coinB_amount.prettyWithSymbol()}
+      Supplying {coinA_amount?.prettyWithSymbol()} and {coinB_amount?.prettyWithSymbol()}
     </Trans>
   )
 
   const handleCurrencyASelect = useCallback(
     (coinX: Coin) => {
       const newCoinIdA = coinX.address
-      if (newCoinIdA === CoinIdB) {
-        navigate(`/add/${CoinIdB}/${CoinIdA}`)
+      if (newCoinIdA === coinIdB) {
+        navigate(`/add/${coinIdB}/${coinIdA}`)
       } else {
-        navigate(`/add/${newCoinIdA}/${CoinIdB}`)
+        navigate(`/add/${newCoinIdA}/${coinIdB}`)
       }
     },
-    [CoinIdB, navigate, CoinIdA]
+    [coinIdB, navigate, coinIdA]
   )
   const handleCurrencyBSelect = useCallback(
     (coinY: Coin) => {
       const newCoinIdB = coinY.address
-      if (CoinIdA === newCoinIdB) {
-        if (CoinIdB) {
-          navigate(`/add/${CoinIdB}/${newCoinIdB}`)
+      if (coinIdA === newCoinIdB) {
+        if (coinIdB) {
+          navigate(`/add/${coinIdB}/${newCoinIdB}`)
         } else {
           navigate(`/add/${newCoinIdB}`)
         }
       } else {
-        navigate(`/add/${CoinIdA ? CoinIdA : nativeCoin.address}/${newCoinIdB}`)
+        navigate(`/add/${coinIdA ? coinIdA : nativeCoin.address}/${newCoinIdB}`)
       }
     },
-    [CoinIdA, navigate, CoinIdB]
+    [coinIdA, navigate, coinIdB]
   )
 
   const handleDismissConfirmation = useCallback(() => {
@@ -219,7 +205,6 @@ export default function AddLiquidity() {
               />
             )}
             pendingText={pendingText}
-            coinToAdd={coinLP}
           />
           <AutoColumn gap="20px">
             {noLiquidity ||

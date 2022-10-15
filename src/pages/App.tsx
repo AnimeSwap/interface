@@ -11,6 +11,7 @@ import ErrorBoundary from '../components/ErrorBoundary'
 import Header from '../components/Header'
 import Popups from '../components/Popups'
 import DarkModeQueryParamReader from '../theme/DarkModeQueryParamReader'
+import AddLiquidity from './AddLiquidity'
 import { RedirectDuplicateTokenIds } from './AddLiquidity/redirects'
 import Explore from './Explore'
 import Pool from './Pool'
@@ -125,8 +126,8 @@ export default function App() {
                 <Route path="swap" element={<Swap />} />
                 <Route path="pool" element={<Pool />} />
                 <Route path="add" element={<RedirectDuplicateTokenIds />}>
-                  <Route path=":coinIdA" />
-                  <Route path=":coinIdA/:coinIdB" />
+                  <Route path=":coinIdA" element={<AddLiquidity />} />
+                  <Route path=":coinIdA/:coinIdB" element={<AddLiquidity />} />
                 </Route>
                 <Route path="remove/:coinIdA/:coinIdB" element={<RemoveLiquidity />} />
                 <Route path="explore" element={<Explore />} />

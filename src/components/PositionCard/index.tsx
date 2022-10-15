@@ -41,9 +41,12 @@ interface PositionCardProps {
 }
 
 export function MinimalPositionCard({ pair, border }: PositionCardProps) {
-  const account = useAccount()
-  const currency0 = APTOS_DEVNET_CoinInfo['0x1::aptos_coin::AptosCoin']
-  const currency1 = APTOS_DEVNET_CoinInfo['0x1::aptos_coin::AptosCoin']
+  const coinX = useCoin(pair.coinX)
+  const coinY = useCoin(pair.coinY)
+  const lpBalance = Utils.d(useLpBalance(pairKey(pair.coinX, pair.coinY)))
+  const coinXAmount = new CoinAmount(coinX, Utils.d(pair.coinXReserve))
+  const coinYAmount = new CoinAmount(coinY, Utils.d(pair.coinYReserve))
+  const poolLpPercentage = lpBalance.div(Utils.d(pair.lpTotal)).mul(100)
 
   const [showMore, setShowMore] = useState(false)
 
@@ -51,7 +54,7 @@ export function MinimalPositionCard({ pair, border }: PositionCardProps) {
   const userPoolBalance = new Decimal(0)
   // const totalPoolTokens = useTotalSupply(pair.liquidityToken)
 
-  const poolCoinPercentage = new Decimal(0)
+  const poolTokenPercentage = new Decimal(0)
 
   const [token0Deposited, token1Deposited] = [new Decimal(0), new Decimal(0)]
 
@@ -69,14 +72,14 @@ export function MinimalPositionCard({ pair, border }: PositionCardProps) {
             </FixedHeightRow>
             <FixedHeightRow onClick={() => setShowMore(!showMore)}>
               <RowFixed>
-                <DoubleCoinLogo coinX={currency0} coinY={currency1} margin={true} size={20} />
+                <DoubleCoinLogo coinX={coinX} coinY={coinY} margin={true} size={20} />
                 <Text fontWeight={500} fontSize={20}>
-                  {currency0.symbol}/{currency1.symbol}
+                  {`${coinX.symbol}/${coinY.symbol}`}
                 </Text>
               </RowFixed>
               <RowFixed>
-                <Text fontWeight={500} fontSize={20}>
-                  {userPoolBalance ? userPoolBalance.toSD(4).toString() : '-'}
+                <Text fontSize={16} fontWeight={500}>
+                  {amountPretty(lpBalance, 8)}
                 </Text>
               </RowFixed>
             </FixedHeightRow>
@@ -86,18 +89,19 @@ export function MinimalPositionCard({ pair, border }: PositionCardProps) {
                   <Trans>Your pool share:</Trans>
                 </Text>
                 <Text fontSize={16} fontWeight={500}>
-                  {poolCoinPercentage ? poolCoinPercentage.toFixed(6) + '%' : '-'}
+                  <Trans>{poolLpPercentage.toFixed(2) === '0.00' ? '<0.01' : poolLpPercentage.toFixed(2)} %</Trans>
                 </Text>
               </FixedHeightRow>
               <FixedHeightRow>
                 <Text fontSize={16} fontWeight={500}>
-                  {currency0.symbol}:
+                  {coinX.symbol}:
                 </Text>
-                {token0Deposited ? (
+                {coinXAmount ? (
                   <RowFixed>
                     <Text fontSize={16} fontWeight={500} marginLeft={'6px'}>
-                      {token0Deposited?.toSD(6).toString()}
+                      {coinXAmount.pretty()}
                     </Text>
+                    <CoinLogo size="20px" style={{ marginLeft: '8px' }} coin={coinX} />
                   </RowFixed>
                 ) : (
                   '-'
@@ -105,13 +109,14 @@ export function MinimalPositionCard({ pair, border }: PositionCardProps) {
               </FixedHeightRow>
               <FixedHeightRow>
                 <Text fontSize={16} fontWeight={500}>
-                  {currency1.symbol}:
+                  {coinY.symbol}:
                 </Text>
-                {token1Deposited ? (
+                {coinYAmount ? (
                   <RowFixed>
                     <Text fontSize={16} fontWeight={500} marginLeft={'6px'}>
-                      {token1Deposited?.toSD(6).toString()}
+                      {coinYAmount.pretty()}
                     </Text>
+                    <CoinLogo size="20px" style={{ marginLeft: '8px' }} coin={coinY} />
                   </RowFixed>
                 ) : (
                   '-'
@@ -138,7 +143,6 @@ export function MinimalPositionCard({ pair, border }: PositionCardProps) {
 }
 
 export default function FullPositionCard({ pair, border, stakedBalance }: PositionCardProps) {
-  const account = useAccount()
   const coinX = useCoin(pair.coinX)
   const coinY = useCoin(pair.coinY)
   const lpBalance = Utils.d(useLpBalance(pairKey(pair.coinX, pair.coinY)))
@@ -171,13 +175,13 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
             >
               {showMore ? (
                 <>
-                  <Trans>Manage</Trans>
-                  <ChevronUp size="20" style={{ marginLeft: '8px', height: '20px', minWidth: '20px' }} />
+                  {/* <Trans>Manage</Trans> */}
+                  <ChevronUp size="20" style={{ marginLeft: '8px', height: '24px', minWidth: '60px' }} />
                 </>
               ) : (
                 <>
-                  <Trans>Manage</Trans>
-                  <ChevronDown size="20" style={{ marginLeft: '8px', height: '20px', minWidth: '20px' }} />
+                  {/* <Trans>Manage</Trans> */}
+                  <ChevronDown size="20" style={{ marginLeft: '8px', height: '24px', minWidth: '60px' }} />
                 </>
               )}
             </ButtonEmpty>
