@@ -1,6 +1,5 @@
 import { Decimal, Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
-import { sendEvent } from 'components/analytics'
 // import PriceImpactWarning from 'components/swap/PriceImpactWarning'
 import SwapDetailsDropdown from 'components/swap/SwapDetailsDropdown'
 import { MouseoverTooltip } from 'components/Tooltip'
@@ -208,10 +207,6 @@ export default function Swap() {
           .div(Utils.pow10(inputCoin?.decimals ?? 0))
           .toString()
       )
-    sendEvent({
-      category: 'Swap',
-      action: 'Max',
-    })
   }, [inputCoin, inputCoinBalance, onUserInput])
 
   const handleOutputSelect = useCallback(

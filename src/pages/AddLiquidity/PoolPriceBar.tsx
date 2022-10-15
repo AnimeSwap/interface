@@ -12,33 +12,35 @@ import { Field } from '../../state/mint/actions'
 import { ThemedText } from '../../theme'
 
 export function PoolPriceBar({
-  currencies,
+  coins,
   noLiquidity,
-  poolTokenPercentage,
+  poolCoinPercentage,
   price,
 }: {
-  currencies: { [field in Field]?: Coin }
+  coins: { [field in Field]?: Coin }
   noLiquidity?: boolean
-  poolTokenPercentage?: Decimal
-  price?: Price<Coin, Coin>
+  poolCoinPercentage?: Decimal
+  price?: Decimal
 }) {
   const theme = useContext(ThemeContext)
   return (
     <AutoColumn gap="md">
       <AutoRow justify="space-around" gap="4px">
         <AutoColumn justify="center">
-          <ThemedText.DeprecatedBlack>{price?.raw.toSD(6).toString() ?? '-'}</ThemedText.DeprecatedBlack>
+          <ThemedText.DeprecatedBlack>{price?.toSD(6).toString() ?? '-'}</ThemedText.DeprecatedBlack>
           <Text fontWeight={500} fontSize={14} color={theme.deprecated_text2} pt={1}>
             <Trans>
-              {currencies[Field.CURRENCY_B]?.symbol} per {currencies[Field.CURRENCY_A]?.symbol}
+              {coins[Field.COIN_B]?.symbol} per {coins[Field.COIN_A]?.symbol}
             </Trans>
           </Text>
         </AutoColumn>
         <AutoColumn justify="center">
-          <ThemedText.DeprecatedBlack>{price?.invert()?.toSD(6).toString() ?? '-'}</ThemedText.DeprecatedBlack>
+          <ThemedText.DeprecatedBlack>
+            {price ? Utils.d(1).div(price).toSD(6).toString() : '-'}
+          </ThemedText.DeprecatedBlack>
           <Text fontWeight={500} fontSize={14} color={theme.deprecated_text2} pt={1}>
             <Trans>
-              {currencies[Field.CURRENCY_A]?.symbol} per {currencies[Field.CURRENCY_B]?.symbol}
+              {coins[Field.COIN_A]?.symbol} per {coins[Field.COIN_B]?.symbol}
             </Trans>
           </Text>
         </AutoColumn>
@@ -46,7 +48,7 @@ export function PoolPriceBar({
           <ThemedText.DeprecatedBlack>
             {noLiquidity && price
               ? '100'
-              : (poolTokenPercentage?.lessThan(BP) ? '<0.01' : poolTokenPercentage?.toFixed(2)) ?? '0'}
+              : (poolCoinPercentage?.lessThan(BP) ? '<0.01' : poolCoinPercentage?.toFixed(2)) ?? '0'}
             %
           </ThemedText.DeprecatedBlack>
           <Text fontWeight={500} fontSize={14} color={theme.deprecated_text2} pt={1}>

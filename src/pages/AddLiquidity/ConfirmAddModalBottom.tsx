@@ -14,14 +14,14 @@ export function ConfirmAddModalBottom({
   price,
   coins,
   parsedAmounts,
-  poolTokenPercentage,
+  poolCoinPercentage,
   onAdd,
 }: {
   noLiquidity?: boolean
   price?: Decimal
   coins: { [field in Field]?: Coin }
   parsedAmounts: { [field in Field]?: Decimal }
-  poolTokenPercentage?: Decimal
+  poolCoinPercentage?: Decimal
   onAdd: () => void
 }) {
   const coinA_amount = new CoinAmount(coins[Field.COIN_A], parsedAmounts[Field.COIN_A])
@@ -67,7 +67,7 @@ export function ConfirmAddModalBottom({
           <Trans>Share of Pool:</Trans>
         </ThemedText.DeprecatedBody>
         <ThemedText.DeprecatedBody>
-          <Trans>{noLiquidity ? '100' : poolTokenPercentage?.toSD(4).toString()}%</Trans>
+          <Trans>{noLiquidity ? '100' : poolCoinPercentage?.toSD(4).toString()}%</Trans>
         </ThemedText.DeprecatedBody>
       </RowBetween>
       <ButtonPrimary style={{ margin: '20px 0 0 0' }} onClick={onAdd}>

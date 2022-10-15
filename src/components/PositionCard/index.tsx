@@ -36,12 +36,11 @@ const StyledPositionCard = styled(LightCard)<{ bgColor: any }>`
 
 interface PositionCardProps {
   pair: Pair
-  showUnwrapped?: boolean
   border?: string
   stakedBalance?: Decimal // optional balance to indicate that liquidity is deposited in mining pool
 }
 
-export function MinimalPositionCard({ pair, showUnwrapped = false, border }: PositionCardProps) {
+export function MinimalPositionCard({ pair, border }: PositionCardProps) {
   const account = useAccount()
   const currency0 = APTOS_DEVNET_CoinInfo['0x1::aptos_coin::AptosCoin']
   const currency1 = APTOS_DEVNET_CoinInfo['0x1::aptos_coin::AptosCoin']
@@ -52,7 +51,7 @@ export function MinimalPositionCard({ pair, showUnwrapped = false, border }: Pos
   const userPoolBalance = new Decimal(0)
   // const totalPoolTokens = useTotalSupply(pair.liquidityToken)
 
-  const poolTokenPercentage = new Decimal(0)
+  const poolCoinPercentage = new Decimal(0)
 
   const [token0Deposited, token1Deposited] = [new Decimal(0), new Decimal(0)]
 
@@ -87,7 +86,7 @@ export function MinimalPositionCard({ pair, showUnwrapped = false, border }: Pos
                   <Trans>Your pool share:</Trans>
                 </Text>
                 <Text fontSize={16} fontWeight={500}>
-                  {poolTokenPercentage ? poolTokenPercentage.toFixed(6) + '%' : '-'}
+                  {poolCoinPercentage ? poolCoinPercentage.toFixed(6) + '%' : '-'}
                 </Text>
               </FixedHeightRow>
               <FixedHeightRow>

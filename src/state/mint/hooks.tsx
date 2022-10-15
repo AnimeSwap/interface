@@ -62,7 +62,7 @@ export function useDerivedMintInfo(
   price?: Decimal
   noLiquidity?: boolean
   liquidityMinted?: Decimal
-  poolTokenPercentage?: Decimal
+  poolCoinPercentage?: Decimal
   error?: ReactNode
 } {
   const account = useAccount()
@@ -73,7 +73,7 @@ export function useDerivedMintInfo(
 
   const coins: { [field in Field]?: Coin } = useMemo(() => {
     if (coinA && coinB) {
-      const isSorted = isSortedSymbols(coinA.symbol, coinB.symbol)
+      const isSorted = isSortedSymbols(coinA.address, coinB.address)
       if (isSorted) {
         ConnectionInstance.getPair(coinA.address, coinB.address)
       } else {
@@ -156,7 +156,7 @@ export function useDerivedMintInfo(
     }
   }, [parsedAmounts, pair])
 
-  const poolTokenPercentage = useMemo(() => {
+  const poolCoinPercentage = useMemo(() => {
     if (liquidityMinted && pair && pairState === PairState.EXISTS) {
       return liquidityMinted.div(Utils.d(pair.lpTotal).add(liquidityMinted))
     } else {
@@ -197,7 +197,7 @@ export function useDerivedMintInfo(
     price,
     noLiquidity,
     liquidityMinted,
-    poolTokenPercentage,
+    poolCoinPercentage,
     error,
   }
 }

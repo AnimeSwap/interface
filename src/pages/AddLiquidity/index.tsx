@@ -1,7 +1,11 @@
-import { Decimal } from '@animeswap.org/v1-sdk'
+import { Decimal, Utils } from '@animeswap.org/v1-sdk'
+import { isSortedSymbols } from '@animeswap.org/v1-sdk/dist/tsc/utils'
 import { Trans } from '@lingui/macro'
+import { MinimalPositionCard } from 'components/PositionCard'
 import { SwitchLocaleLink } from 'components/SwitchLocaleLink'
+import { BIG_INT_ZERO } from 'constants/misc'
 import { amountPretty, Coin, CoinAmount, useCoin } from 'hooks/common/Coin'
+import { pairKey } from 'hooks/common/Pair'
 import { useCallback, useContext, useState } from 'react'
 import { Plus } from 'react-feather'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
@@ -47,8 +51,8 @@ const DEFAULT_ADD_SLIPPAGE_TOLERANCE = 50
 
 export default function AddLiquidity() {
   const { CoinIdA, CoinIdB } = useParams<{ CoinIdA?: string; CoinIdB?: string }>()
-  const coinX = useCoin(CoinIdA)
-  const coinY = useCoin(CoinIdB)
+  const coinA = useCoin(CoinIdA)
+  const coinB = useCoin(CoinIdB)
   const navigate = useNavigate()
   const account = useAccount()
   const chainId = useChainId()
@@ -69,13 +73,14 @@ export default function AddLiquidity() {
     price,
     noLiquidity,
     liquidityMinted,
-    poolTokenPercentage,
+    poolCoinPercentage,
     error,
-  } = useDerivedMintInfo(coinX, coinY)
+  } = useDerivedMintInfo(coinA, coinB)
+  const coinLP = useCoin(pairKey(pair.coinX, pair.coinY))
 
   const { onFieldAInput, onFieldBInput } = useMintActionHandlers(noLiquidity)
 
-  // const isValid = !error
+  const isValid = !error
 
   // modal and loading
   const [showConfirm, setShowConfirm] = useState<boolean>(false)
@@ -86,100 +91,21 @@ export default function AddLiquidity() {
   const [txHash, setTxHash] = useState<string>('')
 
   // get formatted amounts
-  // const formattedAmounts = {
-  //   [independentField]: typedValue,
-  //   [dependentField]: noLiquidity ? otherTypedValue : parsedAmounts[dependentField]?.toSignificant(6) ?? '',
-  // }
-
-  const maxAmounts = {
-    [Field.COIN_A]: new Decimal(0),
-    [Field.COIN_B]: new Decimal(0),
+  const formattedAmounts = {
+    [independentField]: typedValue,
+    [dependentField]: noLiquidity ? otherTypedValue : parsedAmounts[dependentField]?.toSD(6).toString() ?? '',
   }
 
+  const maxAmounts = {
+    [Field.COIN_A]: parsedAmounts[Field.COIN_A],
+    [Field.COIN_B]: parsedAmounts[Field.COIN_B],
+  }
   const coinA_amount = new CoinAmount(coins[Field.COIN_A], parsedAmounts[Field.COIN_A])
   const coinB_amount = new CoinAmount(coins[Field.COIN_B], parsedAmounts[Field.COIN_B])
 
-  const addTransaction = useTransactionAdder()
-
   async function onAdd() {
-    if (!chainId || !provider || !account || !router) return
-
-    const { [Field.COIN_A]: parsedAmountA, [Field.COIN_B]: parsedAmountB } = parsedAmounts
-    if (!parsedAmountA || !parsedAmountB || !currencyA || !currencyB || !deadline) {
-      return
-    }
-
-    const amountsMin = {
-      [Field.COIN_A]: calculateSlippageAmount(parsedAmountA, noLiquidity ? ZERO_PERCENT : allowedSlippage)[0],
-      [Field.COIN_B]: calculateSlippageAmount(parsedAmountB, noLiquidity ? ZERO_PERCENT : allowedSlippage)[0],
-    }
-
-    let estimate,
-      method: (...args: any) => Promise<TransactionResponse>,
-      args: Array<string | string[] | number>,
-      value: BigNumber | null
-    if (currencyA.isNative || currencyB.isNative) {
-      const tokenBIsETH = currencyB.isNative
-      estimate = router.estimateGas.addLiquidityETH
-      method = router.addLiquidityETH
-      args = [
-        (tokenBIsETH ? currencyA : currencyB)?.wrapped?.address ?? '', // token
-        (tokenBIsETH ? parsedAmountA : parsedAmountB).quotient.toString(), // token desired
-        amountsMin[tokenBIsETH ? Field.COIN_A : Field.COIN_B].toString(), // token min
-        amountsMin[tokenBIsETH ? Field.COIN_B : Field.COIN_A].toString(), // eth min
-        account,
-        deadline.toHexString(),
-      ]
-      value = BigNumber.from((tokenBIsETH ? parsedAmountB : parsedAmountA).quotient.toString())
-    } else {
-      estimate = router.estimateGas.addLiquidity
-      method = router.addLiquidity
-      args = [
-        currencyA?.wrapped?.address ?? '',
-        currencyB?.wrapped?.address ?? '',
-        parsedAmountA.quotient.toString(),
-        parsedAmountB.quotient.toString(),
-        amountsMin[Field.COIN_A].toString(),
-        amountsMin[Field.COIN_B].toString(),
-        account,
-        deadline.toHexString(),
-      ]
-      value = null
-    }
-
-    setAttemptingTxn(true)
-    await estimate(...args, value ? { value } : {})
-      .then((estimatedGasLimit) =>
-        method(...args, {
-          ...(value ? { value } : {}),
-          gasLimit: calculateGasMargin(estimatedGasLimit),
-        }).then((response) => {
-          setAttemptingTxn(false)
-
-          addTransaction(response, {
-            type: TransactionType.ADD_LIQUIDITY_V2_POOL,
-            baseCurrencyId: currencyId(currencyA),
-            expectedAmountBaseRaw: parsedAmounts[Field.COIN_A]?.quotient.toString() ?? '0',
-            quoteCurrencyId: currencyId(currencyB),
-            expectedAmountQuoteRaw: parsedAmounts[Field.COIN_B]?.quotient.toString() ?? '0',
-          })
-
-          setTxHash(response.hash)
-
-          sendEvent({
-            category: 'Liquidity',
-            action: 'Add',
-            label: [currencies[Field.COIN_A]?.symbol, currencies[Field.COIN_B]?.symbol].join('/'),
-          })
-        })
-      )
-      .catch((error) => {
-        setAttemptingTxn(false)
-        // we only care if the error is something _other_ than the user rejected the tx
-        if (error?.code !== 4001) {
-          console.error(error)
-        }
-      })
+    if (!chainId || !account) return
+    // TODO[Azard]
   }
 
   const modalHeader = () => {
@@ -225,7 +151,7 @@ export default function AddLiquidity() {
         parsedAmounts={parsedAmounts}
         noLiquidity={noLiquidity}
         onAdd={onAdd}
-        poolTokenPercentage={poolTokenPercentage}
+        poolCoinPercentage={poolCoinPercentage}
       />
     )
   }
@@ -240,9 +166,9 @@ export default function AddLiquidity() {
     (coinX: Coin) => {
       const newCoinIdA = coinX.address
       if (newCoinIdA === CoinIdB) {
-        navigate(`/add/v2/${CoinIdB}/${CoinIdA}`)
+        navigate(`/add/${CoinIdB}/${CoinIdA}`)
       } else {
-        navigate(`/add/v2/${newCoinIdA}/${CoinIdB}`)
+        navigate(`/add/${newCoinIdA}/${CoinIdB}`)
       }
     },
     [CoinIdB, navigate, CoinIdA]
@@ -296,7 +222,7 @@ export default function AddLiquidity() {
               />
             )}
             pendingText={pendingText}
-            currencyToAdd={pair?.liquidityToken}
+            currencyToAdd={coinLP}
           />
           <AutoColumn gap="20px">
             {noLiquidity ||
@@ -338,10 +264,13 @@ export default function AddLiquidity() {
               value={formattedAmounts[Field.COIN_A]}
               onUserInput={onFieldAInput}
               onMax={() => {
-                onFieldAInput(maxAmounts[Field.COIN_A]?.toExact() ?? '')
+                const gasReserve = coinA.symbol === 'APT' ? Utils.d(40000) : BIG_INT_ZERO
+                onFieldAInput(
+                  coinBalances[Field.COIN_A]?.sub(gasReserve).div(Utils.pow10(coinA.decimals)).toString() ?? ''
+                )
               }}
               onCoinSelect={handleCurrencyASelect}
-              showMaxButton={!atMaxAmounts[Field.COIN_A]}
+              showMaxButton={coinBalances[Field.COIN_A] && coinBalances[Field.COIN_A].greaterThan(0)}
               coin={coins[Field.COIN_A] ?? null}
               id="add-liquidity-input-tokena"
               showCommonBases
@@ -354,9 +283,12 @@ export default function AddLiquidity() {
               onUserInput={onFieldBInput}
               onCoinSelect={handleCurrencyBSelect}
               onMax={() => {
-                onFieldBInput(maxAmounts[Field.COIN_B]?.toExact() ?? '')
+                const gasReserve = coinB.symbol === 'APT' ? Utils.d(40000) : BIG_INT_ZERO
+                onFieldAInput(
+                  coinBalances[Field.COIN_B]?.sub(gasReserve).div(Utils.pow10(coinB.decimals)).toString() ?? ''
+                )
               }}
-              showMaxButton={!atMaxAmounts[Field.COIN_B]}
+              showMaxButton={coinBalances[Field.COIN_B] && coinBalances[Field.COIN_B].greaterThan(0)}
               coin={coins[Field.COIN_B] ?? null}
               id="add-liquidity-input-tokenb"
               showCommonBases
@@ -375,8 +307,8 @@ export default function AddLiquidity() {
                   </RowBetween>{' '}
                   <LightCard padding="1rem" $borderRadius={'20px'}>
                     <PoolPriceBar
-                      currencies={coins}
-                      poolTokenPercentage={poolTokenPercentage}
+                      coins={coins}
+                      poolCoinPercentage={poolCoinPercentage}
                       noLiquidity={noLiquidity}
                       price={price}
                     />
@@ -395,7 +327,7 @@ export default function AddLiquidity() {
                   onClick={() => {
                     onAdd()
                   }}
-                  disabled={!isValid || approvalA !== ApprovalState.APPROVED || approvalB !== ApprovalState.APPROVED}
+                  disabled={!isValid}
                   error={!isValid && !!parsedAmounts[Field.COIN_A] && !!parsedAmounts[Field.COIN_B]}
                 >
                   <Text fontSize={20} fontWeight={500}>
@@ -411,7 +343,7 @@ export default function AddLiquidity() {
 
       {pair && !noLiquidity && pairState !== PairState.INVALID ? (
         <AutoColumn style={{ minWidth: '20rem', width: '100%', maxWidth: '400px', marginTop: '1rem' }}>
-          <MinimalPositionCard showUnwrapped={oneCurrencyIsWETH} pair={pair} />
+          <MinimalPositionCard pair={pair} />
         </AutoColumn>
       ) : null}
     </>
