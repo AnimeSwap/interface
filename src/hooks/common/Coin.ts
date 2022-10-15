@@ -52,26 +52,6 @@ export class ImportCoinList {
   coins: Coin[]
 }
 
-export class Price<T extends Coin, U extends Coin> {
-  public readonly baseCurrency: T
-  public readonly quoteCurrency: U
-  public readonly baseAmount: Decimal
-  public readonly quoteAmount: Decimal
-  public readonly raw: Decimal
-
-  public constructor(baseCurrency: T, quoteCurrency: U, baseAmount: Decimal, quoteAmount: Decimal) {
-    this.baseCurrency = baseCurrency
-    this.quoteCurrency = quoteCurrency
-    this.baseAmount = baseAmount
-    this.quoteAmount = quoteAmount
-    this.raw = quoteAmount.div(baseAmount)
-  }
-
-  public invert(): Decimal {
-    return new Decimal(1).div(this.raw)
-  }
-}
-
 export function useCoin(address?: string | null): Coin | null | undefined {
   const chainId = useChainId()
   return useAppSelector((state) => state.user.coins[chainId][address])

@@ -1,6 +1,4 @@
-import ConnectionInstance from 'state/connection/instance'
 import { useAppSelector } from 'state/hooks'
-import { PairState } from 'state/mint/hooks'
 import { useChainId } from 'state/user/hooks'
 
 export interface Pair {
@@ -9,6 +7,13 @@ export interface Pair {
   lpTotal: string
   coinXReserve: string
   coinYReserve: string
+}
+
+export enum PairState {
+  LOADING,
+  NOT_EXISTS,
+  EXISTS,
+  INVALID,
 }
 
 export function pairKey(coinXAddress: string, coinYAddress: string) {

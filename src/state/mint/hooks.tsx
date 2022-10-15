@@ -1,8 +1,7 @@
 import { Decimal, Utils } from '@animeswap.org/v1-sdk'
-import { isSortedSymbols } from '@animeswap.org/v1-sdk/dist/tsc/utils'
 import { Trans } from '@lingui/macro'
 import { Coin } from 'hooks/common/Coin'
-import { Pair, usePair } from 'hooks/common/Pair'
+import { Pair, PairState, usePair } from 'hooks/common/Pair'
 import { ReactNode, useCallback, useMemo } from 'react'
 import ConnectionInstance from 'state/connection/instance'
 import { useAppDispatch, useAppSelector } from 'state/hooks'
@@ -11,13 +10,6 @@ import { tryParseCoinAmount } from 'utils/tryParseCoinAmount'
 
 import { AppState } from '../index'
 import { Field, typeInput } from './actions'
-
-export enum PairState {
-  LOADING,
-  NOT_EXISTS,
-  EXISTS,
-  INVALID,
-}
 
 export function useMintState(): AppState['mint'] {
   return useAppSelector((state) => state.mint)
@@ -73,7 +65,7 @@ export function useDerivedMintInfo(
 
   const coins: { [field in Field]?: Coin } = useMemo(() => {
     if (coinA && coinB) {
-      const isSorted = isSortedSymbols(coinA.address, coinB.address)
+      const isSorted = Utils.isSortedSymbols(coinA.address, coinB.address)
       if (isSorted) {
         ConnectionInstance.getPair(coinA.address, coinB.address)
       } else {

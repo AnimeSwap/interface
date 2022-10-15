@@ -1,6 +1,6 @@
 import { Decimal, Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
-import { Coin, Price } from 'hooks/common/Coin'
+import { Coin } from 'hooks/common/Coin'
 import { useContext } from 'react'
 import { Text } from 'rebass'
 import { ThemeContext } from 'styled-components/macro'
