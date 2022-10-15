@@ -154,7 +154,7 @@ export default function RemoveLiquidity() {
             </Trans>
           </Text>
           <RowFixed>
-            <DoubleCoinLogo CoinA={CoinA} CoinB={CoinB} margin={true} />
+            <DoubleCoinLogo coinX={CoinA} coinY={CoinB} margin={true} />
             <Text fontWeight={500} fontSize={16}>
               {0}
             </Text>
