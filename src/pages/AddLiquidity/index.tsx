@@ -11,7 +11,6 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { Text } from 'rebass'
 import { useAccount, useLpBalance } from 'state/wallets/hooks'
 import { ThemeContext } from 'styled-components/macro'
-import styled from 'styled-components/macro'
 
 import { ButtonError, ButtonLight, ButtonPrimary } from '../../components/Button'
 import { BlueCard, LightCard } from '../../components/Card'

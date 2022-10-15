@@ -1,6 +1,5 @@
 import { Decimal, Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
-import { APTOS_DEVNET_CoinInfo } from 'constants/coinInfo'
 import { amountPretty, CoinAmount, useCoin } from 'hooks/common/Coin'
 import { Pair, pairKey } from 'hooks/common/Pair'
 import { transparentize } from 'polished'
@@ -8,11 +7,11 @@ import { useState } from 'react'
 import { ChevronDown, ChevronUp } from 'react-feather'
 import { Link } from 'react-router-dom'
 import { Text } from 'rebass'
-import { useAccount, useLpBalance } from 'state/wallets/hooks'
+import { useLpBalance } from 'state/wallets/hooks'
 import styled from 'styled-components/macro'
 
 import { useColor } from '../../hooks/useColor'
-import { ExternalLink, ThemedText } from '../../theme'
+import { ThemedText } from '../../theme'
 import { ButtonEmpty, ButtonPrimary, ButtonSecondary } from '../Button'
 import { GreyCard, LightCard } from '../Card'
 import CoinLogo from '../CoinLogo'
@@ -20,7 +19,6 @@ import { AutoColumn } from '../Column'
 import DoubleCoinLogo from '../DoubleLogo'
 import { CardNoise } from '../earn/styled'
 import { AutoRow, RowBetween, RowFixed } from '../Row'
-import { Dots } from '../swap/styleds'
 
 export const FixedHeightRow = styled(RowBetween)`
   height: 24px;
