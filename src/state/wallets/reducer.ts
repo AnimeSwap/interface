@@ -15,7 +15,7 @@ export const initialState: WalletState = {
   account: undefined,
   coinBalances: {},
   lpBalances: {},
-  selectedWallet: WalletType.PETRA,
+  selectedWallet: WalletType.MARTIAN,
   connectedWallets: [],
 }
 

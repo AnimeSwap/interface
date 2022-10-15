@@ -70,8 +70,8 @@ export async function AutoConnectWallets() {
     //   break
   }
   // auto connect wallet in order
-  if (await AutoConnectPetra()) return
   if (await AutoConnectMartian()) return
+  if (await AutoConnectPetra()) return
   // if (await AutoConnectFewcha()) return
   if (await AutoConnectPontem()) return
   // if (await AutoConnectRise()) return
