@@ -1,6 +1,9 @@
+import { Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
+import { SwitchLocaleLink } from 'components/SwitchLocaleLink'
 import { BP } from 'constants/misc'
 import { useCoin } from 'hooks/common/Coin'
+import { usePair } from 'hooks/common/Pair'
 import { useCallback, useContext, useMemo, useState } from 'react'
 import { ArrowDown, Plus } from 'react-feather'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -33,13 +36,15 @@ const DEFAULT_REMOVE_LIQUIDITY_SLIPPAGE_TOLERANCE = 50
 
 export default function RemoveLiquidity() {
   const navigate = useNavigate()
-  const { CoinIdA, CoinIdB } = useParams<{ CoinIdA: string; CoinIdB: string }>()
-  const CoinA = useCoin(CoinIdA)
-  const CoinB = useCoin(CoinIdB)
+  const { coinIdA, coinIdB } = useParams<{ coinIdA: string; coinIdB: string }>()
+  const coinA = useCoin(coinIdA)
+  const coinB = useCoin(coinIdB)
   const account = useAccount()
   const chainId = useChainId()
-
   const theme = useContext(ThemeContext)
+
+  const [pairState, pair] = usePair(coinA?.address, coinB?.address)
+  const coinYdivXReserve = Utils.d(pair?.coinYReserve).div(Utils.d(pair?.coinXReserve))
 
   // toggle wallet when disconnected
   const toggleWalletModal = useToggleWalletModal()
@@ -93,7 +98,7 @@ export default function RemoveLiquidity() {
     //   [Field.CURRENCY_B]: calculateSlippageAmount(currencyAmountB, allowedSlippage)[0],
     // }
 
-    if (!CoinA || !CoinB) throw new Error('missing tokens')
+    if (!coinA || !coinB) throw new Error('missing coins')
     // const liquidityAmount = parsedAmounts[Field.LIQUIDITY]
     // if (!liquidityAmount) throw new Error('missing liquidity amount')
 
@@ -108,9 +113,9 @@ export default function RemoveLiquidity() {
             {0}
           </Text>
           <RowFixed gap="4px">
-            <CoinLogo coin={CoinA} size={'24px'} />
+            <CoinLogo coin={coinA} size={'24px'} />
             <Text fontSize={24} fontWeight={500} style={{ marginLeft: '10px' }}>
-              {CoinA?.symbol}
+              {coinA?.symbol}
             </Text>
           </RowFixed>
         </RowBetween>
@@ -122,9 +127,9 @@ export default function RemoveLiquidity() {
             {0}
           </Text>
           <RowFixed gap="4px">
-            <CoinLogo coin={CoinB} size={'24px'} />
+            <CoinLogo coin={coinB} size={'24px'} />
             <Text fontSize={24} fontWeight={500} style={{ marginLeft: '10px' }}>
-              {CoinB?.symbol}
+              {coinB?.symbol}
             </Text>
           </RowFixed>
         </RowBetween>
@@ -150,11 +155,11 @@ export default function RemoveLiquidity() {
         <RowBetween>
           <Text color={theme.deprecated_text2} fontWeight={500} fontSize={16}>
             <Trans>
-              UNI {CoinA?.symbol}/{CoinB?.symbol} Burned
+              UNI {coinA?.symbol}/{coinB?.symbol} Burned
             </Trans>
           </Text>
           <RowFixed>
-            <DoubleCoinLogo coinX={CoinA} coinY={CoinB} margin={true} />
+            <DoubleCoinLogo coinX={coinA} coinY={coinB} margin={true} />
             <Text fontWeight={500} fontSize={16}>
               {0}
             </Text>
@@ -320,9 +325,9 @@ export default function RemoveLiquidity() {
                         APT
                       </Text>
                       <RowFixed>
-                        <CoinLogo coin={CoinA} style={{ marginRight: '12px' }} />
+                        <CoinLogo coin={coinA} style={{ marginRight: '12px' }} />
                         <Text fontSize={24} fontWeight={500} id="remove-liquidity-tokena-symbol">
-                          {CoinA?.symbol}
+                          {coinA?.symbol}
                         </Text>
                       </RowFixed>
                     </RowBetween>
@@ -331,9 +336,9 @@ export default function RemoveLiquidity() {
                         APT
                       </Text>
                       <RowFixed>
-                        <CoinLogo coin={CoinB} style={{ marginRight: '12px' }} />
+                        <CoinLogo coin={coinB} style={{ marginRight: '12px' }} />
                         <Text fontSize={24} fontWeight={500} id="remove-liquidity-tokenb-symbol">
-                          {CoinB?.symbol}
+                          {coinB?.symbol}
                         </Text>
                       </RowFixed>
                     </RowBetween>
@@ -404,16 +409,6 @@ export default function RemoveLiquidity() {
                 </ButtonLight>
               ) : (
                 <RowBetween>
-                  <ButtonConfirmed
-                    onClick={() => {}}
-                    confirmed={false}
-                    disabled={false}
-                    mr="0.5rem"
-                    fontWeight={500}
-                    fontSize={16}
-                  >
-                    <Trans>Approved</Trans>
-                  </ButtonConfirmed>
                   <ButtonError
                     onClick={() => {
                       setShowConfirm(true)
@@ -431,10 +426,11 @@ export default function RemoveLiquidity() {
           </AutoColumn>
         </Wrapper>
       </AppBody>
+      <SwitchLocaleLink />
 
-      {/* <AutoColumn style={{ minWidth: '20rem', width: '100%', maxWidth: '400px', marginTop: '1rem' }}>
-        <MinimalPositionCard showUnwrapped={false} pair={pair} />
-      </AutoColumn> */}
+      <AutoColumn style={{ minWidth: '20rem', width: '100%', maxWidth: '400px', marginTop: '1rem' }}>
+        <MinimalPositionCard pair={pair} />
+      </AutoColumn>
     </>
   )
 }

@@ -42,9 +42,9 @@ export function MinimalPositionCard({ pair, border }: PositionCardProps) {
   const coinX = useCoin(pair.coinX)
   const coinY = useCoin(pair.coinY)
   const lpBalance = Utils.d(useLpBalance(pairKey(pair.coinX, pair.coinY)))
-  const coinXAmount = new CoinAmount(coinX, Utils.d(pair.coinXReserve))
-  const coinYAmount = new CoinAmount(coinY, Utils.d(pair.coinYReserve))
-  const poolLpPercentage = lpBalance.div(Utils.d(pair.lpTotal)).mul(100)
+  const poolLpPercentage = lpBalance.div(Utils.d(pair.lpTotal))
+  const coinXAmount = new CoinAmount(coinX, Utils.d(pair.coinXReserve).mul(poolLpPercentage))
+  const coinYAmount = new CoinAmount(coinY, Utils.d(pair.coinYReserve).mul(poolLpPercentage))
 
   const [showMore, setShowMore] = useState(false)
 
@@ -87,7 +87,9 @@ export function MinimalPositionCard({ pair, border }: PositionCardProps) {
                   <Trans>Your pool share:</Trans>
                 </Text>
                 <Text fontSize={16} fontWeight={500}>
-                  <Trans>{poolLpPercentage.toFixed(2) === '0.00' ? '<0.01' : poolLpPercentage.toFixed(2)} %</Trans>
+                  <Trans>
+                    {poolLpPercentage.mul(100).toFixed(2) === '0.00' ? '<0.01' : poolLpPercentage.toFixed(2)} %
+                  </Trans>
                 </Text>
               </FixedHeightRow>
               <FixedHeightRow>
@@ -144,9 +146,9 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
   const coinX = useCoin(pair.coinX)
   const coinY = useCoin(pair.coinY)
   const lpBalance = Utils.d(useLpBalance(pairKey(pair.coinX, pair.coinY)))
-  const coinXAmount = new CoinAmount(coinX, Utils.d(pair.coinXReserve))
-  const coinYAmount = new CoinAmount(coinY, Utils.d(pair.coinYReserve))
-  const poolLpPercentage = lpBalance.div(Utils.d(pair.lpTotal)).mul(100)
+  const poolLpPercentage = lpBalance.div(Utils.d(pair.lpTotal))
+  const coinXAmount = new CoinAmount(coinX, Utils.d(pair.coinXReserve).mul(poolLpPercentage))
+  const coinYAmount = new CoinAmount(coinY, Utils.d(pair.coinYReserve).mul(poolLpPercentage))
 
   const [showMore, setShowMore] = useState(false)
 
@@ -247,7 +249,9 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
                 <Trans>Your pool share:</Trans>
               </Text>
               <Text fontSize={16} fontWeight={500}>
-                <Trans>{poolLpPercentage.toFixed(2) === '0.00' ? '<0.01' : poolLpPercentage.toFixed(2)} %</Trans>
+                <Trans>
+                  {poolLpPercentage.mul(100).toFixed(2) === '0.00' ? '<0.01' : poolLpPercentage.toFixed(2)} %
+                </Trans>
               </Text>
             </FixedHeightRow>
 
