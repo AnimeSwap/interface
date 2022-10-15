@@ -274,7 +274,7 @@ export default function AddLiquidity() {
               onCoinSelect={handleCurrencyBSelect}
               onMax={() => {
                 const gasReserve = coinB.symbol === 'APT' ? Utils.d(40000) : BIG_INT_ZERO
-                onFieldAInput(
+                onFieldBInput(
                   coinBalances[Field.COIN_B]?.sub(gasReserve).div(Utils.pow10(coinB.decimals)).toString() ?? ''
                 )
               }}
