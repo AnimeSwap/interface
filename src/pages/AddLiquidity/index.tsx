@@ -40,7 +40,7 @@ export default function AddLiquidity() {
   const account = useAccount()
   const chainId = useChainId()
   const nativeCoin = useNativeCoin()
-  const lpBalance = Utils.d(useLpBalance(pairKey(coinA.address, coinB.address)))
+  const lpBalance = Utils.d(useLpBalance(pairKey(coinA?.address, coinB?.address)))
 
   const theme = useContext(ThemeContext)
 
@@ -76,7 +76,11 @@ export default function AddLiquidity() {
   // get formatted amounts
   const formattedAmounts = {
     [independentField]: typedValue,
-    [dependentField]: noLiquidity ? otherTypedValue : parsedAmounts[dependentField]?.toSD(6).toString() ?? '',
+    [dependentField]: noLiquidity
+      ? otherTypedValue
+      : parsedAmounts[dependentField] && coins[dependentField]
+      ? parsedAmounts[dependentField].div(Utils.pow10(coins[dependentField].decimals))?.toSD(6).toString()
+      : '',
   }
 
   const coinA_amount = coins[Field.COIN_A]
