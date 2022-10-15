@@ -138,6 +138,8 @@ class ConnectionInstance {
       store.dispatch(updatePair({ pair }))
       return pair
     } catch (error) {
+      // if not 404 exist, set null
+      store.dispatch(updatePair({ pair: undefined }))
       return undefined
     }
   }
