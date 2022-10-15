@@ -20,7 +20,7 @@ import Row, { RowBetween, RowFlat } from '../../components/Row'
 import TransactionConfirmationModal, { ConfirmationModalContent } from '../../components/TransactionConfirmationModal'
 import { useToggleWalletModal } from '../../state/application/hooks'
 import { Field } from '../../state/mint/actions'
-import { useDerivedMintInfo, useMintActionHandlers, useMintState } from '../../state/mint/hooks'
+import { PairState, useDerivedMintInfo, useMintActionHandlers, useMintState } from '../../state/mint/hooks'
 import { useTransactionAdder } from '../../state/transactions/hooks'
 import { TransactionType } from '../../state/transactions/types'
 import { useChainId, useNativeCoin, useUserSlippageTolerance } from '../../state/user/hooks'
@@ -63,6 +63,7 @@ export default function AddLiquidity() {
     dependentField,
     coins,
     pair,
+    pairState,
     coinBalances,
     parsedAmounts,
     price,

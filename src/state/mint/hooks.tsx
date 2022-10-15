@@ -10,6 +10,13 @@ import { tryParseCoinAmount } from 'utils/tryParseCoinAmount'
 import { AppState } from '../index'
 import { Field, typeInput } from './actions'
 
+export enum PairState {
+  LOADING,
+  NOT_EXISTS,
+  EXISTS,
+  INVALID,
+}
+
 export function useMintState(): AppState['mint'] {
   return useAppSelector((state) => state.mint)
 }
@@ -47,6 +54,7 @@ export function useDerivedMintInfo(
   dependentField: Field
   coins: { [field in Field]?: Coin }
   pair?: Pair | null
+  pairState: PairState
   coinBalances: { [field in Field]?: Decimal }
   parsedAmounts: { [field in Field]?: Decimal }
   price?: Decimal
