@@ -1,7 +1,7 @@
 import { Decimal, Utils } from '@animeswap.org/v1-sdk'
 import { isSortedSymbols } from '@animeswap.org/v1-sdk/dist/tsc/utils'
 import { Trans } from '@lingui/macro'
-import { Coin, CoinAmount } from 'hooks/common/Coin'
+import { Coin } from 'hooks/common/Coin'
 import { Pair, usePair } from 'hooks/common/Pair'
 import { ReactNode, useCallback, useMemo } from 'react'
 import ConnectionInstance from 'state/connection/instance'

@@ -1,5 +1,3 @@
-import store from '../state'
-
 export enum TOKEN_LIST_TYPES {
   UNI_DEFAULT = 1,
   UNI_EXTENDED,
