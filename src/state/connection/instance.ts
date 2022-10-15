@@ -125,6 +125,11 @@ class ConnectionInstance {
         lpType
       )
       const [lpCoinInfo, lpPool] = await Promise.all([getLPCoinInfo, getLPPool])
+      // pair not exist
+      if (lpCoinInfo == undefined || lpPool == undefined) {
+        store.dispatch(updatePair({ pair: null }))
+        return null
+      }
       const lpTotal = lpCoinInfo.supply.vec[0].integer.vec[0].value
       const coinXReserve = lpPool.coin_x_reserve.value
       const coinYReserve = lpPool.coin_y_reserve.value
@@ -138,7 +143,6 @@ class ConnectionInstance {
       store.dispatch(updatePair({ pair }))
       return pair
     } catch (error) {
-      // if not 404 exist, set null
       store.dispatch(updatePair({ pair: undefined }))
       return undefined
     }

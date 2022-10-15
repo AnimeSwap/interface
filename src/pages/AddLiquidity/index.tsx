@@ -4,12 +4,12 @@ import { MinimalPositionCard } from 'components/PositionCard'
 import { SwitchLocaleLink } from 'components/SwitchLocaleLink'
 import { BIG_INT_ZERO } from 'constants/misc'
 import { amountPretty, Coin, CoinAmount, useCoin } from 'hooks/common/Coin'
-import { PairState } from 'hooks/common/Pair'
+import { pairKey, PairState } from 'hooks/common/Pair'
 import { useCallback, useContext, useState } from 'react'
 import { Plus } from 'react-feather'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { Text } from 'rebass'
-import { useAccount } from 'state/wallets/hooks'
+import { useAccount, useLpBalance } from 'state/wallets/hooks'
 import { ThemeContext } from 'styled-components/macro'
 import styled from 'styled-components/macro'
 
@@ -41,6 +41,7 @@ export default function AddLiquidity() {
   const account = useAccount()
   const chainId = useChainId()
   const nativeCoin = useNativeCoin()
+  const lpBalance = Utils.d(useLpBalance(pairKey(coinA.address, coinB.address)))
 
   const theme = useContext(ThemeContext)
 
@@ -323,7 +324,7 @@ export default function AddLiquidity() {
       </AppBody>
       <SwitchLocaleLink />
 
-      {pair && !noLiquidity && pairState !== PairState.INVALID ? (
+      {lpBalance.gt(0) && pair && !noLiquidity && pairState !== PairState.INVALID ? (
         <AutoColumn style={{ minWidth: '20rem', width: '100%', maxWidth: '400px', marginTop: '1rem' }}>
           <MinimalPositionCard pair={pair} />
         </AutoColumn>

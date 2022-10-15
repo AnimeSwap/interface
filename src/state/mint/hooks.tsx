@@ -106,8 +106,8 @@ export function useDerivedMintInfo(
     } else if (independentAmount && coinA && coinB && pair) {
       const dependentCoinAmount =
         dependentField === Field.COIN_B
-          ? independentAmount.mul(coinYdivXReserve)
-          : independentAmount.div(coinYdivXReserve)
+          ? independentAmount.mul(coinYdivXReserve).div(Utils.pow10(coinB.decimals))
+          : independentAmount.div(coinYdivXReserve).div(Utils.pow10(coinA.decimals))
       return dependentCoinAmount
     } else {
       return undefined
@@ -117,7 +117,7 @@ export function useDerivedMintInfo(
   const parsedAmounts: { [field in Field]: Decimal | undefined } = useMemo(() => {
     return {
       [Field.COIN_A]: independentField === Field.COIN_A ? independentAmount : dependentAmount,
-      [Field.COIN_B]: independentField === Field.COIN_B ? dependentAmount : independentAmount,
+      [Field.COIN_B]: independentField === Field.COIN_B ? independentAmount : dependentAmount,
     }
   }, [dependentAmount, independentAmount, independentField])
 
@@ -150,7 +150,7 @@ export function useDerivedMintInfo(
 
   const poolCoinPercentage = useMemo(() => {
     if (liquidityMinted && pair && pairState === PairState.EXISTS) {
-      return liquidityMinted.div(Utils.d(pair.lpTotal).add(liquidityMinted))
+      return liquidityMinted.div(Utils.d(pair.lpTotal).add(liquidityMinted)).mul(Utils.pow10(2))
     } else {
       return undefined
     }
