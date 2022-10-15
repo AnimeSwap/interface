@@ -2,14 +2,15 @@ import { Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
 import { MinimalPositionCard } from 'components/PositionCard'
 import { SwitchLocaleLink } from 'components/SwitchLocaleLink'
-import { BIG_INT_ZERO } from 'constants/misc'
+import { BIG_INT_ZERO, BP } from 'constants/misc'
 import { amountPretty, Coin, CoinAmount, useCoin } from 'hooks/common/Coin'
 import { pairKey, PairState } from 'hooks/common/Pair'
 import { useCallback, useContext, useState } from 'react'
 import { Plus } from 'react-feather'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { Text } from 'rebass'
-import { useAccount, useLpBalance } from 'state/wallets/hooks'
+import ConnectionInstance from 'state/connection/instance'
+import { SignAndSubmitTransaction, useAccount, useLpBalance } from 'state/wallets/hooks'
 import { ThemeContext } from 'styled-components/macro'
 
 import { ButtonError, ButtonLight, ButtonPrimary } from '../../components/Button'
@@ -35,7 +36,6 @@ const DEFAULT_ADD_SLIPPAGE_TOLERANCE = 50
 export default function AddLiquidity() {
   const navigate = useNavigate()
   const account = useAccount()
-  const chainId = useChainId()
   const nativeCoin = useNativeCoin()
   const { coinIdA, coinIdB } = useParams<{ coinIdA?: string; coinIdB?: string }>()
   const coinA = useCoin(coinIdA)
@@ -74,7 +74,7 @@ export default function AddLiquidity() {
   const [attemptingTxn, setAttemptingTxn] = useState<boolean>(false) // clicked confirm
 
   // txn values
-  const allowedSlippage = useUserSlippageTolerance() // custom from users
+  const allowedSlippage = useUserSlippageTolerance()
   const [txHash, setTxHash] = useState<string>('')
 
   // get formatted amounts
@@ -95,8 +95,26 @@ export default function AddLiquidity() {
     : undefined
 
   async function onAdd() {
-    if (!chainId || !account) return
-    // TODO[Azard]
+    try {
+      const payload = ConnectionInstance.getSDK().swap.addLiquidityPayload({
+        coinX: revert ? coinB.address : coinA.address,
+        coinY: revert ? coinA.address : coinB.address,
+        amountX: revert ? parsedAmounts[Field.COIN_B] : parsedAmounts[Field.COIN_A],
+        amountY: revert ? parsedAmounts[Field.COIN_A] : parsedAmounts[Field.COIN_B],
+        slippage: BP.mul(allowedSlippage),
+      })
+      setAttemptingTxn(true)
+      const txid = await SignAndSubmitTransaction(payload)
+      setAttemptingTxn(false)
+      setTxHash(txid)
+      setTimeout(() => {
+        ConnectionInstance.syncAccountResources(account)
+      }, 500)
+    } catch (error) {
+      setAttemptingTxn(false)
+      console.error('onAdd', error)
+      throw error
+    }
   }
 
   const modalHeader = () => {
@@ -126,7 +144,7 @@ export default function AddLiquidity() {
         </Row>
         <ThemedText.DeprecatedItalic fontSize={12} textAlign="left" padding={'8px 0 0 0 '}>
           <Trans>
-            Output is estimated. If the price changes by more than {(allowedSlippage / 1000).toFixed(2)}% your
+            Output is estimated. If the price changes by more than {(allowedSlippage / 100).toFixed(2)}% your
             transaction will revert.
           </Trans>
         </ThemedText.DeprecatedItalic>
@@ -315,7 +333,7 @@ export default function AddLiquidity() {
               <AutoColumn gap={'md'}>
                 <ButtonError
                   onClick={() => {
-                    onAdd()
+                    setShowConfirm(true)
                   }}
                   disabled={!isValid}
                   error={!isValid && !!parsedAmounts[Field.COIN_A] && !!parsedAmounts[Field.COIN_B]}

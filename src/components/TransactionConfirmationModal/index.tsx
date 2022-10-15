@@ -91,10 +91,10 @@ function TransactionSubmittedContent({
   inline?: boolean // not in modal
 }) {
   const theme = useContext(ThemeContext)
-  const coin = coinToAdd
-  const logoURL = coin.logoURL
+  // const coin = coinToAdd
+  // const logoURL = coin.logoURL
 
-  const [success, setSuccess] = useState<boolean | undefined>()
+  // const [success, setSuccess] = useState<boolean | undefined>()
 
   // const addToken = useCallback(() => {
   //   if (!coin?.symbol || !connector.watchAsset) return

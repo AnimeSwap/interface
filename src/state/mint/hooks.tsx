@@ -109,8 +109,8 @@ export function useDerivedMintInfo(
     } else if (independentAmount && coinA && coinB && pair) {
       const dependentCoinAmount =
         dependentField === Field.COIN_B
-          ? independentAmount.mul(coinBdivAReserve)
-          : independentAmount.div(coinBdivAReserve)
+          ? independentAmount.mul(coinBdivAReserve).floor()
+          : independentAmount.div(coinBdivAReserve).floor()
       return dependentCoinAmount
     } else {
       return undefined
