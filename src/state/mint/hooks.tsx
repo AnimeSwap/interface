@@ -83,7 +83,6 @@ export function useDerivedMintInfo(
   const coinYdivXReserve = Utils.d(pair?.coinYReserve).div(Utils.d(pair?.coinXReserve))
   // coin A B is user select sort
   const coinBdivAReserve = revert ? Utils.d(1).div(coinYdivXReserve) : coinYdivXReserve
-
   const noLiquidity =
     pairState === PairState.NOT_EXISTS ||
     pair?.lpTotal === '0' ||

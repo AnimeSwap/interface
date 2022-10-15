@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro'
-import { Pair, pairKey } from 'hooks/common/Pair'
+import { Pair, pairKey, usePair } from 'hooks/common/Pair'
 import { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Text } from 'rebass'
@@ -178,9 +178,7 @@ export default function Pool() {
                     </Trans>
                   </RowBetween>
                 </ButtonSecondary> */}
-                {pairs.map((pair) => (
-                  <FullPositionCard key={pairKey(pair.coinX, pair.coinY)} pair={pair} />
-                ))}
+                {pairs.map((pair) => pair && <FullPositionCard key={pairKey(pair.coinX, pair.coinY)} pair={pair} />)}
               </>
             ) : (
               <EmptyProposals>

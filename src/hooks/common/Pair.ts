@@ -27,9 +27,6 @@ export function usePair(coinA: string, coinB: string): [PairState, Pair | null |
   )
   let pairState: PairState = PairState.LOADING
   if (pair === undefined) {
-    pairState = PairState.LOADING
-  }
-  if (pair === null) {
     pairState = PairState.NOT_EXISTS
   }
   if (pair) {

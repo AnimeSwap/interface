@@ -207,15 +207,10 @@ export default function AddLiquidity() {
     setTxHash('')
   }, [onFieldAInput, txHash])
 
-  const { pathname } = useLocation()
-  const isCreate = pathname.includes('/create')
-
-  // const addIsUnsupported = useIsSwapUnsupported(currencies?.COIN_A, currencies?.COIN_B)
-
   return (
     <>
       <AppBody>
-        <AddRemoveTabs creating={isCreate} adding={true} defaultSlippage={DEFAULT_ADD_SLIPPAGE_TOLERANCE} />
+        <AddRemoveTabs creating={noLiquidity} adding={true} defaultSlippage={DEFAULT_ADD_SLIPPAGE_TOLERANCE} />
         <Wrapper>
           <TransactionConfirmationModal
             isOpen={showConfirm}
@@ -233,41 +228,39 @@ export default function AddLiquidity() {
             pendingText={pendingText}
           />
           <AutoColumn gap="20px">
-            {noLiquidity ||
-              (isCreate ? (
-                <ColumnCenter>
-                  <BlueCard>
-                    <AutoColumn gap="10px">
-                      <ThemedText.DeprecatedLink fontWeight={600} color={'deprecated_primaryText1'}>
-                        <Trans>You are the first liquidity provider.</Trans>
-                      </ThemedText.DeprecatedLink>
-                      <ThemedText.DeprecatedLink fontWeight={400} color={'deprecated_primaryText1'}>
-                        <Trans>The ratio of tokens you add will set the price of this pool.</Trans>
-                      </ThemedText.DeprecatedLink>
-                      <ThemedText.DeprecatedLink fontWeight={400} color={'deprecated_primaryText1'}>
-                        <Trans>Once you are happy with the rate click supply to review.</Trans>
-                      </ThemedText.DeprecatedLink>
-                    </AutoColumn>
-                  </BlueCard>
-                </ColumnCenter>
-              ) : (
-                <ColumnCenter>
-                  <BlueCard>
-                    <AutoColumn gap="10px">
-                      <ThemedText.DeprecatedLink fontWeight={400} color={'deprecated_primaryText1'}>
-                        <Trans>
-                          <b>
-                            <Trans>Tip:</Trans>
-                          </b>{' '}
-                          When you add liquidity, you will receive pool tokens representing your position. These tokens
-                          automatically earn fees proportional to your share of the pool, and can be redeemed at any
-                          time.
-                        </Trans>
-                      </ThemedText.DeprecatedLink>
-                    </AutoColumn>
-                  </BlueCard>
-                </ColumnCenter>
-              ))}
+            {noLiquidity ? (
+              <ColumnCenter>
+                <BlueCard>
+                  <AutoColumn gap="10px">
+                    <ThemedText.DeprecatedLink fontWeight={600} color={'deprecated_primaryText1'}>
+                      <Trans>You are the first liquidity provider.</Trans>
+                    </ThemedText.DeprecatedLink>
+                    <ThemedText.DeprecatedLink fontWeight={400} color={'deprecated_primaryText1'}>
+                      <Trans>The ratio of tokens you add will set the price of this pool.</Trans>
+                    </ThemedText.DeprecatedLink>
+                    <ThemedText.DeprecatedLink fontWeight={400} color={'deprecated_primaryText1'}>
+                      <Trans>Once you are happy with the rate click supply to review.</Trans>
+                    </ThemedText.DeprecatedLink>
+                  </AutoColumn>
+                </BlueCard>
+              </ColumnCenter>
+            ) : (
+              <ColumnCenter>
+                <BlueCard>
+                  <AutoColumn gap="10px">
+                    <ThemedText.DeprecatedLink fontWeight={400} color={'deprecated_primaryText1'}>
+                      <Trans>
+                        <b>
+                          <Trans>Tip:</Trans>
+                        </b>{' '}
+                        When you add liquidity, you will receive pool tokens representing your position. These tokens
+                        automatically earn fees proportional to your share of the pool, and can be redeemed at any time.
+                      </Trans>
+                    </ThemedText.DeprecatedLink>
+                  </AutoColumn>
+                </BlueCard>
+              </ColumnCenter>
+            )}
             <CoinInputPanel
               value={formattedAmounts[Field.COIN_A]}
               onUserInput={onFieldAInput}

@@ -127,7 +127,6 @@ class ConnectionInstance {
       const [lpCoinInfo, lpPool] = await Promise.all([getLPCoinInfo, getLPPool])
       // pair not exist
       if (lpCoinInfo == undefined || lpPool == undefined) {
-        store.dispatch(updatePair({ pair: null }))
         return null
       }
       const lpTotal = lpCoinInfo.supply.vec[0].integer.vec[0].value
