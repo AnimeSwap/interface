@@ -80,7 +80,7 @@ msgstr "<0/> 所有提案"
 msgid "<0/> Votes"
 msgstr "<0/> 票"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "<0>Account analytics and accrued fees</0><1> ↗ </1>"
 msgstr "<0>账户分析和已累积的手续费</0><1> ↗ </1>"
 
@@ -155,7 +155,7 @@ msgstr "添加委托 +"
 msgid "Add Liquidity"
 msgstr "添加流动性"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Add V2 Liquidity"
 msgstr "添加 V2 流动性"
 
@@ -325,8 +325,8 @@ msgid "Bridge"
 msgstr "桥"
 
 #: src/components/PositionCard/index.tsx
-msgid "By adding liquidity you'll earn 0.3% of all trades on this pair proportional to your share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
-msgstr "通过添加流动性，您将按您在流动池中所占比例赚取对应交易量的0.3%手续费。手续费将实时累加到流动池中，在您取回流动性时也将同时取回您赚取的手续费。"
+msgid "By adding liquidity you'll earn 0.25% of all trades on this pair proportional to your share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
+msgstr "通过添加流动性，您将按您在流动池中所占比例赚取对应交易量的0.25%手续费。手续费将实时累加到流动池中，在您取回流动性时也将同时取回您赚取的手续费。"
 
 #: src/components/SearchModal/ImportList.tsx
 msgid "By adding this list you are implicitly trusting that the data is correct. Anyone can create a list, including creating fake versions of existing lists and lists that claim to represent projects that do not have one."
@@ -524,7 +524,7 @@ msgstr "连接到钱包以查找流动池"
 msgid "Connect to a wallet to view your V2 liquidity."
 msgstr "连接到钱包以查看您的 V2 流动资金。"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Connect to a wallet to view your liquidity."
 msgstr "连接到钱包以查看您的流动资金。"
 
@@ -555,7 +555,7 @@ msgid "Create Proposal"
 msgstr "创建提案"
 
 #: src/components/NavigationTabs/index.tsx
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Create a pair"
 msgstr "创建币对"
 
@@ -891,7 +891,7 @@ msgstr "导入"
 msgid "Import List"
 msgstr "导入代币列表"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Import Pool"
 msgstr "导入流动池"
 
@@ -999,13 +999,13 @@ msgstr "流动资金"
 msgid "Liquidity data not available."
 msgstr "未获取到流动性数据。"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Liquidity provider rewards"
 msgstr "流动资金提供者奖励"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Liquidity providers earn a 0.25% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
-msgstr "流动资金提供者在所有交易中按其在流动池中的份额获得0.3%的手续费。手续费按实时累计方式添加到流动池中，可与流动资金一起赎回。"
+msgstr "流动资金提供者在所有交易中按其在流动池中的份额获得0.25%的手续费。手续费按实时累计方式添加到流动池中，可与流动资金一起赎回。"
 
 #: src/components/SearchModal/Manage.tsx
 msgid "Lists"
@@ -1020,7 +1020,7 @@ msgstr "已加载"
 #: src/components/PositionCard/index.tsx
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
 #: src/pages/MigrateV2/index.tsx
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 #: src/pages/PoolFinder/index.tsx
 msgid "Loading"
 msgstr "正在加载"
@@ -1083,7 +1083,7 @@ msgstr "菜单"
 msgid "Migrate"
 msgstr "迁移"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Migrate Liquidity to V3"
 msgstr "将流动资金迁移到V3"
 
@@ -1162,7 +1162,7 @@ msgstr "没有数据"
 msgid "No description."
 msgstr "没有说明。"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "No liquidity found."
 msgstr "未找到流动资金。"
 
@@ -1401,7 +1401,7 @@ msgstr "阅读更多关于 UNI 代币的信息"
 msgid "Read more about Uniswap governance"
 msgstr "阅读有关Uniswap治理的更多信息"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Read more about providing liquidity"
 msgstr "阅读更多关于提供流动资金的信息"
 
@@ -1966,7 +1966,7 @@ msgstr "使用 Uniswap Labs API 获得更快的报价。"
 msgid "User"
 msgstr "用户"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "V2 Pool is not available on Layer 2. Switch to Layer 1 Ethereum."
 msgstr "V2 池在第 2 层不可用。切换到第 1 层以太坊。"
 
@@ -2196,7 +2196,7 @@ msgstr "您还将从此仓位中领取已赚取的手续费。"
 msgid "You will receive"
 msgstr "您将收到"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Your V2 liquidity"
 msgstr "您的V2流动资金"
 

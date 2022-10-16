@@ -80,7 +80,7 @@ msgstr "<0/> Tất cả các đề xuất"
 msgid "<0/> Votes"
 msgstr "<0/> Phiếu bầu"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "<0>Account analytics and accrued fees</0><1> ↗ </1>"
 msgstr "<0>Phân tích tài khoản và phí tích lũy</0><1> ↗ </1>"
 
@@ -155,7 +155,7 @@ msgstr "Thêm đại biểu +"
 msgid "Add Liquidity"
 msgstr "Thêm thanh khoản"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Add V2 Liquidity"
 msgstr "Thêm thanh khoản V2"
 
@@ -325,7 +325,7 @@ msgid "Bridge"
 msgstr "Cầu"
 
 #: src/components/PositionCard/index.tsx
-msgid "By adding liquidity you'll earn 0.3% of all trades on this pair proportional to your share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
+msgid "By adding liquidity you'll earn 0.25% of all trades on this pair proportional to your share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
 msgstr "Bằng cách thêm thanh khoản, bạn sẽ kiếm được 0,3% tất cả các giao dịch trên cặp tiền này tỷ lệ với phần của bạn trong nhóm. Phí được thêm vào nhóm, tích lũy trong thời gian thực và có thể được yêu cầu bằng cách rút tiền thanh khoản của bạn."
 
 #: src/components/SearchModal/ImportList.tsx
@@ -524,7 +524,7 @@ msgstr "Kết nối với ví để tìm nhóm"
 msgid "Connect to a wallet to view your V2 liquidity."
 msgstr "Kết nối với ví để xem tính thanh khoản V2 của bạn."
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Connect to a wallet to view your liquidity."
 msgstr "Kết nối với ví để xem tính thanh khoản của bạn."
 
@@ -555,7 +555,7 @@ msgid "Create Proposal"
 msgstr "Tạo đề xuất"
 
 #: src/components/NavigationTabs/index.tsx
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Create a pair"
 msgstr "Tạo một cặp"
 
@@ -891,7 +891,7 @@ msgstr "Nhập"
 msgid "Import List"
 msgstr "Nhập danh sách"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Import Pool"
 msgstr "Nhập Pool"
 
@@ -999,11 +999,11 @@ msgstr "Thanh khoản"
 msgid "Liquidity data not available."
 msgstr "Dữ liệu thanh khoản không có sẵn."
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Liquidity provider rewards"
 msgstr "Phần thưởng của nhà cung cấp thanh khoản"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Liquidity providers earn a 0.25% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
 msgstr "Các nhà cung cấp thanh khoản kiếm được một khoản phí 0,3% cho tất cả các giao dịch tỷ lệ với phần của họ trong pool. Phí được thêm vào pool, tích lũy trong thời gian thực và có thể được yêu cầu bằng cách rút tiền thanh khoản của bạn."
 
@@ -1020,7 +1020,7 @@ msgstr "Đã nạp"
 #: src/components/PositionCard/index.tsx
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
 #: src/pages/MigrateV2/index.tsx
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 #: src/pages/PoolFinder/index.tsx
 msgid "Loading"
 msgstr "Đang tải"
@@ -1083,7 +1083,7 @@ msgstr "Thực đơn"
 msgid "Migrate"
 msgstr "Di chuyển"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Migrate Liquidity to V3"
 msgstr "Di chuyển thanh khoản sang V3"
 
@@ -1162,7 +1162,7 @@ msgstr "Không có dữ liệu"
 msgid "No description."
 msgstr "Không có mô tả."
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "No liquidity found."
 msgstr "Không tìm thấy thanh khoản."
 
@@ -1401,7 +1401,7 @@ msgstr "Đọc thêm về UNI"
 msgid "Read more about Uniswap governance"
 msgstr "Đọc thêm về quản trị Uniswap"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Read more about providing liquidity"
 msgstr "Đọc thêm về cung cấp thanh khoản"
 
@@ -1966,7 +1966,7 @@ msgstr "Sử dụng API Uniswap Labs để nhận báo giá nhanh hơn."
 msgid "User"
 msgstr "Người dùng"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "V2 Pool is not available on Layer 2. Switch to Layer 1 Ethereum."
 msgstr "V2 Pool không khả dụng trên Lớp 2. Chuyển sang Lớp 1 Ethereum."
 
@@ -2196,7 +2196,7 @@ msgstr "Bạn cũng sẽ thu phí kiếm được từ vị trí này."
 msgid "You will receive"
 msgstr "Bạn sẽ nhận"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Your V2 liquidity"
 msgstr "Thanh khoản V2 của bạn"
 

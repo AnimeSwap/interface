@@ -80,7 +80,7 @@ msgstr "<0/> Toate propunerile"
 msgid "<0/> Votes"
 msgstr "Voturi <0/>"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "<0>Account analytics and accrued fees</0><1> ↗ </1>"
 msgstr "<0>Statisticile contului și comisioane acumulate</0><1> ↗ </1>"
 
@@ -155,7 +155,7 @@ msgstr "Adaugă Delegat +"
 msgid "Add Liquidity"
 msgstr "Adaugă lichiditate"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Add V2 Liquidity"
 msgstr "Adaugă lichiditate V2"
 
@@ -325,8 +325,8 @@ msgid "Bridge"
 msgstr "Pod"
 
 #: src/components/PositionCard/index.tsx
-msgid "By adding liquidity you'll earn 0.3% of all trades on this pair proportional to your share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
-msgstr "Prin adăugarea de lichidități vei câștiga 0.3% din toate tranzacțiile din această pereche proporțional cu cota ta de grup. Taxele sunt adăugate în rezervă, se acumulează în timp real şi pot fi revendicate prin retragerea lichidităţii."
+msgid "By adding liquidity you'll earn 0.25% of all trades on this pair proportional to your share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
+msgstr "Prin adăugarea de lichidități vei câștiga 0.25% din toate tranzacțiile din această pereche proporțional cu cota ta de grup. Taxele sunt adăugate în rezervă, se acumulează în timp real şi pot fi revendicate prin retragerea lichidităţii."
 
 #: src/components/SearchModal/ImportList.tsx
 msgid "By adding this list you are implicitly trusting that the data is correct. Anyone can create a list, including creating fake versions of existing lists and lists that claim to represent projects that do not have one."
@@ -524,7 +524,7 @@ msgstr "Conectează-te la un portofel pentru a găsi rezerve"
 msgid "Connect to a wallet to view your V2 liquidity."
 msgstr "Conectează-te la un portofel pentru a vizualiza lichiditatea V2 a ta."
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Connect to a wallet to view your liquidity."
 msgstr "Conectează-te la un portofel pentru a vizualiza lichiditatea ta."
 
@@ -555,7 +555,7 @@ msgid "Create Proposal"
 msgstr "Creați o propunere"
 
 #: src/components/NavigationTabs/index.tsx
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Create a pair"
 msgstr "Creează o pereche"
 
@@ -891,7 +891,7 @@ msgstr "Importă"
 msgid "Import List"
 msgstr "Importă Lista"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Import Pool"
 msgstr "Importă Grupul"
 
@@ -999,11 +999,11 @@ msgstr "Lichiditate"
 msgid "Liquidity data not available."
 msgstr "Datele privind lichiditatea nu sunt disponibile."
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Liquidity provider rewards"
 msgstr "Recompense furnizor de lichidități"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Liquidity providers earn a 0.25% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
 msgstr "Furnizorii de lichidități câștigă o taxă de 0,3 % pentru toate tranzacțiile proporționale cu cota lor din grup. Taxele sunt adăugate în grup, se acumulează în timp real şi pot fi revendicate prin retragerea lichidităţii."
 
@@ -1020,7 +1020,7 @@ msgstr "Încărcat"
 #: src/components/PositionCard/index.tsx
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
 #: src/pages/MigrateV2/index.tsx
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 #: src/pages/PoolFinder/index.tsx
 msgid "Loading"
 msgstr "Se încarcă"
@@ -1083,7 +1083,7 @@ msgstr "Meniul"
 msgid "Migrate"
 msgstr "Migrare"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Migrate Liquidity to V3"
 msgstr "Migrare Lichiditate la V3"
 
@@ -1162,7 +1162,7 @@ msgstr "Nu există date"
 msgid "No description."
 msgstr "Fără descriere."
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "No liquidity found."
 msgstr "Nu a fost găsită nicio lichiditate."
 
@@ -1401,7 +1401,7 @@ msgstr "Citește mai multe despre UNI"
 msgid "Read more about Uniswap governance"
 msgstr "Citește mai multe despre guvernarea Uniswap"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Read more about providing liquidity"
 msgstr "Citește mai multe despre furnizarea de lichidități"
 
@@ -1966,7 +1966,7 @@ msgstr "Utilizați API-ul Uniswap Labs pentru a obține cotații mai rapide."
 msgid "User"
 msgstr "Utilizator"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "V2 Pool is not available on Layer 2. Switch to Layer 1 Ethereum."
 msgstr "Pool V2 nu este disponibil pe Layer 2. Comutați la Layer 1 Ethereum."
 
@@ -2196,7 +2196,7 @@ msgstr "De asemenea, vei colecta taxele câștigate din această poziție."
 msgid "You will receive"
 msgstr "Vei primi"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Your V2 liquidity"
 msgstr "Lichiditatea ta V2"
 

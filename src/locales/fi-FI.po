@@ -80,7 +80,7 @@ msgstr "<0/> Kaikki ehdotukset"
 msgid "<0/> Votes"
 msgstr "<0/> Äänet"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "<0>Account analytics and accrued fees</0><1> ↗ </1>"
 msgstr "<0>Tilin analytiikka ja kertyneet maksut</0><1> ↗ </1>"
 
@@ -155,7 +155,7 @@ msgstr "Lisää delegaatti +"
 msgid "Add Liquidity"
 msgstr "Lisää likviditeettiä"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Add V2 Liquidity"
 msgstr "Lisää V2-likviditeettiä"
 
@@ -325,7 +325,7 @@ msgid "Bridge"
 msgstr "Silta"
 
 #: src/components/PositionCard/index.tsx
-msgid "By adding liquidity you'll earn 0.3% of all trades on this pair proportional to your share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
+msgid "By adding liquidity you'll earn 0.25% of all trades on this pair proportional to your share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
 msgstr "Lisäämällä likviditeettiä ansaitset 0,3 % kaikista tämän parin kaupoista suhteessa osuutesi poolista. Palkkiot lisätään pooliin, ne kertyvät reaaliajassa, ja ne voidaan lunastaa vetämällä likviditeettisi takaisin."
 
 #: src/components/SearchModal/ImportList.tsx
@@ -524,7 +524,7 @@ msgstr "Yhdistä lompakkoon löytääksesi pooleja"
 msgid "Connect to a wallet to view your V2 liquidity."
 msgstr "Yhdistä lompakkoon nähdäksesi V2-likviditeettisi."
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Connect to a wallet to view your liquidity."
 msgstr "Yhdistä lompakkoon nähdäksesi likviditeettisi."
 
@@ -555,7 +555,7 @@ msgid "Create Proposal"
 msgstr "Luo ehdotus"
 
 #: src/components/NavigationTabs/index.tsx
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Create a pair"
 msgstr "Luo pari"
 
@@ -891,7 +891,7 @@ msgstr "Tuo"
 msgid "Import List"
 msgstr "Tuo luettelo"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Import Pool"
 msgstr "Tuo pooli"
 
@@ -999,11 +999,11 @@ msgstr "Likviditeetti"
 msgid "Liquidity data not available."
 msgstr "Likviditeettitietoja ei ole saatavilla."
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Liquidity provider rewards"
 msgstr "Likviditeetin tarjoajan palkinnot"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Liquidity providers earn a 0.25% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
 msgstr "Likviditeetin tarjoajat ansaitsevat 0,3 prosentin palkkion kaikista kaupoista suhteessa niiden osuuteen poolista. Palkkiot lisätään pooliin, ne kertyvät reaaliajassa, ja niitä voidaan lunastaa vetämällä likviditeettisi takaisin."
 
@@ -1020,7 +1020,7 @@ msgstr "Ladattu"
 #: src/components/PositionCard/index.tsx
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
 #: src/pages/MigrateV2/index.tsx
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 #: src/pages/PoolFinder/index.tsx
 msgid "Loading"
 msgstr "Ladataan"
@@ -1083,7 +1083,7 @@ msgstr "Valikko"
 msgid "Migrate"
 msgstr "Siirrä"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Migrate Liquidity to V3"
 msgstr "Siirrä likviditeetti V3:een"
 
@@ -1162,7 +1162,7 @@ msgstr "Ei dataa"
 msgid "No description."
 msgstr "Ei kuvausta."
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "No liquidity found."
 msgstr "Likviditeettiä ei löytynyt."
 
@@ -1401,7 +1401,7 @@ msgstr "Lue lisää UNIsta"
 msgid "Read more about Uniswap governance"
 msgstr "Lue lisää Uniswapin hallinnosta"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Read more about providing liquidity"
 msgstr "Lue lisää likviditeetin parantamisesta"
 
@@ -1966,7 +1966,7 @@ msgstr "Käytä Uniswap Labs -sovellusliittymää saadaksesi nopeammat tarjoukse
 msgid "User"
 msgstr "Käyttäjä"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "V2 Pool is not available on Layer 2. Switch to Layer 1 Ethereum."
 msgstr "V2 Pool ei ole saatavilla Layer 2:ssa. Vaihda Layer 1 Ethereumiin."
 
@@ -2196,7 +2196,7 @@ msgstr "Keräät myös tästä positiosta ansaittuja palkkioita."
 msgid "You will receive"
 msgstr "Tulet vastaanottamaan"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Your V2 liquidity"
 msgstr "Sinun V2-likviditeettisi"
 

@@ -80,7 +80,7 @@ msgstr "<0/> Wszystkie wnioski"
 msgid "<0/> Votes"
 msgstr "<0/>Głosów"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "<0>Account analytics and accrued fees</0><1> ↗ </1>"
 msgstr "<0>Analiza konta i naliczone opłaty</0><1> ↗ </1>"
 
@@ -155,7 +155,7 @@ msgstr "Dodaj Delegata +"
 msgid "Add Liquidity"
 msgstr "Dodaj płynność"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Add V2 Liquidity"
 msgstr "Dodaj płynność V2"
 
@@ -325,7 +325,7 @@ msgid "Bridge"
 msgstr "Most"
 
 #: src/components/PositionCard/index.tsx
-msgid "By adding liquidity you'll earn 0.3% of all trades on this pair proportional to your share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
+msgid "By adding liquidity you'll earn 0.25% of all trades on this pair proportional to your share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
 msgstr "Dodając płynność zarabiasz 0,3% wszystkich transakcji na tej parze proporcjonalnie do udziału w puli. Opłaty są dodawane do puli, naliczane w czasie rzeczywistym i mogą być pobierane poprzez wycofanie płynności."
 
 #: src/components/SearchModal/ImportList.tsx
@@ -524,7 +524,7 @@ msgstr "Połącz się z portfelem, aby znaleźć pule"
 msgid "Connect to a wallet to view your V2 liquidity."
 msgstr "Połącz się z portfelem, aby zobaczyć płynność V2."
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Connect to a wallet to view your liquidity."
 msgstr "Połącz się z portfelem, aby zobaczyć płynność."
 
@@ -555,7 +555,7 @@ msgid "Create Proposal"
 msgstr "Utwórz propozycję"
 
 #: src/components/NavigationTabs/index.tsx
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Create a pair"
 msgstr "Utwórz parę"
 
@@ -891,7 +891,7 @@ msgstr "Importuj"
 msgid "Import List"
 msgstr "Importuj listę"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Import Pool"
 msgstr "Importuj Pulę"
 
@@ -999,11 +999,11 @@ msgstr "Płynność"
 msgid "Liquidity data not available."
 msgstr "Brak danych dotyczących płynności."
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Liquidity provider rewards"
 msgstr "Nagrody za płynność"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Liquidity providers earn a 0.25% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
 msgstr "Dostawcy płynności otrzymują opłatę w wysokości 0,3 % od wszystkich transakcji proporcjonalnie do ich udziału w puli. Opłaty są dodawane do puli, naliczane w czasie rzeczywistym i mogą być pobierane poprzez wycofanie płynności."
 
@@ -1020,7 +1020,7 @@ msgstr "Załadowano"
 #: src/components/PositionCard/index.tsx
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
 #: src/pages/MigrateV2/index.tsx
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 #: src/pages/PoolFinder/index.tsx
 msgid "Loading"
 msgstr "Ładowanie"
@@ -1083,7 +1083,7 @@ msgstr "Menu"
 msgid "Migrate"
 msgstr "Migruj"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Migrate Liquidity to V3"
 msgstr "Przenieś płynność do V3"
 
@@ -1162,7 +1162,7 @@ msgstr "Brak danych"
 msgid "No description."
 msgstr "Bez opisu."
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "No liquidity found."
 msgstr "Nie znaleziono płynności."
 
@@ -1401,7 +1401,7 @@ msgstr "Dowiedz się więcej o UNI"
 msgid "Read more about Uniswap governance"
 msgstr "Przeczytaj więcej o zarządzaniu Uniswap"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Read more about providing liquidity"
 msgstr "Dowiedz się więcej o zapewnieniu płynności"
 
@@ -1966,7 +1966,7 @@ msgstr "Skorzystaj z interfejsu API Uniswap Labs, aby uzyskać szybsze wyceny."
 msgid "User"
 msgstr "Użytkownik"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "V2 Pool is not available on Layer 2. Switch to Layer 1 Ethereum."
 msgstr "Pula V2 nie jest dostępna w warstwie 2. Przełącz się na warstwę 1 Ethereum."
 
@@ -2196,7 +2196,7 @@ msgstr "Będziesz również pobierać opłaty zarobione na tej pozycji."
 msgid "You will receive"
 msgstr "Otrzymasz"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Your V2 liquidity"
 msgstr "Twoja płynność V2"
 

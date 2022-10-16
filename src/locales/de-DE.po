@@ -80,7 +80,7 @@ msgstr "<0/> Alle Vorschläge"
 msgid "<0/> Votes"
 msgstr "<0/> Stimmen"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "<0>Account analytics and accrued fees</0><1> ↗ </1>"
 msgstr "<0>Kontoanalyse und eingenommene Gebühren</0><1> ↗ </1>"
 
@@ -155,7 +155,7 @@ msgstr "Delegierung hinzufügen +"
 msgid "Add Liquidity"
 msgstr "Liquidität hinzufügen"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Add V2 Liquidity"
 msgstr "V2 Liquidität hinzufügen"
 
@@ -325,7 +325,7 @@ msgid "Bridge"
 msgstr "Brücke"
 
 #: src/components/PositionCard/index.tsx
-msgid "By adding liquidity you'll earn 0.3% of all trades on this pair proportional to your share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
+msgid "By adding liquidity you'll earn 0.25% of all trades on this pair proportional to your share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
 msgstr "Durch das Hinzufügen von Liquidität verdienen Sie 0,3% aller Transaktionen an diesem Paar, proportional zu Ihrem Anteil am Pool. Diese Gebühren werden dem Pool zugerechnet, fallen in Echtzeit an und können durch Entfernen Ihrer Liquidität geltend gemacht werden."
 
 #: src/components/SearchModal/ImportList.tsx
@@ -524,7 +524,7 @@ msgstr "Mit einer Wallet verbinden, um Pools zu finden"
 msgid "Connect to a wallet to view your V2 liquidity."
 msgstr "Verbinden Sie sich mit einer Wallet, um Ihre V2-Liquidität anzuzeigen."
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Connect to a wallet to view your liquidity."
 msgstr "Verbinden Sie sich mit einer Wallet, um Ihre Liquidität anzuzeigen."
 
@@ -555,7 +555,7 @@ msgid "Create Proposal"
 msgstr "Vorschlag erstellen"
 
 #: src/components/NavigationTabs/index.tsx
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Create a pair"
 msgstr "Paar erstellen"
 
@@ -891,7 +891,7 @@ msgstr "Importieren"
 msgid "Import List"
 msgstr "Liste importieren"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Import Pool"
 msgstr "Pool importieren"
 
@@ -999,11 +999,11 @@ msgstr "Liquidität"
 msgid "Liquidity data not available."
 msgstr "Liquiditätsdaten nicht verfügbar."
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Liquidity provider rewards"
 msgstr "Liquiditätsanbieter-Belohnungen"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Liquidity providers earn a 0.25% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
 msgstr "Liquiditätsgeber verdienen eine 0,3%ige Gebühr für jeden Tausch im Verhältnis zu ihrem Anteil am Pool. Die Gebühren werden dem Pool zugerechnet, fallen in Echtzeit an und können durch Entfernen der Liquidität in Anspruch genommen werden."
 
@@ -1020,7 +1020,7 @@ msgstr "Geladen"
 #: src/components/PositionCard/index.tsx
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
 #: src/pages/MigrateV2/index.tsx
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 #: src/pages/PoolFinder/index.tsx
 msgid "Loading"
 msgstr "Lädt"
@@ -1083,7 +1083,7 @@ msgstr "Menü"
 msgid "Migrate"
 msgstr "Migrieren"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Migrate Liquidity to V3"
 msgstr "Liquidität nach V3 migrieren"
 
@@ -1162,7 +1162,7 @@ msgstr "Keine Daten"
 msgid "No description."
 msgstr "Keine Beschreibung."
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "No liquidity found."
 msgstr "Keine Liquidität gefunden."
 
@@ -1401,7 +1401,7 @@ msgstr "Erfahre mehr über UNI"
 msgid "Read more about Uniswap governance"
 msgstr "Erfahren Sie mehr über Uniswap Governance"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Read more about providing liquidity"
 msgstr "Erfahre mehr über Liquiditäts-Bereitstellung"
 
@@ -1966,7 +1966,7 @@ msgstr "Verwenden Sie die Uniswap Labs-API, um schnellere Angebote zu erhalten."
 msgid "User"
 msgstr "Benutzer"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "V2 Pool is not available on Layer 2. Switch to Layer 1 Ethereum."
 msgstr "V2 Pool ist auf Layer 2 nicht verfügbar. Wechseln Sie zu Layer 1 Ethereum."
 
@@ -2196,7 +2196,7 @@ msgstr "Sie werden auch die Gebühren einziehen, die diese Position eingenommen 
 msgid "You will receive"
 msgstr "Sie werden erhalten"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Your V2 liquidity"
 msgstr "Ihre V2-Liquidität"
 

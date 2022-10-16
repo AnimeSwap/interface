@@ -80,7 +80,7 @@ msgstr "<0/> Alle Forslag"
 msgid "<0/> Votes"
 msgstr "<0/> Stemmer"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "<0>Account analytics and accrued fees</0><1> ↗ </1>"
 msgstr "<0>Kontoanalyser og påløbne gebyrer</0><1> ↗ </1>"
 
@@ -155,7 +155,7 @@ msgstr "Tilføj delegeret +"
 msgid "Add Liquidity"
 msgstr "Tilføj likviditet"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Add V2 Liquidity"
 msgstr "Tilføj V2-likviditet"
 
@@ -325,7 +325,7 @@ msgid "Bridge"
 msgstr "Bro"
 
 #: src/components/PositionCard/index.tsx
-msgid "By adding liquidity you'll earn 0.3% of all trades on this pair proportional to your share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
+msgid "By adding liquidity you'll earn 0.25% of all trades on this pair proportional to your share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
 msgstr "Ved at tilføje likviditet optjener du 0,3 % af alle handler på dette par proportionalt med din andel af puljen. Gebyrer tilføjes til puljen, tilfalder i realtid og kan hævdes ved at trække din likviditet tilbage."
 
 #: src/components/SearchModal/ImportList.tsx
@@ -524,7 +524,7 @@ msgstr "Opret forbindelse til en tegnebog for at finde puljer"
 msgid "Connect to a wallet to view your V2 liquidity."
 msgstr "Opret forbindelse til en tegnebog for at se din V2-likviditet."
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Connect to a wallet to view your liquidity."
 msgstr "Opret forbindelse til en tegnebog for at se din likviditet."
 
@@ -555,7 +555,7 @@ msgid "Create Proposal"
 msgstr "Opret forslag"
 
 #: src/components/NavigationTabs/index.tsx
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Create a pair"
 msgstr "Opret et par"
 
@@ -891,7 +891,7 @@ msgstr "Importér"
 msgid "Import List"
 msgstr "Importeringsliste"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Import Pool"
 msgstr "Importeringspulje"
 
@@ -999,11 +999,11 @@ msgstr "Likviditet"
 msgid "Liquidity data not available."
 msgstr "Likviditetsdata ikke tilgængelige."
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Liquidity provider rewards"
 msgstr "Likviditetsudbyderbelønninger"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Liquidity providers earn a 0.25% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
 msgstr "Likviditetsudbydere optjener et gebyr på 0,3 % på alle handler i forhold til deres andel af puljen. Gebyrer tilføjes til puljen, tilfalder i realtid og kan kræves ved at trække din likviditet tilbage."
 
@@ -1020,7 +1020,7 @@ msgstr "Indlæst"
 #: src/components/PositionCard/index.tsx
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
 #: src/pages/MigrateV2/index.tsx
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 #: src/pages/PoolFinder/index.tsx
 msgid "Loading"
 msgstr "Indlæser"
@@ -1083,7 +1083,7 @@ msgstr "Menu"
 msgid "Migrate"
 msgstr "Migrér"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Migrate Liquidity to V3"
 msgstr "Migrer likviditet til V3"
 
@@ -1162,7 +1162,7 @@ msgstr "Ingen data"
 msgid "No description."
 msgstr "Ingen beskrivelse."
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "No liquidity found."
 msgstr "Ingen likviditet fundet."
 
@@ -1401,7 +1401,7 @@ msgstr "Læs mere om UNI"
 msgid "Read more about Uniswap governance"
 msgstr "Læs mere om Uniswap governance"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Read more about providing liquidity"
 msgstr "Læs mere om at tilføre likviditet"
 
@@ -1966,7 +1966,7 @@ msgstr "Brug Uniswap Labs API til at få hurtigere tilbud."
 msgid "User"
 msgstr "Bruger"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "V2 Pool is not available on Layer 2. Switch to Layer 1 Ethereum."
 msgstr "V2 Pool er ikke tilgængelig på Layer 2. Skift til Layer 1 Ethereum."
 
@@ -2196,7 +2196,7 @@ msgstr "Du vil også indsamle gebyrer optjent fra denne position."
 msgid "You will receive"
 msgstr "Du vil modtage"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Your V2 liquidity"
 msgstr "Din V2-likviditet"
 

@@ -80,7 +80,7 @@ msgstr "<0/> Totes les propostes"
 msgid "<0/> Votes"
 msgstr "<0/> Vots"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "<0>Account analytics and accrued fees</0><1> ↗ </1>"
 msgstr "<0>Anàlisi del compte i comissions acumulades</0> <1> ↗</1>"
 
@@ -155,7 +155,7 @@ msgstr "Afegeix delegat +"
 msgid "Add Liquidity"
 msgstr "Afegiu liquiditat"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Add V2 Liquidity"
 msgstr "Afegiu liquiditat V2"
 
@@ -325,7 +325,7 @@ msgid "Bridge"
 msgstr "Pont"
 
 #: src/components/PositionCard/index.tsx
-msgid "By adding liquidity you'll earn 0.3% of all trades on this pair proportional to your share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
+msgid "By adding liquidity you'll earn 0.25% of all trades on this pair proportional to your share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
 msgstr "Si afegiu liquiditat, guanyareu el 0,3% de totes les operacions d’aquest parell proporcional a la vostra quota de grup. Les comissions s’afegeixen al grup, s’acumulen en temps real i es poden reclamar retirant la vostra liquiditat."
 
 #: src/components/SearchModal/ImportList.tsx
@@ -524,7 +524,7 @@ msgstr "Connecteu-vos a una cartera per trobar piscines"
 msgid "Connect to a wallet to view your V2 liquidity."
 msgstr "Connecteu-vos a una cartera per veure la vostra liquiditat V2."
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Connect to a wallet to view your liquidity."
 msgstr "Connecteu-vos a una cartera per veure la vostra liquiditat."
 
@@ -555,7 +555,7 @@ msgid "Create Proposal"
 msgstr "Crea una proposta"
 
 #: src/components/NavigationTabs/index.tsx
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Create a pair"
 msgstr "Crea un parell"
 
@@ -891,7 +891,7 @@ msgstr "Importar"
 msgid "Import List"
 msgstr "Importa la llista"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Import Pool"
 msgstr "Importa el grup"
 
@@ -999,11 +999,11 @@ msgstr "Liquiditat"
 msgid "Liquidity data not available."
 msgstr "No hi ha dades de liquiditat disponibles."
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Liquidity provider rewards"
 msgstr "Recompenses del proveïdor de liquiditat"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Liquidity providers earn a 0.25% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
 msgstr "Els proveïdors de liquiditat guanyen una comissió del 0,3% en tots els negocis proporcional a la seva quota de grup. Les comissions s’afegeixen al fons, s’acumulen en temps real i es poden reclamar retirant la vostra liquiditat."
 
@@ -1020,7 +1020,7 @@ msgstr "Carregat"
 #: src/components/PositionCard/index.tsx
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
 #: src/pages/MigrateV2/index.tsx
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 #: src/pages/PoolFinder/index.tsx
 msgid "Loading"
 msgstr "S'està carregant"
@@ -1083,7 +1083,7 @@ msgstr "Menú"
 msgid "Migrate"
 msgstr "Migrar"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Migrate Liquidity to V3"
 msgstr "Migreu la liquiditat a la V3"
 
@@ -1162,7 +1162,7 @@ msgstr "No hi ha informació"
 msgid "No description."
 msgstr "Sense descripció."
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "No liquidity found."
 msgstr "No s'ha trobat cap liquiditat."
 
@@ -1401,7 +1401,7 @@ msgstr "Llegiu més sobre UNI"
 msgid "Read more about Uniswap governance"
 msgstr "Llegiu més sobre la governança Uniswap"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Read more about providing liquidity"
 msgstr "Obteniu més informació sobre com proporcionar liquiditat"
 
@@ -1966,7 +1966,7 @@ msgstr "Utilitzeu l'API d'Uniswap Labs per obtenir pressupostos més ràpids."
 msgid "User"
 msgstr "Usuari"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "V2 Pool is not available on Layer 2. Switch to Layer 1 Ethereum."
 msgstr "V2 Pool no està disponible a la capa 2. Canvia a la capa 1 Ethereum."
 
@@ -2196,7 +2196,7 @@ msgstr "També cobrarà els honoraris obtinguts per aquesta posició."
 msgid "You will receive"
 msgstr "Rebreu"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Your V2 liquidity"
 msgstr "La vostra liquiditat V2"
 

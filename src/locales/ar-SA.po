@@ -80,7 +80,7 @@ msgstr "<0/> جميع المقترحات"
 msgid "<0/> Votes"
 msgstr "<0/> الأصوات"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "<0>Account analytics and accrued fees</0><1> ↗ </1>"
 msgstr "<0>تحليلات الحساب والرسوم المتراكمة</0><1> ↗ </1>"
 
@@ -155,7 +155,7 @@ msgstr "إضافة مندوب +"
 msgid "Add Liquidity"
 msgstr "إضافة سيولة"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Add V2 Liquidity"
 msgstr "إضافة سيولة V2"
 
@@ -325,7 +325,7 @@ msgid "Bridge"
 msgstr "كوبري"
 
 #: src/components/PositionCard/index.tsx
-msgid "By adding liquidity you'll earn 0.3% of all trades on this pair proportional to your share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
+msgid "By adding liquidity you'll earn 0.25% of all trades on this pair proportional to your share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
 msgstr "من خلال إضافة السيولة ستكسب 0.3٪ من جميع المعاملات على هذا الزوج بما يتناسب مع نصيبك من المجموعة. تضاف الرسوم إلى المجموعة، تتراكم في الوقت الحقيقي ويمكن المطالبة بها بسحب السيولة الخاصة بك."
 
 #: src/components/SearchModal/ImportList.tsx
@@ -524,7 +524,7 @@ msgstr "وصّل بمحفظة للعثور على المجموعات"
 msgid "Connect to a wallet to view your V2 liquidity."
 msgstr "وصّل بمحفظة لعرض سيولة V2 الخاصة بك."
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Connect to a wallet to view your liquidity."
 msgstr "وصّل بمحفظة لعرض السيولة الخاصة بك."
 
@@ -555,7 +555,7 @@ msgid "Create Proposal"
 msgstr "إنشاء اقتراح"
 
 #: src/components/NavigationTabs/index.tsx
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Create a pair"
 msgstr "إنشاء مجموعة"
 
@@ -891,7 +891,7 @@ msgstr "استيراد"
 msgid "Import List"
 msgstr "استيراد قائمة"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Import Pool"
 msgstr "استيراد مجموعة"
 
@@ -999,11 +999,11 @@ msgstr "السيولة"
 msgid "Liquidity data not available."
 msgstr "بيانات السيولة غير متوفرة."
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Liquidity provider rewards"
 msgstr "مكافآت موفر السيولة"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Liquidity providers earn a 0.25% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
 msgstr "يحصل مقدمو خدمات السيولة على رسم بنسبة 0.3٪ من جميع المهن يتناسب مع نصيبهم من المجموعة. تضاف الرسوم إلى المجموعة، تتراكم في الوقت الحقيقي ويمكن المطالبة بها بسحب السيولة الخاصة بك."
 
@@ -1020,7 +1020,7 @@ msgstr "تحميل"
 #: src/components/PositionCard/index.tsx
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
 #: src/pages/MigrateV2/index.tsx
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 #: src/pages/PoolFinder/index.tsx
 msgid "Loading"
 msgstr "جاري التحميل"
@@ -1083,7 +1083,7 @@ msgstr "قائمة الطعام"
 msgid "Migrate"
 msgstr "ترحيل"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Migrate Liquidity to V3"
 msgstr "ترحيل السيولة إلى V3"
 
@@ -1162,7 +1162,7 @@ msgstr "لايوجد بيانات"
 msgid "No description."
 msgstr "بدون وصف."
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "No liquidity found."
 msgstr "لم يتم العثور على سيولة."
 
@@ -1401,7 +1401,7 @@ msgstr "اقرأ المزيد عن UNI"
 msgid "Read more about Uniswap governance"
 msgstr "اقرأ المزيد عن إدارة Uniswap"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Read more about providing liquidity"
 msgstr "اقرأ المزيد عن توفير السيولة"
 
@@ -1966,7 +1966,7 @@ msgstr "استخدم Uniswap Labs API للحصول على عروض أسعار أ
 msgid "User"
 msgstr "المستخدم"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "V2 Pool is not available on Layer 2. Switch to Layer 1 Ethereum."
 msgstr "V2 Pool غير متاح في الطبقة 2. قم بالتبديل إلى Layer 1 Ethereum."
 
@@ -2196,7 +2196,7 @@ msgstr "سوف تحصل أيضا على الرسوم المكتسبة من هذ�
 msgid "You will receive"
 msgstr "سوف تستقبل"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Your V2 liquidity"
 msgstr "سيولة V2 الخاصة بك"
 

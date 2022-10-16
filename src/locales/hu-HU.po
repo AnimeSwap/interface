@@ -80,7 +80,7 @@ msgstr "<0 /> Minden javaslat"
 msgid "<0/> Votes"
 msgstr "<0 /> Szavazatok"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "<0>Account analytics and accrued fees</0><1> ↗ </1>"
 msgstr "<0> Számlaelemzés és elhatárolt díjak</0> <1> ↗</1>"
 
@@ -155,7 +155,7 @@ msgstr "Adja hozzá a Delegate + elemet"
 msgid "Add Liquidity"
 msgstr "Adja hozzá a likviditást"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Add V2 Liquidity"
 msgstr "Adja hozzá a V2 likviditást"
 
@@ -325,7 +325,7 @@ msgid "Bridge"
 msgstr "Híd"
 
 #: src/components/PositionCard/index.tsx
-msgid "By adding liquidity you'll earn 0.3% of all trades on this pair proportional to your share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
+msgid "By adding liquidity you'll earn 0.25% of all trades on this pair proportional to your share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
 msgstr "Likviditás hozzáadásával az összes kereskedés 3%-át keresheti meg ezen a páron, a poolból való részesedéssel arányosan. A díjakat a poolhoz adjuk hozzá, valós időben halmozódnak fel, és a likviditás kivonásával lehet igényelni."
 
 #: src/components/SearchModal/ImportList.tsx
@@ -524,7 +524,7 @@ msgstr "Csatlakozzon egy pénztárcához a poolok megtalálásához"
 msgid "Connect to a wallet to view your V2 liquidity."
 msgstr "Csatlakozzon egy pénztárcához a V2 likviditás megtekintéséhez."
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Connect to a wallet to view your liquidity."
 msgstr "Csatlakozzon egy pénztárcához a likviditás megtekintéséhez."
 
@@ -555,7 +555,7 @@ msgid "Create Proposal"
 msgstr "Javaslat létrehozása"
 
 #: src/components/NavigationTabs/index.tsx
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Create a pair"
 msgstr "Egy pár létrehozása"
 
@@ -892,7 +892,7 @@ msgstr "Importálás"
 msgid "Import List"
 msgstr "Importlista"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Import Pool"
 msgstr "Import Pool"
 
@@ -1000,11 +1000,11 @@ msgstr "Likviditás"
 msgid "Liquidity data not available."
 msgstr "Likviditási adatok nem állnak rendelkezésre."
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Liquidity provider rewards"
 msgstr "Likviditásszolgáltató jutalma"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Liquidity providers earn a 0.25% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
 msgstr "A likviditásszolgáltatók 0,3%-os díjat kapnak minden kereskedés után, amely arányos a poolból való részesedésükkel. A díjakat a poolhoz adják hozzá, valós időben halmozódnak fel, és a likviditás visszavonásával igényelhetők."
 
@@ -1021,7 +1021,7 @@ msgstr "Feltöltve"
 #: src/components/PositionCard/index.tsx
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
 #: src/pages/MigrateV2/index.tsx
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 #: src/pages/PoolFinder/index.tsx
 msgid "Loading"
 msgstr "Feltöltés"
@@ -1084,7 +1084,7 @@ msgstr "Menü"
 msgid "Migrate"
 msgstr "Migrálás"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Migrate Liquidity to V3"
 msgstr "Likviditás migrálása a V3-ra"
 
@@ -1163,7 +1163,7 @@ msgstr "Nincs adat"
 msgid "No description."
 msgstr "Nincs leírás."
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "No liquidity found."
 msgstr "Likviditás nem található."
 
@@ -1402,7 +1402,7 @@ msgstr "További információk az UNI-ról"
 msgid "Read more about Uniswap governance"
 msgstr "További információk az Uniswap irányításáról"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Read more about providing liquidity"
 msgstr "További információk a likviditás nyújtásáról"
 
@@ -1967,7 +1967,7 @@ msgstr "A Uniswap Labs API segítségével gyorsabb árajánlatokat kaphat."
 msgid "User"
 msgstr "Felhasználó"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "V2 Pool is not available on Layer 2. Switch to Layer 1 Ethereum."
 msgstr "A V2 Pool nem érhető el a 2. rétegen. Váltson az 1. rétegű Ethereumra."
 
@@ -2197,7 +2197,7 @@ msgstr "Ezen a pozíción megszerzett díjakat is beszedi."
 msgid "You will receive"
 msgstr "Kapni fog"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Your V2 liquidity"
 msgstr "Saját V2 likviditása"
 

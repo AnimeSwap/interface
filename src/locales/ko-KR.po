@@ -80,7 +80,7 @@ msgstr "<0/> 모든 제안"
 msgid "<0/> Votes"
 msgstr "<0/> 투표"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "<0>Account analytics and accrued fees</0><1> ↗ </1>"
 msgstr "<0> 계정 분석 및 발생 수수료</0> <1> ↗</1>"
 
@@ -155,7 +155,7 @@ msgstr "대리인 추가 +"
 msgid "Add Liquidity"
 msgstr "유동성 추가"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Add V2 Liquidity"
 msgstr "V2 유동성 추가"
 
@@ -325,8 +325,8 @@ msgid "Bridge"
 msgstr "브릿지"
 
 #: src/components/PositionCard/index.tsx
-msgid "By adding liquidity you'll earn 0.3% of all trades on this pair proportional to your share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
-msgstr "유동성을 추가하면 풀 쉐어에 비례하여이 쌍에 대한 모든 거래의 0.3%를 벌 수 있습니다. 수수료는 풀에 추가되고 실시간으로 발생하며 유동성을 인출하여 청구할 수 있습니다."
+msgid "By adding liquidity you'll earn 0.25% of all trades on this pair proportional to your share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
+msgstr "유동성을 추가하면 풀 쉐어에 비례하여이 쌍에 대한 모든 거래의 0.25%를 벌 수 있습니다. 수수료는 풀에 추가되고 실시간으로 발생하며 유동성을 인출하여 청구할 수 있습니다."
 
 #: src/components/SearchModal/ImportList.tsx
 msgid "By adding this list you are implicitly trusting that the data is correct. Anyone can create a list, including creating fake versions of existing lists and lists that claim to represent projects that do not have one."
@@ -524,7 +524,7 @@ msgstr "지갑에 연결하여 풀 찾기"
 msgid "Connect to a wallet to view your V2 liquidity."
 msgstr "V2 유동성을 보려면 지갑에 연결하십시오."
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Connect to a wallet to view your liquidity."
 msgstr "유동성을 보려면 지갑에 연결하십시오."
 
@@ -555,7 +555,7 @@ msgid "Create Proposal"
 msgstr "제안 생성"
 
 #: src/components/NavigationTabs/index.tsx
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Create a pair"
 msgstr "쌍 만들기"
 
@@ -891,7 +891,7 @@ msgstr "수입"
 msgid "Import List"
 msgstr "목록 가져오기"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Import Pool"
 msgstr "풀 가져 오기"
 
@@ -999,13 +999,13 @@ msgstr "유동성"
 msgid "Liquidity data not available."
 msgstr "유동성 데이터를 사용할 수 없습니다."
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Liquidity provider rewards"
 msgstr "유동성 제공자 보상"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Liquidity providers earn a 0.25% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
-msgstr "유동성 제공자는 풀 점유율에 비례하여 모든 거래에 대해 0.3%의 수수료를받습니다. 수수료는 풀에 추가되고 실시간으로 발생하며 유동성을 인출하여 청구할 수 있습니다."
+msgstr "유동성 제공자는 풀 점유율에 비례하여 모든 거래에 대해 0.25%의 수수료를받습니다. 수수료는 풀에 추가되고 실시간으로 발생하며 유동성을 인출하여 청구할 수 있습니다."
 
 #: src/components/SearchModal/Manage.tsx
 msgid "Lists"
@@ -1020,7 +1020,7 @@ msgstr "로딩 됨"
 #: src/components/PositionCard/index.tsx
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
 #: src/pages/MigrateV2/index.tsx
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 #: src/pages/PoolFinder/index.tsx
 msgid "Loading"
 msgstr "로딩 중"
@@ -1083,7 +1083,7 @@ msgstr "메뉴"
 msgid "Migrate"
 msgstr "마이그레이션"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Migrate Liquidity to V3"
 msgstr "유동성을 V3로 마이그레이션"
 
@@ -1162,7 +1162,7 @@ msgstr "데이터 없음"
 msgid "No description."
 msgstr "설명이 없습니다."
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "No liquidity found."
 msgstr "유동성이 없습니다."
 
@@ -1401,7 +1401,7 @@ msgstr "UNI에 대해 자세히 알아보기"
 msgid "Read more about Uniswap governance"
 msgstr "Uniswap 거버넌스에 대해 자세히 알아보기"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Read more about providing liquidity"
 msgstr "유동성 제공에 대해 자세히 알아보기"
 
@@ -1966,7 +1966,7 @@ msgstr "Uniswap Labs API를 사용하여 더 빠른 견적을 받으세요."
 msgid "User"
 msgstr "사용자"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "V2 Pool is not available on Layer 2. Switch to Layer 1 Ethereum."
 msgstr "V2 풀은 레이어 2에서 사용할 수 없습니다. 레이어 1 이더리움으로 전환하십시오."
 
@@ -2196,7 +2196,7 @@ msgstr "이 포지션에서 얻은 수수료도 징수합니다."
 msgid "You will receive"
 msgstr "다음을 받게 됩니다"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Your V2 liquidity"
 msgstr "V2 유동성"
 

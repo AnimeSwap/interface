@@ -80,7 +80,7 @@ msgstr "<0/> Tüm Teklifler"
 msgid "<0/> Votes"
 msgstr "<0/> Oylar"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "<0>Account analytics and accrued fees</0><1> ↗ </1>"
 msgstr "<0>Hesap analizi ve tahakkuk eden ücretler</0><1> ↗</1>"
 
@@ -155,7 +155,7 @@ msgstr "Temsilci Ekle +"
 msgid "Add Liquidity"
 msgstr "Likidite Ekle"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Add V2 Liquidity"
 msgstr "V2 Likidite Ekle"
 
@@ -325,7 +325,7 @@ msgid "Bridge"
 msgstr "Köprü"
 
 #: src/components/PositionCard/index.tsx
-msgid "By adding liquidity you'll earn 0.3% of all trades on this pair proportional to your share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
+msgid "By adding liquidity you'll earn 0.25% of all trades on this pair proportional to your share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
 msgstr "Likidite ekleyerek, havuzdaki payınızla orantılı olarak bu çiftteki tüm işlemlerin %0,3'ünü kazanacaksınız. Ücretler havuza eklenir, gerçek zamanlı olarak tahakkuk eder ve likidite çekilerek talep edilebilir."
 
 #: src/components/SearchModal/ImportList.tsx
@@ -524,7 +524,7 @@ msgstr "Havuzları bulmak için bir cüzdana bağlanın"
 msgid "Connect to a wallet to view your V2 liquidity."
 msgstr "V2 likiditenizi görüntülemek için bir cüzdana bağlanın."
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Connect to a wallet to view your liquidity."
 msgstr "Likiditenizi görüntülemek için bir cüzdana bağlanın."
 
@@ -555,7 +555,7 @@ msgid "Create Proposal"
 msgstr "Teklif Oluştur"
 
 #: src/components/NavigationTabs/index.tsx
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Create a pair"
 msgstr "Bir çift oluştur"
 
@@ -891,7 +891,7 @@ msgstr "İçe Aktar"
 msgid "Import List"
 msgstr "Listeyi İçe Aktar"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Import Pool"
 msgstr "Havuzu İçe Aktar"
 
@@ -999,11 +999,11 @@ msgstr "Likidite"
 msgid "Liquidity data not available."
 msgstr "Likidite verileri mevcut değil."
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Liquidity provider rewards"
 msgstr "Likidite sağlayıcı ödülleri"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Liquidity providers earn a 0.25% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
 msgstr "Likidite sağlayıcıları, havuzdaki paylarıyla orantılı olarak tüm işlemlerden %0,3 ücret alırlar. Ücretler havuza eklenir, gerçek zamanlı olarak tahakkuk eder ve likidite çekilerek talep edilebilir."
 
@@ -1020,7 +1020,7 @@ msgstr "Yüklendi"
 #: src/components/PositionCard/index.tsx
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
 #: src/pages/MigrateV2/index.tsx
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 #: src/pages/PoolFinder/index.tsx
 msgid "Loading"
 msgstr "Yükleniyor"
@@ -1083,7 +1083,7 @@ msgstr "Menü"
 msgid "Migrate"
 msgstr "Geçir"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Migrate Liquidity to V3"
 msgstr "Likiditeyi V3'e Geçirin"
 
@@ -1162,7 +1162,7 @@ msgstr "Veri yok"
 msgid "No description."
 msgstr "Açıklama yok."
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "No liquidity found."
 msgstr "Likidite bulunamadı."
 
@@ -1401,7 +1401,7 @@ msgstr "UNI hakkında daha fazla bilgi edinin"
 msgid "Read more about Uniswap governance"
 msgstr "Uniswap yönetişimi hakkında daha fazla bilgi edinin"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Read more about providing liquidity"
 msgstr "Likidite sağlama hakkında daha fazla bilgi edinin"
 
@@ -1966,7 +1966,7 @@ msgstr "Daha hızlı fiyat teklifi almak için Uniswap Labs API'sini kullanın."
 msgid "User"
 msgstr "Kullanıcı"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "V2 Pool is not available on Layer 2. Switch to Layer 1 Ethereum."
 msgstr "V2 Havuzu, Katman 2'de mevcut değildir. Katman 1 Ethereum'a geçin."
 
@@ -2196,7 +2196,7 @@ msgstr "Ayrıca bu pozisyondan kazanılan ücretleri de toplarsınız."
 msgid "You will receive"
 msgstr "Alacağınız:"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Your V2 liquidity"
 msgstr "V2 likiditeniz"
 

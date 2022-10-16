@@ -80,7 +80,7 @@ msgstr "<0/> Всі пропозиції"
 msgid "<0/> Votes"
 msgstr "<0/> голосів"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "<0>Account analytics and accrued fees</0><1> ↗ </1>"
 msgstr "<0>Аналітика облікових записів та накопичена комісія</0><1> ↗ </1>"
 
@@ -155,7 +155,7 @@ msgstr "Додати Delegate +"
 msgid "Add Liquidity"
 msgstr "Додати ліквідність"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Add V2 Liquidity"
 msgstr "Додати ліквідність V2"
 
@@ -325,7 +325,7 @@ msgid "Bridge"
 msgstr "Міст"
 
 #: src/components/PositionCard/index.tsx
-msgid "By adding liquidity you'll earn 0.3% of all trades on this pair proportional to your share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
+msgid "By adding liquidity you'll earn 0.25% of all trades on this pair proportional to your share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
 msgstr "Додавши ліквідність, ви заробите 0,3% усієї торгівлі за цією парою пропорційно вашій частці пула. До пула додається комісія, що нараховується в режимі реального часу й може бути отримана шляхом зняття ліквідності."
 
 #: src/components/SearchModal/ImportList.tsx
@@ -524,7 +524,7 @@ msgstr "Підключіться до гаманця, щоб знайти пул
 msgid "Connect to a wallet to view your V2 liquidity."
 msgstr "Підключіться до гаманця, щоб переглянути свою ліквідність V2."
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Connect to a wallet to view your liquidity."
 msgstr "Підключіться до гаманця, щоб переглянути свою ліквідність."
 
@@ -555,7 +555,7 @@ msgid "Create Proposal"
 msgstr "Створити пропозицію"
 
 #: src/components/NavigationTabs/index.tsx
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Create a pair"
 msgstr "Створити пару"
 
@@ -891,7 +891,7 @@ msgstr "Імпортувати"
 msgid "Import List"
 msgstr "Імпортувати список"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Import Pool"
 msgstr "Імпортувати пул"
 
@@ -999,11 +999,11 @@ msgstr "Ліквідність"
 msgid "Liquidity data not available."
 msgstr "Дані про ліквідність відсутні."
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Liquidity provider rewards"
 msgstr "Нагороди постачальника ліквідності"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Liquidity providers earn a 0.25% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
 msgstr "Постачальники ліквідності заробляють комісію в розмірі 0,3% за всі продажі, пропорційно своїй частці в пулі. До пула додається комісія, що нараховується в режимі реального часу й може бути отримана шляхом зняття ліквідності."
 
@@ -1020,7 +1020,7 @@ msgstr "Завантажено"
 #: src/components/PositionCard/index.tsx
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
 #: src/pages/MigrateV2/index.tsx
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 #: src/pages/PoolFinder/index.tsx
 msgid "Loading"
 msgstr "Завантажується"
@@ -1083,7 +1083,7 @@ msgstr "Меню"
 msgid "Migrate"
 msgstr "Перенесення"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Migrate Liquidity to V3"
 msgstr "Перенесення ліквідності до V3"
 
@@ -1162,7 +1162,7 @@ msgstr "Немає даних"
 msgid "No description."
 msgstr "Без опису."
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "No liquidity found."
 msgstr "Ліквідності не знайдено."
 
@@ -1401,7 +1401,7 @@ msgstr "Дізнатися більше про UNI"
 msgid "Read more about Uniswap governance"
 msgstr "Докладніше про управління Uniswap"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Read more about providing liquidity"
 msgstr "Докладніше про забезпечення ліквідності"
 
@@ -1966,7 +1966,7 @@ msgstr "Використовуйте Uniswap Labs API, щоб швидше от�
 msgid "User"
 msgstr "Користувач"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "V2 Pool is not available on Layer 2. Switch to Layer 1 Ethereum."
 msgstr "Пул V2 недоступний на рівні 2. Перейдіть на рівень 1 Ethereum."
 
@@ -2196,7 +2196,7 @@ msgstr "Ви також збиратимете комісії, отримані 
 msgid "You will receive"
 msgstr "Ви отримаєте"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Your V2 liquidity"
 msgstr "Ваша ліквідність V2"
 

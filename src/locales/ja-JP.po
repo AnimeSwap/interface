@@ -80,7 +80,7 @@ msgstr "<0/>すべての提案"
 msgid "<0/> Votes"
 msgstr "<0/>投票"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "<0>Account analytics and accrued fees</0><1> ↗ </1>"
 msgstr "<0>アカウント分析と発生した手数料</0><1>↗ </1>"
 
@@ -155,7 +155,7 @@ msgstr "第三者に投票を委任する"
 msgid "Add Liquidity"
 msgstr "流動性を追加"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Add V2 Liquidity"
 msgstr "V2の流動性を追加"
 
@@ -325,8 +325,8 @@ msgid "Bridge"
 msgstr "ブリッジ"
 
 #: src/components/PositionCard/index.tsx
-msgid "By adding liquidity you'll earn 0.3% of all trades on this pair proportional to your share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
-msgstr "流動性を追加することで、このペアのすべての取引で発生する0.3%の手数料のうち、プールのシェアに応じた報酬を獲得します。報酬はリアルタイムにプールに追加され、反映されます。報酬は流動性を引き出すことで請求できます。"
+msgid "By adding liquidity you'll earn 0.25% of all trades on this pair proportional to your share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
+msgstr "流動性を追加することで、このペアのすべての取引で発生する0.25%の手数料のうち、プールのシェアに応じた報酬を獲得します。報酬はリアルタイムにプールに追加され、反映されます。報酬は流動性を引き出すことで請求できます。"
 
 #: src/components/SearchModal/ImportList.tsx
 msgid "By adding this list you are implicitly trusting that the data is correct. Anyone can create a list, including creating fake versions of existing lists and lists that claim to represent projects that do not have one."
@@ -524,7 +524,7 @@ msgstr "プールを見つけるにはウォレットに接続してください
 msgid "Connect to a wallet to view your V2 liquidity."
 msgstr "ウォレットに接続してV2の流動性を確認します。"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Connect to a wallet to view your liquidity."
 msgstr "ウォレットに接続して流動性を確認します。"
 
@@ -555,7 +555,7 @@ msgid "Create Proposal"
 msgstr "提案を作成"
 
 #: src/components/NavigationTabs/index.tsx
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Create a pair"
 msgstr "ペアを作成"
 
@@ -891,7 +891,7 @@ msgstr "インポート"
 msgid "Import List"
 msgstr "リストをインポート"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Import Pool"
 msgstr "プールをインポート"
 
@@ -999,13 +999,13 @@ msgstr "流動性"
 msgid "Liquidity data not available."
 msgstr "流動性データはありません。"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Liquidity provider rewards"
 msgstr "流動性提供者の報酬"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Liquidity providers earn a 0.25% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
-msgstr "流動性提供者はこのペアのすべての取引で発生する0.3%の手数料のうち、プールのシェアに応じた報酬を獲得します。 報酬はリアルタイムにプールに追加され、反映されます。報酬は流動性を引き出すことで請求できます。"
+msgstr "流動性提供者はこのペアのすべての取引で発生する0.25%の手数料のうち、プールのシェアに応じた報酬を獲得します。 報酬はリアルタイムにプールに追加され、反映されます。報酬は流動性を引き出すことで請求できます。"
 
 #: src/components/SearchModal/Manage.tsx
 msgid "Lists"
@@ -1020,7 +1020,7 @@ msgstr "読み込まれました"
 #: src/components/PositionCard/index.tsx
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
 #: src/pages/MigrateV2/index.tsx
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 #: src/pages/PoolFinder/index.tsx
 msgid "Loading"
 msgstr "読み込み中"
@@ -1083,7 +1083,7 @@ msgstr "メニュー"
 msgid "Migrate"
 msgstr "移行"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Migrate Liquidity to V3"
 msgstr "流動性をV3に移行"
 
@@ -1162,7 +1162,7 @@ msgstr "データがありません"
 msgid "No description."
 msgstr "説明はありません。"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "No liquidity found."
 msgstr "流動性が見つかりません。"
 
@@ -1401,7 +1401,7 @@ msgstr "UNIについてもっと見る"
 msgid "Read more about Uniswap governance"
 msgstr "Uniswapガバナンスについてもっと見る"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Read more about providing liquidity"
 msgstr "流動性提供についてもっと見る"
 
@@ -1966,7 +1966,7 @@ msgstr "Uniswap Labs APIを使用して、より迅速な見積もりを取得�
 msgid "User"
 msgstr "ユーザー"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "V2 Pool is not available on Layer 2. Switch to Layer 1 Ethereum."
 msgstr "V2プールはレイヤー2では使用できません。レイヤー1イーサリアムに切り替えます。"
 
@@ -2196,7 +2196,7 @@ msgstr "また、このポジションから得られた報酬も受け取りま
 msgid "You will receive"
 msgstr "受け取る数量"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Your V2 liquidity"
 msgstr "V2の流動性"
 

@@ -80,7 +80,7 @@ msgstr "<0/> Semua Proposal"
 msgid "<0/> Votes"
 msgstr "<0/> Suara"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "<0>Account analytics and accrued fees</0><1> ↗ </1>"
 msgstr "<0>Analisis akun dan biaya yang masih harus dibayar</0><1>↗</1>"
 
@@ -155,7 +155,7 @@ msgstr "Tambahkan Delegasi +"
 msgid "Add Liquidity"
 msgstr "Tambahkan Likuiditas"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Add V2 Liquidity"
 msgstr "Tambahkan Likuiditas V2"
 
@@ -325,7 +325,7 @@ msgid "Bridge"
 msgstr "Menjembatani"
 
 #: src/components/PositionCard/index.tsx
-msgid "By adding liquidity you'll earn 0.3% of all trades on this pair proportional to your share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
+msgid "By adding liquidity you'll earn 0.25% of all trades on this pair proportional to your share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
 msgstr "Dengan menambahkan likuiditas, Anda akan mendapatkan 0,3% dari semua perdagangan pada pasangan ini sebanding dengan bagian pool Anda. Biaya ditambahkan ke pool, bertambah secara real time dan dapat diklaim dengan menarik likuiditas Anda."
 
 #: src/components/SearchModal/ImportList.tsx
@@ -524,7 +524,7 @@ msgstr "Hubungkan ke dompet untuk menemukan pool"
 msgid "Connect to a wallet to view your V2 liquidity."
 msgstr "Hubungkan ke dompet untuk melihat likuiditas V2 Anda."
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Connect to a wallet to view your liquidity."
 msgstr "Hubungkan ke dompet untuk melihat likuiditas Anda."
 
@@ -555,7 +555,7 @@ msgid "Create Proposal"
 msgstr "Buat Proposal"
 
 #: src/components/NavigationTabs/index.tsx
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Create a pair"
 msgstr "Buat pasangan"
 
@@ -891,7 +891,7 @@ msgstr "Impor"
 msgid "Import List"
 msgstr "Impor Daftar"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Import Pool"
 msgstr "Impor Pool"
 
@@ -999,11 +999,11 @@ msgstr "Likuiditas"
 msgid "Liquidity data not available."
 msgstr "Data likuiditas tidak tersedia."
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Liquidity provider rewards"
 msgstr "Imbalan penyedia likuiditas"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Liquidity providers earn a 0.25% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
 msgstr "Penyedia likuiditas mendapatkan biaya 0,3% pada semua perdagangan yang sebanding dengan bagian pool mereka. Biaya ditambahkan ke kumpulan, bertambah secara real time dan dapat diklaim dengan menarik likuiditas Anda."
 
@@ -1020,7 +1020,7 @@ msgstr "Sarat"
 #: src/components/PositionCard/index.tsx
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
 #: src/pages/MigrateV2/index.tsx
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 #: src/pages/PoolFinder/index.tsx
 msgid "Loading"
 msgstr "Memuat"
@@ -1083,7 +1083,7 @@ msgstr "Menu"
 msgid "Migrate"
 msgstr "Migrasi"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Migrate Liquidity to V3"
 msgstr "Migrasi Likuiditas ke V3"
 
@@ -1162,7 +1162,7 @@ msgstr "Tidak ada data"
 msgid "No description."
 msgstr "Tidak ada deskripsi."
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "No liquidity found."
 msgstr "Likuiditas tidak ditemukan."
 
@@ -1401,7 +1401,7 @@ msgstr "Baca selengkapnya tentang UNI"
 msgid "Read more about Uniswap governance"
 msgstr "Baca selengkapnya tentang pengaturan Uniswap"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Read more about providing liquidity"
 msgstr "Baca selengkapnya tentang menyediakan likuiditas"
 
@@ -1966,7 +1966,7 @@ msgstr "Gunakan Uniswap Labs API untuk mendapatkan penawaran lebih cepat."
 msgid "User"
 msgstr "Pengguna"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "V2 Pool is not available on Layer 2. Switch to Layer 1 Ethereum."
 msgstr "V2 Pool tidak tersedia di Layer 2. Beralih ke Layer 1 Ethereum."
 
@@ -2196,7 +2196,7 @@ msgstr "Anda juga akan memungut biaya yang diperoleh dari posisi ini."
 msgid "You will receive"
 msgstr "Anda akan menerima"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Your V2 liquidity"
 msgstr "Likuiditas V2 Anda"
 

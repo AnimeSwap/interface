@@ -80,7 +80,7 @@ msgstr "<0/> ข้อเสนอทั้งหมด"
 msgid "<0/> Votes"
 msgstr "<0/> โหวต"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "<0>Account analytics and accrued fees</0><1> ↗ </1>"
 msgstr "<0>การวิเคราะห์บัญชีและค่าธรรมเนียมค้างจ่าย</0> <1></1>"
 
@@ -155,7 +155,7 @@ msgstr "เพิ่มผู้รับมอบสิทธิ์ +"
 msgid "Add Liquidity"
 msgstr "เพิ่มสภาพคล่อง"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Add V2 Liquidity"
 msgstr "เพิ่มสภาพคล่อง V2"
 
@@ -325,8 +325,8 @@ msgid "Bridge"
 msgstr "สะพาน"
 
 #: src/components/PositionCard/index.tsx
-msgid "By adding liquidity you'll earn 0.3% of all trades on this pair proportional to your share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
-msgstr "โดยการเพิ่มสภาพคล่อง คุณจะได้รับ 0.3% ของการซื้อขายทั้งหมดในคู่นี้ตามสัดส่วนของส่วนแบ่งในพูลของคุณ ค่าธรรมเนียมจะถูกเพิ่มเข้าในพูล สะสมตามเวลาจริง และสามารถอ้างสิทธิ์ได้โดยการถอนสภาพคล่องของคุณ"
+msgid "By adding liquidity you'll earn 0.25% of all trades on this pair proportional to your share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
+msgstr "โดยการเพิ่มสภาพคล่อง คุณจะได้รับ 0.25% ของการซื้อขายทั้งหมดในคู่นี้ตามสัดส่วนของส่วนแบ่งในพูลของคุณ ค่าธรรมเนียมจะถูกเพิ่มเข้าในพูล สะสมตามเวลาจริง และสามารถอ้างสิทธิ์ได้โดยการถอนสภาพคล่องของคุณ"
 
 #: src/components/SearchModal/ImportList.tsx
 msgid "By adding this list you are implicitly trusting that the data is correct. Anyone can create a list, including creating fake versions of existing lists and lists that claim to represent projects that do not have one."
@@ -524,7 +524,7 @@ msgstr "เชื่อมต่อกับกระเป๋าเงินเ
 msgid "Connect to a wallet to view your V2 liquidity."
 msgstr "เชื่อมต่อกับกระเป๋าเงินเพื่อดูสภาพคล่อง V2 ของคุณ"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Connect to a wallet to view your liquidity."
 msgstr "เชื่อมต่อกับกระเป๋าเงินเพื่อดูสภาพคล่องของคุณ"
 
@@ -555,7 +555,7 @@ msgid "Create Proposal"
 msgstr "สร้างข้อเสนอ"
 
 #: src/components/NavigationTabs/index.tsx
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Create a pair"
 msgstr "สร้างคู่"
 
@@ -891,7 +891,7 @@ msgstr "นำเข้า"
 msgid "Import List"
 msgstr "รายการนำเข้า"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Import Pool"
 msgstr "นำเข้าพูล"
 
@@ -999,13 +999,13 @@ msgstr "สภาพคล่อง"
 msgid "Liquidity data not available."
 msgstr "ไม่มีข้อมูลสภาพคล่อง"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Liquidity provider rewards"
 msgstr "รางวัลผู้ให้บริการสภาพคล่อง"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Liquidity providers earn a 0.25% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
-msgstr "ผู้ให้บริการสภาพคล่องจะได้รับค่าธรรมเนียม 0.3% จากการซื้อขายทั้งหมดตามสัดส่วนของส่วนแบ่งในพูล ค่าธรรมเนียมจะถูกเพิ่มเข้าในพูล สะสมตามเวลาจริง และสามารถอ้างสิทธิ์ได้โดยการถอนสภาพคล่องของคุณ"
+msgstr "ผู้ให้บริการสภาพคล่องจะได้รับค่าธรรมเนียม 0.25% จากการซื้อขายทั้งหมดตามสัดส่วนของส่วนแบ่งในพูล ค่าธรรมเนียมจะถูกเพิ่มเข้าในพูล สะสมตามเวลาจริง และสามารถอ้างสิทธิ์ได้โดยการถอนสภาพคล่องของคุณ"
 
 #: src/components/SearchModal/Manage.tsx
 msgid "Lists"
@@ -1020,7 +1020,7 @@ msgstr "โหลดแล้ว"
 #: src/components/PositionCard/index.tsx
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
 #: src/pages/MigrateV2/index.tsx
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 #: src/pages/PoolFinder/index.tsx
 msgid "Loading"
 msgstr "กำลังโหลด"
@@ -1083,7 +1083,7 @@ msgstr "เมนู"
 msgid "Migrate"
 msgstr "โยกย้าย"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Migrate Liquidity to V3"
 msgstr "ย้ายสภาพคล่องไปที่ V3"
 
@@ -1162,7 +1162,7 @@ msgstr "ไม่มีข้อมูล"
 msgid "No description."
 msgstr "ไม่มีคำอธิบาย."
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "No liquidity found."
 msgstr "ไม่พบสภาพคล่อง"
 
@@ -1401,7 +1401,7 @@ msgstr "อ่านเพิ่มเติมเกี่ยวกับ UNI"
 msgid "Read more about Uniswap governance"
 msgstr "อ่านเพิ่มเติมเกี่ยวกับการกำกับดูแล Uniswap"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Read more about providing liquidity"
 msgstr "อ่านเพิ่มเติมเกี่ยวกับการจัดหาสภาพคล่อง"
 
@@ -1966,7 +1966,7 @@ msgstr "ใช้ Uniswap Labs API เพื่อรับใบเสนอร
 msgid "User"
 msgstr "ผู้ใช้"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "V2 Pool is not available on Layer 2. Switch to Layer 1 Ethereum."
 msgstr "V2 Pool ไม่พร้อมใช้งานใน Layer 2 เปลี่ยนเป็น Layer 1 Ethereum"
 
@@ -2196,7 +2196,7 @@ msgstr "คุณจะเก็บค่าธรรมเนียมที่
 msgid "You will receive"
 msgstr "คุณจะได้รับ"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Your V2 liquidity"
 msgstr "สภาพคล่อง V2 ของคุณ"
 
