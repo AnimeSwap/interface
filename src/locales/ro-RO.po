@@ -100,7 +100,7 @@ msgstr "<0> Sfat:</0> Selectați o acțiune și descrieți-vă propunerea pentru
 msgid "<0>Tip:</0> Use this tool to find v2 pools that don't automatically appear in the interface."
 msgstr "<0> Sfat:</0> Utilizați acest instrument pentru a găsi pool-uri v2 care nu apar automat în interfață."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "<0>Tip:</0> When you add liquidity, you will receive pool tokens representing your position. These tokens automatically earn fees proportional to your share of the pool, and can be redeemed at any time."
 msgstr "<0>Sfat: </0> Când adaugi lichiditate, vei primi tokeni de rezervă care reprezintă poziția ta. Aceste jetoane câștigă automat taxe proporțional cu cota ta din pool, și pot fi răscumpărate oricând."
 
@@ -231,8 +231,8 @@ msgstr "Aprobați jetonul"
 #: src/components/AccountDetails/TransactionSummary.tsx
 #: src/pages/AddLiquidity/index.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Approve {0}"
 msgstr "Aprobă {0}"
 
@@ -247,8 +247,8 @@ msgstr "Aprobare"
 
 #: src/pages/AddLiquidity/index.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Approving {0}"
 msgstr "Aprobare {0}"
 
@@ -498,7 +498,7 @@ msgstr "Confirmați tranzacția în portofel"
 #: src/components/Web3Status/index.tsx
 #: src/components/earn/ClaimRewardModal.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 #: src/pages/Swap/index.tsx
 #: src/state/burn/hooks.tsx
@@ -911,7 +911,7 @@ msgstr "În interval"
 msgid "Increase Liquidity"
 msgstr "Crește Lichiditatea"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Initial prices and pool share"
 msgstr "Prețurile inițiale și cota din grup"
 
@@ -1004,7 +1004,7 @@ msgid "Liquidity provider rewards"
 msgstr "Recompense furnizor de lichidități"
 
 #: src/pages/Pool/v2.tsx
-msgid "Liquidity providers earn a 0.3% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
+msgid "Liquidity providers earn a 0.25% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
 msgstr "Furnizorii de lichidități câștigă o taxă de 0,3 % pentru toate tranzacțiile proporționale cu cota lor din grup. Taxele sunt adăugate în grup, se acumulează în timp real şi pot fi revendicate prin retragerea lichidităţii."
 
 #: src/components/SearchModal/Manage.tsx
@@ -1186,7 +1186,7 @@ msgstr "Nu a fost creat"
 msgid "ONLY USE THIS MODE IF YOU KNOW WHAT YOU ARE DOING."
 msgstr "UTILIZEAZĂ DOAR ACEST MOD DACĂ ȘTII CE TREBUIE SĂ FACI."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Once you are happy with the rate click supply to review."
 msgstr "Odată ce ești mulțumit de rata de schimb fă clic pe ofertă pentru a o examina."
 
@@ -1210,7 +1210,7 @@ msgstr "Etherscan optimist"
 msgid "Out of range"
 msgstr "Prea departe"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "Output is estimated. If the price changes by more than {0}% your transaction will revert."
 msgstr "Ieșirea este estimată. Dacă prețul se schimbă cu mai mult de {0}% tranzacția ta se va anula."
@@ -1332,7 +1332,7 @@ msgstr "Interval de preț"
 msgid "Price:"
 msgstr "Preț:"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Prices and pool share"
 msgstr "Prețuri și partajare grup"
 
@@ -1573,12 +1573,12 @@ msgstr "Reușit"
 msgid "Success"
 msgstr "Succes"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Supply"
 msgstr "Furnizare"
 
-#: src/pages/AddLiquidityV2/index.tsx
-msgid "Supplying {0} {1} and {2} {3}"
+#: src/pages/AddLiquidity/index.tsx
+msgid "Supplying {0} and {1}"
 msgstr "Se furnizează {0} {1} și {2} {3}"
 
 #: src/components/Header/index.tsx
@@ -1711,7 +1711,7 @@ msgstr "Prețul acestui jeton este în afara intervalului selectat. Poziția ta 
 msgid "The price of this pool is within your selected range. Your position is currently earning fees."
 msgstr "Prețul acestui pool se încadrează în intervalul selectat. Poziția dvs. câștigă în prezent."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "The ratio of tokens you add will set the price of this pool."
 msgstr "Raportul dintre jetoanele adăugate va stabili prețul acestui grup."
 
@@ -1929,7 +1929,7 @@ msgid "Unlocking Votes"
 msgstr "Se deblochează Voturile"
 
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/Swap/index.tsx
 msgid "Unsupported Asset"
 msgstr "Activ Nesusținut"
@@ -2131,7 +2131,7 @@ msgstr "Înfășurați <0/> la {0}"
 msgid "You already have an active or pending proposal"
 msgstr "Aveți deja o propunere activă sau în așteptare"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "You are creating a pool"
 msgstr "Creezi o rezervă"
 
@@ -2139,7 +2139,7 @@ msgstr "Creezi o rezervă"
 msgid "You are the first liquidity provider for this Uniswap V3 pool. Your liquidity will migrate at the current {0} price."
 msgstr "Ești primul furnizor de lichidități pentru această rezervă Uniswap V3. Lichiditatea ta va migra la prețul actual de {0}."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "You are the first liquidity provider."
 msgstr "Ești primul furnizor de lichidități."
 
@@ -2191,7 +2191,7 @@ msgstr "Ar trebui să depozitați doar lichiditatea în Uniswap V3 la un preț p
 msgid "You will also collect fees earned from this position."
 msgstr "De asemenea, vei colecta taxele câștigate din această poziție."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "You will receive"
 msgstr "Vei primi"

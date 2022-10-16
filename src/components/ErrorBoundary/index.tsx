@@ -156,8 +156,6 @@ function getRelevantState(): null | keyof AppState {
       return 'swap'
     case 'add':
       return 'mint'
-    case 'remove':
-      return 'burn'
   }
   return null
 }

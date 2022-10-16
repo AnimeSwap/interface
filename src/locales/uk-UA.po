@@ -100,7 +100,7 @@ msgstr "<0> Порада:</0> Виберіть дію та опишіть сво
 msgid "<0>Tip:</0> Use this tool to find v2 pools that don't automatically appear in the interface."
 msgstr "<0>Порада:</0> Використовуйте цей інструмент для пошуку пулів v2, які не відображаються автоматично в інтерфейсі."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "<0>Tip:</0> When you add liquidity, you will receive pool tokens representing your position. These tokens automatically earn fees proportional to your share of the pool, and can be redeemed at any time."
 msgstr "<0>Порада:</0> При додаванні ліквідності ви отримаєте токени пула, що представляє вашу позицію. Ці токени автоматично заробляють комісію пропорційно вашій частці пула, і можуть бути викуплені в будь-який час."
 
@@ -231,8 +231,8 @@ msgstr "Затвердити маркер"
 #: src/components/AccountDetails/TransactionSummary.tsx
 #: src/pages/AddLiquidity/index.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Approve {0}"
 msgstr "Схвалити {0}"
 
@@ -247,8 +247,8 @@ msgstr "Схвалення"
 
 #: src/pages/AddLiquidity/index.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Approving {0}"
 msgstr "Схвалення {0}"
 
@@ -498,7 +498,7 @@ msgstr "Підтвердіть транзакцію в гаманці"
 #: src/components/Web3Status/index.tsx
 #: src/components/earn/ClaimRewardModal.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 #: src/pages/Swap/index.tsx
 #: src/state/burn/hooks.tsx
@@ -911,7 +911,7 @@ msgstr "В зоні покриття"
 msgid "Increase Liquidity"
 msgstr "Збільшити ліквідність"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Initial prices and pool share"
 msgstr "Початкові ціни й частка пулу"
 
@@ -1004,7 +1004,7 @@ msgid "Liquidity provider rewards"
 msgstr "Нагороди постачальника ліквідності"
 
 #: src/pages/Pool/v2.tsx
-msgid "Liquidity providers earn a 0.3% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
+msgid "Liquidity providers earn a 0.25% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
 msgstr "Постачальники ліквідності заробляють комісію в розмірі 0,3% за всі продажі, пропорційно своїй частці в пулі. До пула додається комісія, що нараховується в режимі реального часу й може бути отримана шляхом зняття ліквідності."
 
 #: src/components/SearchModal/Manage.tsx
@@ -1186,7 +1186,7 @@ msgstr "Не створено"
 msgid "ONLY USE THIS MODE IF YOU KNOW WHAT YOU ARE DOING."
 msgstr "ВИКОРИСТОВУЙТЕ ЦИЙ ЛИШЕ РЕЖИМ, ЯкЩО ВИ ЗНАЄТЕ, ЩО РОБИТЕ."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Once you are happy with the rate click supply to review."
 msgstr "Щойно ви будете задоволені ставкою, клацніть для перегляду."
 
@@ -1210,7 +1210,7 @@ msgstr "Оптимістичний Etherscan"
 msgid "Out of range"
 msgstr "Поза діапазоном"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "Output is estimated. If the price changes by more than {0}% your transaction will revert."
 msgstr "Результат оцінюється. Якщо ціна зміниться більш ніж на {0}%, вашу транзакцію буде скасовано."
@@ -1332,7 +1332,7 @@ msgstr "Діапазон цін"
 msgid "Price:"
 msgstr "Ціна:"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Prices and pool share"
 msgstr "Ціни та частка пулу"
 
@@ -1573,12 +1573,12 @@ msgstr "Вдалося"
 msgid "Success"
 msgstr "Успіху"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Supply"
 msgstr "Пропозиція"
 
-#: src/pages/AddLiquidityV2/index.tsx
-msgid "Supplying {0} {1} and {2} {3}"
+#: src/pages/AddLiquidity/index.tsx
+msgid "Supplying {0} and {1}"
 msgstr "Постачання {0} {1} та {2} {3}"
 
 #: src/components/Header/index.tsx
@@ -1711,7 +1711,7 @@ msgstr "Ціна цього пулу виходить за межі вибран
 msgid "The price of this pool is within your selected range. Your position is currently earning fees."
 msgstr "Ціна цього пулу перебуває в межах вибраного вами діапазону. Ваша позиція наразі заробляє комісії."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "The ratio of tokens you add will set the price of this pool."
 msgstr "Співвідношення доданих токенів встановить ціну цього пулу."
 
@@ -1929,7 +1929,7 @@ msgid "Unlocking Votes"
 msgstr "Розблокування голосів"
 
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/Swap/index.tsx
 msgid "Unsupported Asset"
 msgstr "Непідтримуваний актив"
@@ -2131,7 +2131,7 @@ msgstr "Оберніть <0/> до {0}"
 msgid "You already have an active or pending proposal"
 msgstr "У вас вже є активна або очікувана пропозиція"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "You are creating a pool"
 msgstr "Ви створюєте пул"
 
@@ -2139,7 +2139,7 @@ msgstr "Ви створюєте пул"
 msgid "You are the first liquidity provider for this Uniswap V3 pool. Your liquidity will migrate at the current {0} price."
 msgstr "Ви є першим постачальником ліквідності для цього пулу Uniswap V3. Ваша ліквідність перейде за поточною ціною {0}."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "You are the first liquidity provider."
 msgstr "Ви перший постачальник ліквідності."
 
@@ -2191,7 +2191,7 @@ msgstr "Ви маєте вносити ліквідність у Uniswap V3 ли
 msgid "You will also collect fees earned from this position."
 msgstr "Ви також збиратимете комісії, отримані з цієї позиції."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "You will receive"
 msgstr "Ви отримаєте"

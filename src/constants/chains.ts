@@ -1,7 +1,7 @@
 export enum SupportedChainId {
   APTOS = 1,
   APTOS_TESTNET = 2,
-  APTOS_DEVNET = 33,
+  APTOS_DEVNET = 34,
 }
 
 export const CHAIN_IDS_TO_NAMES = {

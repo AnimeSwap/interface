@@ -46,7 +46,7 @@ export function FiatValue({
         <span style={{ color: priceImpactColor }}>
           {' '}
           <MouseoverTooltip text={t`The estimated difference between the USD values of input and output amounts.`}>
-            (<Trans>{priceImpact.mul(-1).toSignificantDigits(3).toString()}%</Trans>)
+            (<Trans>{priceImpact.mul(-1).toSD(3).toString()}%</Trans>)
           </MouseoverTooltip>
         </span>
       ) : null}

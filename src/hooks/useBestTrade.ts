@@ -36,9 +36,7 @@ export function useBestTrade(
   amount: Decimal,
   inputCoin: Coin,
   outputCoin: Coin,
-  toAddress: string,
-  allowedSlippage: number,
-  deadline: number
+  allowedSlippage: number
 ): {
   bestTrade: BestTrade
   tradeState: TradeState
@@ -80,15 +78,11 @@ export function useBestTrade(
         tradeType === TradeType.EXACT_INPUT
           ? ConnectionInstance.getSDK().route.swapExactCoinForCoinPayload({
               trade: sdkTrade,
-              toAddress,
               slippage: BP.mul(allowedSlippage),
-              deadline,
             })
           : ConnectionInstance.getSDK().route.swapCoinForExactCoinPayload({
               trade: sdkTrade,
-              toAddress,
               slippage: BP.mul(allowedSlippage),
-              deadline,
             })
       bestTrade.maximumAmountIn =
         tradeType === TradeType.EXACT_INPUT

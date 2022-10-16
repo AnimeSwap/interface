@@ -100,7 +100,7 @@ msgstr "<0>Suggerimento:</0> Seleziona un'azione e descrivi la tua proposta per 
 msgid "<0>Tip:</0> Use this tool to find v2 pools that don't automatically appear in the interface."
 msgstr "<0>Suggerimento:</0> Usa questo strumento per trovare i pool v2 che non vengono visualizzati automaticamente nell'interfaccia."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "<0>Tip:</0> When you add liquidity, you will receive pool tokens representing your position. These tokens automatically earn fees proportional to your share of the pool, and can be redeemed at any time."
 msgstr "<0>Suggerimento:</0> Quando aggiungi liquidità, riceverai i token di pool che rappresentano la tua posizione. Questi gettoni guadagnano automaticamente le commissioni proporzionali alla tua quota del pool e possono essere riscattati in qualsiasi momento."
 
@@ -231,8 +231,8 @@ msgstr "Token di approvazione"
 #: src/components/AccountDetails/TransactionSummary.tsx
 #: src/pages/AddLiquidity/index.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Approve {0}"
 msgstr "Approva {0}"
 
@@ -247,8 +247,8 @@ msgstr "Approvazione"
 
 #: src/pages/AddLiquidity/index.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Approving {0}"
 msgstr "Approvazione di {0}"
 
@@ -498,7 +498,7 @@ msgstr "Conferma transazione nel portafoglio"
 #: src/components/Web3Status/index.tsx
 #: src/components/earn/ClaimRewardModal.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 #: src/pages/Swap/index.tsx
 #: src/state/burn/hooks.tsx
@@ -911,7 +911,7 @@ msgstr "Nell'intervallo"
 msgid "Increase Liquidity"
 msgstr "Aumenta La Liquidità"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Initial prices and pool share"
 msgstr "Prezzi iniziali e quote di pool"
 
@@ -1004,7 +1004,7 @@ msgid "Liquidity provider rewards"
 msgstr "Ricompense fornitore di liquidità"
 
 #: src/pages/Pool/v2.tsx
-msgid "Liquidity providers earn a 0.3% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
+msgid "Liquidity providers earn a 0.25% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
 msgstr "I fornitori di liquidità guadagnano una commissione dello 0,3% su tutte le operazioni proporzionale alla loro quota del pool. Le tasse vengono aggiunte al pool, maturano in tempo reale e possono essere richieste ritirando la vostra liquidità."
 
 #: src/components/SearchModal/Manage.tsx
@@ -1186,7 +1186,7 @@ msgstr "Non creato"
 msgid "ONLY USE THIS MODE IF YOU KNOW WHAT YOU ARE DOING."
 msgstr "USA SOLO QUESTO MODALITA' SE SAI QUELLO CHE STAI FACENDO."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Once you are happy with the rate click supply to review."
 msgstr "Una volta che sei soddisfatto del tasso di fornitura fai clic per recensire."
 
@@ -1210,7 +1210,7 @@ msgstr "Etherscan ottimista"
 msgid "Out of range"
 msgstr "Fuori portata"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "Output is estimated. If the price changes by more than {0}% your transaction will revert."
 msgstr "L'output è stimato. Se il prezzo cambia di più di {0}% la transazione verrà ripristinata."
@@ -1332,7 +1332,7 @@ msgstr "Intervallo di prezzo"
 msgid "Price:"
 msgstr "Prezzo:"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Prices and pool share"
 msgstr "Prezzi e quota del pool"
 
@@ -1573,12 +1573,12 @@ msgstr "Successo"
 msgid "Success"
 msgstr "Successo"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Supply"
 msgstr "Fornitura"
 
-#: src/pages/AddLiquidityV2/index.tsx
-msgid "Supplying {0} {1} and {2} {3}"
+#: src/pages/AddLiquidity/index.tsx
+msgid "Supplying {0} and {1}"
 msgstr "Fornitura di {0} {1} e {2} {3}"
 
 #: src/components/Header/index.tsx
@@ -1711,7 +1711,7 @@ msgstr "Il prezzo di questo pool è al di fuori dell'intervallo selezionato. La 
 msgid "The price of this pool is within your selected range. Your position is currently earning fees."
 msgstr "Il prezzo di questo pool è entro l'intervallo selezionato. La tua posizione sta attualmente guadagnando commissioni."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "The ratio of tokens you add will set the price of this pool."
 msgstr "Il rapporto tra i gettoni che aggiungi imposterà il prezzo di questo pool."
 
@@ -1929,7 +1929,7 @@ msgid "Unlocking Votes"
 msgstr "Sblocco Voti"
 
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/Swap/index.tsx
 msgid "Unsupported Asset"
 msgstr "Asset Non Supportato"
@@ -2131,7 +2131,7 @@ msgstr "Avvolgi da <0/> a {0}"
 msgid "You already have an active or pending proposal"
 msgstr "Hai già una proposta attiva o in attesa"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "You are creating a pool"
 msgstr "Stai creando un pool"
 
@@ -2139,7 +2139,7 @@ msgstr "Stai creando un pool"
 msgid "You are the first liquidity provider for this Uniswap V3 pool. Your liquidity will migrate at the current {0} price."
 msgstr "Sei il primo fornitore di liquidità per questo pool di Uniswap V3. La tua liquidità migrerà al prezzo corrente di {0}."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "You are the first liquidity provider."
 msgstr "Sei il primo fornitore di liquidità."
 
@@ -2191,7 +2191,7 @@ msgstr "Dovresti depositare solo liquidità in Uniswap V3 ad un prezzo che credi
 msgid "You will also collect fees earned from this position."
 msgstr "Raccoglierai anche le commissioni guadagnate da questa posizione."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "You will receive"
 msgstr "Riceverai"

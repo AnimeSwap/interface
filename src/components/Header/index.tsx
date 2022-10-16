@@ -258,10 +258,7 @@ export default function Header() {
 
       <HeaderControls>
         <HeaderElement>
-          <Menu />
-        </HeaderElement>
-        <HeaderElement>
-          <ANIbutton onClick={faucetOnClick} padding="8px 16px" width="100%" $borderRadius="12px">
+          <ANIbutton onClick={faucetOnClick} padding="8px 12px" width="100%" $borderRadius="12px">
             <Trans>Faucet</Trans>
           </ANIbutton>
         </HeaderElement>
@@ -277,6 +274,9 @@ export default function Header() {
             ) : null}
             <HeaderStatus />
           </AccountElement>
+        </HeaderElement>
+        <HeaderElement>
+          <Menu />
         </HeaderElement>
       </HeaderControls>
     </HeaderFrame>

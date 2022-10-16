@@ -81,20 +81,20 @@ function TransactionSubmittedContent({
   onDismiss,
   chainId,
   hash,
-  currencyToAdd,
+  coinToAdd,
   inline,
 }: {
   onDismiss: () => void
   hash: string | undefined
   chainId: number
-  currencyToAdd?: Coin | undefined
+  coinToAdd?: Coin | undefined
   inline?: boolean // not in modal
 }) {
   const theme = useContext(ThemeContext)
-  const coin = currencyToAdd
-  const logoURL = coin.logoURL
+  // const coin = coinToAdd
+  // const logoURL = coin.logoURL
 
-  const [success, setSuccess] = useState<boolean | undefined>()
+  // const [success, setSuccess] = useState<boolean | undefined>()
 
   // const addToken = useCallback(() => {
   //   if (!coin?.symbol || !connector.watchAsset) return
@@ -223,7 +223,7 @@ interface ConfirmationModalProps {
   content: () => ReactNode
   attemptingTxn: boolean
   pendingText: ReactNode
-  currencyToAdd?: Coin | undefined
+  coinToAdd?: Coin | undefined
 }
 
 export default function TransactionConfirmationModal({
@@ -233,7 +233,7 @@ export default function TransactionConfirmationModal({
   hash,
   pendingText,
   content,
-  currencyToAdd,
+  coinToAdd,
 }: ConfirmationModalProps) {
   const chainId = useChainId()
 
@@ -245,12 +245,7 @@ export default function TransactionConfirmationModal({
       {attemptingTxn ? (
         <ConfirmationPendingContent onDismiss={onDismiss} pendingText={pendingText} />
       ) : hash ? (
-        <TransactionSubmittedContent
-          chainId={chainId}
-          hash={hash}
-          onDismiss={onDismiss}
-          currencyToAdd={currencyToAdd}
-        />
+        <TransactionSubmittedContent chainId={chainId} hash={hash} onDismiss={onDismiss} coinToAdd={coinToAdd} />
       ) : (
         content()
       )}

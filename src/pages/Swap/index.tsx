@@ -1,6 +1,5 @@
 import { Decimal, Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
-import { sendEvent } from 'components/analytics'
 // import PriceImpactWarning from 'components/swap/PriceImpactWarning'
 import SwapDetailsDropdown from 'components/swap/SwapDetailsDropdown'
 import { MouseoverTooltip } from 'components/Tooltip'
@@ -58,8 +57,6 @@ export default function Swap() {
     inputError: swapInputError,
     trade: { bestTrade, tradeState },
     allowedSlippage,
-    deadline,
-    toAddress,
   } = useDerivedSwapInfo()
 
   const parsedAmounts = useMemo(() => {
@@ -118,7 +115,7 @@ export default function Swap() {
   const formattedAmounts = useMemo(
     () => ({
       [independentField]: typedValue,
-      [dependentField]: parsedAmounts[dependentField]?.toSignificantDigits(6).toString() ?? '',
+      [dependentField]: parsedAmounts[dependentField]?.toSD(6).toString() ?? '',
     }),
     [dependentField, independentField, parsedAmounts, typedValue]
   )
@@ -130,15 +127,11 @@ export default function Swap() {
         tradeToConfirm.tradeType === TradeType.EXACT_INPUT
           ? ConnectionInstance.getSDK().route.swapExactCoinForCoinPayload({
               trade: tradeToConfirm.sdkTrade,
-              toAddress,
               slippage: BP.mul(allowedSlippage),
-              deadline,
             })
           : ConnectionInstance.getSDK().route.swapCoinForExactCoinPayload({
               trade: tradeToConfirm.sdkTrade,
-              toAddress,
               slippage: BP.mul(allowedSlippage),
-              deadline,
             })
       const txid = await SignAndSubmitTransaction(payload)
       setTimeout(() => {
@@ -214,10 +207,6 @@ export default function Swap() {
           .div(Utils.pow10(inputCoin?.decimals ?? 0))
           .toString()
       )
-    sendEvent({
-      category: 'Swap',
-      action: 'Max',
-    })
   }, [inputCoin, inputCoinBalance, onUserInput])
 
   const handleOutputSelect = useCallback(

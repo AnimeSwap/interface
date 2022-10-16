@@ -5,11 +5,11 @@ import { AutoColumn } from 'components/Column'
 import { LoadingRows } from 'components/Loader/styled'
 import RoutingDiagram from 'components/RoutingDiagram/RoutingDiagram'
 import { AutoRow, RowBetween } from 'components/Row'
-import { Coin, useCoin, useCoinMap } from 'hooks/common/Coin'
-import { BestTrade, TradeType } from 'hooks/useBestTrade'
+import { Coin, useCoinMap } from 'hooks/common/Coin'
+import { BestTrade } from 'hooks/useBestTrade'
 import { memo, useState } from 'react'
 import { Plus } from 'react-feather'
-import { useChainId, useDarkModeManager } from 'state/user/hooks'
+import { useDarkModeManager } from 'state/user/hooks'
 import styled from 'styled-components/macro'
 import { Separator, ThemedText } from 'theme'
 
@@ -60,7 +60,7 @@ export default memo(function SwapRoute({ trade, syncing, fixedOpen = true, ...re
       routes[0].path.push([
         coinMap[trade.route[i]] || coinMap['0x1::aptos_coin::AptosCoin'],
         coinMap[trade.route[i + 1]] || coinMap['0x1::aptos_coin::AptosCoin'],
-        1000000,
+        3000,
       ])
     }
   } catch (e) {

@@ -11,10 +11,10 @@ import ErrorBoundary from '../components/ErrorBoundary'
 import Header from '../components/Header'
 import Popups from '../components/Popups'
 import DarkModeQueryParamReader from '../theme/DarkModeQueryParamReader'
+import AddLiquidity from './AddLiquidity'
 import { RedirectDuplicateTokenIds } from './AddLiquidity/redirects'
 import Explore from './Explore'
-import PoolV2 from './Pool/v2'
-import PoolFinder from './PoolFinder'
+import Pool from './Pool'
 import RemoveLiquidity from './RemoveLiquidity'
 import Swap from './Swap'
 import { RedirectPathToSwapOnly, RedirectToSwap } from './Swap/redirects'
@@ -23,6 +23,7 @@ const AppWrapper = styled.div`
   display: flex;
   flex-flow: column;
   align-items: flex-start;
+  min-height: 100vh;
 `
 
 const BodyWrapper = styled.div`
@@ -48,16 +49,12 @@ const HeaderWrapper = styled.div`
   z-index: 2;
 `
 
-const Marginer = styled.div`
-  margin-top: 5rem;
-`
-
 const FooterWrapper = styled.div`
   ${({ theme }) => theme.flexRowNoWrap}
   width: 100%;
   justify-content: center;
-  position: fixed;
-  bottom: 80px;
+  position: flex;
+  padding: 20px 0px 100px 0px;
 `
 
 const BottomRightLogo = styled.div`
@@ -127,24 +124,19 @@ export default function App() {
               <Routes>
                 <Route path="swap/:toCoin" element={<RedirectToSwap />} />
                 <Route path="swap" element={<Swap />} />
-
-                <Route path="pool/find" element={<PoolFinder />} />
-                <Route path="pool" element={<PoolV2 />} />
+                <Route path="pool" element={<Pool />} />
                 <Route path="add" element={<RedirectDuplicateTokenIds />}>
-                  <Route path=":coinIdA" />
-                  <Route path=":coinIdA/:coinIdB" />
+                  <Route path=":coinIdA" element={<AddLiquidity />} />
+                  <Route path=":coinIdA/:coinIdB" element={<AddLiquidity />} />
                 </Route>
                 <Route path="remove/:coinIdA/:coinIdB" element={<RemoveLiquidity />} />
-
                 <Route path="explore" element={<Explore />} />
-
                 <Route path="*" element={<RedirectPathToSwapOnly />} />
               </Routes>
             ) : (
               <Loader />
             )}
           </Suspense>
-          <Marginer />
         </BodyWrapper>
         <FooterWrapper>
           <Footer />

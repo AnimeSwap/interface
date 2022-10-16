@@ -100,7 +100,7 @@ msgstr "<0> Tips:</0> Välj en åtgärd och beskriv ditt förslag för samhälle
 msgid "<0>Tip:</0> Use this tool to find v2 pools that don't automatically appear in the interface."
 msgstr "<0>Tips:</0> Använd det här verktyget för att hitta v2-pooler som inte automatiskt visas i gränssnittet."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "<0>Tip:</0> When you add liquidity, you will receive pool tokens representing your position. These tokens automatically earn fees proportional to your share of the pool, and can be redeemed at any time."
 msgstr "<0>Tips:</0> När du lägger till likviditet får du pooltokens som representerar din position. Dessa tokens genererar automatiskt avgifter proportionellt mot din andel av poolen och kan lösas in när som helst."
 
@@ -231,8 +231,8 @@ msgstr "Godkänn token"
 #: src/components/AccountDetails/TransactionSummary.tsx
 #: src/pages/AddLiquidity/index.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Approve {0}"
 msgstr "Godkänn {0}"
 
@@ -247,8 +247,8 @@ msgstr "Godkänner"
 
 #: src/pages/AddLiquidity/index.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Approving {0}"
 msgstr "Godkänner {0}"
 
@@ -498,7 +498,7 @@ msgstr "Bekräfta transaktionen i plånboken"
 #: src/components/Web3Status/index.tsx
 #: src/components/earn/ClaimRewardModal.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 #: src/pages/Swap/index.tsx
 #: src/state/burn/hooks.tsx
@@ -911,7 +911,7 @@ msgstr "Inom intervallet"
 msgid "Increase Liquidity"
 msgstr "Öka likviditeten"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Initial prices and pool share"
 msgstr "Inledande priser och poolandel"
 
@@ -1004,7 +1004,7 @@ msgid "Liquidity provider rewards"
 msgstr "Belöningar för likviditetsleverantör"
 
 #: src/pages/Pool/v2.tsx
-msgid "Liquidity providers earn a 0.3% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
+msgid "Liquidity providers earn a 0.25% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
 msgstr "Likviditetsleverantörer tjänar en avgift på 0,3 procent på alla affärer i proportion till sin andel av poolen. Avgifter läggs till poolen, samlas in i realtid och kan krävas vid likviditetsutflöde."
 
 #: src/components/SearchModal/Manage.tsx
@@ -1186,7 +1186,7 @@ msgstr "Inte skapad"
 msgid "ONLY USE THIS MODE IF YOU KNOW WHAT YOU ARE DOING."
 msgstr "ANVÄND DETTA LÄGE BARA OM DU VET VAD DU GÖR."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Once you are happy with the rate click supply to review."
 msgstr "När du är nöjd med kursen klicka leverans för att granska."
 
@@ -1210,7 +1210,7 @@ msgstr "Optimistisk Etherscan"
 msgid "Out of range"
 msgstr "Utanför intervallet"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "Output is estimated. If the price changes by more than {0}% your transaction will revert."
 msgstr "Beräknad utdata. Om priset ändras med mer än {0} procent återställs din transaktion."
@@ -1332,7 +1332,7 @@ msgstr "Prisintervall"
 msgid "Price:"
 msgstr "Pris:"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Prices and pool share"
 msgstr "Priser och poolandel"
 
@@ -1573,12 +1573,12 @@ msgstr "Lyckades"
 msgid "Success"
 msgstr "Framgång"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Supply"
 msgstr "Tillgång"
 
-#: src/pages/AddLiquidityV2/index.tsx
-msgid "Supplying {0} {1} and {2} {3}"
+#: src/pages/AddLiquidity/index.tsx
+msgid "Supplying {0} and {1}"
 msgstr "Levererar {0} {1} och {2} {3}"
 
 #: src/components/Header/index.tsx
@@ -1711,7 +1711,7 @@ msgstr "Priset för denna pool ligger utanför ditt valda intervall. Din positio
 msgid "The price of this pool is within your selected range. Your position is currently earning fees."
 msgstr "Priset för denna pool ligger inom ditt valda intervall. För närvarande tjänar din position avgifter."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "The ratio of tokens you add will set the price of this pool."
 msgstr "Förhållandet mellan tokens du lägger till kommer att bestämma priset på denna pool."
 
@@ -1929,7 +1929,7 @@ msgid "Unlocking Votes"
 msgstr "Låser upp röster"
 
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/Swap/index.tsx
 msgid "Unsupported Asset"
 msgstr "Tillgång som inte stöds"
@@ -2131,7 +2131,7 @@ msgstr "Radera <0/> till {0}"
 msgid "You already have an active or pending proposal"
 msgstr "Du har redan ett aktivt eller väntande förslag"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "You are creating a pool"
 msgstr "Du skapar en pool"
 
@@ -2139,7 +2139,7 @@ msgstr "Du skapar en pool"
 msgid "You are the first liquidity provider for this Uniswap V3 pool. Your liquidity will migrate at the current {0} price."
 msgstr "Du är den första likviditetsleverantören för denna Uniswap V3-pool. Din likviditet kommer att migrera till nuvarande {0} pris."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "You are the first liquidity provider."
 msgstr "Du är den första likviditetsleverantören."
 
@@ -2191,7 +2191,7 @@ msgstr "Du bör endast sätta in likviditet i Uniswap V3 till ett pris som du an
 msgid "You will also collect fees earned from this position."
 msgstr "Du kommer också att samla in avgifter som tjänats in från den här positionen."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "You will receive"
 msgstr "Du kommer att få"

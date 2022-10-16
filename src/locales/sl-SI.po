@@ -100,7 +100,7 @@ msgstr "<0>Komentar:</0> Izberite dejanje in za skupnost opišite svojo pobudo. 
 msgid "<0>Tip:</0> Use this tool to find v2 pools that don't automatically appear in the interface."
 msgstr "<0>Komentar:</0> S tem orodjem poiščite sklade V2, ki se v vmesniku ne prikažejo samodejno."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "<0>Tip:</0> When you add liquidity, you will receive pool tokens representing your position. These tokens automatically earn fees proportional to your share of the pool, and can be redeemed at any time."
 msgstr "<0> Komentar:</0> Ko dodate likvidnost, boste prejeli žetone sklada, ki predstavljajo vaša sredstva v skladu. Ti žetoni samodejno služijo pristojbine sorazmerno z vašim deležem v skladu. Kadar koli jih lahko pretvorite nazaj v izvorna sredstva."
 
@@ -231,8 +231,8 @@ msgstr "Odobri žeton"
 #: src/components/AccountDetails/TransactionSummary.tsx
 #: src/pages/AddLiquidity/index.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Approve {0}"
 msgstr "Odobri {0}"
 
@@ -247,8 +247,8 @@ msgstr "Odobritev v teku"
 
 #: src/pages/AddLiquidity/index.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Approving {0}"
 msgstr "Odobritev {0} v teku"
 
@@ -498,7 +498,7 @@ msgstr "V denarnici potrdite transakcijo"
 #: src/components/Web3Status/index.tsx
 #: src/components/earn/ClaimRewardModal.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 #: src/pages/Swap/index.tsx
 #: src/state/burn/hooks.tsx
@@ -911,7 +911,7 @@ msgstr "Znotraj razpona"
 msgid "Increase Liquidity"
 msgstr "Povečaj likvidnost"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Initial prices and pool share"
 msgstr "Začetne cene in delež v skladu"
 
@@ -1004,7 +1004,7 @@ msgid "Liquidity provider rewards"
 msgstr "Nagrade ponudnikom likvidnosti"
 
 #: src/pages/Pool/v2.tsx
-msgid "Liquidity providers earn a 0.3% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
+msgid "Liquidity providers earn a 0.25% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
 msgstr "Ponudniki likvidnosti služijo provizijo 0,3 % od vseh poslov, sorazmerno s svojim deležem v skladu. Provozije se dodajajo v sklad in se nabirajo v realnem času, prevzamete pa jih, ko dvignete svojo likvidnost iz sklada."
 
 #: src/components/SearchModal/Manage.tsx
@@ -1186,7 +1186,7 @@ msgstr "Ni ustvarjeno"
 msgid "ONLY USE THIS MODE IF YOU KNOW WHAT YOU ARE DOING."
 msgstr "Ta način uporabljajte SAMO, ČE VESTE, KAJ POČNETE."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Once you are happy with the rate click supply to review."
 msgstr "Ko ste zadovoljni s tečajem, kliknite Položi za pregled."
 
@@ -1210,7 +1210,7 @@ msgstr "Optimistic Etherscan"
 msgid "Out of range"
 msgstr "Zunaj razpona"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "Output is estimated. If the price changes by more than {0}% your transaction will revert."
 msgstr "Izhodni znesek je ocenjen. Če se cena spremeni za več kot {0} %, bo transakcija stornirana."
@@ -1332,7 +1332,7 @@ msgstr "Cenovni razpon"
 msgid "Price:"
 msgstr "Cena:"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Prices and pool share"
 msgstr "Cene in delež v skladu"
 
@@ -1573,12 +1573,12 @@ msgstr "Uspelo"
 msgid "Success"
 msgstr "Uspelo"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Supply"
 msgstr "Položi"
 
-#: src/pages/AddLiquidityV2/index.tsx
-msgid "Supplying {0} {1} and {2} {3}"
+#: src/pages/AddLiquidity/index.tsx
+msgid "Supplying {0} and {1}"
 msgstr "Polog {0} {1} in {2} {3}"
 
 #: src/components/Header/index.tsx
@@ -1711,7 +1711,7 @@ msgstr "Cena v tem skladu je izven območja, ki ste ga izbrali. Vaš vložek vam
 msgid "The price of this pool is within your selected range. Your position is currently earning fees."
 msgstr "Cena v tem skladu je trenutno znotraj območja, ki ste ga izbrali. Vaš vložek vam trenutno služi provizije. "
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "The ratio of tokens you add will set the price of this pool."
 msgstr "Razmerje med žetoni, ki jih boste vložili, bo določilo začetno ceno v tem skladu."
 
@@ -1929,7 +1929,7 @@ msgid "Unlocking Votes"
 msgstr "Odklepanje glasov"
 
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/Swap/index.tsx
 msgid "Unsupported Asset"
 msgstr "Nepodprto sredstvo"
@@ -2131,7 +2131,7 @@ msgstr "Ovijte <0/> v {0}"
 msgid "You already have an active or pending proposal"
 msgstr "Imate že eno aktivno ali čakajočo pobudo."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "You are creating a pool"
 msgstr "Ustvarjate sklad"
 
@@ -2139,7 +2139,7 @@ msgstr "Ustvarjate sklad"
 msgid "You are the first liquidity provider for this Uniswap V3 pool. Your liquidity will migrate at the current {0} price."
 msgstr "V tem skladu Uniswapa V3 ste prvi ponudnik likvidnosti. Vaša likvidnost bo migrirana po trenutni ceni {0}."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "You are the first liquidity provider."
 msgstr "Ste prvi ponudnik likvidnosti."
 
@@ -2191,7 +2191,7 @@ msgstr "V Uniswap V3 položite likvidnost le po ceni, za katero menite, da je pr
 msgid "You will also collect fees earned from this position."
 msgstr "Ta pozicija vam bo tudi služila provizije."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "You will receive"
 msgstr "Prejeli boste"

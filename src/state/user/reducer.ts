@@ -3,14 +3,10 @@ import { SupportedChainId } from 'constants/chains'
 import { APTOS_CoinInfo, APTOS_DEVNET_CoinInfo, APTOS_TESTNET_CoinInfo } from 'constants/coinInfo'
 import { SupportedLocale } from 'constants/locales'
 import { Coin } from 'hooks/common/Coin'
-import { Pair } from 'hooks/common/Pair'
+import { Pair, pairKey } from 'hooks/common/Pair'
 
 import { DEFAULT_DEADLINE_FROM_NOW } from '../../constants/misc'
 import { updateVersion } from '../global/actions'
-
-function pairKey(coinXAddress: string, coinYAddress: string) {
-  return `${coinXAddress};${coinYAddress}`
-}
 
 export interface UserState {
   chainId: SupportedChainId
@@ -37,7 +33,7 @@ export interface UserState {
 
   pairs: {
     [chainId: number]: {
-      // keyed by coin0Address;coin1Address
+      // keyed by coin0Address, coin1Address
       [key: string]: Pair
     }
   }
@@ -45,7 +41,7 @@ export interface UserState {
 }
 
 export const initialState: UserState = {
-  chainId: SupportedChainId.APTOS_DEVNET,
+  chainId: SupportedChainId.APTOS_TESTNET,
   matchesDarkMode: false,
   userDarkMode: true,
   userLocale: null,
@@ -56,7 +52,11 @@ export const initialState: UserState = {
     [SupportedChainId.APTOS_TESTNET]: APTOS_TESTNET_CoinInfo,
     [SupportedChainId.APTOS_DEVNET]: APTOS_DEVNET_CoinInfo,
   },
-  pairs: {},
+  pairs: {
+    [SupportedChainId.APTOS]: {},
+    [SupportedChainId.APTOS_TESTNET]: {},
+    [SupportedChainId.APTOS_DEVNET]: {},
+  },
   showSwapDropdownDetails: false,
 }
 
@@ -96,17 +96,16 @@ const userSlice = createSlice({
       state.coins[chainId] = state.coins[chainId] || {}
       delete state.coins[chainId][address]
     },
-    addPair(state, { payload: { pair } }) {
-      if (pair.coinX.chainId === pair.coinY.chainId && pair.coinX.address !== pair.coinY.address) {
-        const chainId = pair.coinX.chainId
-        state.pairs[chainId] = state.pairs[chainId] || {}
-        state.pairs[chainId][pairKey(pair.coinX.address, pair.coinY.address)] = pair
-      }
+    updatePair(state, { payload: { pair } }: { payload: { pair: Pair } }) {
+      const chainId = state.chainId
+      state.pairs[chainId] = state.pairs[chainId] || {}
+      state.pairs[chainId][pairKey(pair.coinX, pair.coinY)] = pair
     },
-    removePair(state, { payload: { chainId, coinXAddress, coinYAddress } }) {
+    removePair(state, { payload: { coinX, coinY } }: { payload: { coinX: string; coinY: string } }) {
+      const chainId = state.chainId
       if (state.pairs[chainId]) {
-        delete state.pairs[chainId][pairKey(coinXAddress, coinYAddress)]
-        delete state.pairs[chainId][pairKey(coinYAddress, coinXAddress)]
+        delete state.pairs[chainId][pairKey(coinX, coinY)]
+        delete state.pairs[chainId][pairKey(coinY, coinX)]
       }
     },
     setShowSwapDropdownDetails(
@@ -130,7 +129,10 @@ const userSlice = createSlice({
         [SupportedChainId.APTOS_TESTNET]: APTOS_TESTNET_CoinInfo,
         [SupportedChainId.APTOS_DEVNET]: APTOS_DEVNET_CoinInfo,
       }
-
+      // init local pair
+      state.pairs[SupportedChainId.APTOS] = state.pairs[SupportedChainId.APTOS] || {}
+      state.pairs[SupportedChainId.APTOS_TESTNET] = state.pairs[SupportedChainId.APTOS_TESTNET] || {}
+      state.pairs[SupportedChainId.APTOS_DEVNET] = state.pairs[SupportedChainId.APTOS_DEVNET] || {}
       // slippage isnt being tracked in local storage, reset to default
       // noinspection SuspiciousTypeOfGuard
       if (
@@ -161,7 +163,7 @@ const userSlice = createSlice({
 export const {
   addCoin,
   removeCoin,
-  addPair,
+  updatePair,
   removePair,
   updateChainId,
   updateMatchesDarkMode,

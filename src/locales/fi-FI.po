@@ -100,7 +100,7 @@ msgstr "<0> Vinkki:</0> Valitse toiminto ja kuvaa ehdotuksesi yhteisölle. Ehdot
 msgid "<0>Tip:</0> Use this tool to find v2 pools that don't automatically appear in the interface."
 msgstr "<0> Vinkki:</0> Käytä tätä työkalua etsiäksesi v2-pooleja, jotka eivät automaattisesti näy käyttöliittymässä."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "<0>Tip:</0> When you add liquidity, you will receive pool tokens representing your position. These tokens automatically earn fees proportional to your share of the pool, and can be redeemed at any time."
 msgstr "<0>Vinkki:</0> Kun lisäät likviditeettiä, saat poolin rahakkeita, jotka edustavat positiotasi. Nämä rahakkeet ansaitsevat automaattisesti palkkioita suhteessa osuutesi poolista, ja ne voidaan lunastaa milloin tahansa."
 
@@ -231,8 +231,8 @@ msgstr "Hyväksy tunnus"
 #: src/components/AccountDetails/TransactionSummary.tsx
 #: src/pages/AddLiquidity/index.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Approve {0}"
 msgstr "Hyväksy {0}"
 
@@ -247,8 +247,8 @@ msgstr "Hyväksytään"
 
 #: src/pages/AddLiquidity/index.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Approving {0}"
 msgstr "Hyväksytään {0}"
 
@@ -498,7 +498,7 @@ msgstr "Vahvista transaktio lompakossa"
 #: src/components/Web3Status/index.tsx
 #: src/components/earn/ClaimRewardModal.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 #: src/pages/Swap/index.tsx
 #: src/state/burn/hooks.tsx
@@ -911,7 +911,7 @@ msgstr "Välillä"
 msgid "Increase Liquidity"
 msgstr "Lisää likviditeettiä"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Initial prices and pool share"
 msgstr "Alkuhinnat ja poolin osake"
 
@@ -1004,7 +1004,7 @@ msgid "Liquidity provider rewards"
 msgstr "Likviditeetin tarjoajan palkinnot"
 
 #: src/pages/Pool/v2.tsx
-msgid "Liquidity providers earn a 0.3% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
+msgid "Liquidity providers earn a 0.25% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
 msgstr "Likviditeetin tarjoajat ansaitsevat 0,3 prosentin palkkion kaikista kaupoista suhteessa niiden osuuteen poolista. Palkkiot lisätään pooliin, ne kertyvät reaaliajassa, ja niitä voidaan lunastaa vetämällä likviditeettisi takaisin."
 
 #: src/components/SearchModal/Manage.tsx
@@ -1186,7 +1186,7 @@ msgstr "Ei luotu"
 msgid "ONLY USE THIS MODE IF YOU KNOW WHAT YOU ARE DOING."
 msgstr "KÄYTÄ TÄTÄ TILAA VAIN, JOS TIEDÄT MITÄ TEET."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Once you are happy with the rate click supply to review."
 msgstr "Kun olet tyytyväinen kurssiin, paina \"tarjonta\" tarkistaaksesi."
 
@@ -1210,7 +1210,7 @@ msgstr "Optimistinen eetteriskannaus"
 msgid "Out of range"
 msgstr "Alueen ulkopuolella"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "Output is estimated. If the price changes by more than {0}% your transaction will revert."
 msgstr "Tuotto on arvio. Jos hinta muuttuu enemmän kuin {0}%, tapahtuma perutaan."
@@ -1332,7 +1332,7 @@ msgstr "Hintaluokka"
 msgid "Price:"
 msgstr "Hinta:"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Prices and pool share"
 msgstr "Hinnat ja poolin osuus"
 
@@ -1573,12 +1573,12 @@ msgstr "Menestyi"
 msgid "Success"
 msgstr "Menestys"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Supply"
 msgstr "Tarjonta"
 
-#: src/pages/AddLiquidityV2/index.tsx
-msgid "Supplying {0} {1} and {2} {3}"
+#: src/pages/AddLiquidity/index.tsx
+msgid "Supplying {0} and {1}"
 msgstr "Toimitetaan {0} {1} ja {2} {3}"
 
 #: src/components/Header/index.tsx
@@ -1711,7 +1711,7 @@ msgstr "Tämän poolin hinta on valitsemasi hintaluokan ulkopuolella. Positiosi 
 msgid "The price of this pool is within your selected range. Your position is currently earning fees."
 msgstr "Tämän poolin hinta sopii vallittuun hintaluokkaan. Positiosi ansaitsee tällä hetkellä palkkioita."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "The ratio of tokens you add will set the price of this pool."
 msgstr "Lisäämiesi rahakkeiden suhde määrittää tämän poolin hinnan."
 
@@ -1929,7 +1929,7 @@ msgid "Unlocking Votes"
 msgstr "Vapautetaan ääniä"
 
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/Swap/index.tsx
 msgid "Unsupported Asset"
 msgstr "Ei-tuettu vara"
@@ -2131,7 +2131,7 @@ msgstr "Wrap <0/> kohteeseen {0}"
 msgid "You already have an active or pending proposal"
 msgstr "Sinulla on jo aktiivinen tai odottava ehdotus"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "You are creating a pool"
 msgstr "Olet luomassa poolia"
 
@@ -2139,7 +2139,7 @@ msgstr "Olet luomassa poolia"
 msgid "You are the first liquidity provider for this Uniswap V3 pool. Your liquidity will migrate at the current {0} price."
 msgstr "Olet tämän Uniswap V3 -poolin ensimmäinen likviditeetin tarjoaja. Likviditeettisi siirtyy nykyiseen {0} hintaan."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "You are the first liquidity provider."
 msgstr "Olet ensimmäinen likviditeetin tarjoaja."
 
@@ -2191,7 +2191,7 @@ msgstr "Sinun tulisi tallettaa likviditeettiä Uniswap V3:een ainoastaan hintaan
 msgid "You will also collect fees earned from this position."
 msgstr "Keräät myös tästä positiosta ansaittuja palkkioita."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "You will receive"
 msgstr "Tulet vastaanottamaan"

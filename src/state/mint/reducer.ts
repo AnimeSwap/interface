@@ -12,7 +12,7 @@ export interface MintState {
 }
 
 export const initialState: MintState = {
-  independentField: Field.CURRENCY_A,
+  independentField: Field.COIN_A,
   typedValue: '',
   otherTypedValue: '',
   startPriceTypedValue: '',

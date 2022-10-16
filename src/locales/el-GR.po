@@ -100,7 +100,7 @@ msgstr "<0> Συμβουλή:</0> Επιλέξτε μια ενέργεια κα�
 msgid "<0>Tip:</0> Use this tool to find v2 pools that don't automatically appear in the interface."
 msgstr "<0> Συμβουλή:</0> Χρησιμοποιήστε αυτό το εργαλείο για να βρείτε δεξαμενές της v2 που δεν εμφανίζονται αυτόματα στη διεπαφή."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "<0>Tip:</0> When you add liquidity, you will receive pool tokens representing your position. These tokens automatically earn fees proportional to your share of the pool, and can be redeemed at any time."
 msgstr "<0>Συμβουλή:</0> Όταν προσθέσετε ρευστότητα, θα λάβετε μάρκες δεξαμενής που αντιπροσωπεύουν τη θέση σας. Αυτές οι μάρκες κερδίζουν αυτόματα τέλη ανάλογα με το μερίδιό σας στην πισίνα, και μπορούν να εξαργυρωθούν ανά πάσα στιγμή."
 
@@ -231,8 +231,8 @@ msgstr "Έγκριση κουπονιού"
 #: src/components/AccountDetails/TransactionSummary.tsx
 #: src/pages/AddLiquidity/index.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Approve {0}"
 msgstr "Έγκριση {0}"
 
@@ -247,8 +247,8 @@ msgstr "Έγκριση"
 
 #: src/pages/AddLiquidity/index.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Approving {0}"
 msgstr "Έγκριση {0}"
 
@@ -498,7 +498,7 @@ msgstr "Επιβεβαίωση συναλλαγής στο πορτοφόλι"
 #: src/components/Web3Status/index.tsx
 #: src/components/earn/ClaimRewardModal.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 #: src/pages/Swap/index.tsx
 #: src/state/burn/hooks.tsx
@@ -911,7 +911,7 @@ msgstr "Εντός εύρους"
 msgid "Increase Liquidity"
 msgstr "Αύξηση Ρευστότητας"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Initial prices and pool share"
 msgstr "Αρχικές τιμές και μερίδιο δεξαμενής"
 
@@ -1004,7 +1004,7 @@ msgid "Liquidity provider rewards"
 msgstr "Επιβραβεύσεις παρόχου ρευστότητας"
 
 #: src/pages/Pool/v2.tsx
-msgid "Liquidity providers earn a 0.3% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
+msgid "Liquidity providers earn a 0.25% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
 msgstr "Οι πάροχοι ρευστότητας κερδίζουν μια χρέωση της τάξεως του 0,3% σε όλες τις συναλλαγές ανάλογα με το μερίδιο τους στη δεξαμενή. Οι χρεώσεις προστίθενται στην ψηφοφορία, συσσωρεύονται σε πραγματικό χρόνο και μπορούν να ζητηθούν μέσω της ανάληψης σας ρευστότητας."
 
 #: src/components/SearchModal/Manage.tsx
@@ -1186,7 +1186,7 @@ msgstr "Δεν δημιουργήθηκε"
 msgid "ONLY USE THIS MODE IF YOU KNOW WHAT YOU ARE DOING."
 msgstr "ΧΡΗΣΙΜΟΠΟΙΗΣΤΕ ΑΥΤΟ ΤΟΝ ΤΡΟΠΟ ΜΟΝΟ ΕΑΝ ΓΝΩΡΙΖΕΤΕ ΤΙ ΚΑΝΕΤΕ."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Once you are happy with the rate click supply to review."
 msgstr "Μόλις είστε ευχαριστημένοι με τη τιμή κάντε κλικ στο παροχή για επανεξέταση."
 
@@ -1210,7 +1210,7 @@ msgstr "Αισιόδοξη Ethercan"
 msgid "Out of range"
 msgstr "Εκτός εύρους"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "Output is estimated. If the price changes by more than {0}% your transaction will revert."
 msgstr "Το αποτέλεσμα εκτιμήθηκε. Αν η τιμή αλλάξει παραπάνω από {0}% η συναλλαγή σας θα υπαναχωρήσει."
@@ -1332,7 +1332,7 @@ msgstr "Εύρος τιμών"
 msgid "Price:"
 msgstr "Τιμή:"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Prices and pool share"
 msgstr "Τιμές και μερίδιο στη δεξαμενή"
 
@@ -1573,12 +1573,12 @@ msgstr "Επιτεύχθηκε"
 msgid "Success"
 msgstr "Επιτυχία"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Supply"
 msgstr "Παροχή"
 
-#: src/pages/AddLiquidityV2/index.tsx
-msgid "Supplying {0} {1} and {2} {3}"
+#: src/pages/AddLiquidity/index.tsx
+msgid "Supplying {0} and {1}"
 msgstr "Γίνεται παροχή {0} {1} και {2} {3}"
 
 #: src/components/Header/index.tsx
@@ -1711,7 +1711,7 @@ msgstr "Η τιμή αυτής της δεξαμενής είναι εκτός �
 msgid "The price of this pool is within your selected range. Your position is currently earning fees."
 msgstr "Η τιμή αυτής της δεξαμενής είναι εντός του επιλεγμένου εύρους. Η θέση σας κερδίζει επί του παρόντος χρεώσεις."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "The ratio of tokens you add will set the price of this pool."
 msgstr "Η αναλογία των διακριτικών που προσθέτετε θα ορίσει την τιμή αυτής της δεξαμενής."
 
@@ -1929,7 +1929,7 @@ msgid "Unlocking Votes"
 msgstr "Ξεκλείδωμα Ψήφων"
 
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/Swap/index.tsx
 msgid "Unsupported Asset"
 msgstr "Μη Υποστηριζόμενο Περιουσιακό Στοιχείο"
@@ -2131,7 +2131,7 @@ msgstr "Τυλίξτε <0/> προς {0}"
 msgid "You already have an active or pending proposal"
 msgstr "Έχετε ήδη μια ενεργή ή σε εκκρεμότητα πρόταση"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "You are creating a pool"
 msgstr "Δημιουργείτε μια ψηφοφορία"
 
@@ -2139,7 +2139,7 @@ msgstr "Δημιουργείτε μια ψηφοφορία"
 msgid "You are the first liquidity provider for this Uniswap V3 pool. Your liquidity will migrate at the current {0} price."
 msgstr "Είστε ο πρώτος πάροχος ρευστότητας για αυτή τη Uniswap V3 ψηφοφορία. Η ρευστότητά σας θα μετακυλίσει στην τρέχουσα τιμή {0}."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "You are the first liquidity provider."
 msgstr "Είστε ο πρώτος πάροχος ρευστότητας."
 
@@ -2191,7 +2191,7 @@ msgstr "Θα πρέπει να καταθέσετε μόνο ρευστότητ�
 msgid "You will also collect fees earned from this position."
 msgstr "Θα εισπράξετε επίσης τις χρεώσεις που κερδίζονται από αυτή τη θέση."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "You will receive"
 msgstr "Θα λάβετε"

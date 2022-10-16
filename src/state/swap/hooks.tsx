@@ -12,7 +12,7 @@ import { tryParseCoinAmount } from 'utils/tryParseCoinAmount'
 
 import { Coin, useCoin } from '../../hooks/common/Coin'
 import useParsedQueryString from '../../hooks/useParsedQueryString'
-import { isAddress, isCoinAddress } from '../../utils'
+import { isCoinAddress } from '../../utils'
 import { AppState } from '../index'
 import { Field, replaceSwapState, selectCoin, switchCoins, typeInput } from './actions'
 import { SwapState } from './reducer'
@@ -71,8 +71,6 @@ export function useDerivedSwapInfo(): {
     tradeState: TradeState
   }
   allowedSlippage: number
-  deadline: number
-  toAddress: string
 } {
   const account = useAccount()
   const {
@@ -86,10 +84,6 @@ export function useDerivedSwapInfo(): {
   const inputCoinBalance = Utils.d(useCoinBalance(inputCoin?.address))
   const outputCoinBalance = Utils.d(useCoinBalance(outputCoin?.address))
   const allowedSlippage = useUserSlippageTolerance()
-  const deadline = useUserTransactionTTL()[0]
-
-  const toAddress: string | null = account ?? null
-
   const isExactIn: boolean = independentField === Field.INPUT
 
   const parsedAmount = useMemo(
@@ -102,9 +96,7 @@ export function useDerivedSwapInfo(): {
     parsedAmount,
     inputCoin,
     outputCoin,
-    toAddress,
-    allowedSlippage,
-    deadline
+    allowedSlippage
   )
 
   const inputError = useMemo(() => {
@@ -121,10 +113,6 @@ export function useDerivedSwapInfo(): {
     if (!parsedAmount || parsedAmount.lte(0)) {
       inputError = inputError ?? <Trans>Enter an amount</Trans>
     }
-
-    if (!toAddress) {
-      inputError = inputError ?? <Trans>Enter a recipient</Trans>
-    }
     // compare input balance to max input based on version
     const [balanceIn, amountIn] = [inputCoinBalance, trade.bestTrade?.maximumAmountIn]
     if (balanceIn && amountIn && balanceIn.lt(amountIn.amount)) {
@@ -132,7 +120,7 @@ export function useDerivedSwapInfo(): {
     }
 
     return inputError
-  }, [account, allowedSlippage, inputCoin, outputCoin, inputCoinBalance, parsedAmount, toAddress, trade])
+  }, [account, allowedSlippage, inputCoin, outputCoin, inputCoinBalance, parsedAmount, trade])
 
   return useMemo(
     () => ({
@@ -145,8 +133,6 @@ export function useDerivedSwapInfo(): {
       inputError,
       trade,
       allowedSlippage,
-      deadline,
-      toAddress,
     }),
     [
       inputCoin,
@@ -158,8 +144,6 @@ export function useDerivedSwapInfo(): {
       parsedAmount,
       trade,
       allowedSlippage,
-      deadline,
-      toAddress,
     ]
   )
 }

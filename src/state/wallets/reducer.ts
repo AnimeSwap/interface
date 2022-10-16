@@ -6,6 +6,7 @@ import { Wallet, WalletType } from './types'
 export interface WalletState {
   account: string
   coinBalances: { [address: string]: string }
+  lpBalances: { [address: string]: string } // `${coin0.address}, ${coin1.address}`
   selectedWallet: WalletType
   connectedWallets: Wallet[]
 }
@@ -13,7 +14,8 @@ export interface WalletState {
 export const initialState: WalletState = {
   account: undefined,
   coinBalances: {},
-  selectedWallet: WalletType.PETRA,
+  lpBalances: {},
+  selectedWallet: WalletType.MARTIAN,
   connectedWallets: [],
 }
 
@@ -29,6 +31,12 @@ const walletsSlice = createSlice({
     },
     resetCoinBalances(state, { payload }: { payload: { coinBalances: { [address: string]: string } } }) {
       state.coinBalances = payload.coinBalances
+    },
+    setLpBalances(state, { payload }: { payload: { lpBalances: { [address: string]: string } } }) {
+      state.lpBalances = { ...state.lpBalances, ...payload.lpBalances }
+    },
+    resetLpBalances(state, { payload }: { payload: { lpBalances: { [address: string]: string } } }) {
+      state.lpBalances = payload.lpBalances
     },
     setSelectedWallet(state, { payload }: { payload: { wallet: WalletType } }) {
       state.selectedWallet = payload.wallet
@@ -49,6 +57,8 @@ export const {
   setAccount,
   setCoinBalances,
   resetCoinBalances,
+  setLpBalances,
+  resetLpBalances,
   setSelectedWallet,
   addConnectedWallet,
   removeConnectedWallet,
