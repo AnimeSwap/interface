@@ -82,8 +82,8 @@ export const APTOS_DEVNET_CoinInfo: { [address: string]: Coin } = {
     name: 'Bitcoin',
     logoURL: ['https://coinlist.animeswap.org/icons/BTC.webp'],
   },
-  '0x12d75d5bde2535789041cd380e832038da873a4ba86348ca891d374e1d0e15ab::staked_aptos_coin::StakedAptosCoin': {
-    address: '0x12d75d5bde2535789041cd380e832038da873a4ba86348ca891d374e1d0e15ab::staked_aptos_coin::StakedAptosCoin',
+  '0xfa8c09437aa00eef18849eb9bfabf2be0dac73f03da91f46218cd1647278931b::staked_aptos_coin::StakedAptosCoin': {
+    address: '0xfa8c09437aa00eef18849eb9bfabf2be0dac73f03da91f46218cd1647278931b::staked_aptos_coin::StakedAptosCoin',
     decimals: 8,
     symbol: 'tAPT',
     name: 'Tortuga Staked APT',
