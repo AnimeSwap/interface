@@ -3,12 +3,12 @@ import { Trans } from '@lingui/macro'
 import { SwitchLocaleLink } from 'components/SwitchLocaleLink'
 import { BP } from 'constants/misc'
 import { useCoin } from 'hooks/common/Coin'
-import { usePair } from 'hooks/common/Pair'
-import { useCallback, useContext, useMemo, useState } from 'react'
+import { pairKey, usePair } from 'hooks/common/Pair'
+import { ReactNode, useCallback, useContext, useMemo, useState } from 'react'
 import { ArrowDown, Plus } from 'react-feather'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Text } from 'rebass'
-import { useAccount } from 'state/wallets/hooks'
+import { useAccount, useCoinBalance, useLpBalance } from 'state/wallets/hooks'
 import { ThemeContext } from 'styled-components/macro'
 
 import { ButtonConfirmed, ButtonError, ButtonLight, ButtonPrimary } from '../../components/Button'
@@ -25,6 +25,8 @@ import { Dots } from '../../components/swap/styleds'
 import TransactionConfirmationModal, { ConfirmationModalContent } from '../../components/TransactionConfirmationModal'
 import useDebouncedChangeHandler from '../../hooks/useDebouncedChangeHandler'
 import { useToggleWalletModal } from '../../state/application/hooks'
+import { Field } from '../../state/burn/actions'
+import { useBurnActionHandlers, useBurnState } from '../../state/burn/hooks'
 import { useTransactionAdder } from '../../state/transactions/hooks'
 import { TransactionType } from '../../state/transactions/types'
 import { useChainId, useUserSlippageTolerance } from '../../state/user/hooks'
@@ -43,15 +45,44 @@ export default function RemoveLiquidity() {
   const chainId = useChainId()
   const theme = useContext(ThemeContext)
 
+  const lpBalance = Utils.d(useLpBalance(pairKey(coinA?.address, coinB?.address)))
+  const coinABalance = useCoinBalance(coinA?.address)
+  const coinBBalance = useCoinBalance(coinB?.address)
+
   const [pairState, pair] = usePair(coinA?.address, coinB?.address)
   const coinYdivXReserve = Utils.d(pair?.coinYReserve).div(Utils.d(pair?.coinXReserve))
+  const price = coinYdivXReserve.mul(Utils.pow10(coinA.decimals - coinB.decimals))
+
+  // const formattedAmounts = {
+  //   [Field.LIQUIDITY_PERCENT]: parsedAmounts[Field.LIQUIDITY_PERCENT].equalTo('0')
+  //     ? '0'
+  //     : parsedAmounts[Field.LIQUIDITY_PERCENT].lessThan(new Percent('1', '100'))
+  //     ? '<1'
+  //     : parsedAmounts[Field.LIQUIDITY_PERCENT].toFixed(0),
+  //   [Field.LIQUIDITY]:
+  //     independentField === Field.LIQUIDITY ? typedValue : parsedAmounts[Field.LIQUIDITY]?.toSignificant(6) ?? '',
+  //   [Field.CURRENCY_A]:
+  //     independentField === Field.CURRENCY_A ? typedValue : parsedAmounts[Field.CURRENCY_A]?.toSignificant(6) ?? '',
+  //   [Field.CURRENCY_B]:
+  //     independentField === Field.CURRENCY_B ? typedValue : parsedAmounts[Field.CURRENCY_B]?.toSignificant(6) ?? '',
+  // }
+
+  // useDerivedBurnInfo
+  let error: ReactNode | undefined
+  if (!account) {
+    error = <Trans>Connect Wallet</Trans>
+  }
+
+  // if (!parsedAmounts[Field.LIQUIDITY] || !parsedAmounts[Field.CURRENCY_A] || !parsedAmounts[Field.CURRENCY_B]) {
+  //   error = error ?? <Trans>Enter an amount</Trans>
+  // }
 
   // toggle wallet when disconnected
   const toggleWalletModal = useToggleWalletModal()
 
   // burn state
-  // const { onUserInput: _onUserInput } = useBurnActionHandlers()
-  const onUserInput = null
+  const { onUserInput: _onUserInput } = useBurnActionHandlers()
+  const isValid = !error
 
   // modal and loading
   const [showConfirm, setShowConfirm] = useState<boolean>(false)
@@ -63,25 +94,25 @@ export default function RemoveLiquidity() {
   const allowedSlippage = useUserSlippageTolerance()
 
   // wrapped onUserInput to clear signatures
-  // const onUserInput = useCallback(
-  //   (field: Field, typedValue: string) => {
-  //     return _onUserInput(field, typedValue)
-  //   },
-  //   [_onUserInput]
-  // )
+  const onUserInput = useCallback(
+    (field: Field, typedValue: string) => {
+      return _onUserInput(field, typedValue)
+    },
+    [_onUserInput]
+  )
 
-  // const onLiquidityInput = useCallback(
-  //   (typedValue: string): void => onUserInput(Field.LIQUIDITY, typedValue),
-  //   [onUserInput]
-  // )
-  // const onCurrencyAInput = useCallback(
-  //   (typedValue: string): void => onUserInput(Field.CURRENCY_A, typedValue),
-  //   [onUserInput]
-  // )
-  // const onCurrencyBInput = useCallback(
-  //   (typedValue: string): void => onUserInput(Field.CURRENCY_B, typedValue),
-  //   [onUserInput]
-  // )
+  const onLiquidityInput = useCallback(
+    (typedValue: string): void => onUserInput(Field.LIQUIDITY, typedValue),
+    [onUserInput]
+  )
+  const onCoinAInput = useCallback(
+    (typedValue: string): void => onUserInput(Field.CURRENCY_A, typedValue),
+    [onUserInput]
+  )
+  const onCoinBInput = useCallback(
+    (typedValue: string): void => onUserInput(Field.CURRENCY_B, typedValue),
+    [onUserInput]
+  )
 
   // tx sending
   const addTransaction = useTransactionAdder()
@@ -201,7 +232,7 @@ export default function RemoveLiquidity() {
 
   const liquidityPercentChangeCallback = useCallback(
     (value: number) => {
-      onUserInput('LIQUIDITY_PERCENT', value.toString())
+      onUserInput(Field.LIQUIDITY_PERCENT, value.toString())
     },
     [onUserInput]
   )
@@ -231,7 +262,7 @@ export default function RemoveLiquidity() {
     setShowConfirm(false)
     // if there was a tx hash, we want to clear the input
     if (txHash) {
-      onUserInput('LIQUIDITY_PERCENT', '0')
+      onUserInput(Field.LIQUIDITY_PERCENT, '0')
     }
     setTxHash('')
   }, [onUserInput, txHash])
@@ -278,127 +309,70 @@ export default function RemoveLiquidity() {
                   <Text fontWeight={500}>
                     <Trans>Remove Amount</Trans>
                   </Text>
-                  <ClickableText
-                    fontWeight={500}
-                    onClick={() => {
-                      setShowDetailed(!showDetailed)
-                    }}
-                  >
-                    {showDetailed ? <Trans>Simple</Trans> : <Trans>Detailed</Trans>}
-                  </ClickableText>
                 </RowBetween>
                 <Row style={{ alignItems: 'flex-end' }}>
                   <Text fontSize={72} fontWeight={500}>
                     25%
                   </Text>
                 </Row>
-                {!showDetailed && (
-                  <>
-                    <Slider value={innerLiquidityPercentage} onChange={setInnerLiquidityPercentage} />
-                    <RowBetween>
-                      <MaxButton onClick={() => onUserInput('LIQUIDITY_PERCENT', '25')} width="20%">
-                        25%
-                      </MaxButton>
-                      <MaxButton onClick={() => onUserInput('LIQUIDITY_PERCENT', '50')} width="20%">
-                        50%
-                      </MaxButton>
-                      <MaxButton onClick={() => onUserInput('LIQUIDITY_PERCENT', '75')} width="20%">
-                        75%
-                      </MaxButton>
-                      <MaxButton onClick={() => onUserInput('LIQUIDITY_PERCENT', '100')} width="20%">
-                        Max
-                      </MaxButton>
-                    </RowBetween>
-                  </>
-                )}
+                <Slider value={innerLiquidityPercentage} onChange={setInnerLiquidityPercentage} />
+                <RowBetween>
+                  <MaxButton onClick={() => onUserInput(Field.LIQUIDITY_PERCENT, '25')} width="20%">
+                    25%
+                  </MaxButton>
+                  <MaxButton onClick={() => onUserInput(Field.LIQUIDITY_PERCENT, '50')} width="20%">
+                    50%
+                  </MaxButton>
+                  <MaxButton onClick={() => onUserInput(Field.LIQUIDITY_PERCENT, '75')} width="20%">
+                    75%
+                  </MaxButton>
+                  <MaxButton onClick={() => onUserInput(Field.LIQUIDITY_PERCENT, '100')} width="20%">
+                    Max
+                  </MaxButton>
+                </RowBetween>
               </AutoColumn>
             </LightCard>
-            {!showDetailed && (
-              <>
-                <ColumnCenter>
-                  <ArrowDown size="16" color={theme.deprecated_text2} />
-                </ColumnCenter>
-                <LightCard>
-                  <AutoColumn gap="10px">
-                    <RowBetween>
-                      <Text fontSize={24} fontWeight={500}>
-                        APT
-                      </Text>
-                      <RowFixed>
-                        <CoinLogo coin={coinA} style={{ marginRight: '12px' }} />
-                        <Text fontSize={24} fontWeight={500} id="remove-liquidity-tokena-symbol">
-                          {coinA?.symbol}
-                        </Text>
-                      </RowFixed>
-                    </RowBetween>
-                    <RowBetween>
-                      <Text fontSize={24} fontWeight={500}>
-                        APT
-                      </Text>
-                      <RowFixed>
-                        <CoinLogo coin={coinB} style={{ marginRight: '12px' }} />
-                        <Text fontSize={24} fontWeight={500} id="remove-liquidity-tokenb-symbol">
-                          {coinB?.symbol}
-                        </Text>
-                      </RowFixed>
-                    </RowBetween>
-                  </AutoColumn>
-                </LightCard>
-              </>
-            )}
-
-            {showDetailed && (
-              <>
-                {/* <CoinInputPanel
-                  value={formattedAmounts[Field.LIQUIDITY]}
-                  onUserInput={onLiquidityInput}
-                  onMax={() => {
-                    onUserInput(Field.LIQUIDITY_PERCENT, '100')
-                  }}
-                  showMaxButton={!atMaxAmount}
-                  currency={pair?.liquidityToken}
-                  pair={pair}
-                  id="liquidity-amount"
-                /> */}
-                <ColumnCenter>
-                  <ArrowDown size="16" color={theme.deprecated_text2} />
-                </ColumnCenter>
-                {/* <CoinInputPanel
-                  hideBalance={true}
-                  value={formattedAmounts[Field.CURRENCY_A]}
-                  onUserInput={onCurrencyAInput}
-                  onMax={() => onUserInput(Field.LIQUIDITY_PERCENT, '100')}
-                  showMaxButton={!atMaxAmount}
-                  currency={currencyA}
-                  label={'Output'}
-                  onCoinSelect={handleSelectCoinA}
-                  id="remove-liquidity-tokena"
-                /> */}
-                <ColumnCenter>
-                  <Plus size="16" color={theme.deprecated_text2} />
-                </ColumnCenter>
-                {/* <CoinInputPanel
-                  hideBalance={true}
-                  value={formattedAmounts[Field.CURRENCY_B]}
-                  onUserInput={onCurrencyBInput}
-                  onMax={() => onUserInput(Field.LIQUIDITY_PERCENT, '100')}
-                  showMaxButton={!atMaxAmount}
-                  currency={currencyB}
-                  label={'Output'}
-                  onCoinSelect={handleSelectCoinB}
-                  id="remove-liquidity-tokenb"
-                /> */}
-              </>
-            )}
-            {/* {pair && ( */}
+            <ColumnCenter>
+              <ArrowDown size="16" color={theme.deprecated_text2} />
+            </ColumnCenter>
+            <LightCard>
+              <AutoColumn gap="10px">
+                <RowBetween>
+                  <Text fontSize={24} fontWeight={500}>
+                    APT
+                  </Text>
+                  <RowFixed>
+                    <CoinLogo coin={coinA} style={{ marginRight: '12px' }} />
+                    <Text fontSize={24} fontWeight={500} id="remove-liquidity-tokena-symbol">
+                      {coinA?.symbol}
+                    </Text>
+                  </RowFixed>
+                </RowBetween>
+                <RowBetween>
+                  <Text fontSize={24} fontWeight={500}>
+                    APT
+                  </Text>
+                  <RowFixed>
+                    <CoinLogo coin={coinB} style={{ marginRight: '12px' }} />
+                    <Text fontSize={24} fontWeight={500} id="remove-liquidity-tokenb-symbol">
+                      {coinB?.symbol}
+                    </Text>
+                  </RowFixed>
+                </RowBetween>
+              </AutoColumn>
+            </LightCard>
             <div style={{ padding: '10px 20px' }}>
               <RowBetween>
                 <Trans>Price:</Trans>
-                <div>1 APT</div>
+                <div>
+                  1 {coinA?.symbol} = {price.toSD(6).toString()} {coinB?.symbol}
+                </div>
               </RowBetween>
               <RowBetween>
                 <div />
-                <div>1 APT</div>
+                <div>
+                  1 {coinB?.symbol} = {Utils.d(1).div(price).toSD(6).toString()} {coinB?.symbol}
+                </div>
               </RowBetween>
             </div>
             {/* )} */}

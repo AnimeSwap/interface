@@ -24,7 +24,7 @@ import TransactionConfirmationModal, { ConfirmationModalContent } from '../../co
 import { useToggleWalletModal } from '../../state/application/hooks'
 import { Field } from '../../state/mint/actions'
 import { useDerivedMintInfo, useMintActionHandlers, useMintState } from '../../state/mint/hooks'
-import { useChainId, useNativeCoin, useUserSlippageTolerance } from '../../state/user/hooks'
+import { useNativeCoin, useUserSlippageTolerance } from '../../state/user/hooks'
 import { ThemedText } from '../../theme'
 import AppBody from '../AppBody'
 import { Wrapper } from '../Pool/styleds'

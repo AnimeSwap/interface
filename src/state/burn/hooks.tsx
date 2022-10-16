@@ -8,8 +8,6 @@ export function useBurnState(): AppState['burn'] {
   return useAppSelector((state) => state.burn)
 }
 
-export function useDerivedBurnInfo() {}
-
 export function useBurnActionHandlers(): {
   onUserInput: (field: Field, typedValue: string) => void
 } {

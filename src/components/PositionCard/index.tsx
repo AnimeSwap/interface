@@ -88,7 +88,7 @@ export function MinimalPositionCard({ pair, border }: PositionCardProps) {
                 </Text>
                 <Text fontSize={16} fontWeight={500}>
                   <Trans>
-                    {poolLpPercentage.mul(100).toFixed(2) === '0.00' ? '<0.01' : poolLpPercentage.toFixed(2)} %
+                    {poolLpPercentage.mul(100).toFixed(2) === '0.00' ? '<0.01' : poolLpPercentage.mul(100).toFixed(2)} %
                   </Trans>
                 </Text>
               </FixedHeightRow>
@@ -250,7 +250,7 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
               </Text>
               <Text fontSize={16} fontWeight={500}>
                 <Trans>
-                  {poolLpPercentage.mul(100).toFixed(2) === '0.00' ? '<0.01' : poolLpPercentage.toFixed(2)} %
+                  {poolLpPercentage.mul(100).toFixed(2) === '0.00' ? '<0.01' : poolLpPercentage.mul(100).toFixed(2)} %
                 </Trans>
               </Text>
             </FixedHeightRow>
