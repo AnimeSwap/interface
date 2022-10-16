@@ -2,13 +2,14 @@ import { Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
 import { SwitchLocaleLink } from 'components/SwitchLocaleLink'
 import { BIG_INT_ZERO, BP } from 'constants/misc'
-import { useCoin } from 'hooks/common/Coin'
+import { amountPretty, useCoin } from 'hooks/common/Coin'
 import { pairKey, usePair } from 'hooks/common/Pair'
 import { ReactNode, useCallback, useContext, useMemo, useState } from 'react'
 import { ArrowDown, Plus } from 'react-feather'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Text } from 'rebass'
-import { useAccount, useCoinBalance, useLpBalance } from 'state/wallets/hooks'
+import ConnectionInstance from 'state/connection/instance'
+import { SignAndSubmitTransaction, useAccount, useLpBalance } from 'state/wallets/hooks'
 import { ThemeContext } from 'styled-components/macro'
 
 import { ButtonConfirmed, ButtonError, ButtonLight, ButtonPrimary } from '../../components/Button'
@@ -25,8 +26,6 @@ import { Dots } from '../../components/swap/styleds'
 import TransactionConfirmationModal, { ConfirmationModalContent } from '../../components/TransactionConfirmationModal'
 import useDebouncedChangeHandler from '../../hooks/useDebouncedChangeHandler'
 import { useToggleWalletModal } from '../../state/application/hooks'
-import { useTransactionAdder } from '../../state/transactions/hooks'
-import { TransactionType } from '../../state/transactions/types'
 import { useChainId, useUserSlippageTolerance } from '../../state/user/hooks'
 import { StyledInternalLink, ThemedText } from '../../theme'
 import AppBody from '../AppBody'
@@ -42,19 +41,17 @@ export enum Field {
 }
 
 export default function RemoveLiquidity() {
-  const navigate = useNavigate()
   const { coinIdA, coinIdB } = useParams<{ coinIdA: string; coinIdB: string }>()
   const coinA = useCoin(coinIdA)
   const coinB = useCoin(coinIdB)
   const account = useAccount()
-  const chainId = useChainId()
   const theme = useContext(ThemeContext)
 
-  const lpBalance = Utils.d(useLpBalance(pairKey(coinA?.address, coinB?.address)))
-  const coinABalance = Utils.d(useCoinBalance(coinA?.address))
-  const coinBBalance = Utils.d(useCoinBalance(coinB?.address))
-
   const [pairState, pair] = usePair(coinA?.address, coinB?.address)
+  const lpBalance = Utils.d(useLpBalance(pairKey(coinA?.address, coinB?.address)))
+  const lpPercentage = lpBalance.div(pair?.lpTotal)
+  const coinAReserve = Utils.d(pair?.coinXReserve).mul(lpPercentage).floor()
+  const coinBReserve = Utils.d(pair?.coinYReserve).mul(lpPercentage).floor()
   const coinYdivXReserve = Utils.d(pair?.coinYReserve).div(Utils.d(pair?.coinXReserve))
   const price = coinYdivXReserve.mul(Utils.pow10(coinA.decimals - coinB.decimals))
 
@@ -71,7 +68,11 @@ export default function RemoveLiquidity() {
     error = <Trans>Connect Wallet</Trans>
   }
 
-  if (!parsedAmounts[Field.LIQUIDITY] || !parsedAmounts[Field.COIN_A] || !parsedAmounts[Field.COIN_B]) {
+  if (
+    parsedAmounts[Field.LIQUIDITY].lte(BIG_INT_ZERO) ||
+    parsedAmounts[Field.COIN_A].lte(BIG_INT_ZERO) ||
+    parsedAmounts[Field.COIN_B].lte(BIG_INT_ZERO)
+  ) {
     error = error ?? <Trans>Enter an amount</Trans>
   }
 
@@ -90,22 +91,27 @@ export default function RemoveLiquidity() {
   const allowedSlippage = useUserSlippageTolerance()
 
   async function onRemove() {
-    if (!chainId || !account) throw new Error('missing dependencies')
-    // const { [Field.CURRENCY_A]: currencyAmountA, [Field.CURRENCY_B]: currencyAmountB } = parsedAmounts
-    // if (!currencyAmountA || !currencyAmountB) {
-    //   throw new Error('missing currency amounts')
-    // }
-
-    // const amountsMin = {
-    //   [Field.CURRENCY_A]: calculateSlippageAmount(currencyAmountA, allowedSlippage)[0],
-    //   [Field.CURRENCY_B]: calculateSlippageAmount(currencyAmountB, allowedSlippage)[0],
-    // }
-
-    if (!coinA || !coinB) throw new Error('missing coins')
-    // const liquidityAmount = parsedAmounts[Field.LIQUIDITY]
-    // if (!liquidityAmount) throw new Error('missing liquidity amount')
-
-    let methodNames: string[], args: Array<string | string[] | number | boolean>
+    try {
+      const payload = ConnectionInstance.getSDK().swap.removeLiquidityPayload({
+        coinX: coinA.address,
+        coinY: coinB.address,
+        amount: parsedAmounts[Field.LIQUIDITY],
+        amountXDesired: parsedAmounts[Field.COIN_A],
+        amountYDesired: parsedAmounts[Field.COIN_B],
+        slippage: BP.mul(allowedSlippage),
+      })
+      setAttemptingTxn(true)
+      const txid = await SignAndSubmitTransaction(payload)
+      setAttemptingTxn(false)
+      setTxHash(txid)
+      setTimeout(() => {
+        ConnectionInstance.syncAccountResources(account)
+      }, 500)
+    } catch (error) {
+      setAttemptingTxn(false)
+      console.error('onAdd', error)
+      throw error
+    }
   }
 
   function modalHeader() {
@@ -113,7 +119,7 @@ export default function RemoveLiquidity() {
       <AutoColumn gap={'md'} style={{ marginTop: '20px' }}>
         <RowBetween align="flex-end">
           <Text fontSize={24} fontWeight={500}>
-            {0}
+            {amountPretty(parsedAmounts[Field.COIN_A], 8)}
           </Text>
           <RowFixed gap="4px">
             <CoinLogo coin={coinA} size={'24px'} />
@@ -127,7 +133,7 @@ export default function RemoveLiquidity() {
         </RowFixed>
         <RowBetween align="flex-end">
           <Text fontSize={24} fontWeight={500}>
-            {0}
+            {amountPretty(parsedAmounts[Field.COIN_B], 8)}
           </Text>
           <RowFixed gap="4px">
             <CoinLogo coin={coinB} size={'24px'} />
@@ -158,34 +164,32 @@ export default function RemoveLiquidity() {
         <RowBetween>
           <Text color={theme.deprecated_text2} fontWeight={500} fontSize={16}>
             <Trans>
-              UNI {coinA?.symbol}/{coinB?.symbol} Burned
+              {coinA?.symbol}/{coinB?.symbol} Burned
             </Trans>
           </Text>
           <RowFixed>
             <DoubleCoinLogo coinX={coinA} coinY={coinB} margin={true} />
             <Text fontWeight={500} fontSize={16}>
-              {0}
+              {amountPretty(parsedAmounts[Field.LIQUIDITY], 8)}
             </Text>
           </RowFixed>
         </RowBetween>
-        {/* {pair && ( */}
         <>
           <RowBetween>
             <Text color={theme.deprecated_text2} fontWeight={500} fontSize={16}>
               <Trans>Price</Trans>
             </Text>
             <Text fontWeight={500} fontSize={16} color={theme.deprecated_text1}>
-              1 APT
+              1 {coinA?.symbol} = {price.toSD(6).toString()} {coinB?.symbol}
             </Text>
           </RowBetween>
           <RowBetween>
             <div />
             <Text fontWeight={500} fontSize={16} color={theme.deprecated_text1}>
-              1 APT
+              1 {coinB?.symbol} = {Utils.d(1).div(price).toSD(6).toString()} {coinB?.symbol}
             </Text>
           </RowBetween>
         </>
-        {/* )} */}
         <ButtonPrimary disabled={false} onClick={onRemove}>
           <Text fontWeight={500} fontSize={20}>
             <Trans>Confirm</Trans>
@@ -207,9 +211,9 @@ export default function RemoveLiquidity() {
     const percent = Utils.d(value).div(100)
     setParsedAmounts({
       [Field.LIQUIDITY_PERCENT]: value,
-      [Field.LIQUIDITY]: lpBalance.mul(percent),
-      [Field.COIN_A]: coinABalance.mul(percent),
-      [Field.COIN_B]: coinBBalance.mul(percent),
+      [Field.LIQUIDITY]: lpBalance.mul(percent).floor(),
+      [Field.COIN_A]: coinAReserve.mul(percent).floor(),
+      [Field.COIN_B]: coinBReserve.mul(percent).floor(),
     })
   }
 
@@ -301,7 +305,7 @@ export default function RemoveLiquidity() {
               <AutoColumn gap="10px">
                 <RowBetween>
                   <Text fontSize={24} fontWeight={500}>
-                    APT
+                    {amountPretty(parsedAmounts[Field.COIN_A], coinA.decimals) || '-'}
                   </Text>
                   <RowFixed>
                     <CoinLogo coin={coinA} style={{ marginRight: '12px' }} />
@@ -312,7 +316,7 @@ export default function RemoveLiquidity() {
                 </RowBetween>
                 <RowBetween>
                   <Text fontSize={24} fontWeight={500}>
-                    APT
+                    {amountPretty(parsedAmounts[Field.COIN_B], coinB.decimals) || '-'}
                   </Text>
                   <RowFixed>
                     <CoinLogo coin={coinB} style={{ marginRight: '12px' }} />
@@ -337,7 +341,6 @@ export default function RemoveLiquidity() {
                 </div>
               </RowBetween>
             </div>
-            {/* )} */}
             <div style={{ position: 'relative' }}>
               {!account ? (
                 <ButtonLight onClick={toggleWalletModal}>
@@ -349,11 +352,11 @@ export default function RemoveLiquidity() {
                     onClick={() => {
                       setShowConfirm(true)
                     }}
-                    disabled={true}
-                    error={false}
+                    disabled={!isValid}
+                    error={!isValid && !!parsedAmounts[Field.COIN_A] && !!parsedAmounts[Field.COIN_B]}
                   >
                     <Text fontSize={16} fontWeight={500}>
-                      <Trans>Remove</Trans>
+                      {error || <Trans>Remove</Trans>}
                     </Text>
                   </ButtonError>
                 </RowBetween>
