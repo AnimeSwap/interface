@@ -1,8 +1,7 @@
 import styled from 'styled-components/macro'
 
-import uImage from '../../assets/big_unicorn.png'
+import uImage from '../../assets/anime_bg.jpg'
 import noise from '../../assets/noise.png'
-import xlUnicorn from '../../assets/xl_uni.png'
 import { AutoColumn } from '../Column'
 
 export const DataCard = styled(AutoColumn)<{ disabled?: boolean }>`
@@ -28,7 +27,7 @@ export const CardBGImage = styled.span<{ desaturate?: boolean }>`
 `
 
 export const CardBGImageSmaller = styled.span<{ desaturate?: boolean }>`
-  background: url(${xlUnicorn});
+  background: url(${uImage});
   width: 1200px;
   height: 1200px;
   position: absolute;

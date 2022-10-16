@@ -100,7 +100,7 @@ msgstr "<0> Mẹo:</0> Chọn một hành động và mô tả đề xuất củ
 msgid "<0>Tip:</0> Use this tool to find v2 pools that don't automatically appear in the interface."
 msgstr "<0> Mẹo:</0> Sử dụng công cụ này để tìm các nhóm v2 không tự động xuất hiện trong giao diện."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "<0>Tip:</0> When you add liquidity, you will receive pool tokens representing your position. These tokens automatically earn fees proportional to your share of the pool, and can be redeemed at any time."
 msgstr "<0> Mẹo:</0> Khi bạn thêm thanh khoản, bạn sẽ nhận được mã token chung đại diện cho vị trí của bạn. Các mã token này tự động kiếm được phí tỷ lệ thuận với phần của bạn trong nhóm và có thể được đổi bất kỳ lúc nào."
 
@@ -231,8 +231,8 @@ msgstr "Phê duyệt mã thông báo"
 #: src/components/AccountDetails/TransactionSummary.tsx
 #: src/pages/AddLiquidity/index.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Approve {0}"
 msgstr "Phê duyệt {0}"
 
@@ -247,8 +247,8 @@ msgstr "Đang phê duyệt"
 
 #: src/pages/AddLiquidity/index.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Approving {0}"
 msgstr "Đang phê duyệt {0}"
 
@@ -498,7 +498,7 @@ msgstr "Xác nhận giao dịch trong ví"
 #: src/components/Web3Status/index.tsx
 #: src/components/earn/ClaimRewardModal.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 #: src/pages/Swap/index.tsx
 #: src/state/burn/hooks.tsx
@@ -911,7 +911,7 @@ msgstr "Trong phạm vi"
 msgid "Increase Liquidity"
 msgstr "Tăng tính thanh khoản"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Initial prices and pool share"
 msgstr "Giá ban đầu và tỷ trọng pool"
 
@@ -1186,7 +1186,7 @@ msgstr "Chưa tạo"
 msgid "ONLY USE THIS MODE IF YOU KNOW WHAT YOU ARE DOING."
 msgstr "CHỈ SỬ DỤNG CHẾ ĐỘ NÀY NẾU BẠN BIẾT BẠN ĐANG LÀM GÌ."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Once you are happy with the rate click supply to review."
 msgstr "Một khi bạn hài lòng với tỷ lệ, nhấp vào cung cấp để xem xét."
 
@@ -1210,7 +1210,7 @@ msgstr "Etherscan lạc quan"
 msgid "Out of range"
 msgstr "Ngoài phạm vi"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "Output is estimated. If the price changes by more than {0}% your transaction will revert."
 msgstr "Đầu ra được ước tính. Nếu giá thay đổi nhiều hơn {0}%, giao dịch của bạn sẽ hoàn nguyên."
@@ -1332,7 +1332,7 @@ msgstr "Phạm vi giá"
 msgid "Price:"
 msgstr "Giá:"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Prices and pool share"
 msgstr "Giá và pool chia sẻ"
 
@@ -1573,12 +1573,12 @@ msgstr "Thành công"
 msgid "Success"
 msgstr "Sự thành công"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Supply"
 msgstr "Cung cấp"
 
-#: src/pages/AddLiquidityV2/index.tsx
-msgid "Supplying {0} {1} and {2} {3}"
+#: src/pages/AddLiquidity/index.tsx
+msgid "Supplying {0} and {1}"
 msgstr "Cung cấp {0} {1} và {2} {3}"
 
 #: src/components/Header/index.tsx
@@ -1711,7 +1711,7 @@ msgstr "Giá của pool này nằm ngoài phạm vi bạn đã chọn. Vị trí
 msgid "The price of this pool is within your selected range. Your position is currently earning fees."
 msgstr "Giá của pool này nằm trong phạm vi bạn đã chọn. Vị trí của bạn hiện đang thu phí."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "The ratio of tokens you add will set the price of this pool."
 msgstr "Tỷ lệ mã token bạn thêm vào sẽ thiết lập giá của nhóm này."
 
@@ -1929,7 +1929,7 @@ msgid "Unlocking Votes"
 msgstr "Mở khóa phiếu bầu"
 
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/Swap/index.tsx
 msgid "Unsupported Asset"
 msgstr "Tài sản không được hỗ trợ"
@@ -2131,7 +2131,7 @@ msgstr "Kết thúc từ <0/> đến {0}"
 msgid "You already have an active or pending proposal"
 msgstr "Bạn đã có một đề xuất đang hoạt động hoặc đang chờ xử lý"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "You are creating a pool"
 msgstr "Bạn đang tạo một pool"
 
@@ -2139,7 +2139,7 @@ msgstr "Bạn đang tạo một pool"
 msgid "You are the first liquidity provider for this Uniswap V3 pool. Your liquidity will migrate at the current {0} price."
 msgstr "Bạn là nhà cung cấp thanh khoản đầu tiên cho pool Uniswap V3 này. Thanh khoản của bạn sẽ thay đổi ở mức giá {0}."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "You are the first liquidity provider."
 msgstr "Bạn là nhà cung cấp thanh khoản đầu tiên."
 
@@ -2191,7 +2191,7 @@ msgstr "Bạn chỉ nên gửi thanh khoản vào Uniswap V3 ở mức giá mà 
 msgid "You will also collect fees earned from this position."
 msgstr "Bạn cũng sẽ thu phí kiếm được từ vị trí này."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "You will receive"
 msgstr "Bạn sẽ nhận"

@@ -100,7 +100,7 @@ msgstr "<0> Tipp:</0> Válasszon ki egy műveletet, és írja le javaslatát a k
 msgid "<0>Tip:</0> Use this tool to find v2 pools that don't automatically appear in the interface."
 msgstr "<0> Tipp:</0> Ezzel a poollal olyan v2 poolokat találhat, amelyek nem jelennek meg automatikusan a felületen."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "<0>Tip:</0> When you add liquidity, you will receive pool tokens representing your position. These tokens automatically earn fees proportional to your share of the pool, and can be redeemed at any time."
 msgstr "<0> Tipp:</0> Amikor likviditást ad hozzá, a pozícióját képviselő pool tokeneket fog kapni. Ezek a tokenek automatikusan a poolból való részesedésével arányos díjakat keresnek, és bármikor beválthatók."
 
@@ -231,8 +231,8 @@ msgstr "Token jóváhagyása"
 #: src/components/AccountDetails/TransactionSummary.tsx
 #: src/pages/AddLiquidity/index.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Approve {0}"
 msgstr "Jóváhagyás {0}"
 
@@ -247,8 +247,8 @@ msgstr "Jóváhagyás"
 
 #: src/pages/AddLiquidity/index.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Approving {0}"
 msgstr "{0} jóváhagyása"
 
@@ -498,7 +498,7 @@ msgstr "A tranzakció megerősítése a pénztárcában"
 #: src/components/Web3Status/index.tsx
 #: src/components/earn/ClaimRewardModal.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 #: src/pages/Swap/index.tsx
 #: src/state/burn/hooks.tsx
@@ -912,7 +912,7 @@ msgstr "Tartományban"
 msgid "Increase Liquidity"
 msgstr "Likviditás növelése"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Initial prices and pool share"
 msgstr "Kezdeti árfolyam és a pool részesedés"
 
@@ -1187,7 +1187,7 @@ msgstr "Nincs létrehozva"
 msgid "ONLY USE THIS MODE IF YOU KNOW WHAT YOU ARE DOING."
 msgstr "CSAK AKKOR HASZNÁLJA EZT A MÓDOT, HOGY TUDJA, MIT CSINÁL."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Once you are happy with the rate click supply to review."
 msgstr "Ha elégedett az árfolyammal, kattintson a kínálatra az áttekintéshez."
 
@@ -1211,7 +1211,7 @@ msgstr "Optimista Etherscan"
 msgid "Out of range"
 msgstr "Tartományon kívül"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "Output is estimated. If the price changes by more than {0}% your transaction will revert."
 msgstr "Az output becsült érték. Ha az ár {0}%-nál nagyobb mértékben változik, a tranzakció visszaáll."
@@ -1333,7 +1333,7 @@ msgstr "Ártartomány"
 msgid "Price:"
 msgstr "Ár:"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Prices and pool share"
 msgstr "Árak és pool-részesedés"
 
@@ -1574,12 +1574,12 @@ msgstr "Sikerült"
 msgid "Success"
 msgstr "Siker"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Supply"
 msgstr "Kínálat"
 
-#: src/pages/AddLiquidityV2/index.tsx
-msgid "Supplying {0} {1} and {2} {3}"
+#: src/pages/AddLiquidity/index.tsx
+msgid "Supplying {0} and {1}"
 msgstr "{0} {1} és {2} {3} kínálása"
 
 #: src/components/Header/index.tsx
@@ -1712,7 +1712,7 @@ msgstr "Ennek a poolnak az ára kívül esik az Ön által kiválasztott tartom�
 msgid "The price of this pool is within your selected range. Your position is currently earning fees."
 msgstr "Ennek a poolnak az ára az Ön által kiválasztott tartományon belül van. Az Ön pozíciója jelenleg díjat keres."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "The ratio of tokens you add will set the price of this pool."
 msgstr "Az Ön által hozzáadott tokenek aránya határozza meg ennek a poolnak az árát."
 
@@ -1930,7 +1930,7 @@ msgid "Unlocking Votes"
 msgstr "Szavazatok feloldása"
 
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/Swap/index.tsx
 msgid "Unsupported Asset"
 msgstr "Nem támogatott eszköz"
@@ -2132,7 +2132,7 @@ msgstr "Tekerje <0/> tól {0}"
 msgid "You already have an active or pending proposal"
 msgstr "Már van aktív vagy függőben lévő javaslata"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "You are creating a pool"
 msgstr "Poolt hoz létre"
 
@@ -2140,7 +2140,7 @@ msgstr "Poolt hoz létre"
 msgid "You are the first liquidity provider for this Uniswap V3 pool. Your liquidity will migrate at the current {0} price."
 msgstr "Ön az első likviditásszolgáltató ebben az Uniswap V3 poolban. Likviditása a jelenlegi {0} áron migrál."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "You are the first liquidity provider."
 msgstr "Ön az első likviditásszolgáltató."
 
@@ -2192,7 +2192,7 @@ msgstr "Csak olyan áron helyezhet el likviditást az Uniswap V3-ban, amelyet he
 msgid "You will also collect fees earned from this position."
 msgstr "Ezen a pozíción megszerzett díjakat is beszedi."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "You will receive"
 msgstr "Kapni fog"

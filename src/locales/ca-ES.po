@@ -100,7 +100,7 @@ msgstr "<0> Consell:</0> Seleccioneu una acció i descriviu la vostra proposta p
 msgid "<0>Tip:</0> Use this tool to find v2 pools that don't automatically appear in the interface."
 msgstr "<0>Consell:</0> Utilitzeu aquesta eina per trobar grups de v2 que no apareixen automàticament a la interfície."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "<0>Tip:</0> When you add liquidity, you will receive pool tokens representing your position. These tokens automatically earn fees proportional to your share of the pool, and can be redeemed at any time."
 msgstr "<0>Consell:</0> Quan afegiu liquiditat, rebreu fitxes de grup que representin la vostra posició. Aquestes fitxes guanyen automàticament quotes proporcionals a la vostra quota de fons i es poden bescanviar en qualsevol moment."
 
@@ -231,8 +231,8 @@ msgstr "Aprova el testimoni"
 #: src/components/AccountDetails/TransactionSummary.tsx
 #: src/pages/AddLiquidity/index.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Approve {0}"
 msgstr "Aprova {0}"
 
@@ -247,8 +247,8 @@ msgstr "Aprovant"
 
 #: src/pages/AddLiquidity/index.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Approving {0}"
 msgstr "S’aprova {0}"
 
@@ -498,7 +498,7 @@ msgstr "Confirmeu la transacció a la cartera"
 #: src/components/Web3Status/index.tsx
 #: src/components/earn/ClaimRewardModal.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 #: src/pages/Swap/index.tsx
 #: src/state/burn/hooks.tsx
@@ -911,7 +911,7 @@ msgstr "Dins del rang"
 msgid "Increase Liquidity"
 msgstr "Augmenta la liquiditat"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Initial prices and pool share"
 msgstr "Preus inicials i quota de grup"
 
@@ -1186,7 +1186,7 @@ msgstr "No creat"
 msgid "ONLY USE THIS MODE IF YOU KNOW WHAT YOU ARE DOING."
 msgstr "ÚTILITZEU AQUEST MODE NOMÉS SI SABEU EL QUE FEREU."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Once you are happy with the rate click supply to review."
 msgstr "Quan estigueu satisfet amb la tarifa, feu clic a Subministrament per revisar-la."
 
@@ -1210,7 +1210,7 @@ msgstr "Etherscan optimista"
 msgid "Out of range"
 msgstr "Fora de rang"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "Output is estimated. If the price changes by more than {0}% your transaction will revert."
 msgstr "S’estima la producció. Si el preu canvia més del {0}%, la vostra transacció es revertirà."
@@ -1332,7 +1332,7 @@ msgstr "Gamma de preus"
 msgid "Price:"
 msgstr "Preu:"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Prices and pool share"
 msgstr "Preus i quota de grup"
 
@@ -1573,12 +1573,12 @@ msgstr "Ha tingut èxit"
 msgid "Success"
 msgstr "Èxit"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Supply"
 msgstr "Subministrament"
 
-#: src/pages/AddLiquidityV2/index.tsx
-msgid "Supplying {0} {1} and {2} {3}"
+#: src/pages/AddLiquidity/index.tsx
+msgid "Supplying {0} and {1}"
 msgstr "Subministrant {0} {1} i {2} {3}"
 
 #: src/components/Header/index.tsx
@@ -1711,7 +1711,7 @@ msgstr "El preu d'aquest grup està fora de l'interval seleccionat. Actualment, 
 msgid "The price of this pool is within your selected range. Your position is currently earning fees."
 msgstr "El preu d'aquest grup està dins de l'interval seleccionat. Actualment, la vostra posició està cobrant comissions."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "The ratio of tokens you add will set the price of this pool."
 msgstr "La proporció de fitxes que afegiu fixarà el preu d’aquest grup."
 
@@ -1929,7 +1929,7 @@ msgid "Unlocking Votes"
 msgstr "Desbloqueig de vots"
 
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/Swap/index.tsx
 msgid "Unsupported Asset"
 msgstr "Recurs no admès"
@@ -2131,7 +2131,7 @@ msgstr "Embolcalla de <0/> a {0}"
 msgid "You already have an active or pending proposal"
 msgstr "Ja teniu una proposta activa o pendent"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "You are creating a pool"
 msgstr "Esteu creant un grup"
 
@@ -2139,7 +2139,7 @@ msgstr "Esteu creant un grup"
 msgid "You are the first liquidity provider for this Uniswap V3 pool. Your liquidity will migrate at the current {0} price."
 msgstr "Sou el primer proveïdor de liquiditat d’aquest grup Uniswap V3. La vostra liquiditat migrarà al preu {0}"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "You are the first liquidity provider."
 msgstr "Sou el primer proveïdor de liquiditat."
 
@@ -2191,7 +2191,7 @@ msgstr "Només heu de dipositar liquiditat a Uniswap V3 a un preu que creieu cor
 msgid "You will also collect fees earned from this position."
 msgstr "També cobrarà els honoraris obtinguts per aquesta posició."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "You will receive"
 msgstr "Rebreu"

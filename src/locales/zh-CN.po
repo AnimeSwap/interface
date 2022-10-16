@@ -100,7 +100,7 @@ msgstr "<0>提示：</0>选择操作并描述您的提案。提案提交后不�
 msgid "<0>Tip:</0> Use this tool to find v2 pools that don't automatically appear in the interface."
 msgstr "<0>提示：</0>使用此工具可查找未自动出现在界面中的 v2 池。"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "<0>Tip:</0> When you add liquidity, you will receive pool tokens representing your position. These tokens automatically earn fees proportional to your share of the pool, and can be redeemed at any time."
 msgstr "<0>提示：</0>当您注入流动资金时，您将收到代表您份额的流动池代币。这些代币将根据您在池中所占份额，自动赚取和累计相称的手续费，并且可以随时赎回流动池币对。"
 
@@ -231,8 +231,8 @@ msgstr "批准代币"
 #: src/components/AccountDetails/TransactionSummary.tsx
 #: src/pages/AddLiquidity/index.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Approve {0}"
 msgstr "批准 {0}"
 
@@ -247,8 +247,8 @@ msgstr "批准中"
 
 #: src/pages/AddLiquidity/index.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Approving {0}"
 msgstr "正在批准 {0}"
 
@@ -498,7 +498,7 @@ msgstr "在钱包中确认交易"
 #: src/components/Web3Status/index.tsx
 #: src/components/earn/ClaimRewardModal.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 #: src/pages/Swap/index.tsx
 #: src/state/burn/hooks.tsx
@@ -911,7 +911,7 @@ msgstr "在范围内"
 msgid "Increase Liquidity"
 msgstr "增加流动资金"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Initial prices and pool share"
 msgstr "初始兑换率和流动池份额"
 
@@ -1186,7 +1186,7 @@ msgstr "未创建"
 msgid "ONLY USE THIS MODE IF YOU KNOW WHAT YOU ARE DOING."
 msgstr "务必在详细了解此模式应用后才使用此模式操作。"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Once you are happy with the rate click supply to review."
 msgstr "对费率感到满意的话，请点击“供应”键，到审查步骤。"
 
@@ -1210,7 +1210,7 @@ msgstr "Optimistic Etherscan"
 msgid "Out of range"
 msgstr "超出范围"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "Output is estimated. If the price changes by more than {0}% your transaction will revert."
 msgstr "输出数额仅为估值。如果兑换率变化超过 {0}%，您的交易将会还原。"
@@ -1332,7 +1332,7 @@ msgstr "兑换率范围"
 msgid "Price:"
 msgstr "兑换率："
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Prices and pool share"
 msgstr "兑换率和流动池份额"
 
@@ -1573,12 +1573,12 @@ msgstr "投票通过"
 msgid "Success"
 msgstr "成功"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Supply"
 msgstr "供应"
 
-#: src/pages/AddLiquidityV2/index.tsx
-msgid "Supplying {0} {1} and {2} {3}"
+#: src/pages/AddLiquidity/index.tsx
+msgid "Supplying {0} and {1}"
 msgstr "提供 {0} {1} 和 {2} {3}"
 
 #: src/components/Header/index.tsx
@@ -1711,7 +1711,7 @@ msgstr "此流动池的兑换率超出了您选定的范围。因此您的流动
 msgid "The price of this pool is within your selected range. Your position is currently earning fees."
 msgstr "此流动池的兑换率在您选定的范围内。因此您的流动资金目前正在赚取手续费。"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "The ratio of tokens you add will set the price of this pool."
 msgstr "您注入的代币比率将决定此流动池的初始兑换率。"
 
@@ -1929,7 +1929,7 @@ msgid "Unlocking Votes"
 msgstr "解锁投票"
 
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/Swap/index.tsx
 msgid "Unsupported Asset"
 msgstr "不支持的代币"
@@ -2131,7 +2131,7 @@ msgstr "将 <0/> 换为 {0}"
 msgid "You already have an active or pending proposal"
 msgstr "您已经有一个现有或待处理的提案"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "You are creating a pool"
 msgstr "您正在创建一个流动池"
 
@@ -2139,7 +2139,7 @@ msgstr "您正在创建一个流动池"
 msgid "You are the first liquidity provider for this Uniswap V3 pool. Your liquidity will migrate at the current {0} price."
 msgstr "您是此 Uniswap V3 流动池的第一个流动资金提供者。您的流动资金将以当前的 {0} 兑换率迁移。"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "You are the first liquidity provider."
 msgstr "您是第一个流动资金提供者。"
 
@@ -2191,7 +2191,7 @@ msgstr "请确保以您认为是正确的兑换率来将流动资金注入到 Un
 msgid "You will also collect fees earned from this position."
 msgstr "您还将从此仓位中领取已赚取的手续费。"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "You will receive"
 msgstr "您将收到"

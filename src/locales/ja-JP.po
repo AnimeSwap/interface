@@ -100,7 +100,7 @@ msgstr "<0>ヒント：</0>アクションを選択し、コミュニティへ�
 msgid "<0>Tip:</0> Use this tool to find v2 pools that don't automatically appear in the interface."
 msgstr "<0>ヒント:</0> このツールを使用して、画面に自動表示されないV2のプールを見つけます。"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "<0>Tip:</0> When you add liquidity, you will receive pool tokens representing your position. These tokens automatically earn fees proportional to your share of the pool, and can be redeemed at any time."
 msgstr "<0>ヒント:</0> 流動性を追加すると、そのポジションを表す流動性トークンを受け取ります。 流動性トークンはプールのシェアに応じて自動的に報酬を獲得します。また、流動性トークンはいつでも償還できます。"
 
@@ -231,8 +231,8 @@ msgstr "トークンを承認する"
 #: src/components/AccountDetails/TransactionSummary.tsx
 #: src/pages/AddLiquidity/index.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Approve {0}"
 msgstr "{0} を承認する"
 
@@ -247,8 +247,8 @@ msgstr "承認中"
 
 #: src/pages/AddLiquidity/index.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Approving {0}"
 msgstr "{0} を承認中"
 
@@ -498,7 +498,7 @@ msgstr "ウォレットで取引を確認する"
 #: src/components/Web3Status/index.tsx
 #: src/components/earn/ClaimRewardModal.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 #: src/pages/Swap/index.tsx
 #: src/state/burn/hooks.tsx
@@ -911,7 +911,7 @@ msgstr "範囲内"
 msgid "Increase Liquidity"
 msgstr "流動性を上げる"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Initial prices and pool share"
 msgstr "初期価格とプールシェア"
 
@@ -1186,7 +1186,7 @@ msgstr "未作成"
 msgid "ONLY USE THIS MODE IF YOU KNOW WHAT YOU ARE DOING."
 msgstr "このモードは、あなたが何をしているかを理解している場合にのみご使用ください。"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Once you are happy with the rate click supply to review."
 msgstr "価格に問題がなければ、「追加」をクリックして確認します。"
 
@@ -1210,7 +1210,7 @@ msgstr "Optimistic Etherscan"
 msgid "Out of range"
 msgstr "範囲外"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "Output is estimated. If the price changes by more than {0}% your transaction will revert."
 msgstr "取引結果は概算です。価格が {0}%以上変化した場合、取引は差し戻される見込みです。"
@@ -1332,7 +1332,7 @@ msgstr "価格範囲"
 msgid "Price:"
 msgstr "価格:"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Prices and pool share"
 msgstr "価格とプールシェア"
 
@@ -1573,12 +1573,12 @@ msgstr "成功"
 msgid "Success"
 msgstr "成功"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Supply"
 msgstr "追加"
 
-#: src/pages/AddLiquidityV2/index.tsx
-msgid "Supplying {0} {1} and {2} {3}"
+#: src/pages/AddLiquidity/index.tsx
+msgid "Supplying {0} and {1}"
 msgstr "{0} {1} と {2} {3} を追加中"
 
 #: src/components/Header/index.tsx
@@ -1711,7 +1711,7 @@ msgstr "現在の価格は設定した価格範囲から外れています。そ
 msgid "The price of this pool is within your selected range. Your position is currently earning fees."
 msgstr "現在の価格は設定した価格範囲に入っています。そのため、あなたの流動性は現在、報酬を獲得しています。"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "The ratio of tokens you add will set the price of this pool."
 msgstr "追加するトークンの比率によって、プールの価格が決まります。"
 
@@ -1929,7 +1929,7 @@ msgid "Unlocking Votes"
 msgstr "投票のロックを解除中"
 
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/Swap/index.tsx
 msgid "Unsupported Asset"
 msgstr "サポートされていないトークン"
@@ -2131,7 +2131,7 @@ msgstr "<0/> から {0} にラップ"
 msgid "You already have an active or pending proposal"
 msgstr "すでにアクティブまたは保留中の提案があります"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "You are creating a pool"
 msgstr "プールを作成しています"
 
@@ -2139,7 +2139,7 @@ msgstr "プールを作成しています"
 msgid "You are the first liquidity provider for this Uniswap V3 pool. Your liquidity will migrate at the current {0} price."
 msgstr "あなたはUniswap V3プールの最初の流動性提供者です。流動性は現在の {0} での価格で移行されます。"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "You are the first liquidity provider."
 msgstr "あなたは最初の流動性プロバイダーです。"
 
@@ -2191,7 +2191,7 @@ msgstr "Uniswap V3への流動性の預け入れは、正しいと思われる�
 msgid "You will also collect fees earned from this position."
 msgstr "また、このポジションから得られた報酬も受け取ります。"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "You will receive"
 msgstr "受け取る数量"

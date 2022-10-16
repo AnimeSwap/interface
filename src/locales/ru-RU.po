@@ -100,7 +100,7 @@ msgstr "<0> Подсказка:</0> выберите действие и опи�
 msgid "<0>Tip:</0> Use this tool to find v2 pools that don't automatically appear in the interface."
 msgstr "<0> Подсказка:</0> Используйте этот инструмент для поиска пулов в V2, которые не отображаются автоматически в интерфейсе."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "<0>Tip:</0> When you add liquidity, you will receive pool tokens representing your position. These tokens automatically earn fees proportional to your share of the pool, and can be redeemed at any time."
 msgstr "<0>Подсказка:</0> При добавлении ликвидности вы получите токены пула, представляющие вашу позицию. Эти токены автоматически зарабатывают комиссию пропорционально вашей доле в пуле и могут быть погашены в любое время."
 
@@ -231,8 +231,8 @@ msgstr "Одобрить токен"
 #: src/components/AccountDetails/TransactionSummary.tsx
 #: src/pages/AddLiquidity/index.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Approve {0}"
 msgstr "Одобрить {0}"
 
@@ -247,8 +247,8 @@ msgstr "Идёт одобрение"
 
 #: src/pages/AddLiquidity/index.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Approving {0}"
 msgstr "Идёт одобрение {0}"
 
@@ -498,7 +498,7 @@ msgstr "Подтвердите транзакцию в кошельке"
 #: src/components/Web3Status/index.tsx
 #: src/components/earn/ClaimRewardModal.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 #: src/pages/Swap/index.tsx
 #: src/state/burn/hooks.tsx
@@ -911,7 +911,7 @@ msgstr "В диапазоне"
 msgid "Increase Liquidity"
 msgstr "Увеличить ликвидность"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Initial prices and pool share"
 msgstr "Начальные цены и доля в пуле"
 
@@ -1186,7 +1186,7 @@ msgstr "Не создано"
 msgid "ONLY USE THIS MODE IF YOU KNOW WHAT YOU ARE DOING."
 msgstr "ИСПОЛЬЗУЙТЕ ЭТОТ РЕЖИМ, ТОЛЬКО ЕСЛИ ЗНАЕТЕ, ЧТО ДЕЛАЕТЕ."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Once you are happy with the rate click supply to review."
 msgstr "Как только вы будете довольны курсом, нажмите «Внести», чтобы перейти к подтверждению."
 
@@ -1210,7 +1210,7 @@ msgstr "Etherscan для Optimism"
 msgid "Out of range"
 msgstr "Вне диапазона"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "Output is estimated. If the price changes by more than {0}% your transaction will revert."
 msgstr "Сумма к получению — оценочная. Если цена изменится более, чем на {0}%, ваша транзакция откатится."
@@ -1332,7 +1332,7 @@ msgstr "Диапазон цен"
 msgid "Price:"
 msgstr "Цена:"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Prices and pool share"
 msgstr "Цены и доля в пуле"
 
@@ -1573,12 +1573,12 @@ msgstr "Успешно"
 msgid "Success"
 msgstr "Успешно"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Supply"
 msgstr "Внести"
 
-#: src/pages/AddLiquidityV2/index.tsx
-msgid "Supplying {0} {1} and {2} {3}"
+#: src/pages/AddLiquidity/index.tsx
+msgid "Supplying {0} and {1}"
 msgstr "Внесение {0} {1} и {2} {3}"
 
 #: src/components/Header/index.tsx
@@ -1711,7 +1711,7 @@ msgstr "Цена этого пула находится за пределами 
 msgid "The price of this pool is within your selected range. Your position is currently earning fees."
 msgstr "Цена этого пула находится в пределах выбранного вами диапазона. Ваша позиция в настоящее время зарабатывает комиссии."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "The ratio of tokens you add will set the price of this pool."
 msgstr "Соотношение добавляемых вами токенов установит цену этого пула."
 
@@ -1929,7 +1929,7 @@ msgid "Unlocking Votes"
 msgstr "Разблокировка голосов"
 
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/Swap/index.tsx
 msgid "Unsupported Asset"
 msgstr "Актив не поддерживается"
@@ -2131,7 +2131,7 @@ msgstr "Обернуть <0/> в {0}"
 msgid "You already have an active or pending proposal"
 msgstr "У вас уже есть активное или ожидающее рассмотрения предложение"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "You are creating a pool"
 msgstr "Вы создаете пул"
 
@@ -2139,7 +2139,7 @@ msgstr "Вы создаете пул"
 msgid "You are the first liquidity provider for this Uniswap V3 pool. Your liquidity will migrate at the current {0} price."
 msgstr "Вы первый поставщик ликвидности в этом пуле Uniswap V3. Ваша ликвидность будет перенесена по текущей цене {0}."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "You are the first liquidity provider."
 msgstr "Вы первый поставщик ликвидности."
 
@@ -2191,7 +2191,7 @@ msgstr "Вносить ликвидность в Uniswap V3 следует то�
 msgid "You will also collect fees earned from this position."
 msgstr "Вы также будете получать комиссию, заработанную этой позицией."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "You will receive"
 msgstr "Вы получите"

@@ -100,7 +100,7 @@ msgstr "<0> نصيحة:</0> حدد إجراء ووصف اقتراحك للمجت
 msgid "<0>Tip:</0> Use this tool to find v2 pools that don't automatically appear in the interface."
 msgstr "<0> نصيحة:</0> استخدم هذه الأداة للبحث عن مجموعات v2 التي لا تظهر تلقائيًا في الواجهة."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "<0>Tip:</0> When you add liquidity, you will receive pool tokens representing your position. These tokens automatically earn fees proportional to your share of the pool, and can be redeemed at any time."
 msgstr "<0>نصيحة:</0> عندما تضيف السيولة، سوف تتلقى رموز المجموعة التي تمثل مركزك. هذه الرموز تحصل تلقائيًا على رسوم تتناسب مع نصيبك من المجموعة، ويمكن استبدالها في أي وقت."
 
@@ -231,8 +231,8 @@ msgstr "الموافقة على رمز"
 #: src/components/AccountDetails/TransactionSummary.tsx
 #: src/pages/AddLiquidity/index.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Approve {0}"
 msgstr "الموافقة على {0}"
 
@@ -247,8 +247,8 @@ msgstr "الموافقة"
 
 #: src/pages/AddLiquidity/index.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Approving {0}"
 msgstr "الموافقة على {0}"
 
@@ -498,7 +498,7 @@ msgstr "تأكيد المعاملة في المحفظة"
 #: src/components/Web3Status/index.tsx
 #: src/components/earn/ClaimRewardModal.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 #: src/pages/Swap/index.tsx
 #: src/state/burn/hooks.tsx
@@ -911,7 +911,7 @@ msgstr "في النطاق"
 msgid "Increase Liquidity"
 msgstr "زيادة السيولة"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Initial prices and pool share"
 msgstr "الأسعار الأولية وحصة المجموعة"
 
@@ -1186,7 +1186,7 @@ msgstr "لم يتم إنشاؤه"
 msgid "ONLY USE THIS MODE IF YOU KNOW WHAT YOU ARE DOING."
 msgstr "فقط استخدم هذا الخيار مع ما تعلمونه من أمور."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Once you are happy with the rate click supply to review."
 msgstr "بعد أن تكون راضيًا عن السعر، انقر على الإمداد للمراجعة."
 
@@ -1210,7 +1210,7 @@ msgstr "متفائل Etherscan"
 msgid "Out of range"
 msgstr "خارج النطاق"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "Output is estimated. If the price changes by more than {0}% your transaction will revert."
 msgstr "الناتج تقديري. إذا تغير السعر بأكثر من {0}٪ سوف تعود المعاملة الخاصة بك."
@@ -1332,7 +1332,7 @@ msgstr "نطاق السعر"
 msgid "Price:"
 msgstr "السعر:"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Prices and pool share"
 msgstr "الأسعار وحصة المجموعة"
 
@@ -1573,12 +1573,12 @@ msgstr "نجح"
 msgid "Success"
 msgstr "النجاح"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Supply"
 msgstr "الإمداد"
 
-#: src/pages/AddLiquidityV2/index.tsx
-msgid "Supplying {0} {1} and {2} {3}"
+#: src/pages/AddLiquidity/index.tsx
+msgid "Supplying {0} and {1}"
 msgstr "إمداد {0} {1} و {2} {3}"
 
 #: src/components/Header/index.tsx
@@ -1711,7 +1711,7 @@ msgstr "سعر هذه المجموعة خارج النطاق المحدد الخ
 msgid "The price of this pool is within your selected range. Your position is currently earning fees."
 msgstr "سعر هذه المجموعة ضمن النطاق المحدد الخاص بك. منصبك يكسب رسومًا حاليًا."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "The ratio of tokens you add will set the price of this pool."
 msgstr "نسبة الرموز التي تضيفها سوف تحدد سعر هذه المجموعة."
 
@@ -1929,7 +1929,7 @@ msgid "Unlocking Votes"
 msgstr "فتح الأصوات"
 
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/Swap/index.tsx
 msgid "Unsupported Asset"
 msgstr "الأصول غير المدعومة"
@@ -2131,7 +2131,7 @@ msgstr "لف من <0/> إلى {0}"
 msgid "You already have an active or pending proposal"
 msgstr "لديك بالفعل اقتراح نشط أو معلق"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "You are creating a pool"
 msgstr "أنت تقوم بإنشاء مجموعة"
 
@@ -2139,7 +2139,7 @@ msgstr "أنت تقوم بإنشاء مجموعة"
 msgid "You are the first liquidity provider for this Uniswap V3 pool. Your liquidity will migrate at the current {0} price."
 msgstr "أنت أول موفر للسيولة لمجموعة Uniswap V3 هذا. ستنتقل السيولة الخاصة بك بسعر {0} الحالي."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "You are the first liquidity provider."
 msgstr "أنت أول موفر للسيولة."
 
@@ -2191,7 +2191,7 @@ msgstr "يجب عليك إيداع السيولة فقط في Uniswap V3 بسع�
 msgid "You will also collect fees earned from this position."
 msgstr "سوف تحصل أيضا على الرسوم المكتسبة من هذه الوظيفة."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "You will receive"
 msgstr "سوف تستقبل"

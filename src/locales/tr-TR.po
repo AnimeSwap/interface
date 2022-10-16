@@ -100,7 +100,7 @@ msgstr "<0>İpucu:</0> Bir eylem seçin ve topluluk için teklifinizi açıklay�
 msgid "<0>Tip:</0> Use this tool to find v2 pools that don't automatically appear in the interface."
 msgstr "<0>İpucu:</0> Arayüzde otomatik olarak görünmeyen v2 havuzlarını bulmak için bu aracı kullanın."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "<0>Tip:</0> When you add liquidity, you will receive pool tokens representing your position. These tokens automatically earn fees proportional to your share of the pool, and can be redeemed at any time."
 msgstr "<0> İpucu:</0> Likidite eklediğinizde, pozisyonunuzu temsil eden havuz jetonları alacaksınız. Bu jetonlar otomatik olarak havuzdaki payınızla orantılı ücretler kazanır ve herhangi bir zamanda kullanılabilir."
 
@@ -231,8 +231,8 @@ msgstr "Onay Simgesi"
 #: src/components/AccountDetails/TransactionSummary.tsx
 #: src/pages/AddLiquidity/index.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Approve {0}"
 msgstr "Onayla {0}"
 
@@ -247,8 +247,8 @@ msgstr "Onaylanıyor"
 
 #: src/pages/AddLiquidity/index.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Approving {0}"
 msgstr "Onaylanıyor {0}"
 
@@ -498,7 +498,7 @@ msgstr "Cüzdandaki işlemi onaylayın"
 #: src/components/Web3Status/index.tsx
 #: src/components/earn/ClaimRewardModal.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 #: src/pages/Swap/index.tsx
 #: src/state/burn/hooks.tsx
@@ -911,7 +911,7 @@ msgstr "Aralıkta"
 msgid "Increase Liquidity"
 msgstr "Likiditeyi Artırın"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Initial prices and pool share"
 msgstr "İlk fiyatlar ve havuz payı"
 
@@ -1186,7 +1186,7 @@ msgstr "oluşturulmadı"
 msgid "ONLY USE THIS MODE IF YOU KNOW WHAT YOU ARE DOING."
 msgstr "BU MODU YALNIZCA NE YAPTIĞINIZI BİLİYORSANIZ KULLANIN."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Once you are happy with the rate click supply to review."
 msgstr "Fiyattan memnun olduğunuzda, incelemek için kaynağa tıklayın."
 
@@ -1210,7 +1210,7 @@ msgstr "İyimser Etherscan"
 msgid "Out of range"
 msgstr "Aralık dışında"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "Output is estimated. If the price changes by more than {0}% your transaction will revert."
 msgstr "Çıktı tahminidir. Fiyat %{0} oranından fazla değişirse işleminiz geri alınır."
@@ -1332,7 +1332,7 @@ msgstr "Fiyat aralığı"
 msgid "Price:"
 msgstr "Fiyat:"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Prices and pool share"
 msgstr "Fiyatlar ve havuz payı"
 
@@ -1573,12 +1573,12 @@ msgstr "başarılı"
 msgid "Success"
 msgstr "Başarı"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Supply"
 msgstr "Kaynak"
 
-#: src/pages/AddLiquidityV2/index.tsx
-msgid "Supplying {0} {1} and {2} {3}"
+#: src/pages/AddLiquidity/index.tsx
+msgid "Supplying {0} and {1}"
 msgstr "{0} {1} ve {2} {3} temini"
 
 #: src/components/Header/index.tsx
@@ -1711,7 +1711,7 @@ msgstr "Bu havuzun fiyatı, seçtiğiniz aralığın dışında. Pozisyonunuz ş
 msgid "The price of this pool is within your selected range. Your position is currently earning fees."
 msgstr "Bu havuzun fiyatı seçtiğiniz aralık dahilinde. Pozisyonunuz şu anda ücret kazanıyor."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "The ratio of tokens you add will set the price of this pool."
 msgstr "Eklediğiniz jeton oranı, bu havuzun fiyatını belirleyecektir."
 
@@ -1929,7 +1929,7 @@ msgid "Unlocking Votes"
 msgstr "Oyların Kilidi Açılıyor"
 
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/Swap/index.tsx
 msgid "Unsupported Asset"
 msgstr "Desteklenmeyen Varlık"
@@ -2131,7 +2131,7 @@ msgstr "<0/> {0}kaydır"
 msgid "You already have an active or pending proposal"
 msgstr "Zaten etkin veya bekleyen bir teklifiniz var"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "You are creating a pool"
 msgstr "Bir havuz oluşturuyorsunuz"
 
@@ -2139,7 +2139,7 @@ msgstr "Bir havuz oluşturuyorsunuz"
 msgid "You are the first liquidity provider for this Uniswap V3 pool. Your liquidity will migrate at the current {0} price."
 msgstr "Bu Uniswap V3 havuzu için ilk likidite sağlayıcısısınız. Likiditeniz mevcut {0} fiyatından geçecek."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "You are the first liquidity provider."
 msgstr "İlk likidite sağlayıcısısınız."
 
@@ -2191,7 +2191,7 @@ msgstr "Uniswap V3'e yalnızca doğru olduğuna inandığınız bir fiyat üzeri
 msgid "You will also collect fees earned from this position."
 msgstr "Ayrıca bu pozisyondan kazanılan ücretleri de toplarsınız."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "You will receive"
 msgstr "Alacağınız:"

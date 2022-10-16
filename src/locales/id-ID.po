@@ -100,7 +100,7 @@ msgstr "<0>Tip:</0> Pilih tindakan dan jelaskan proposal Anda untuk komunitas. P
 msgid "<0>Tip:</0> Use this tool to find v2 pools that don't automatically appear in the interface."
 msgstr "<0>Kiat:</0> Gunakan alat ini untuk menemukan pool v2 yang tidak otomatis muncul di antarmuka."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "<0>Tip:</0> When you add liquidity, you will receive pool tokens representing your position. These tokens automatically earn fees proportional to your share of the pool, and can be redeemed at any time."
 msgstr "<0>Kiat:</0> Saat menambahkan likuiditas, Anda akan menerima token pool yang mewakili posisi Anda. Token ini secara otomatis menghasilkan biaya yang sebanding dengan bagian Anda dalam pool, dan dapat ditukarkan kapan saja."
 
@@ -231,8 +231,8 @@ msgstr "Setujui Token"
 #: src/components/AccountDetails/TransactionSummary.tsx
 #: src/pages/AddLiquidity/index.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Approve {0}"
 msgstr "Setujui {0}"
 
@@ -247,8 +247,8 @@ msgstr "Menyetujui"
 
 #: src/pages/AddLiquidity/index.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Approving {0}"
 msgstr "Menyetujui {0}"
 
@@ -498,7 +498,7 @@ msgstr "Konfirmasi transaksi di dompet"
 #: src/components/Web3Status/index.tsx
 #: src/components/earn/ClaimRewardModal.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 #: src/pages/Swap/index.tsx
 #: src/state/burn/hooks.tsx
@@ -911,7 +911,7 @@ msgstr "Dalam rentang"
 msgid "Increase Liquidity"
 msgstr "Tingkatkan Likuiditas"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Initial prices and pool share"
 msgstr "Harga awal dan bagian pool"
 
@@ -1186,7 +1186,7 @@ msgstr "Belum dibuat"
 msgid "ONLY USE THIS MODE IF YOU KNOW WHAT YOU ARE DOING."
 msgstr "GUNAKAN MODE INI HANYA JIKA ANDA TAHU APA YANG ANDA LAKUKAN."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Once you are happy with the rate click supply to review."
 msgstr "Setelah Anda puas dengan penawaran harga klik untuk meninjau."
 
@@ -1210,7 +1210,7 @@ msgstr "Optimis Etherscan"
 msgid "Out of range"
 msgstr "Diluar jangkauan"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "Output is estimated. If the price changes by more than {0}% your transaction will revert."
 msgstr "Output diperkirakan. Jika harga berubah lebih dari {0}%, transaksi Anda akan dikembalikan."
@@ -1332,7 +1332,7 @@ msgstr "Rentang harga"
 msgid "Price:"
 msgstr "Harga:"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Prices and pool share"
 msgstr "Harga dan bagian pool"
 
@@ -1573,12 +1573,12 @@ msgstr "Berhasil"
 msgid "Success"
 msgstr "Berhasil"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Supply"
 msgstr "Pasokan"
 
-#: src/pages/AddLiquidityV2/index.tsx
-msgid "Supplying {0} {1} and {2} {3}"
+#: src/pages/AddLiquidity/index.tsx
+msgid "Supplying {0} and {1}"
 msgstr "Memasok {0} {1} dan {2} {3}"
 
 #: src/components/Header/index.tsx
@@ -1711,7 +1711,7 @@ msgstr "Harga pool ini di luar rentang yang Anda pilih. Posisi Anda saat ini tid
 msgid "The price of this pool is within your selected range. Your position is currently earning fees."
 msgstr "Harga pool ini berada dalam rentang yang Anda pilih. Posisi Anda saat ini menghasilkan biaya."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "The ratio of tokens you add will set the price of this pool."
 msgstr "Rasio token yang Anda tambahkan akan menetapkan harga pool ini."
 
@@ -1929,7 +1929,7 @@ msgid "Unlocking Votes"
 msgstr "Membuka Suara"
 
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/Swap/index.tsx
 msgid "Unsupported Asset"
 msgstr "Aset Tidak Didukung"
@@ -2131,7 +2131,7 @@ msgstr "Bungkus <0/> hingga {0}"
 msgid "You already have an active or pending proposal"
 msgstr "Anda sudah memiliki proposal yang aktif atau tertunda"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "You are creating a pool"
 msgstr "Anda sedang membuat pool"
 
@@ -2139,7 +2139,7 @@ msgstr "Anda sedang membuat pool"
 msgid "You are the first liquidity provider for this Uniswap V3 pool. Your liquidity will migrate at the current {0} price."
 msgstr "Anda adalah penyedia likuiditas pertama untuk pool Uniswap V3 ini. Likuiditas Anda akan bermigrasi pada harga {0} saat ini."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "You are the first liquidity provider."
 msgstr "Anda adalah penyedia likuiditas pertama."
 
@@ -2191,7 +2191,7 @@ msgstr "Anda hanya boleh menyetorkan likuiditas ke Uniswap V3 dengan harga yang 
 msgid "You will also collect fees earned from this position."
 msgstr "Anda juga akan memungut biaya yang diperoleh dari posisi ini."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "You will receive"
 msgstr "Anda akan menerima"

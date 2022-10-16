@@ -100,7 +100,7 @@ msgstr "<0>Kidokezo:</0> Chagua kitendo na ueleze pendekezo lako kwa jamii. Pend
 msgid "<0>Tip:</0> Use this tool to find v2 pools that don't automatically appear in the interface."
 msgstr "<0> Kidokezo:</0> Tumia zana hii kupata shares ya v2 ambayo hayaonekani kiotomatiki kwenye muonekano wa nje."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "<0>Tip:</0> When you add liquidity, you will receive pool tokens representing your position. These tokens automatically earn fees proportional to your share of the pool, and can be redeemed at any time."
 msgstr "<0>Kidokezo:</0> Unapoongeza mtaji, utapokea ishara za share zinazowakilisha msimamo wako. Hizi ishara moja kwa moja hupata ada kulingana na sehemu yako ya share, na inaweza kubadilika kwa matumisi kwa wakati wowote."
 
@@ -231,8 +231,8 @@ msgstr "Sibitisha Tokeni"
 #: src/components/AccountDetails/TransactionSummary.tsx
 #: src/pages/AddLiquidity/index.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Approve {0}"
 msgstr "Sibitisha {0}"
 
@@ -247,8 +247,8 @@ msgstr "Kusibitisha"
 
 #: src/pages/AddLiquidity/index.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Approving {0}"
 msgstr "Kusibitisha {0}"
 
@@ -498,7 +498,7 @@ msgstr "Thibitisha shughuli kwenye mkoba"
 #: src/components/Web3Status/index.tsx
 #: src/components/earn/ClaimRewardModal.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 #: src/pages/Swap/index.tsx
 #: src/state/burn/hooks.tsx
@@ -911,7 +911,7 @@ msgstr "Katika anuwai"
 msgid "Increase Liquidity"
 msgstr "Ongeza Liquidity"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Initial prices and pool share"
 msgstr "Bei za awali na sehemu ya dimbwi"
 
@@ -1186,7 +1186,7 @@ msgstr "Haijaundwa"
 msgid "ONLY USE THIS MODE IF YOU KNOW WHAT YOU ARE DOING."
 msgstr "TUMIA Modi hii tu ikiwa unajua unachofanya."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Once you are happy with the rate click supply to review."
 msgstr "Mara tu unapofurahi na usambazaji wa kiwango cha bonyeza kukagua."
 
@@ -1210,7 +1210,7 @@ msgstr "Matarajio ya Etherscan"
 msgid "Out of range"
 msgstr "Kati ya masafa"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "Output is estimated. If the price changes by more than {0}% your transaction will revert."
 msgstr "Pato inakadiriwa. Ikiwa bei itabadilika kwa zaidi ya {0}% shughuli yako itarejea."
@@ -1332,7 +1332,7 @@ msgstr "Kiwango cha bei"
 msgid "Price:"
 msgstr "Bei:"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Prices and pool share"
 msgstr "Bei na sehemu ya dimbwi"
 
@@ -1573,12 +1573,12 @@ msgstr "Imefanikiwa"
 msgid "Success"
 msgstr "Mafanikio"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Supply"
 msgstr "Ugavi"
 
-#: src/pages/AddLiquidityV2/index.tsx
-msgid "Supplying {0} {1} and {2} {3}"
+#: src/pages/AddLiquidity/index.tsx
+msgid "Supplying {0} and {1}"
 msgstr "Kusambaza {0} {1} na {2} {3}"
 
 #: src/components/Header/index.tsx
@@ -1711,7 +1711,7 @@ msgstr "Bei ya dimbwi hili iko nje ya masafa yako uliyochagua. Msimamo wako kwa 
 msgid "The price of this pool is within your selected range. Your position is currently earning fees."
 msgstr "Bei ya dimbwi hili iko katika anuwai uliyochagua. Msimamo wako kwa sasa unapata ada."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "The ratio of tokens you add will set the price of this pool."
 msgstr "Uwiano wa ishara unazoongeza zitaweka bei ya dimbwi hili."
 
@@ -1929,7 +1929,7 @@ msgid "Unlocking Votes"
 msgstr "Kufungua Kura"
 
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/Swap/index.tsx
 msgid "Unsupported Asset"
 msgstr "Sifa isiyotumika"
@@ -2131,7 +2131,7 @@ msgstr "Funga <0/> hadi {0}"
 msgid "You already have an active or pending proposal"
 msgstr "Tayari una pendekezo linalotumika au linalosubiri"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "You are creating a pool"
 msgstr "Unaunda dimbwi"
 
@@ -2139,7 +2139,7 @@ msgstr "Unaunda dimbwi"
 msgid "You are the first liquidity provider for this Uniswap V3 pool. Your liquidity will migrate at the current {0} price."
 msgstr "Wewe ndiye mtoaji wa kwanza wa ukwasi wa dimbwi hili la V3 lisilobadilishwa. Ukwasi wako kuhamia kwa bei {0}"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "You are the first liquidity provider."
 msgstr "Wewe ndiye mtoaji wa kwanza wa ukwasi."
 
@@ -2191,7 +2191,7 @@ msgstr "Unapaswa kuweka tu ukwasi kwenye Uniswap V3 kwa bei unayoamini ni sahihi
 msgid "You will also collect fees earned from this position."
 msgstr "Pia utakusanya ada inayopatikana kutoka kwa nafasi hii."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "You will receive"
 msgstr "Utapokea"

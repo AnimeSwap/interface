@@ -100,7 +100,7 @@ msgstr "<0> Tip:</0> Vyberte akci a popište svůj návrh pro komunitu. Po odesl
 msgid "<0>Tip:</0> Use this tool to find v2 pools that don't automatically appear in the interface."
 msgstr "<0> Tip:</0> Pomocí tohoto nástroje můžete najít fondy v2, které se v rozhraní nezobrazí automaticky."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "<0>Tip:</0> When you add liquidity, you will receive pool tokens representing your position. These tokens automatically earn fees proportional to your share of the pool, and can be redeemed at any time."
 msgstr "<0>Tip:</0> Když přidáte likviditu, obdržíte žetony fondu reprezentující Vaši pozici. Tyto žetony automaticky vynášejí poplatky úměrně Vašemu podílu na fondu a kdykoli je lze vykoupit."
 
@@ -231,8 +231,8 @@ msgstr "Schválit token"
 #: src/components/AccountDetails/TransactionSummary.tsx
 #: src/pages/AddLiquidity/index.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Approve {0}"
 msgstr "Schválit {0}"
 
@@ -247,8 +247,8 @@ msgstr "Schvalování"
 
 #: src/pages/AddLiquidity/index.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Approving {0}"
 msgstr "Schvalování {0}"
 
@@ -498,7 +498,7 @@ msgstr "Potvrďte transakci v peněžence"
 #: src/components/Web3Status/index.tsx
 #: src/components/earn/ClaimRewardModal.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 #: src/pages/Swap/index.tsx
 #: src/state/burn/hooks.tsx
@@ -911,7 +911,7 @@ msgstr "V rozsahu"
 msgid "Increase Liquidity"
 msgstr "Zvýšit likviditu"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Initial prices and pool share"
 msgstr "Počáteční ceny a podíl na fondu"
 
@@ -1186,7 +1186,7 @@ msgstr "Není vytvořeno"
 msgid "ONLY USE THIS MODE IF YOU KNOW WHAT YOU ARE DOING."
 msgstr "TENTO REŽIM POUŽIJTE JEN TEHDY, JESTLIŽE VÍTE, CO DĚLÁTE."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Once you are happy with the rate click supply to review."
 msgstr "Až budete spokojeni se sazbou, klikněte na zásobu pro kontrolu."
 
@@ -1210,7 +1210,7 @@ msgstr "Optimistický Etherscan"
 msgid "Out of range"
 msgstr "Mimo rozsah"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "Output is estimated. If the price changes by more than {0}% your transaction will revert."
 msgstr "Výstup je odhadnutý. Jestliže se cena změní o více než {0} %, Vaše transakce bude vzata zpět."
@@ -1332,7 +1332,7 @@ msgstr "Cenové rozpětí"
 msgid "Price:"
 msgstr "Cena:"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Prices and pool share"
 msgstr "Ceny a podíl na trhu"
 
@@ -1573,12 +1573,12 @@ msgstr "Uspěl"
 msgid "Success"
 msgstr "Úspěch"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Supply"
 msgstr "Zásoba"
 
-#: src/pages/AddLiquidityV2/index.tsx
-msgid "Supplying {0} {1} and {2} {3}"
+#: src/pages/AddLiquidity/index.tsx
+msgid "Supplying {0} and {1}"
 msgstr "Dodávání {0} {1} a {2} {3}"
 
 #: src/components/Header/index.tsx
@@ -1711,7 +1711,7 @@ msgstr "Cena tohoto fondu je mimo Vámi vybrané rozmezí. Vaše pozice v souča
 msgid "The price of this pool is within your selected range. Your position is currently earning fees."
 msgstr "Cena tohoto fondu je ve Vámi vybraném rozsahu. Vaše pozice nyní vynáší poplatky."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "The ratio of tokens you add will set the price of this pool."
 msgstr "Cenu tohoto fondu stanoví poměr žetonů, které přidáte."
 
@@ -1929,7 +1929,7 @@ msgid "Unlocking Votes"
 msgstr "Odblokování hlasů"
 
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/Swap/index.tsx
 msgid "Unsupported Asset"
 msgstr "Nepodporované aktivum"
@@ -2131,7 +2131,7 @@ msgstr "Zabalit <0/> až {0}"
 msgid "You already have an active or pending proposal"
 msgstr "Již máte aktivní nebo nevyřízenou nabídku"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "You are creating a pool"
 msgstr "Vytváříte fond"
 
@@ -2139,7 +2139,7 @@ msgstr "Vytváříte fond"
 msgid "You are the first liquidity provider for this Uniswap V3 pool. Your liquidity will migrate at the current {0} price."
 msgstr "Jste prvním poskytovatelem likvidity pro tento fond Uniswap V3. Vaše likvidita bude migrovat za aktuální cenu {0}."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "You are the first liquidity provider."
 msgstr "Jste prvním poskytovatelem likvidity."
 
@@ -2191,7 +2191,7 @@ msgstr "Likviditu byste měli do Uniswap V3 vložit pouze za cenu, o které si m
 msgid "You will also collect fees earned from this position."
 msgstr "Budete také pobírat poplatky získané z této pozice."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "You will receive"
 msgstr "Obdržíte"

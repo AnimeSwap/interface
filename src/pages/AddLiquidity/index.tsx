@@ -166,9 +166,9 @@ export default function AddLiquidity() {
   }
 
   const pendingText = (
-    <Trans>
+    <>
       Supplying {coinA_amount?.prettyWithSymbol()} and {coinB_amount?.prettyWithSymbol()}
-    </Trans>
+    </>
   )
 
   const handleCurrencyASelect = useCallback(

@@ -100,7 +100,7 @@ msgstr "<0> טיפ:</0> בחר פעולה ותיאר את ההצעה שלך לק
 msgid "<0>Tip:</0> Use this tool to find v2 pools that don't automatically appear in the interface."
 msgstr "<0> טיפ:</0> השתמש בכלי זה כדי למצוא מאגרי v2 שלא מופיעים אוטומטית בממשק."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "<0>Tip:</0> When you add liquidity, you will receive pool tokens representing your position. These tokens automatically earn fees proportional to your share of the pool, and can be redeemed at any time."
 msgstr "<0> טיפ:</0> כשתוסיף נזילות, תקבל אסימונים לבריכה המייצגים את עמדתך. אסימונים אלה מרוויחים עמלות באופן אוטומטי ביחס לחלקך בבריכה, וניתן לפדותם בכל עת."
 
@@ -231,8 +231,8 @@ msgstr "אשר אסימון"
 #: src/components/AccountDetails/TransactionSummary.tsx
 #: src/pages/AddLiquidity/index.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Approve {0}"
 msgstr "אשר {0}"
 
@@ -247,8 +247,8 @@ msgstr "מאשר"
 
 #: src/pages/AddLiquidity/index.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Approving {0}"
 msgstr "מאשר {0}"
 
@@ -498,7 +498,7 @@ msgstr "אשר עסקה בארנק"
 #: src/components/Web3Status/index.tsx
 #: src/components/earn/ClaimRewardModal.tsx
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 #: src/pages/Swap/index.tsx
 #: src/state/burn/hooks.tsx
@@ -911,7 +911,7 @@ msgstr "בטווח"
 msgid "Increase Liquidity"
 msgstr "הגדל את הנזילות"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Initial prices and pool share"
 msgstr "מחירים ראשוניים ונתח בריכה"
 
@@ -1186,7 +1186,7 @@ msgstr "לא נוצר"
 msgid "ONLY USE THIS MODE IF YOU KNOW WHAT YOU ARE DOING."
 msgstr "השתמש במצב זה בלבד אם אתה יודע מה אתה עושה."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Once you are happy with the rate click supply to review."
 msgstr "ברגע שאתה מרוצה מההספק לחץ על האספקה לבדיקה."
 
@@ -1210,7 +1210,7 @@ msgstr "את'רקאן אופטימי"
 msgid "Out of range"
 msgstr "מחוץ לטווח"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "Output is estimated. If the price changes by more than {0}% your transaction will revert."
 msgstr "התפוקה משוערת. אם המחיר ישתנה ביותר מ- {0}% העסקה שלך תחזור."
@@ -1332,7 +1332,7 @@ msgstr "טווח מחירים"
 msgid "Price:"
 msgstr "מחיר:"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Prices and pool share"
 msgstr "מחירים ונתח בריכה"
 
@@ -1573,12 +1573,12 @@ msgstr "הצליח"
 msgid "Success"
 msgstr "הַצלָחָה"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "Supply"
 msgstr "לְסַפֵּק"
 
-#: src/pages/AddLiquidityV2/index.tsx
-msgid "Supplying {0} {1} and {2} {3}"
+#: src/pages/AddLiquidity/index.tsx
+msgid "Supplying {0} and {1}"
 msgstr "אספקת {0} {1} ו {2} {3}"
 
 #: src/components/Header/index.tsx
@@ -1711,7 +1711,7 @@ msgstr "המחיר של המאגר הזה מחוץ לטווח שבחרתם. עמ
 msgid "The price of this pool is within your selected range. Your position is currently earning fees."
 msgstr "המחיר של המאגר הזה הוא בטווח שבחרתם. עמדתך מרוויחה כרגע עמלות."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "The ratio of tokens you add will set the price of this pool."
 msgstr "יחס האסימונים שתוסיף יקבע את מחיר הבריכה הזו."
 
@@ -1929,7 +1929,7 @@ msgid "Unlocking Votes"
 msgstr "נעילת הצבעות"
 
 #: src/pages/AddLiquidity/index.tsx
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/Swap/index.tsx
 msgid "Unsupported Asset"
 msgstr "נכס לא נתמך"
@@ -2131,7 +2131,7 @@ msgstr "עטוף <0/> ל {0}"
 msgid "You already have an active or pending proposal"
 msgstr "כבר יש לך הצעה פעילה או ממתינה"
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "You are creating a pool"
 msgstr "אתה יוצר בריכה"
 
@@ -2139,7 +2139,7 @@ msgstr "אתה יוצר בריכה"
 msgid "You are the first liquidity provider for this Uniswap V3 pool. Your liquidity will migrate at the current {0} price."
 msgstr "אתה ספק הנזילות הראשון לבריכת Uniswap V3 זו. הנזילות שלך תעבור במחיר {0} הנוכחי."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 msgid "You are the first liquidity provider."
 msgstr "אתה ספק הנזילות הראשון."
 
@@ -2191,7 +2191,7 @@ msgstr "עליכם להפקיד נזילות רק ב- Uniswap V3 במחיר של
 msgid "You will also collect fees earned from this position."
 msgstr "אתה גם יגבה עמלות שהרווחת מתפקיד זה."
 
-#: src/pages/AddLiquidityV2/index.tsx
+#: src/pages/AddLiquidity/index.tsx
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "You will receive"
 msgstr "אתה תקבל"
