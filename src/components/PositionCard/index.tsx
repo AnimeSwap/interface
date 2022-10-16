@@ -72,7 +72,7 @@ export function MinimalPositionCard({ pair, border }: PositionCardProps) {
               <RowFixed>
                 <DoubleCoinLogo coinX={coinX} coinY={coinY} margin={true} size={20} />
                 <Text fontWeight={500} fontSize={20}>
-                  {`${coinX.symbol}/${coinY.symbol}`}
+                  {`${coinX?.symbol}/${coinY?.symbol}`}
                 </Text>
               </RowFixed>
               <RowFixed>
@@ -94,7 +94,7 @@ export function MinimalPositionCard({ pair, border }: PositionCardProps) {
               </FixedHeightRow>
               <FixedHeightRow>
                 <Text fontSize={16} fontWeight={500}>
-                  {coinX.symbol}:
+                  {coinX?.symbol}:
                 </Text>
                 {coinXAmount ? (
                   <RowFixed>
@@ -162,7 +162,7 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
           <AutoRow gap="8px" style={{ marginLeft: '8px' }}>
             <DoubleCoinLogo coinX={coinX} coinY={coinY} size={20} />
             <Text fontWeight={500} fontSize={20}>
-              {`${coinX.symbol}/${coinY.symbol}`}
+              {`${coinX?.symbol}/${coinY?.symbol}`}
             </Text>
           </AutoRow>
           <RowFixed gap="8px" style={{ marginRight: '4px' }}>
@@ -211,7 +211,7 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
             <FixedHeightRow>
               <RowFixed>
                 <Text fontSize={16} fontWeight={500}>
-                  <Trans>Pooled {coinX.symbol}:</Trans>
+                  <Trans>Pooled {coinX?.symbol}:</Trans>
                 </Text>
               </RowFixed>
               {coinXAmount ? (
@@ -229,7 +229,7 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
             <FixedHeightRow>
               <RowFixed>
                 <Text fontSize={16} fontWeight={500}>
-                  <Trans>Pooled {coinY.symbol}:</Trans>
+                  <Trans>Pooled {coinY?.symbol}:</Trans>
                 </Text>
               </RowFixed>
               {coinYAmount ? (

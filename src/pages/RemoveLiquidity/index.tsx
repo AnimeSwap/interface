@@ -150,7 +150,7 @@ export default function RemoveLiquidity() {
           padding={'12px 0 0 0'}
         >
           <Trans>
-            Output is estimated. If the price changes by more than {BP.mul(allowedSlippage).toSD(4).toString()}% your
+            Output is estimated. If the price changes by more than {(allowedSlippage / 100).toFixed(2)}% your
             transaction will revert.
           </Trans>
         </ThemedText.DeprecatedItalic>
@@ -163,9 +163,7 @@ export default function RemoveLiquidity() {
       <>
         <RowBetween>
           <Text color={theme.deprecated_text2} fontWeight={500} fontSize={16}>
-            <Trans>
-              {coinA?.symbol}/{coinB?.symbol} Burned
-            </Trans>
+            {coinA?.symbol}/{coinB?.symbol} Burned
           </Text>
           <RowFixed>
             <DoubleCoinLogo coinX={coinA} coinY={coinB} margin={true} />
