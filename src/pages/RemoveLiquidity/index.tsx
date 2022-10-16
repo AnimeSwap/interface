@@ -1,7 +1,7 @@
 import { Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
 import { SwitchLocaleLink } from 'components/SwitchLocaleLink'
-import { BP } from 'constants/misc'
+import { BIG_INT_ZERO, BP } from 'constants/misc'
 import { useCoin } from 'hooks/common/Coin'
 import { pairKey, usePair } from 'hooks/common/Pair'
 import { ReactNode, useCallback, useContext, useMemo, useState } from 'react'
@@ -25,8 +25,6 @@ import { Dots } from '../../components/swap/styleds'
 import TransactionConfirmationModal, { ConfirmationModalContent } from '../../components/TransactionConfirmationModal'
 import useDebouncedChangeHandler from '../../hooks/useDebouncedChangeHandler'
 import { useToggleWalletModal } from '../../state/application/hooks'
-import { Field } from '../../state/burn/actions'
-import { useBurnActionHandlers, useBurnState } from '../../state/burn/hooks'
 import { useTransactionAdder } from '../../state/transactions/hooks'
 import { TransactionType } from '../../state/transactions/types'
 import { useChainId, useUserSlippageTolerance } from '../../state/user/hooks'
@@ -35,6 +33,13 @@ import AppBody from '../AppBody'
 import { ClickableText, MaxButton, Wrapper } from '../Pool/styleds'
 
 const DEFAULT_REMOVE_LIQUIDITY_SLIPPAGE_TOLERANCE = 50
+
+export enum Field {
+  LIQUIDITY_PERCENT = 'LIQUIDITY_PERCENT',
+  LIQUIDITY = 'LIQUIDITY',
+  COIN_A = 'COIN_A',
+  COIN_B = 'COIN_B',
+}
 
 export default function RemoveLiquidity() {
   const navigate = useNavigate()
@@ -46,76 +51,43 @@ export default function RemoveLiquidity() {
   const theme = useContext(ThemeContext)
 
   const lpBalance = Utils.d(useLpBalance(pairKey(coinA?.address, coinB?.address)))
-  const coinABalance = useCoinBalance(coinA?.address)
-  const coinBBalance = useCoinBalance(coinB?.address)
+  const coinABalance = Utils.d(useCoinBalance(coinA?.address))
+  const coinBBalance = Utils.d(useCoinBalance(coinB?.address))
 
   const [pairState, pair] = usePair(coinA?.address, coinB?.address)
   const coinYdivXReserve = Utils.d(pair?.coinYReserve).div(Utils.d(pair?.coinXReserve))
   const price = coinYdivXReserve.mul(Utils.pow10(coinA.decimals - coinB.decimals))
 
-  // const formattedAmounts = {
-  //   [Field.LIQUIDITY_PERCENT]: parsedAmounts[Field.LIQUIDITY_PERCENT].equalTo('0')
-  //     ? '0'
-  //     : parsedAmounts[Field.LIQUIDITY_PERCENT].lessThan(new Percent('1', '100'))
-  //     ? '<1'
-  //     : parsedAmounts[Field.LIQUIDITY_PERCENT].toFixed(0),
-  //   [Field.LIQUIDITY]:
-  //     independentField === Field.LIQUIDITY ? typedValue : parsedAmounts[Field.LIQUIDITY]?.toSignificant(6) ?? '',
-  //   [Field.CURRENCY_A]:
-  //     independentField === Field.CURRENCY_A ? typedValue : parsedAmounts[Field.CURRENCY_A]?.toSignificant(6) ?? '',
-  //   [Field.CURRENCY_B]:
-  //     independentField === Field.CURRENCY_B ? typedValue : parsedAmounts[Field.CURRENCY_B]?.toSignificant(6) ?? '',
-  // }
-
   // useDerivedBurnInfo
+  const [parsedAmounts, setParsedAmounts] = useState({
+    [Field.LIQUIDITY_PERCENT]: '0',
+    [Field.LIQUIDITY]: BIG_INT_ZERO,
+    [Field.COIN_A]: BIG_INT_ZERO,
+    [Field.COIN_B]: BIG_INT_ZERO,
+  })
+
   let error: ReactNode | undefined
   if (!account) {
     error = <Trans>Connect Wallet</Trans>
   }
 
-  // if (!parsedAmounts[Field.LIQUIDITY] || !parsedAmounts[Field.CURRENCY_A] || !parsedAmounts[Field.CURRENCY_B]) {
-  //   error = error ?? <Trans>Enter an amount</Trans>
-  // }
+  if (!parsedAmounts[Field.LIQUIDITY] || !parsedAmounts[Field.COIN_A] || !parsedAmounts[Field.COIN_B]) {
+    error = error ?? <Trans>Enter an amount</Trans>
+  }
 
   // toggle wallet when disconnected
   const toggleWalletModal = useToggleWalletModal()
 
   // burn state
-  const { onUserInput: _onUserInput } = useBurnActionHandlers()
   const isValid = !error
 
   // modal and loading
   const [showConfirm, setShowConfirm] = useState<boolean>(false)
-  const [showDetailed, setShowDetailed] = useState<boolean>(false)
   const [attemptingTxn, setAttemptingTxn] = useState(false) // clicked confirm
 
   // txn values
   const [txHash, setTxHash] = useState<string>('')
   const allowedSlippage = useUserSlippageTolerance()
-
-  // wrapped onUserInput to clear signatures
-  const onUserInput = useCallback(
-    (field: Field, typedValue: string) => {
-      return _onUserInput(field, typedValue)
-    },
-    [_onUserInput]
-  )
-
-  const onLiquidityInput = useCallback(
-    (typedValue: string): void => onUserInput(Field.LIQUIDITY, typedValue),
-    [onUserInput]
-  )
-  const onCoinAInput = useCallback(
-    (typedValue: string): void => onUserInput(Field.CURRENCY_A, typedValue),
-    [onUserInput]
-  )
-  const onCoinBInput = useCallback(
-    (typedValue: string): void => onUserInput(Field.CURRENCY_B, typedValue),
-    [onUserInput]
-  )
-
-  // tx sending
-  const addTransaction = useTransactionAdder()
 
   async function onRemove() {
     if (!chainId || !account) throw new Error('missing dependencies')
@@ -230,33 +202,28 @@ export default function RemoveLiquidity() {
     </Trans>
   )
 
+  function onUserInput(field: Field, value: string) {
+    console.log('onUserInput', field, value)
+    const percent = Utils.d(value).div(100)
+    setParsedAmounts({
+      [Field.LIQUIDITY_PERCENT]: value,
+      [Field.LIQUIDITY]: lpBalance.mul(percent),
+      [Field.COIN_A]: coinABalance.mul(percent),
+      [Field.COIN_B]: coinBBalance.mul(percent),
+    })
+  }
+
   const liquidityPercentChangeCallback = useCallback(
     (value: number) => {
       onUserInput(Field.LIQUIDITY_PERCENT, value.toString())
     },
-    [onUserInput]
+    [setParsedAmounts]
   )
 
-  // const handleSelectCoinA = useCallback(
-  //   (currency: Currency) => {
-  //     if (CoinIdB && coinId(currency) === CoinIdB) {
-  //       navigate(`/remove/v2/${coinId(currency)}/${CoinIdA}`)
-  //     } else {
-  //       navigate(`/remove/v2/${coinId(currency)}/${CoinIdB}`)
-  //     }
-  //   },
-  //   [CoinIdA, CoinIdB, navigate]
-  // )
-  // const handleSelectCoinB = useCallback(
-  //   (currency: Currency) => {
-  //     if (CoinIdA && coinId(currency) === CoinIdA) {
-  //       navigate(`/remove/v2/${CoinIdB}/${coinId(currency)}`)
-  //     } else {
-  //       navigate(`/remove/v2/${CoinIdA}/${coinId(currency)}`)
-  //     }
-  //   },
-  //   [CoinIdA, CoinIdB, navigate]
-  // )
+  const [innerLiquidityPercentage, setInnerLiquidityPercentage] = useDebouncedChangeHandler(
+    Number.parseInt(parsedAmounts[Field.LIQUIDITY_PERCENT]),
+    liquidityPercentChangeCallback
+  )
 
   const handleDismissConfirmation = useCallback(() => {
     setShowConfirm(false)
@@ -265,12 +232,7 @@ export default function RemoveLiquidity() {
       onUserInput(Field.LIQUIDITY_PERCENT, '0')
     }
     setTxHash('')
-  }, [onUserInput, txHash])
-
-  const [innerLiquidityPercentage, setInnerLiquidityPercentage] = useDebouncedChangeHandler(
-    Number.parseInt('0'),
-    liquidityPercentChangeCallback
-  )
+  }, [setParsedAmounts, txHash])
 
   return (
     <>
@@ -312,7 +274,7 @@ export default function RemoveLiquidity() {
                 </RowBetween>
                 <Row style={{ alignItems: 'flex-end' }}>
                   <Text fontSize={72} fontWeight={500}>
-                    25%
+                    {parsedAmounts[Field.LIQUIDITY_PERCENT]}%
                   </Text>
                 </Row>
                 <Slider value={innerLiquidityPercentage} onChange={setInnerLiquidityPercentage} />
