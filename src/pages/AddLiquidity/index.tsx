@@ -68,6 +68,7 @@ export default function AddLiquidity() {
   const { onFieldAInput, onFieldBInput } = useMintActionHandlers(noLiquidity)
 
   const isValid = !error
+  const creating = noLiquidity && coinA && coinB ? true : false
 
   // modal and loading
   const [showConfirm, setShowConfirm] = useState<boolean>(false)
@@ -210,7 +211,7 @@ export default function AddLiquidity() {
   return (
     <>
       <AppBody>
-        <AddRemoveTabs creating={noLiquidity} adding={true} defaultSlippage={DEFAULT_ADD_SLIPPAGE_TOLERANCE} />
+        <AddRemoveTabs creating={creating} adding={true} defaultSlippage={DEFAULT_ADD_SLIPPAGE_TOLERANCE} />
         <Wrapper>
           <TransactionConfirmationModal
             isOpen={showConfirm}
@@ -219,7 +220,7 @@ export default function AddLiquidity() {
             hash={txHash}
             content={() => (
               <ConfirmationModalContent
-                title={noLiquidity ? <Trans>You are creating a pool</Trans> : <Trans>You will receive</Trans>}
+                title={creating ? <Trans>You are creating a pool</Trans> : <Trans>You will receive</Trans>}
                 onDismiss={handleDismissConfirmation}
                 topContent={modalHeader}
                 bottomContent={modalBottom}
@@ -228,7 +229,7 @@ export default function AddLiquidity() {
             pendingText={pendingText}
           />
           <AutoColumn gap="20px">
-            {noLiquidity ? (
+            {creating ? (
               <ColumnCenter>
                 <BlueCard>
                   <AutoColumn gap="10px">
@@ -299,11 +300,7 @@ export default function AddLiquidity() {
                 <LightCard padding="0px" $borderRadius={'20px'}>
                   <RowBetween padding="1rem">
                     <ThemedText.DeprecatedSubHeader fontWeight={500} fontSize={14}>
-                      {noLiquidity ? (
-                        <Trans>Initial prices and pool share</Trans>
-                      ) : (
-                        <Trans>Prices and pool share</Trans>
-                      )}
+                      {creating ? <Trans>Initial prices and pool share</Trans> : <Trans>Prices and pool share</Trans>}
                     </ThemedText.DeprecatedSubHeader>
                   </RowBetween>{' '}
                   <LightCard padding="1rem" $borderRadius={'20px'}>

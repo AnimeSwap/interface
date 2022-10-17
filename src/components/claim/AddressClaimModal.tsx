@@ -176,7 +176,7 @@ export default function AddressClaimModal({ isOpen, onDismiss }: { isOpen: boole
                 faucetBTC()
               }}
             >
-              {formatTime(sinceBTC.getTime() - timeNow)} Get BTC
+              {formatTime(sinceBTC.getTime() - timeNow)} Mint BTC
             </ButtonPrimary>
             <ButtonPrimary
               disabled={!account || sinceUSDT.getTime() > timeNow}
@@ -188,7 +188,7 @@ export default function AddressClaimModal({ isOpen, onDismiss }: { isOpen: boole
                 faucetUSDT()
               }}
             >
-              {formatTime(sinceUSDT.getTime() - timeNow)} Get USDT
+              {formatTime(sinceUSDT.getTime() - timeNow)} Mint USDT
             </ButtonPrimary>
           </AutoColumn>
         </ContentWrapper>
