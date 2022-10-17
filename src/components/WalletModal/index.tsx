@@ -195,7 +195,7 @@ export default function WalletModal({
                 <MartianOption />
                 <PetraOption />
                 {/* <FewchaOption /> */}
-                <PontemOption />
+                {/* <PontemOption /> */}
                 {/* <RiseOption /> */}
               </OptionGrid>
             )}

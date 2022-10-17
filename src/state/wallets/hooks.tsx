@@ -62,9 +62,9 @@ export async function AutoConnectWallets() {
     // case WalletType.FEWCHA:
     //   if (await AutoConnectFewcha()) return
     //   break
-    case WalletType.PONTEM:
-      if (await AutoConnectPontem()) return
-      break
+    // case WalletType.PONTEM:
+    //   if (await AutoConnectPontem()) return
+    //   break
     // case WalletType.RISE:
     //   if (await AutoConnectRise()) return
     //   break
@@ -73,7 +73,7 @@ export async function AutoConnectWallets() {
   if (await AutoConnectMartian()) return
   if (await AutoConnectPetra()) return
   // if (await AutoConnectFewcha()) return
-  if (await AutoConnectPontem()) return
+  // if (await AutoConnectPontem()) return
   // if (await AutoConnectRise()) return
 }
 
