@@ -1006,7 +1006,7 @@ msgstr "Likviditásszolgáltató jutalma"
 
 #: src/pages/Pool/index.tsx
 msgid "Liquidity providers earn a 0.25% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
-msgstr "A likviditásszolgáltatók 0,3%-os díjat kapnak minden kereskedés után, amely arányos a poolból való részesedésükkel. A díjakat a poolhoz adják hozzá, valós időben halmozódnak fel, és a likviditás visszavonásával igényelhetők."
+msgstr "A likviditásszolgáltatók 0,25%-os díjat kapnak minden kereskedés után, amely arányos a poolból való részesedésükkel. A díjakat a poolhoz adják hozzá, valós időben halmozódnak fel, és a likviditás visszavonásával igényelhetők."
 
 #: src/components/SearchModal/Manage.tsx
 msgid "Lists"

@@ -326,7 +326,7 @@ msgstr "Γέφυρα"
 
 #: src/components/PositionCard/index.tsx
 msgid "By adding liquidity you'll earn 0.25% of all trades on this pair proportional to your share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
-msgstr "Προσθέτοντας ρευστότητα θα κερδίσετε το 0,3% όλων των συναλλαγών σε αυτό το ζεύγος αναλογικά με το μερίδιό σας στη δεξαμενή. Οι χρεώσεις προστίθενται στη ψηφοφορία, συσσωρεύονται σε πραγματικό χρόνο και μπορούν να ζητηθούν μέσω της ανάληψη σας ρευστότητας."
+msgstr "Προσθέτοντας ρευστότητα θα κερδίσετε το 0,25% όλων των συναλλαγών σε αυτό το ζεύγος αναλογικά με το μερίδιό σας στη δεξαμενή. Οι χρεώσεις προστίθενται στη ψηφοφορία, συσσωρεύονται σε πραγματικό χρόνο και μπορούν να ζητηθούν μέσω της ανάληψη σας ρευστότητας."
 
 #: src/components/SearchModal/ImportList.tsx
 msgid "By adding this list you are implicitly trusting that the data is correct. Anyone can create a list, including creating fake versions of existing lists and lists that claim to represent projects that do not have one."
@@ -1005,7 +1005,7 @@ msgstr "Επιβραβεύσεις παρόχου ρευστότητας"
 
 #: src/pages/Pool/index.tsx
 msgid "Liquidity providers earn a 0.25% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
-msgstr "Οι πάροχοι ρευστότητας κερδίζουν μια χρέωση της τάξεως του 0,3% σε όλες τις συναλλαγές ανάλογα με το μερίδιο τους στη δεξαμενή. Οι χρεώσεις προστίθενται στην ψηφοφορία, συσσωρεύονται σε πραγματικό χρόνο και μπορούν να ζητηθούν μέσω της ανάληψης σας ρευστότητας."
+msgstr "Οι πάροχοι ρευστότητας κερδίζουν μια χρέωση της τάξεως του 0,25% σε όλες τις συναλλαγές ανάλογα με το μερίδιο τους στη δεξαμενή. Οι χρεώσεις προστίθενται στην ψηφοφορία, συσσωρεύονται σε πραγματικό χρόνο και μπορούν να ζητηθούν μέσω της ανάληψης σας ρευστότητας."
 
 #: src/components/SearchModal/Manage.tsx
 msgid "Lists"
