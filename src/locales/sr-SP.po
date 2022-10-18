@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: uniswap-interface\n"
+"Project-Id-Version: AnimeSwap-interface\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: 2022-08-04 19:04\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Crowdin-Project: uniswap-interface\n"
+"X-Crowdin-Project: AnimeSwap-interface\n"
 "X-Crowdin-Project-ID: 458284\n"
 "X-Crowdin-Language: sr\n"
 "X-Crowdin-File: en-US.po\n"
@@ -143,7 +143,7 @@ msgid "Add"
 msgstr "Додати"
 
 #: src/components/AccountDetails/TransactionSummary.tsx
-msgid "Add <0/> and <1/> to Uniswap V2"
+msgid "Add <0/> and <1/> to AnimeSwap V2"
 msgstr "Додајте <0/> и <1/> у Унисвап В2"
 
 #: src/components/vote/DelegateModal.tsx
@@ -204,8 +204,8 @@ msgid "Allow high price impact trades and skip the confirm screen. Use at your o
 msgstr "Омогућите трговање утицајем високе цене и прескочите екран за потврду. Користите на властиту одговорност."
 
 #: src/pages/Swap/index.tsx
-msgid "Allow the Uniswap Protocol to use your {0}"
-msgstr "Дозволите Uniswap протоколу да користи вашу {0}"
+msgid "Allow the AnimeSwap Protocol to use your {0}"
+msgstr "Дозволите AnimeSwap протоколу да користи вашу {0}"
 
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
 msgid "Allowed"
@@ -216,7 +216,7 @@ msgid "Amount"
 msgstr "Износ"
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
-msgid "An error occurred when trying to execute this swap. You may need to increase your slippage tolerance. If that does not work, there may be an incompatibility with the token you are trading. Note: fee on transfer and rebase tokens are incompatible with Uniswap V3."
+msgid "An error occurred when trying to execute this swap. You may need to increase your slippage tolerance. If that does not work, there may be an incompatibility with the token you are trading. Note: fee on transfer and rebase tokens are incompatible with AnimeSwap V3."
 msgstr "Дошло је до грешке приликом покушаја извршења ове замене. Можда ћете морати повећати толеранцију клизања. Ако то не успе, можда постоји некомпатибилност са токеном којим тргујете. Напомена: накнада за токене за пренос и пребазу није компатибилна са Унисвап В3."
 
 #: src/components/earn/StakingModal.tsx
@@ -269,8 +269,8 @@ msgid "Are you sure?"
 msgstr "Јеси ли сигуран?"
 
 #: src/components/claim/ClaimModal.tsx
-msgid "As a member of the Uniswap community you may claim UNI to be used for voting and governance.<0/><1/><2>Read more about UNI</2>"
-msgstr "Као члан Uniswap заједнице можете затражити да се УНИ користи за гласање и управљање. <0/> <1/> <2> Прочитајте више о УНИ</2>"
+msgid "As a member of the AnimeSwap community you may claim UNI to be used for voting and governance.<0/><1/><2>Read more about UNI</2>"
+msgstr "Као члан AnimeSwap заједнице можете затражити да се УНИ користи за гласање и управљање. <0/> <1/> <2> Прочитајте више о УНИ</2>"
 
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
 msgid "At least {0} {1} and {2} {3} will be refunded to your wallet due to selected price range."
@@ -333,7 +333,7 @@ msgid "By adding this list you are implicitly trusting that the data is correct.
 msgstr "Додавањем ове листе имплицитно сте сагласни да су подаци тачни. Свако може да креира листу, укључујући стварање лажних верзија постојећих листа и листа за које се тврди да представљају пројекте којих нема."
 
 #: src/components/WalletModal/index.tsx
-msgid "By connecting a wallet, you agree to Uniswap Labs’ <0>Terms of Service</0> and acknowledge that you have read and understand the Uniswap <1>Protocol Disclaimer</1>."
+msgid "By connecting a wallet, you agree to AnimeSwap Labs’ <0>Terms of Service</0> and acknowledge that you have read and understand the AnimeSwap <1>Protocol Disclaimer</1>."
 msgstr "Povezivanjem novčanika prihvatate Uslove korišćenja usluge <0></0> i potvrđujete da ste pročitali i razumeli Odricanje odgovornosti</1><1>."
 
 #: src/pages/Vote/styled.tsx
@@ -636,8 +636,8 @@ msgid "Deposit tokens to the {label} network."
 msgstr "Депонујте токене на мрежу {label}."
 
 #: src/pages/Earn/index.tsx
-msgid "Deposit your Liquidity Provider tokens to receive UNI, the Uniswap protocol governance token."
-msgstr "Положите своје токене Добављача ликвидности да бисте добили УНИ, токен управљања протоколом Uniswap."
+msgid "Deposit your Liquidity Provider tokens to receive UNI, the AnimeSwap protocol governance token."
+msgstr "Положите своје токене Добављача ликвидности да бисте добили УНИ, токен управљања протоколом AnimeSwap."
 
 #: src/components/earn/UnstakingModal.tsx
 msgid "Deposited liquidity:"
@@ -684,8 +684,8 @@ msgid "Don’t see one of your v2 positions? <0>Import it.</0>"
 msgstr "Не видите ниједну од ваших V2 позиција? <0> Увезите их.</0>"
 
 #: src/components/vote/DelegateModal.tsx
-msgid "Earned UNI tokens represent voting shares in Uniswap governance."
-msgstr "Зарађени UNI токени представљају акције са правом гласа у управљању Uniswap-ом."
+msgid "Earned UNI tokens represent voting shares in AnimeSwap governance."
+msgstr "Зарађени UNI токени представљају акције са правом гласа у управљању AnimeSwap-ом."
 
 #: src/components/FeeSelector/index.tsx
 msgid "Edit"
@@ -810,11 +810,11 @@ msgid "Expired"
 msgstr "Истекло"
 
 #: src/pages/Pool/CTACards.tsx
-msgid "Explore Uniswap Analytics."
+msgid "Explore AnimeSwap Analytics."
 msgstr "Истражите Унисвап Аналитицс."
 
 #: src/components/Popups/FailedNetworkSwitchPopup.tsx
-msgid "Failed to switch networks from the Uniswap Interface. In order to use Uniswap on {0}, you must change the network in your wallet."
+msgid "Failed to switch networks from the AnimeSwap Interface. In order to use AnimeSwap on {0}, you must change the network in your wallet."
 msgstr "Пребацивање мреже са Унисвап интерфејса није успело. Да бисте користили Унисвап на {0}, морате променити мрежу у свом новчанику."
 
 #: src/components/PositionPreview/index.tsx
@@ -834,8 +834,8 @@ msgid "For"
 msgstr "За"
 
 #: src/pages/MigrateV2/index.tsx
-msgid "For each pool shown below, click migrate to remove your liquidity from Uniswap V2 and deposit it into Uniswap V3."
-msgstr "За сваки фонд приказан у наставку кликните на мигрирај да бисте уклонили своју ликвидност из Uniswap V2 и депоновали је у Uniswap V3."
+msgid "For each pool shown below, click migrate to remove your liquidity from AnimeSwap V2 and deposit it into AnimeSwap V3."
+msgstr "За сваки фонд приказан у наставку кликните на мигрирај да бисте уклонили своју ликвидност из AnimeSwap V2 и депоновали је у AnimeSwap V3."
 
 #: src/pages/Swap/index.tsx
 msgid "From"
@@ -1093,8 +1093,8 @@ msgid "Migrate V2 Liquidity"
 msgstr "Миграција V2 ликвидности"
 
 #: src/pages/MigrateV2/index.tsx
-msgid "Migrate your liquidity tokens from Uniswap V2 to Uniswap V3."
-msgstr "Пребаците своје токене ликвидности са Uniswap V2 на Uniswap V3."
+msgid "Migrate your liquidity tokens from AnimeSwap V2 to AnimeSwap V3."
+msgstr "Пребаците своје токене ликвидности са AnimeSwap V2 на AnimeSwap V3."
 
 #: src/components/AccountDetails/TransactionSummary.tsx
 msgid "Migrate {0}/{1} liquidity to V3"
@@ -1398,8 +1398,8 @@ msgid "Read more about UNI"
 msgstr "Прочитајте више о UNI-ју"
 
 #: src/pages/Vote/Landing.tsx
-msgid "Read more about Uniswap governance"
-msgstr "Прочитајте више о управљању Uniswap-ом"
+msgid "Read more about AnimeSwap governance"
+msgstr "Прочитајте више о управљању AnimeSwap-ом"
 
 #: src/pages/Pool/index.tsx
 msgid "Read more about providing liquidity"
@@ -1612,7 +1612,7 @@ msgid "Swapping {0} {1} for {2} {3}"
 msgstr "Замена {0} {1} за {2} {3}"
 
 #: src/components/Popups/SurveyPopup.tsx
-msgid "Take a 10 minute survey to help us improve your experience in the Uniswap app."
+msgid "Take a 10 minute survey to help us improve your experience in the AnimeSwap app."
 msgstr "Попуните 10-минутну анкету да бисте нам помогли да побољшамо ваше искуство у апликацији Унисвап."
 
 #: src/components/Popups/SurveyPopup.tsx
@@ -1620,16 +1620,16 @@ msgid "Tell us what you think ↗"
 msgstr "Реците нам шта мислите ↗"
 
 #: src/components/Popups/ClaimPopup.tsx
-msgid "Thanks for being part of the Uniswap community <0/>"
-msgstr "Хвала вам што сте део заједнице Uniswap <0/>"
+msgid "Thanks for being part of the AnimeSwap community <0/>"
+msgstr "Хвала вам што сте део заједнице AnimeSwap <0/>"
 
 #: src/components/FeeSelector/index.tsx
 msgid "The % you will earn in fees."
 msgstr "% Који ћете зарадити на накнадама."
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
-msgid "The Uniswap invariant x*y=k was not satisfied by the swap. This usually means one of the tokens you are swapping incorporates custom behavior on transfer."
-msgstr "Uniswap непроменљива x*y=k није испоштована разменом. То обично значи да један од токена које замењујете укључује прилагођено понашање приликом преноса."
+msgid "The AnimeSwap invariant x*y=k was not satisfied by the swap. This usually means one of the tokens you are swapping incorporates custom behavior on transfer."
+msgstr "AnimeSwap непроменљива x*y=k није испоштована разменом. То обично значи да један од токена које замењујете укључује прилагођено понашање приликом преноса."
 
 #: src/components/swap/AdvancedSwapDetails.tsx
 msgid "The amount you expect to receive at the current market price. You may receive less or more if the market price changes while your transaction is pending."
@@ -1644,8 +1644,8 @@ msgid "The app fetches on-chain data and constructs contract calls with an Infur
 msgstr "Aplikacija preuzima podatke na lancu i konstruiše ugovorne pozive pomoću Infura API-ja."
 
 #: src/components/PrivacyPolicy/index.tsx
-msgid "The app fetches the optimal trade route from a Uniswap Labs server."
-msgstr "Aplikacija preuzima optimalni trgovački put sa servera Uniswap Labs."
+msgid "The app fetches the optimal trade route from a AnimeSwap Labs server."
+msgstr "Aplikacija preuzima optimalni trgovački put sa servera AnimeSwap Labs."
 
 #: src/components/PrivacyPolicy/index.tsx
 msgid "The app logs anonymized usage statistics in order to improve over time."
@@ -1700,7 +1700,7 @@ msgid "The output token cannot be transferred. There may be an issue with the ou
 msgstr "Излазни токен се не може пренети. Можда постоји проблем са излазним токеном."
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
-msgid "The output token cannot be transferred. There may be an issue with the output token. Note: fee on transfer and rebase tokens are incompatible with Uniswap V3."
+msgid "The output token cannot be transferred. There may be an issue with the output token. Note: fee on transfer and rebase tokens are incompatible with AnimeSwap V3."
 msgstr "Излазни токен се не може пренети. Можда постоји проблем са излазним токеном. Напомена: накнада за токене за пренос и пребазу није компатибилна са Унисвап В3."
 
 #: src/components/Badge/RangeBadge.tsx
@@ -1744,15 +1744,15 @@ msgid "This token doesn't appear on the active token list(s). Make sure this is 
 msgstr "Овај токен се не појављује на листи активних токена. Уверите се да је ово жетон којим желите да тргујете."
 
 #: src/components/SearchModal/BlockedToken.tsx
-msgid "This token is not supported in the Uniswap Labs app"
-msgstr "Ovaj token nije podržan u aplikaciji Uniswap Labs"
+msgid "This token is not supported in the AnimeSwap Labs app"
+msgstr "Ovaj token nije podržan u aplikaciji AnimeSwap Labs"
 
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
 msgid "This tool will safely migrate your {0} liquidity to V3. The process is completely trustless thanks to the"
 msgstr "Овај алат ће безбедно пребацити вашу {0} ликвидност на V3. Процес је потпуно неповерљив захваљујући"
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
-msgid "This transaction will not succeed due to price movement. Try increasing your slippage tolerance. Note: fee on transfer and rebase tokens are incompatible with Uniswap V3."
+msgid "This transaction will not succeed due to price movement. Try increasing your slippage tolerance. Note: fee on transfer and rebase tokens are incompatible with AnimeSwap V3."
 msgstr "Ова трансакција неће успети због кретања цена. Покушајте да повећате толеранцију на клизање. Напомена: накнада за токене за пренос и пребазу није компатибилна са Унисвап В3."
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
@@ -1847,8 +1847,8 @@ msgid "UNI has arrived"
 msgstr "UNI је стигао"
 
 #: src/pages/Vote/Landing.tsx
-msgid "UNI tokens represent voting shares in Uniswap governance. You can vote on each proposal yourself or delegate your votes to a third party."
-msgstr "UNI токени представљају акције са правом гласа у управљању Uniswap-ом. Можете сами гласати за сваки предлог или пренети своје гласове трећој страни."
+msgid "UNI tokens represent voting shares in AnimeSwap governance. You can vote on each proposal yourself or delegate your votes to a third party."
+msgstr "UNI токени представљају акције са правом гласа у управљању AnimeSwap-ом. Можете сами гласати за сваки предлог или пренети своје гласове трећој страни."
 
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "UNI {0}/{1} Burned"
@@ -1884,35 +1884,35 @@ msgid "Unexpected issue with estimating the gas. Please try again."
 msgstr "Неочекивани проблем са проценом гаса. Молим вас, покушајте поново."
 
 #: src/pages/Vote/Landing.tsx
-msgid "Uniswap Governance"
-msgstr "Uniswap управљање"
+msgid "AnimeSwap Governance"
+msgstr "AnimeSwap управљање"
 
 #: src/components/PrivacyPolicy/index.tsx
-msgid "Uniswap Labs' Terms of Service"
-msgstr "Uslovi korišćenja usluge Uniswap Labs"
+msgid "AnimeSwap Labs' Terms of Service"
+msgstr "Uslovi korišćenja usluge AnimeSwap Labs"
 
 #: src/components/SwitchLocaleLink/index.tsx
-msgid "Uniswap available in: <0>{0}</0>"
-msgstr "Uniswap доступан у: <0>{0}</0>"
+msgid "AnimeSwap available in: <0>{0}</0>"
+msgstr "AnimeSwap доступан у: <0>{0}</0>"
 
 #: src/components/vote/ProposalEmptyState.tsx
-msgid "Uniswap governance is only available on Layer 1. Switch your network to Ethereum Mainnet to view Proposals and Vote."
+msgid "AnimeSwap governance is only available on Layer 1. Switch your network to Ethereum Mainnet to view Proposals and Vote."
 msgstr "Управљање разменом је доступно само на слоју 1. Пребаците мрежу на Етхереум Маиннет да бисте видели предлоге и гласали."
 
 #: src/pages/Earn/index.tsx
-msgid "Uniswap liquidity mining"
-msgstr "Uniswap рударење ликвидности"
+msgid "AnimeSwap liquidity mining"
+msgstr "AnimeSwap рударење ликвидности"
 
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
-msgid "Uniswap migration contract↗"
-msgstr "Uniswap уговор о миграцији↗"
+msgid "AnimeSwap migration contract↗"
+msgstr "AnimeSwap уговор о миграцији↗"
 
 #: src/components/SearchModal/TokenImportCard.tsx
 msgid "Unknown Source"
 msgstr "Непознат извор"
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
-msgid "Unknown error{0}. Try increasing your slippage tolerance. Note: fee on transfer and rebase tokens are incompatible with Uniswap V3."
+msgid "Unknown error{0}. Try increasing your slippage tolerance. Note: fee on transfer and rebase tokens are incompatible with AnimeSwap V3."
 msgstr "Непозната грешка{0}. Покушајте повећати толеранцију клизања. Напомена: накнада за токене за пренос и поновну надоградњу није компатибилна са Унисвап В3."
 
 #: src/pages/Vote/Landing.tsx
@@ -1959,7 +1959,7 @@ msgid "Update list"
 msgstr "Ажурирај листу"
 
 #: src/components/Settings/index.tsx
-msgid "Use the Uniswap Labs API to get faster quotes."
+msgid "Use the AnimeSwap Labs API to get faster quotes."
 msgstr "Користите Унисвап Лабс АПИ да бисте добили брже понуде."
 
 #: src/components/claim/ClaimModal.tsx
@@ -2136,8 +2136,8 @@ msgid "You are creating a pool"
 msgstr "Стварате фонд"
 
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
-msgid "You are the first liquidity provider for this Uniswap V3 pool. Your liquidity will migrate at the current {0} price."
-msgstr "Ви сте први пружалац ликвидности за овај Uniswap V3 фонд. Ваша ликвидност ће се мигрирати по тренутној цени {0}."
+msgid "You are the first liquidity provider for this AnimeSwap V3 pool. Your liquidity will migrate at the current {0} price."
+msgstr "Ви сте први пружалац ликвидности за овај AnimeSwap V3 фонд. Ваша ликвидност ће се мигрирати по тренутној цени {0}."
 
 #: src/pages/AddLiquidity/index.tsx
 msgid "You are the first liquidity provider."
@@ -2176,16 +2176,16 @@ msgid "You must connect an account."
 msgstr "Морате повезати налог."
 
 #: src/pages/Swap/index.tsx
-msgid "You must give the Uniswap smart contracts permission to use your {0}. You only have to do this once per token."
-msgstr "Морате да дате дозволу Uniswap паметним уговорима да бисте користили {0}. То морате учинити само једном по токену."
+msgid "You must give the AnimeSwap smart contracts permission to use your {0}. You only have to do this once per token."
+msgstr "Морате да дате дозволу AnimeSwap паметним уговорима да бисте користили {0}. То морате учинити само једном по токену."
 
 #: src/pages/CreateProposal/index.tsx
 msgid "You must have {formattedProposalThreshold} votes to submit a proposal"
 msgstr "Морате да имате {formattedProposalThreshold} гласова да бисте поднели предлог"
 
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
-msgid "You should only deposit liquidity into Uniswap V3 at a price you believe is correct. <0/>If the price seems incorrect, you can either make a swap to move the price or wait for someone else to do so."
-msgstr "Ликвидност треба да депонујете у Uniswap V3 само по цени за коју сматрате да је тачна. <0/> Ако се цена чини нетачном, можете извршити замену да бисте преместили цену или сачекајте да то учини неко други."
+msgid "You should only deposit liquidity into AnimeSwap V3 at a price you believe is correct. <0/>If the price seems incorrect, you can either make a swap to move the price or wait for someone else to do so."
+msgstr "Ликвидност треба да депонујете у AnimeSwap V3 само по цени за коју сматрате да је тачна. <0/> Ако се цена чини нетачном, можете извршити замену да бисте преместили цену или сачекајте да то учини неко други."
 
 #: src/pages/RemoveLiquidity/V3.tsx
 msgid "You will also collect fees earned from this position."
