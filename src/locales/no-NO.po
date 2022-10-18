@@ -326,7 +326,7 @@ msgstr "Bro"
 
 #: src/components/PositionCard/index.tsx
 msgid "By adding liquidity you'll earn 0.25% of all trades on this pair proportional to your share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
-msgstr "Ved å tilføre likviditet tjener du 0,3 % av alle handler på dette paret proporsjonal med din andel av reserven. Gebyr legges til potten, periodisering i sanntid og hentes ved å trekke ut likviditeten."
+msgstr "Ved å tilføre likviditet tjener du 0,25 % av alle handler på dette paret proporsjonal med din andel av reserven. Gebyr legges til potten, periodisering i sanntid og hentes ved å trekke ut likviditeten."
 
 #: src/components/SearchModal/ImportList.tsx
 msgid "By adding this list you are implicitly trusting that the data is correct. Anyone can create a list, including creating fake versions of existing lists and lists that claim to represent projects that do not have one."
@@ -1005,7 +1005,7 @@ msgstr "Tilbudspremier for likviditetsleverandør"
 
 #: src/pages/Pool/index.tsx
 msgid "Liquidity providers earn a 0.25% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
-msgstr "Likviditetsleverandører får 0,3 % avgift på alle handler proporsjonalt med andelen av reserven. Gebyr legges til potten, periodisering i sanntid og kan hentes ved å trekke ut likviditeten."
+msgstr "Likviditetsleverandører får 0,25 % avgift på alle handler proporsjonalt med andelen av reserven. Gebyr legges til potten, periodisering i sanntid og kan hentes ved å trekke ut likviditeten."
 
 #: src/components/SearchModal/Manage.tsx
 msgid "Lists"
