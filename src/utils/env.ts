@@ -6,6 +6,7 @@ export function isTestEnv(): boolean {
   return process.env.NODE_ENV === 'test'
 }
 
+// enable Testnet and Devnet
 export function isStagingEnv(): boolean {
   return Boolean(process.env.REACT_APP_STAGING)
 }
