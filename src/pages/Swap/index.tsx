@@ -4,7 +4,7 @@ import { Trans } from '@lingui/macro'
 import SwapDetailsDropdown from 'components/swap/SwapDetailsDropdown'
 import { MouseoverTooltip } from 'components/Tooltip'
 import { isSupportedChain } from 'constants/chains'
-import { BIG_INT_ZERO, BP } from 'constants/misc'
+import { BIG_INT_ZERO, BP, GAS_RESERVE } from 'constants/misc'
 import { Coin } from 'hooks/common/Coin'
 import { BestTrade, TradeState, TradeType } from 'hooks/useBestTrade'
 import { Context, useCallback, useContext, useMemo, useState } from 'react'
@@ -198,7 +198,7 @@ export default function Swap() {
   )
 
   const handleMaxInput = useCallback(() => {
-    const gasReserve = inputCoin.symbol === 'APT' ? Utils.d(40000) : BIG_INT_ZERO
+    const gasReserve = inputCoin.symbol === 'APT' ? GAS_RESERVE : BIG_INT_ZERO
     inputCoinBalance &&
       onUserInput(
         Field.INPUT,

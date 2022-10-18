@@ -2,7 +2,7 @@ import { Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
 import { MinimalPositionCard } from 'components/PositionCard'
 import { SwitchLocaleLink } from 'components/SwitchLocaleLink'
-import { BIG_INT_ZERO, BP } from 'constants/misc'
+import { BIG_INT_ZERO, BP, GAS_RESERVE } from 'constants/misc'
 import { amountPretty, Coin, CoinAmount, useCoin } from 'hooks/common/Coin'
 import { pairKey, PairState } from 'hooks/common/Pair'
 import { useCallback, useContext, useState } from 'react'
@@ -64,6 +64,9 @@ export default function AddLiquidity() {
     poolCoinPercentage,
     error,
   } = useDerivedMintInfo(coinA, coinB, revert)
+
+  console.log('Azard balance: ', coinBalances[Field.COIN_A]?.toString(), coinBalances[Field.COIN_B]?.toString())
+  console.log('Azard amounts: ', parsedAmounts[Field.COIN_A]?.toString(), parsedAmounts[Field.COIN_B]?.toString())
 
   const { onFieldAInput, onFieldBInput } = useMintActionHandlers(noLiquidity)
 
@@ -266,7 +269,7 @@ export default function AddLiquidity() {
               value={formattedAmounts[Field.COIN_A]}
               onUserInput={onFieldAInput}
               onMax={() => {
-                const gasReserve = coinA.symbol === 'APT' ? Utils.d(40000) : BIG_INT_ZERO
+                const gasReserve = coinA.symbol === 'APT' ? GAS_RESERVE : BIG_INT_ZERO
                 onFieldAInput(
                   coinBalances[Field.COIN_A]?.sub(gasReserve).div(Utils.pow10(coinA.decimals)).toString() ?? ''
                 )
@@ -285,7 +288,7 @@ export default function AddLiquidity() {
               onUserInput={onFieldBInput}
               onCoinSelect={handleCurrencyBSelect}
               onMax={() => {
-                const gasReserve = coinB.symbol === 'APT' ? Utils.d(40000) : BIG_INT_ZERO
+                const gasReserve = coinB.symbol === 'APT' ? GAS_RESERVE : BIG_INT_ZERO
                 onFieldBInput(
                   coinBalances[Field.COIN_B]?.sub(gasReserve).div(Utils.pow10(coinB.decimals)).toString() ?? ''
                 )
