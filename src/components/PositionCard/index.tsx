@@ -159,33 +159,33 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
       <CardNoise />
       <AutoColumn gap="12px">
         <FixedHeightRow>
-          <AutoRow gap="8px" style={{ marginLeft: '8px' }}>
+          <RowFixed gap="8px" style={{ marginLeft: '8px' }}>
             <DoubleCoinLogo coinX={coinX} coinY={coinY} size={20} />
             <Text fontWeight={500} fontSize={20}>
               {`${coinX?.symbol}/${coinY?.symbol}`}
             </Text>
-          </AutoRow>
-          <RowFixed gap="8px" style={{ marginRight: '4px' }}>
+          </RowFixed>
+          <AutoRow gap="8px" style={{ marginRight: '4px' }}>
             <ButtonEmpty
               color={'#FFF'}
-              padding="6px 8px"
-              $borderRadius="12px"
+              padding="20px 20px"
+              $borderRadius="0px"
               width="100%"
               onClick={() => setShowMore(!showMore)}
             >
               {showMore ? (
-                <>
-                  {/* <Trans>Manage</Trans> */}
-                  <ChevronUp size="20" style={{ marginLeft: '8px', height: '24px', minWidth: '60px' }} />
-                </>
+                <ChevronUp
+                  size="20"
+                  style={{ position: 'fixed', right: '4px', marginLeft: '8px', height: '24px', minWidth: '60px' }}
+                />
               ) : (
-                <>
-                  {/* <Trans>Manage</Trans> */}
-                  <ChevronDown size="20" style={{ marginLeft: '8px', height: '24px', minWidth: '60px' }} />
-                </>
+                <ChevronDown
+                  size="20"
+                  style={{ position: 'fixed', right: '4px', marginLeft: '8px', height: '24px', minWidth: '60px' }}
+                />
               )}
             </ButtonEmpty>
-          </RowFixed>
+          </AutoRow>
         </FixedHeightRow>
 
         {showMore && (

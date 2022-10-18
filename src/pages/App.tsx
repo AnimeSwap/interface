@@ -54,7 +54,7 @@ const FooterWrapper = styled.div`
   width: 100%;
   justify-content: center;
   position: flex;
-  padding: 20px 0px 100px 0px;
+  padding: 60px 0px 100px 0px;
 `
 
 const BottomRightLogo = styled.div`
