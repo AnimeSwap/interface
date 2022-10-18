@@ -326,7 +326,7 @@ msgstr "كوبري"
 
 #: src/components/PositionCard/index.tsx
 msgid "By adding liquidity you'll earn 0.25% of all trades on this pair proportional to your share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
-msgstr "من خلال إضافة السيولة ستكسب 0.3٪ من جميع المعاملات على هذا الزوج بما يتناسب مع نصيبك من المجموعة. تضاف الرسوم إلى المجموعة، تتراكم في الوقت الحقيقي ويمكن المطالبة بها بسحب السيولة الخاصة بك."
+msgstr "من خلال إضافة السيولة ستكسب 0.25٪ من جميع المعاملات على هذا الزوج بما يتناسب مع نصيبك من المجموعة. تضاف الرسوم إلى المجموعة، تتراكم في الوقت الحقيقي ويمكن المطالبة بها بسحب السيولة الخاصة بك."
 
 #: src/components/SearchModal/ImportList.tsx
 msgid "By adding this list you are implicitly trusting that the data is correct. Anyone can create a list, including creating fake versions of existing lists and lists that claim to represent projects that do not have one."
@@ -1005,7 +1005,7 @@ msgstr "مكافآت موفر السيولة"
 
 #: src/pages/Pool/index.tsx
 msgid "Liquidity providers earn a 0.25% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
-msgstr "يحصل مقدمو خدمات السيولة على رسم بنسبة 0.3٪ من جميع المهن يتناسب مع نصيبهم من المجموعة. تضاف الرسوم إلى المجموعة، تتراكم في الوقت الحقيقي ويمكن المطالبة بها بسحب السيولة الخاصة بك."
+msgstr "يحصل مقدمو خدمات السيولة على رسم بنسبة 0.25٪ من جميع المهن يتناسب مع نصيبهم من المجموعة. تضاف الرسوم إلى المجموعة، تتراكم في الوقت الحقيقي ويمكن المطالبة بها بسحب السيولة الخاصة بك."
 
 #: src/components/SearchModal/Manage.tsx
 msgid "Lists"
