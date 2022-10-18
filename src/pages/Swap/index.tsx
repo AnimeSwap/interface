@@ -4,7 +4,7 @@ import { Trans } from '@lingui/macro'
 import SwapDetailsDropdown from 'components/swap/SwapDetailsDropdown'
 import { MouseoverTooltip } from 'components/Tooltip'
 import { isSupportedChain } from 'constants/chains'
-import { BIG_INT_ZERO, BP, GAS_RESERVE } from 'constants/misc'
+import { BIG_INT_ZERO, BP, GAS_RESERVE, REFRESH_TIMEOUT } from 'constants/misc'
 import { Coin } from 'hooks/common/Coin'
 import { BestTrade, TradeState, TradeType } from 'hooks/useBestTrade'
 import { Context, useCallback, useContext, useMemo, useState } from 'react'
@@ -137,7 +137,7 @@ export default function Swap() {
       setTimeout(() => {
         ConnectionInstance.getCoinBalance(account, tradeToConfirm.inputCoin.address)
         ConnectionInstance.getCoinBalance(account, tradeToConfirm.outputCoin.address)
-      }, 500)
+      }, REFRESH_TIMEOUT)
       console.log('txid', txid)
       return txid
     } catch (error) {

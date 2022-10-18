@@ -11,6 +11,7 @@ export const BIG_INT_SECONDS_IN_WEEK = new Decimal(60 * 60 * 24 * 7)
 
 export const BIG_INT_ZERO = new Decimal(0)
 export const GAS_RESERVE = new Decimal(100000)
+export const REFRESH_TIMEOUT = 1000
 
 // 1 BP = 0.01%
 export const BP = Utils.BP

@@ -2,7 +2,7 @@ import { Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
 import { MinimalPositionCard } from 'components/PositionCard'
 import { SwitchLocaleLink } from 'components/SwitchLocaleLink'
-import { BIG_INT_ZERO, BP, GAS_RESERVE } from 'constants/misc'
+import { BIG_INT_ZERO, BP, GAS_RESERVE, REFRESH_TIMEOUT } from 'constants/misc'
 import { amountPretty, Coin, CoinAmount, useCoin } from 'hooks/common/Coin'
 import { pairKey, PairState } from 'hooks/common/Pair'
 import { useCallback, useContext, useState } from 'react'
@@ -110,7 +110,7 @@ export default function AddLiquidity() {
       setTxHash(txid)
       setTimeout(() => {
         ConnectionInstance.syncAccountResources(account)
-      }, 500)
+      }, REFRESH_TIMEOUT)
     } catch (error) {
       setAttemptingTxn(false)
       console.error('onAdd', error)

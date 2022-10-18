@@ -1,7 +1,7 @@
 import { Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
 import { SwitchLocaleLink } from 'components/SwitchLocaleLink'
-import { BIG_INT_ZERO, BP } from 'constants/misc'
+import { BIG_INT_ZERO, BP, REFRESH_TIMEOUT } from 'constants/misc'
 import { amountPretty, CoinAmount, useCoin } from 'hooks/common/Coin'
 import { pairKey, usePair } from 'hooks/common/Pair'
 import { ReactNode, useCallback, useContext, useMemo, useState } from 'react'
@@ -111,7 +111,7 @@ export default function RemoveLiquidity() {
       setTxHash(txid)
       setTimeout(() => {
         ConnectionInstance.syncAccountResources(account)
-      }, 500)
+      }, REFRESH_TIMEOUT)
     } catch (error) {
       setAttemptingTxn(false)
       console.error('onAdd', error)

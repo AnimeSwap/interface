@@ -1,4 +1,5 @@
 import { Trans } from '@lingui/macro'
+import { REFRESH_TIMEOUT } from 'constants/misc'
 import { useEffect, useState } from 'react'
 import ConnectionInstance from 'state/connection/instance'
 import { useChainId } from 'state/user/hooks'
@@ -79,7 +80,7 @@ export default function AddressClaimModal({ isOpen, onDismiss }: { isOpen: boole
         account,
         '0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::TestCoinsV1::BTC'
       )
-    }, 500)
+    }, REFRESH_TIMEOUT)
   }
 
   async function updateSinceTimeBTC() {
@@ -111,7 +112,7 @@ export default function AddressClaimModal({ isOpen, onDismiss }: { isOpen: boole
         account,
         '0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::TestCoinsV1::USDT'
       )
-    }, 500)
+    }, REFRESH_TIMEOUT)
   }
 
   async function updateSinceTimeUSDT() {
