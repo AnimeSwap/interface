@@ -65,9 +65,6 @@ export default function AddLiquidity() {
     error,
   } = useDerivedMintInfo(coinA, coinB, revert)
 
-  console.log('Azard balance: ', coinBalances[Field.COIN_A]?.toString(), coinBalances[Field.COIN_B]?.toString())
-  console.log('Azard amounts: ', parsedAmounts[Field.COIN_A]?.toString(), parsedAmounts[Field.COIN_B]?.toString())
-
   const { onFieldAInput, onFieldBInput } = useMintActionHandlers(noLiquidity)
 
   const isValid = !error
