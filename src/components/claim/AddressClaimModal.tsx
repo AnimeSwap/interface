@@ -5,6 +5,7 @@ import ConnectionInstance from 'state/connection/instance'
 import { useChainId } from 'state/user/hooks'
 import { SignAndSubmitTransaction, useAccount } from 'state/wallets/hooks'
 import styled from 'styled-components/macro'
+import { isProductionEnv } from 'utils/env'
 
 import { useIsTransactionPending } from '../../state/transactions/hooks'
 import { CloseIcon, ExternalLink, ThemedText } from '../../theme'
@@ -48,9 +49,11 @@ export default function AddressClaimModal({ isOpen, onDismiss }: { isOpen: boole
   const [timeNow, setTimeNow] = useState(Date.now())
 
   useEffect(() => {
-    setInterval(() => {
-      setTimeNow(Date.now())
-    }, 1e3)
+    if (!isProductionEnv()) {
+      setInterval(() => {
+        setTimeNow(Date.now())
+      }, 1e3)
+    }
   }, [])
   const formatTime = (time: number) => {
     const totalSeconds = Math.floor(time / 1e3)
@@ -131,8 +134,10 @@ export default function AddressClaimModal({ isOpen, onDismiss }: { isOpen: boole
   }
 
   useEffect(() => {
-    updateSinceTimeBTC()
-    updateSinceTimeUSDT()
+    if (!isProductionEnv()) {
+      updateSinceTimeBTC()
+      updateSinceTimeUSDT()
+    }
   }, [account, chainId])
 
   function wrappedOnDismiss() {
