@@ -33,7 +33,7 @@ export default function CoinSearchModal({
   onCoinSelect,
   selectedCurrency,
   otherSelectedCurrency,
-  showCommonBases = false,
+  showCommonBases = true,
   showCoinAmount = true,
   disableNonToken = false,
 }: CoinSearchModalProps) {

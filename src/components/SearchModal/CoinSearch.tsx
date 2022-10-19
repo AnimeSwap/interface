@@ -159,7 +159,7 @@ export function CoinSearch({
               // onKeyDown={handleEnter}
             />
           </Row> */}
-        {/* {showCommonBases && (
+        {showCommonBases && (
           <CommonBases
             chainId={chainId}
             onSelect={handleCoinSelect}
@@ -167,7 +167,7 @@ export function CoinSearch({
             searchQuery={searchQuery}
             isAddressSearch={isAddressSearch}
           />
-        )} */}
+        )}
       </PaddedColumn>
       <Separator />
       <div style={{ flex: '1' }}>
