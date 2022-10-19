@@ -47,7 +47,8 @@ type ErrorBoundaryState = {
   error: Error | null
 }
 
-const IS_UNISWAP = window.location.hostname === 'app.uniswap.org'
+const IS_ANIMESWAP =
+  window.location.hostname === 'app.animeswap.org' || window.location.hostname === 'staging.animeswap.org'
 
 async function updateServiceWorker(): Promise<ServiceWorkerRegistration> {
   const ready = await navigator.serviceWorker.ready
@@ -110,12 +111,12 @@ export default class ErrorBoundary extends React.Component<PropsWithChildren<unk
                   <ThemedText.DeprecatedMain fontSize={10}>{error.stack}</ThemedText.DeprecatedMain>
                 </code>
               </CodeBlockWrapper>
-              {IS_UNISWAP ? (
+              {IS_ANIMESWAP ? (
                 <AutoRow>
                   <LinkWrapper>
                     <ExternalLink
                       id="create-github-issue-link"
-                      href={`https://github.com/Uniswap/uniswap-interface/issues/new?assignees=&labels=bug&body=${encodedBody}&title=${encodeURIComponent(
+                      href={`https://github.com/AnimeSwap/interface/issues/new?assignees=&labels=bug&body=${encodedBody}&title=${encodeURIComponent(
                         `Crash report: \`${error.name}${error.message && `: ${error.message}`}\``
                       )}`}
                       target="_blank"
@@ -127,7 +128,7 @@ export default class ErrorBoundary extends React.Component<PropsWithChildren<unk
                     </ExternalLink>
                   </LinkWrapper>
                   <LinkWrapper>
-                    <ExternalLink id="get-support-on-discord" href="https://discord.gg/FCfyBSbCU5" target="_blank">
+                    <ExternalLink id="get-support-on-discord" href="https://discord.gg/rbUG6SpRAM" target="_blank">
                       <ThemedText.DeprecatedLink fontSize={16}>
                         <Trans>Get support on Discord</Trans>
                         <span>↗</span>
