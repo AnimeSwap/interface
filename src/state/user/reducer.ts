@@ -4,8 +4,9 @@ import { APTOS_CoinInfo, APTOS_DEVNET_CoinInfo, APTOS_TESTNET_CoinInfo } from 'c
 import { SupportedLocale } from 'constants/locales'
 import { Coin } from 'hooks/common/Coin'
 import { Pair, pairKey } from 'hooks/common/Pair'
+import { isProductionEnv } from 'utils/env'
 
-import { DEFAULT_DEADLINE_FROM_NOW } from '../../constants/misc'
+import { DEFAULT_DEADLINE_FROM_NOW, MAX_DEADLINE_FROM_NOW, MIN_DEADLINE_FROM_NOW } from '../../constants/misc'
 import { updateVersion } from '../global/actions'
 
 export interface UserState {
@@ -41,7 +42,7 @@ export interface UserState {
 }
 
 export const initialState: UserState = {
-  chainId: SupportedChainId.APTOS_TESTNET,
+  chainId: SupportedChainId.APTOS,
   matchesDarkMode: false,
   userDarkMode: true,
   userLocale: null,
@@ -49,15 +50,25 @@ export const initialState: UserState = {
   userDeadline: DEFAULT_DEADLINE_FROM_NOW,
   coins: {
     [SupportedChainId.APTOS]: APTOS_CoinInfo,
-    [SupportedChainId.APTOS_TESTNET]: APTOS_TESTNET_CoinInfo,
-    [SupportedChainId.APTOS_DEVNET]: APTOS_DEVNET_CoinInfo,
   },
   pairs: {
     [SupportedChainId.APTOS]: {},
-    [SupportedChainId.APTOS_TESTNET]: {},
-    [SupportedChainId.APTOS_DEVNET]: {},
   },
   showSwapDropdownDetails: false,
+}
+
+if (!isProductionEnv()) {
+  initialState.chainId = SupportedChainId.APTOS_TESTNET
+  initialState.coins = {
+    [SupportedChainId.APTOS]: APTOS_CoinInfo,
+    [SupportedChainId.APTOS_TESTNET]: APTOS_TESTNET_CoinInfo,
+    [SupportedChainId.APTOS_DEVNET]: APTOS_DEVNET_CoinInfo,
+  }
+  initialState.pairs = {
+    [SupportedChainId.APTOS]: {},
+    [SupportedChainId.APTOS_TESTNET]: {},
+    [SupportedChainId.APTOS_DEVNET]: {},
+  }
 }
 
 const userSlice = createSlice({
@@ -121,18 +132,30 @@ const userSlice = createSlice({
       if (
         ![SupportedChainId.APTOS, SupportedChainId.APTOS_TESTNET, SupportedChainId.APTOS_DEVNET].includes(state.chainId)
       ) {
-        state.chainId = SupportedChainId.APTOS_DEVNET
+        state.chainId = SupportedChainId.APTOS
+        if (!isProductionEnv()) {
+          state.chainId = SupportedChainId.APTOS_TESTNET
+        }
       }
       // update local coin list
       state.coins = {
         [SupportedChainId.APTOS]: APTOS_CoinInfo,
-        [SupportedChainId.APTOS_TESTNET]: APTOS_TESTNET_CoinInfo,
-        [SupportedChainId.APTOS_DEVNET]: APTOS_DEVNET_CoinInfo,
       }
+      if (!isProductionEnv()) {
+        state.coins = {
+          [SupportedChainId.APTOS]: APTOS_CoinInfo,
+          [SupportedChainId.APTOS_TESTNET]: APTOS_TESTNET_CoinInfo,
+          [SupportedChainId.APTOS_DEVNET]: APTOS_DEVNET_CoinInfo,
+        }
+      }
+
       // init local pair
       state.pairs[SupportedChainId.APTOS] = state.pairs[SupportedChainId.APTOS] || {}
-      state.pairs[SupportedChainId.APTOS_TESTNET] = state.pairs[SupportedChainId.APTOS_TESTNET] || {}
-      state.pairs[SupportedChainId.APTOS_DEVNET] = state.pairs[SupportedChainId.APTOS_DEVNET] || {}
+      if (!isProductionEnv()) {
+        state.pairs[SupportedChainId.APTOS_TESTNET] = state.pairs[SupportedChainId.APTOS_TESTNET] || {}
+        state.pairs[SupportedChainId.APTOS_DEVNET] = state.pairs[SupportedChainId.APTOS_DEVNET] || {}
+      }
+
       // slippage isnt being tracked in local storage, reset to default
       // noinspection SuspiciousTypeOfGuard
       if (
@@ -149,8 +172,8 @@ const userSlice = createSlice({
       if (
         typeof state.userDeadline !== 'number' ||
         !Number.isInteger(state.userDeadline) ||
-        state.userDeadline < 60 ||
-        state.userDeadline > 180 * 60
+        state.userDeadline < MIN_DEADLINE_FROM_NOW ||
+        state.userDeadline > MAX_DEADLINE_FROM_NOW
       ) {
         state.userDeadline = DEFAULT_DEADLINE_FROM_NOW
       }

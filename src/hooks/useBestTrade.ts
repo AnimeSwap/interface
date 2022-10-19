@@ -94,11 +94,10 @@ export function useBestTrade(
           ? bestTrade.outputAmount
           : new CoinAmount(outputCoin, Utils.d(payload.arguments[1]))
       bestTrade.price = bestTrade.inputAmount.amount
-        .div(inputCoin.decimals)
-        .div(bestTrade.outputAmount.amount.div(outputCoin.decimals))
+        .div(Utils.pow10(inputCoin.decimals))
+        .div(bestTrade.outputAmount.amount.div(Utils.pow10(outputCoin.decimals)))
       bestTrade.priceImpact = sdkTrade.priceImpact
       setBestTrade(bestTrade)
-      // console.log(bestTrade)
     }
     // execution
     fetchRoute()

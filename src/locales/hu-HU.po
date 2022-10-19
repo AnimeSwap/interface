@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: uniswap-interface\n"
+"Project-Id-Version: AnimeSwap-interface\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: 2022-08-04 19:04\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Crowdin-Project: uniswap-interface\n"
+"X-Crowdin-Project: AnimeSwap-interface\n"
 "X-Crowdin-Project-ID: 458284\n"
 "X-Crowdin-Language: hu\n"
 "X-Crowdin-File: en-US.po\n"
@@ -80,7 +80,7 @@ msgstr "<0 /> Minden javaslat"
 msgid "<0/> Votes"
 msgstr "<0 /> Szavazatok"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "<0>Account analytics and accrued fees</0><1> ↗ </1>"
 msgstr "<0> Számlaelemzés és elhatárolt díjak</0> <1> ↗</1>"
 
@@ -143,8 +143,8 @@ msgid "Add"
 msgstr "Hozzáadás"
 
 #: src/components/AccountDetails/TransactionSummary.tsx
-msgid "Add <0/> and <1/> to Uniswap V2"
-msgstr "A <0/> és <1/> hozzáadása a Uniswap V2 -hez"
+msgid "Add <0/> and <1/> to AnimeSwap V2"
+msgstr "A <0/> és <1/> hozzáadása a AnimeSwap V2 -hez"
 
 #: src/components/vote/DelegateModal.tsx
 msgid "Add Delegate +"
@@ -155,7 +155,7 @@ msgstr "Adja hozzá a Delegate + elemet"
 msgid "Add Liquidity"
 msgstr "Adja hozzá a likviditást"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Add V2 Liquidity"
 msgstr "Adja hozzá a V2 likviditást"
 
@@ -204,8 +204,8 @@ msgid "Allow high price impact trades and skip the confirm screen. Use at your o
 msgstr "Engedélyezze a magas árfolyamú kereskedéseket, és hagyja ki a megerősítő képernyőt. Használat csak saját felelősségre."
 
 #: src/pages/Swap/index.tsx
-msgid "Allow the Uniswap Protocol to use your {0}"
-msgstr "Engedélyezze az Uniswap protokollnak a(z) {0} használatát"
+msgid "Allow the AnimeSwap Protocol to use your {0}"
+msgstr "Engedélyezze az AnimeSwap protokollnak a(z) {0} használatát"
 
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
 msgid "Allowed"
@@ -216,8 +216,8 @@ msgid "Amount"
 msgstr "Összeg"
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
-msgid "An error occurred when trying to execute this swap. You may need to increase your slippage tolerance. If that does not work, there may be an incompatibility with the token you are trading. Note: fee on transfer and rebase tokens are incompatible with Uniswap V3."
-msgstr "Hiba történt a csere végrehajtása során. Lehet, hogy növelnie kell a csúszási toleranciát. Ha ez nem működik, akkor összeférhetetlenség állhat fenn az Ön által forgalmazott tokennel. Megjegyzés: az átviteli és újrabázis tokenek díja nem kompatibilis az Uniswap V3 verzióval."
+msgid "An error occurred when trying to execute this swap. You may need to increase your slippage tolerance. If that does not work, there may be an incompatibility with the token you are trading. Note: fee on transfer and rebase tokens are incompatible with AnimeSwap V3."
+msgstr "Hiba történt a csere végrehajtása során. Lehet, hogy növelnie kell a csúszási toleranciát. Ha ez nem működik, akkor összeférhetetlenség állhat fenn az Ön által forgalmazott tokennel. Megjegyzés: az átviteli és újrabázis tokenek díja nem kompatibilis az AnimeSwap V3 verzióval."
 
 #: src/components/earn/StakingModal.tsx
 #: src/pages/RemoveLiquidity/index.tsx
@@ -269,8 +269,8 @@ msgid "Are you sure?"
 msgstr "Biztos ebben?"
 
 #: src/components/claim/ClaimModal.tsx
-msgid "As a member of the Uniswap community you may claim UNI to be used for voting and governance.<0/><1/><2>Read more about UNI</2>"
-msgstr "Az Uniswap közösség tagjaként igényelheti az UNI-t, hogy szavazásra és kormányzásra használhassa.<0/><1/><2>Bővebben az UNI-ról</2>"
+msgid "As a member of the AnimeSwap community you may claim UNI to be used for voting and governance.<0/><1/><2>Read more about UNI</2>"
+msgstr "Az AnimeSwap közösség tagjaként igényelheti az UNI-t, hogy szavazásra és kormányzásra használhassa.<0/><1/><2>Bővebben az UNI-ról</2>"
 
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
 msgid "At least {0} {1} and {2} {3} will be refunded to your wallet due to selected price range."
@@ -325,7 +325,7 @@ msgid "Bridge"
 msgstr "Híd"
 
 #: src/components/PositionCard/index.tsx
-msgid "By adding liquidity you'll earn 0.3% of all trades on this pair proportional to your share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
+msgid "By adding liquidity you'll earn 0.25% of all trades on this pair proportional to your share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
 msgstr "Likviditás hozzáadásával az összes kereskedés 3%-át keresheti meg ezen a páron, a poolból való részesedéssel arányosan. A díjakat a poolhoz adjuk hozzá, valós időben halmozódnak fel, és a likviditás kivonásával lehet igényelni."
 
 #: src/components/SearchModal/ImportList.tsx
@@ -333,8 +333,8 @@ msgid "By adding this list you are implicitly trusting that the data is correct.
 msgstr "A lista hozzáadásával hallgatólagosan megbízik az adatok helyességében. Bárki létrehozhat egy listát, beleértve a meglévő listák hamisított változatait is és olyan listákat is, amelyek azt állítják, hogy olyan projekteket képviselnek, amelyeknek nincs."
 
 #: src/components/WalletModal/index.tsx
-msgid "By connecting a wallet, you agree to Uniswap Labs’ <0>Terms of Service</0> and acknowledge that you have read and understand the Uniswap <1>Protocol Disclaimer</1>."
-msgstr "A pénztárca csatlakoztatásával Ön elfogadja az Uniswap Labs <0>szolgáltatási feltételeit</0> és elismeri, hogy elolvasta és megértette az Uniswap <1>Protokoll Jogi nyilatkozatát</1>."
+msgid "By connecting a wallet, you agree to AnimeSwap Labs’ <0>Terms of Service</0> and acknowledge that you have read and understand the AnimeSwap <1>Protocol Disclaimer</1>."
+msgstr "A pénztárca csatlakoztatásával Ön elfogadja az AnimeSwap Labs <0>szolgáltatási feltételeit</0> és elismeri, hogy elolvasta és megértette az AnimeSwap <1>Protokoll Jogi nyilatkozatát</1>."
 
 #: src/pages/Vote/styled.tsx
 msgid "Canceled"
@@ -524,7 +524,7 @@ msgstr "Csatlakozzon egy pénztárcához a poolok megtalálásához"
 msgid "Connect to a wallet to view your V2 liquidity."
 msgstr "Csatlakozzon egy pénztárcához a V2 likviditás megtekintéséhez."
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Connect to a wallet to view your liquidity."
 msgstr "Csatlakozzon egy pénztárcához a likviditás megtekintéséhez."
 
@@ -555,7 +555,7 @@ msgid "Create Proposal"
 msgstr "Javaslat létrehozása"
 
 #: src/components/NavigationTabs/index.tsx
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Create a pair"
 msgstr "Egy pár létrehozása"
 
@@ -636,8 +636,8 @@ msgid "Deposit tokens to the {label} network."
 msgstr "Befizetési tokenek a {label} hálózatba."
 
 #: src/pages/Earn/index.tsx
-msgid "Deposit your Liquidity Provider tokens to receive UNI, the Uniswap protocol governance token."
-msgstr "Helyezze letétbe a likviditásszolgáltatói tokeneket, hogy megkapja az UNI-t, az Uniswap protokoll irányítási tokent."
+msgid "Deposit your Liquidity Provider tokens to receive UNI, the AnimeSwap protocol governance token."
+msgstr "Helyezze letétbe a likviditásszolgáltatói tokeneket, hogy megkapja az UNI-t, az AnimeSwap protokoll irányítási tokent."
 
 #: src/components/earn/UnstakingModal.tsx
 msgid "Deposited liquidity:"
@@ -684,8 +684,8 @@ msgid "Don’t see one of your v2 positions? <0>Import it.</0>"
 msgstr "Nem látja az egyik v2 pozícióját? <0> Importálja.</0>"
 
 #: src/components/vote/DelegateModal.tsx
-msgid "Earned UNI tokens represent voting shares in Uniswap governance."
-msgstr "A megszerzett UNI-tokenek a szavazati részesedéseket jelentik az Uniswap irányításában."
+msgid "Earned UNI tokens represent voting shares in AnimeSwap governance."
+msgstr "A megszerzett UNI-tokenek a szavazati részesedéseket jelentik az AnimeSwap irányításában."
 
 #: src/components/FeeSelector/index.tsx
 msgid "Edit"
@@ -811,12 +811,12 @@ msgid "Expired"
 msgstr "Lejárt"
 
 #: src/pages/Pool/CTACards.tsx
-msgid "Explore Uniswap Analytics."
-msgstr "Fedezze fel az Uniswap Analytics szolgáltatást."
+msgid "Explore AnimeSwap Analytics."
+msgstr "Fedezze fel az AnimeSwap Analytics szolgáltatást."
 
 #: src/components/Popups/FailedNetworkSwitchPopup.tsx
-msgid "Failed to switch networks from the Uniswap Interface. In order to use Uniswap on {0}, you must change the network in your wallet."
-msgstr "Nem sikerült hálózatot váltani az Uniswap interfészről. Az Uniswap {0}történő használatához meg kell változtatnia a hálózatot a pénztárcájában."
+msgid "Failed to switch networks from the AnimeSwap Interface. In order to use AnimeSwap on {0}, you must change the network in your wallet."
+msgstr "Nem sikerült hálózatot váltani az AnimeSwap interfészről. Az AnimeSwap {0}történő használatához meg kell változtatnia a hálózatot a pénztárcájában."
 
 #: src/components/PositionPreview/index.tsx
 msgid "Fee Tier"
@@ -835,8 +835,8 @@ msgid "For"
 msgstr "Számára"
 
 #: src/pages/MigrateV2/index.tsx
-msgid "For each pool shown below, click migrate to remove your liquidity from Uniswap V2 and deposit it into Uniswap V3."
-msgstr "Az alább látható egyes poolok esetében kattintson a migrálás gombra, hogy eltávolítsa a likviditását az Uniswap V2-ből, és letétbe helyezze az Uniswap V3-ban."
+msgid "For each pool shown below, click migrate to remove your liquidity from AnimeSwap V2 and deposit it into AnimeSwap V3."
+msgstr "Az alább látható egyes poolok esetében kattintson a migrálás gombra, hogy eltávolítsa a likviditását az AnimeSwap V2-ből, és letétbe helyezze az AnimeSwap V3-ban."
 
 #: src/pages/Swap/index.tsx
 msgid "From"
@@ -892,7 +892,7 @@ msgstr "Importálás"
 msgid "Import List"
 msgstr "Importlista"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Import Pool"
 msgstr "Import Pool"
 
@@ -1000,13 +1000,13 @@ msgstr "Likviditás"
 msgid "Liquidity data not available."
 msgstr "Likviditási adatok nem állnak rendelkezésre."
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Liquidity provider rewards"
 msgstr "Likviditásszolgáltató jutalma"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Liquidity providers earn a 0.25% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
-msgstr "A likviditásszolgáltatók 0,3%-os díjat kapnak minden kereskedés után, amely arányos a poolból való részesedésükkel. A díjakat a poolhoz adják hozzá, valós időben halmozódnak fel, és a likviditás visszavonásával igényelhetők."
+msgstr "A likviditásszolgáltatók 0,25%-os díjat kapnak minden kereskedés után, amely arányos a poolból való részesedésükkel. A díjakat a poolhoz adják hozzá, valós időben halmozódnak fel, és a likviditás visszavonásával igényelhetők."
 
 #: src/components/SearchModal/Manage.tsx
 msgid "Lists"
@@ -1021,7 +1021,7 @@ msgstr "Feltöltve"
 #: src/components/PositionCard/index.tsx
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
 #: src/pages/MigrateV2/index.tsx
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 #: src/pages/PoolFinder/index.tsx
 msgid "Loading"
 msgstr "Feltöltés"
@@ -1084,7 +1084,7 @@ msgstr "Menü"
 msgid "Migrate"
 msgstr "Migrálás"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Migrate Liquidity to V3"
 msgstr "Likviditás migrálása a V3-ra"
 
@@ -1094,8 +1094,8 @@ msgid "Migrate V2 Liquidity"
 msgstr "V2 likviditás migrálása"
 
 #: src/pages/MigrateV2/index.tsx
-msgid "Migrate your liquidity tokens from Uniswap V2 to Uniswap V3."
-msgstr "Likviditási tokenek migrálása az Uniswap V2-ről az Uniswap V3-ra."
+msgid "Migrate your liquidity tokens from AnimeSwap V2 to AnimeSwap V3."
+msgstr "Likviditási tokenek migrálása az AnimeSwap V2-ről az AnimeSwap V3-ra."
 
 #: src/components/AccountDetails/TransactionSummary.tsx
 msgid "Migrate {0}/{1} liquidity to V3"
@@ -1163,7 +1163,7 @@ msgstr "Nincs adat"
 msgid "No description."
 msgstr "Nincs leírás."
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "No liquidity found."
 msgstr "Likviditás nem található."
 
@@ -1399,10 +1399,10 @@ msgid "Read more about UNI"
 msgstr "További információk az UNI-ról"
 
 #: src/pages/Vote/Landing.tsx
-msgid "Read more about Uniswap governance"
-msgstr "További információk az Uniswap irányításáról"
+msgid "Read more about AnimeSwap governance"
+msgstr "További információk az AnimeSwap irányításáról"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Read more about providing liquidity"
 msgstr "További információk a likviditás nyújtásáról"
 
@@ -1613,24 +1613,24 @@ msgid "Swapping {0} {1} for {2} {3}"
 msgstr "{0} {1} cseréje a következőre {2} {3}"
 
 #: src/components/Popups/SurveyPopup.tsx
-msgid "Take a 10 minute survey to help us improve your experience in the Uniswap app."
-msgstr "Töltsön ki egy 10 perces kérdőívet, hogy segítsen nekünk javítani az Uniswap alkalmazással kapcsolatos élményét."
+msgid "Take a 10 minute survey to help us improve your experience in the AnimeSwap app."
+msgstr "Töltsön ki egy 10 perces kérdőívet, hogy segítsen nekünk javítani az AnimeSwap alkalmazással kapcsolatos élményét."
 
 #: src/components/Popups/SurveyPopup.tsx
 msgid "Tell us what you think ↗"
 msgstr "Mondja el, mit gondol ↗"
 
 #: src/components/Popups/ClaimPopup.tsx
-msgid "Thanks for being part of the Uniswap community <0/>"
-msgstr "Köszönjük, hogy az Uniswap közösség tagja <0/>"
+msgid "Thanks for being part of the AnimeSwap community <0/>"
+msgstr "Köszönjük, hogy az AnimeSwap közösség tagja <0/>"
 
 #: src/components/FeeSelector/index.tsx
 msgid "The % you will earn in fees."
 msgstr "A díjakban keresett%."
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
-msgid "The Uniswap invariant x*y=k was not satisfied by the swap. This usually means one of the tokens you are swapping incorporates custom behavior on transfer."
-msgstr "A Uniswap invariáns x*y=k nem teljesült a swap során. Ez általában azt jelenti, hogy a cserélendő tokenek egyike egyéni viselkedést tartalmaz az átadáskor."
+msgid "The AnimeSwap invariant x*y=k was not satisfied by the swap. This usually means one of the tokens you are swapping incorporates custom behavior on transfer."
+msgstr "A AnimeSwap invariáns x*y=k nem teljesült a swap során. Ez általában azt jelenti, hogy a cserélendő tokenek egyike egyéni viselkedést tartalmaz az átadáskor."
 
 #: src/components/swap/AdvancedSwapDetails.tsx
 msgid "The amount you expect to receive at the current market price. You may receive less or more if the market price changes while your transaction is pending."
@@ -1645,8 +1645,8 @@ msgid "The app fetches on-chain data and constructs contract calls with an Infur
 msgstr "Az alkalmazás lekéri a láncon belüli adatokat, és szerződéshívásokat hoz létre egy Infura API-val."
 
 #: src/components/PrivacyPolicy/index.tsx
-msgid "The app fetches the optimal trade route from a Uniswap Labs server."
-msgstr "Az alkalmazás lekéri az optimális kereskedelmi útvonalat egy Uniswap Labs szerverről."
+msgid "The app fetches the optimal trade route from a AnimeSwap Labs server."
+msgstr "Az alkalmazás lekéri az optimális kereskedelmi útvonalat egy AnimeSwap Labs szerverről."
 
 #: src/components/PrivacyPolicy/index.tsx
 msgid "The app logs anonymized usage statistics in order to improve over time."
@@ -1701,8 +1701,8 @@ msgid "The output token cannot be transferred. There may be an issue with the ou
 msgstr "Az output token nem transzferálható. Probléma lehet az output tokennel."
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
-msgid "The output token cannot be transferred. There may be an issue with the output token. Note: fee on transfer and rebase tokens are incompatible with Uniswap V3."
-msgstr "A kimeneti token nem vihető át. Probléma lehet a kimeneti tokennel. Megjegyzés: az átviteli és újrabázis tokenek díja nem kompatibilis az Uniswap V3 verzióval."
+msgid "The output token cannot be transferred. There may be an issue with the output token. Note: fee on transfer and rebase tokens are incompatible with AnimeSwap V3."
+msgstr "A kimeneti token nem vihető át. Probléma lehet a kimeneti tokennel. Megjegyzés: az átviteli és újrabázis tokenek díja nem kompatibilis az AnimeSwap V3 verzióval."
 
 #: src/components/Badge/RangeBadge.tsx
 msgid "The price of this pool is outside of your selected range. Your position is not currently earning fees."
@@ -1745,16 +1745,16 @@ msgid "This token doesn't appear on the active token list(s). Make sure this is 
 msgstr "Ez a token nem jelenik meg az aktív tokenek listájában. Győződjön meg arról, hogy ez az a token, amelyet kereskedni szeretne."
 
 #: src/components/SearchModal/BlockedToken.tsx
-msgid "This token is not supported in the Uniswap Labs app"
-msgstr "Ezt a tokent nem támogatja az Uniswap Labs alkalmazás"
+msgid "This token is not supported in the AnimeSwap Labs app"
+msgstr "Ezt a tokent nem támogatja az AnimeSwap Labs alkalmazás"
 
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
 msgid "This tool will safely migrate your {0} liquidity to V3. The process is completely trustless thanks to the"
 msgstr "Ez az eszköz biztonságosan migrálja a {0} likviditását a V3-ba. A folyamat teljesen megbízhatatlan köszönhetően"
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
-msgid "This transaction will not succeed due to price movement. Try increasing your slippage tolerance. Note: fee on transfer and rebase tokens are incompatible with Uniswap V3."
-msgstr "Ez a tranzakció az ármozgás miatt nem fog sikerülni. Próbáld meg növelni a csúszástűrést. Megjegyzés: az átviteli és újrabázis tokenek díja nem kompatibilis az Uniswap V3 verzióval."
+msgid "This transaction will not succeed due to price movement. Try increasing your slippage tolerance. Note: fee on transfer and rebase tokens are incompatible with AnimeSwap V3."
+msgstr "Ez a tranzakció az ármozgás miatt nem fog sikerülni. Próbáld meg növelni a csúszástűrést. Megjegyzés: az átviteli és újrabázis tokenek díja nem kompatibilis az AnimeSwap V3 verzióval."
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
 msgid "This transaction will not succeed either due to price movement or fee on transfer. Try increasing your slippage tolerance."
@@ -1848,8 +1848,8 @@ msgid "UNI has arrived"
 msgstr "Megérkezett az UNI"
 
 #: src/pages/Vote/Landing.tsx
-msgid "UNI tokens represent voting shares in Uniswap governance. You can vote on each proposal yourself or delegate your votes to a third party."
-msgstr "Az UNI tokenek szavazati részvényeket képviselnek az Uniswap irányításában. Az egyes javaslatokról saját maga is szavazhat, vagy szavazatait átruházhatja egy harmadik félre."
+msgid "UNI tokens represent voting shares in AnimeSwap governance. You can vote on each proposal yourself or delegate your votes to a third party."
+msgstr "Az UNI tokenek szavazati részvényeket képviselnek az AnimeSwap irányításában. Az egyes javaslatokról saját maga is szavazhat, vagy szavazatait átruházhatja egy harmadik félre."
 
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "UNI {0}/{1} Burned"
@@ -1885,36 +1885,36 @@ msgid "Unexpected issue with estimating the gas. Please try again."
 msgstr "Váratlan probléma a gáz becslésével. Kérlek próbáld újra."
 
 #: src/pages/Vote/Landing.tsx
-msgid "Uniswap Governance"
-msgstr "Uniswap irányítás"
+msgid "AnimeSwap Governance"
+msgstr "AnimeSwap irányítás"
 
 #: src/components/PrivacyPolicy/index.tsx
-msgid "Uniswap Labs' Terms of Service"
-msgstr "Az Uniswap Labs szolgáltatási feltételei"
+msgid "AnimeSwap Labs' Terms of Service"
+msgstr "Az AnimeSwap Labs szolgáltatási feltételei"
 
 #: src/components/SwitchLocaleLink/index.tsx
-msgid "Uniswap available in: <0>{0}</0>"
-msgstr "Az Uniswap itt érhető el: <0>{0}</0>"
+msgid "AnimeSwap available in: <0>{0}</0>"
+msgstr "Az AnimeSwap itt érhető el: <0>{0}</0>"
 
 #: src/components/vote/ProposalEmptyState.tsx
-msgid "Uniswap governance is only available on Layer 1. Switch your network to Ethereum Mainnet to view Proposals and Vote."
-msgstr "Az uniswap irányítás csak az 1. rétegben érhető el. A javaslatok és a szavazatok megtekintéséhez kapcsolja hálózatát Ethereum Mainnet-re."
+msgid "AnimeSwap governance is only available on Layer 1. Switch your network to Ethereum Mainnet to view Proposals and Vote."
+msgstr "Az AnimeSwap irányítás csak az 1. rétegben érhető el. A javaslatok és a szavazatok megtekintéséhez kapcsolja hálózatát Ethereum Mainnet-re."
 
 #: src/pages/Earn/index.tsx
-msgid "Uniswap liquidity mining"
-msgstr "Uniswap likviditásbányászat"
+msgid "AnimeSwap liquidity mining"
+msgstr "AnimeSwap likviditásbányászat"
 
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
-msgid "Uniswap migration contract↗"
-msgstr "Uniswap migrációs szerződés↗"
+msgid "AnimeSwap migration contract↗"
+msgstr "AnimeSwap migrációs szerződés↗"
 
 #: src/components/SearchModal/TokenImportCard.tsx
 msgid "Unknown Source"
 msgstr "Ismeretlen forrás"
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
-msgid "Unknown error{0}. Try increasing your slippage tolerance. Note: fee on transfer and rebase tokens are incompatible with Uniswap V3."
-msgstr "Ismeretlen hiba{0}. Próbálja meg növelni a csúszástűrést. Megjegyzés: az átutalási és újbóli alapkivonási díjak nem kompatibilisek az Uniswap V3 -mal."
+msgid "Unknown error{0}. Try increasing your slippage tolerance. Note: fee on transfer and rebase tokens are incompatible with AnimeSwap V3."
+msgstr "Ismeretlen hiba{0}. Próbálja meg növelni a csúszástűrést. Megjegyzés: az átutalási és újbóli alapkivonási díjak nem kompatibilisek az AnimeSwap V3 -mal."
 
 #: src/pages/Vote/Landing.tsx
 #: src/pages/Vote/VotePage.tsx
@@ -1960,14 +1960,14 @@ msgid "Update list"
 msgstr "Lista frissítése"
 
 #: src/components/Settings/index.tsx
-msgid "Use the Uniswap Labs API to get faster quotes."
-msgstr "A Uniswap Labs API segítségével gyorsabb árajánlatokat kaphat."
+msgid "Use the AnimeSwap Labs API to get faster quotes."
+msgstr "A AnimeSwap Labs API segítségével gyorsabb árajánlatokat kaphat."
 
 #: src/components/claim/ClaimModal.tsx
 msgid "User"
 msgstr "Felhasználó"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "V2 Pool is not available on Layer 2. Switch to Layer 1 Ethereum."
 msgstr "A V2 Pool nem érhető el a 2. rétegen. Váltson az 1. rétegű Ethereumra."
 
@@ -2137,8 +2137,8 @@ msgid "You are creating a pool"
 msgstr "Poolt hoz létre"
 
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
-msgid "You are the first liquidity provider for this Uniswap V3 pool. Your liquidity will migrate at the current {0} price."
-msgstr "Ön az első likviditásszolgáltató ebben az Uniswap V3 poolban. Likviditása a jelenlegi {0} áron migrál."
+msgid "You are the first liquidity provider for this AnimeSwap V3 pool. Your liquidity will migrate at the current {0} price."
+msgstr "Ön az első likviditásszolgáltató ebben az AnimeSwap V3 poolban. Likviditása a jelenlegi {0} áron migrál."
 
 #: src/pages/AddLiquidity/index.tsx
 msgid "You are the first liquidity provider."
@@ -2177,16 +2177,16 @@ msgid "You must connect an account."
 msgstr "Csatlakoznia kell egy fiókhoz."
 
 #: src/pages/Swap/index.tsx
-msgid "You must give the Uniswap smart contracts permission to use your {0}. You only have to do this once per token."
-msgstr "Engedélyt kell adnia az Uniswap intelligens szerződéseknek a(z) {0} használatához. Ezt tokenenként csak egyszer kell megtennie."
+msgid "You must give the AnimeSwap smart contracts permission to use your {0}. You only have to do this once per token."
+msgstr "Engedélyt kell adnia az AnimeSwap intelligens szerződéseknek a(z) {0} használatához. Ezt tokenenként csak egyszer kell megtennie."
 
 #: src/pages/CreateProposal/index.tsx
 msgid "You must have {formattedProposalThreshold} votes to submit a proposal"
 msgstr "A javaslat benyújtásához {formattedProposalThreshold} szavazattal kell rendelkeznie"
 
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
-msgid "You should only deposit liquidity into Uniswap V3 at a price you believe is correct. <0/>If the price seems incorrect, you can either make a swap to move the price or wait for someone else to do so."
-msgstr "Csak olyan áron helyezhet el likviditást az Uniswap V3-ban, amelyet helyesnek tart. <0/>Ha az ár helytelennek tűnik, akkor vagy cserét hajt végre az ár elmozdítása érdekében, vagy megvárhatja, hogy valaki más megtegye ezt."
+msgid "You should only deposit liquidity into AnimeSwap V3 at a price you believe is correct. <0/>If the price seems incorrect, you can either make a swap to move the price or wait for someone else to do so."
+msgstr "Csak olyan áron helyezhet el likviditást az AnimeSwap V3-ban, amelyet helyesnek tart. <0/>Ha az ár helytelennek tűnik, akkor vagy cserét hajt végre az ár elmozdítása érdekében, vagy megvárhatja, hogy valaki más megtegye ezt."
 
 #: src/pages/RemoveLiquidity/V3.tsx
 msgid "You will also collect fees earned from this position."
@@ -2197,7 +2197,7 @@ msgstr "Ezen a pozíción megszerzett díjakat is beszedi."
 msgid "You will receive"
 msgstr "Kapni fog"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Your V2 liquidity"
 msgstr "Saját V2 likviditása"
 

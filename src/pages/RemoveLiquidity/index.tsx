@@ -1,8 +1,8 @@
 import { Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
 import { SwitchLocaleLink } from 'components/SwitchLocaleLink'
-import { BIG_INT_ZERO, BP } from 'constants/misc'
-import { amountPretty, useCoin } from 'hooks/common/Coin'
+import { BIG_INT_ZERO, BP, REFRESH_TIMEOUT } from 'constants/misc'
+import { amountPretty, CoinAmount, useCoin } from 'hooks/common/Coin'
 import { pairKey, usePair } from 'hooks/common/Pair'
 import { ReactNode, useCallback, useContext, useMemo, useState } from 'react'
 import { ArrowDown, Plus } from 'react-feather'
@@ -63,6 +63,11 @@ export default function RemoveLiquidity() {
     [Field.COIN_B]: BIG_INT_ZERO,
   })
 
+  const coinA_amount =
+    coinA && parsedAmounts[Field.COIN_A] ? new CoinAmount(coinA, parsedAmounts[Field.COIN_A]) : undefined
+  const coinB_amount =
+    coinB && parsedAmounts[Field.COIN_B] ? new CoinAmount(coinB, parsedAmounts[Field.COIN_B]) : undefined
+
   let error: ReactNode | undefined
   if (!account) {
     error = <Trans>Connect Wallet</Trans>
@@ -106,7 +111,7 @@ export default function RemoveLiquidity() {
       setTxHash(txid)
       setTimeout(() => {
         ConnectionInstance.syncAccountResources(account)
-      }, 500)
+      }, REFRESH_TIMEOUT)
     } catch (error) {
       setAttemptingTxn(false)
       console.error('onAdd', error)
@@ -198,10 +203,9 @@ export default function RemoveLiquidity() {
   }
 
   const pendingText = (
-    <Trans>
-      Removing {0} {'APT'} and
-      {0} {'APT'}
-    </Trans>
+    <>
+      Supplying {coinA_amount?.prettyWithSymbol()} and {coinB_amount?.prettyWithSymbol()}
+    </>
   )
 
   function onUserInput(field: Field, value: string) {

@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: uniswap-interface\n"
+"Project-Id-Version: AnimeSwap-interface\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: 2022-08-04 19:04\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Crowdin-Project: uniswap-interface\n"
+"X-Crowdin-Project: AnimeSwap-interface\n"
 "X-Crowdin-Project-ID: 458284\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: en-US.po\n"
@@ -80,7 +80,7 @@ msgstr "<0/> 所有提案"
 msgid "<0/> Votes"
 msgstr "<0/> 投票"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "<0>Account analytics and accrued fees</0><1> ↗ </1>"
 msgstr "<0>帳戶分析和已累積的手續費</0><1>↗</1>"
 
@@ -143,8 +143,8 @@ msgid "Add"
 msgstr "新增"
 
 #: src/components/AccountDetails/TransactionSummary.tsx
-msgid "Add <0/> and <1/> to Uniswap V2"
-msgstr "將 <0/> 和 <1/> 添加到 Uniswap V2"
+msgid "Add <0/> and <1/> to AnimeSwap V2"
+msgstr "將 <0/> 和 <1/> 添加到 AnimeSwap V2"
 
 #: src/components/vote/DelegateModal.tsx
 msgid "Add Delegate +"
@@ -155,7 +155,7 @@ msgstr "添加委托 +"
 msgid "Add Liquidity"
 msgstr "註入流動資金"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Add V2 Liquidity"
 msgstr "註入 V2 流動資金"
 
@@ -204,8 +204,8 @@ msgid "Allow high price impact trades and skip the confirm screen. Use at your o
 msgstr "允許高兌換率影響的交易，並跳過確認步驟。須自行承擔使用風險。"
 
 #: src/pages/Swap/index.tsx
-msgid "Allow the Uniswap Protocol to use your {0}"
-msgstr "允許 Uniswap 使用您的 {0}"
+msgid "Allow the AnimeSwap Protocol to use your {0}"
+msgstr "允許 AnimeSwap 使用您的 {0}"
 
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
 msgid "Allowed"
@@ -216,8 +216,8 @@ msgid "Amount"
 msgstr "數額"
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
-msgid "An error occurred when trying to execute this swap. You may need to increase your slippage tolerance. If that does not work, there may be an incompatibility with the token you are trading. Note: fee on transfer and rebase tokens are incompatible with Uniswap V3."
-msgstr "嘗試執行此兌換時發生錯誤。您可能需要增加滑點限制。如果還是不行，則可能是您正在交易的代幣與Uniswap不兼容。注：Uniswap V3不兼容轉賬時帶扣除費用（fee-on-transfer）的代幣和彈性供應（rebase）代幣。"
+msgid "An error occurred when trying to execute this swap. You may need to increase your slippage tolerance. If that does not work, there may be an incompatibility with the token you are trading. Note: fee on transfer and rebase tokens are incompatible with AnimeSwap V3."
+msgstr "嘗試執行此兌換時發生錯誤。您可能需要增加滑點限制。如果還是不行，則可能是您正在交易的代幣與AnimeSwap不兼容。注：AnimeSwap V3不兼容轉賬時帶扣除費用（fee-on-transfer）的代幣和彈性供應（rebase）代幣。"
 
 #: src/components/earn/StakingModal.tsx
 #: src/pages/RemoveLiquidity/index.tsx
@@ -269,8 +269,8 @@ msgid "Are you sure?"
 msgstr "您確定嗎？"
 
 #: src/components/claim/ClaimModal.tsx
-msgid "As a member of the Uniswap community you may claim UNI to be used for voting and governance.<0/><1/><2>Read more about UNI</2>"
-msgstr "作為 Uniswap 社群的成員，您可以認領 UNI 代幣，用於投票和治理。<0/><1/><2>閱讀更多關於 UNI 代幣的訊息</2>"
+msgid "As a member of the AnimeSwap community you may claim UNI to be used for voting and governance.<0/><1/><2>Read more about UNI</2>"
+msgstr "作為 AnimeSwap 社群的成員，您可以認領 UNI 代幣，用於投票和治理。<0/><1/><2>閱讀更多關於 UNI 代幣的訊息</2>"
 
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
 msgid "At least {0} {1} and {2} {3} will be refunded to your wallet due to selected price range."
@@ -325,16 +325,16 @@ msgid "Bridge"
 msgstr "橋"
 
 #: src/components/PositionCard/index.tsx
-msgid "By adding liquidity you'll earn 0.3% of all trades on this pair proportional to your share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
-msgstr "通過添加流動性，您將按您在流動池中所佔比例賺取對應交易量的0.3%手續費。手續費將實時累加到流動池中，在您取回流動性時也將同時取回您賺取的手續費。"
+msgid "By adding liquidity you'll earn 0.25% of all trades on this pair proportional to your share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
+msgstr "通過添加流動性，您將按您在流動池中所佔比例賺取對應交易量的0.25%手續費。手續費將實時累加到流動池中，在您取回流動性時也將同時取回您賺取的手續費。"
 
 #: src/components/SearchModal/ImportList.tsx
 msgid "By adding this list you are implicitly trusting that the data is correct. Anyone can create a list, including creating fake versions of existing lists and lists that claim to represent projects that do not have one."
 msgstr "添加此代幣列表代表您信任其數據是正確的。任何人都可以創建代幣列表，包括創建假冒實際列表的造假版本，以及自我聲稱代表了某項目的代幣列表。"
 
 #: src/components/WalletModal/index.tsx
-msgid "By connecting a wallet, you agree to Uniswap Labs’ <0>Terms of Service</0> and acknowledge that you have read and understand the Uniswap <1>Protocol Disclaimer</1>."
-msgstr "連接錢包即表示您同意 Uniswap Labs 的 <0>服務條款</0> 並確認您已閱讀並理解 Uniswap <1>協議免責聲明</1>。"
+msgid "By connecting a wallet, you agree to AnimeSwap Labs’ <0>Terms of Service</0> and acknowledge that you have read and understand the AnimeSwap <1>Protocol Disclaimer</1>."
+msgstr "連接錢包即表示您同意 AnimeSwap Labs 的 <0>服務條款</0> 並確認您已閱讀並理解 AnimeSwap <1>協議免責聲明</1>。"
 
 #: src/pages/Vote/styled.tsx
 msgid "Canceled"
@@ -524,7 +524,7 @@ msgstr "連接到錢包以查找流動池"
 msgid "Connect to a wallet to view your V2 liquidity."
 msgstr "連接到錢包以查看您的 V2 流動資金。"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Connect to a wallet to view your liquidity."
 msgstr "連接到錢包以查看您的流動資金。"
 
@@ -555,7 +555,7 @@ msgid "Create Proposal"
 msgstr "創建提案"
 
 #: src/components/NavigationTabs/index.tsx
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Create a pair"
 msgstr "創建幣對"
 
@@ -636,8 +636,8 @@ msgid "Deposit tokens to the {label} network."
 msgstr "將代幣存入 {label} 網絡。"
 
 #: src/pages/Earn/index.tsx
-msgid "Deposit your Liquidity Provider tokens to receive UNI, the Uniswap protocol governance token."
-msgstr "存入您的流動池代幣以領取 UNI（Uniswap 的治理代幣）。"
+msgid "Deposit your Liquidity Provider tokens to receive UNI, the AnimeSwap protocol governance token."
+msgstr "存入您的流動池代幣以領取 UNI（AnimeSwap 的治理代幣）。"
 
 #: src/components/earn/UnstakingModal.tsx
 msgid "Deposited liquidity:"
@@ -684,8 +684,8 @@ msgid "Don’t see one of your v2 positions? <0>Import it.</0>"
 msgstr "看不到您的一些 v2 流動資金嗎？<0>將它手動導入。</0>"
 
 #: src/components/vote/DelegateModal.tsx
-msgid "Earned UNI tokens represent voting shares in Uniswap governance."
-msgstr "已賺取的 UNI 代幣代表了 Uniswap 治理中的投票份額。"
+msgid "Earned UNI tokens represent voting shares in AnimeSwap governance."
+msgstr "已賺取的 UNI 代幣代表了 AnimeSwap 治理中的投票份額。"
 
 #: src/components/FeeSelector/index.tsx
 msgid "Edit"
@@ -810,12 +810,12 @@ msgid "Expired"
 msgstr "已過期"
 
 #: src/pages/Pool/CTACards.tsx
-msgid "Explore Uniswap Analytics."
-msgstr "探索 Uniswap 分析。"
+msgid "Explore AnimeSwap Analytics."
+msgstr "探索 AnimeSwap 分析。"
 
 #: src/components/Popups/FailedNetworkSwitchPopup.tsx
-msgid "Failed to switch networks from the Uniswap Interface. In order to use Uniswap on {0}, you must change the network in your wallet."
-msgstr "無法從 Uniswap 界面切換網絡。為了在 {0} 上使用 Uniswap，您必須更改錢包中的網絡。"
+msgid "Failed to switch networks from the AnimeSwap Interface. In order to use AnimeSwap on {0}, you must change the network in your wallet."
+msgstr "無法從 AnimeSwap 界面切換網絡。為了在 {0} 上使用 AnimeSwap，您必須更改錢包中的網絡。"
 
 #: src/components/PositionPreview/index.tsx
 msgid "Fee Tier"
@@ -834,8 +834,8 @@ msgid "For"
 msgstr "贊成"
 
 #: src/pages/MigrateV2/index.tsx
-msgid "For each pool shown below, click migrate to remove your liquidity from Uniswap V2 and deposit it into Uniswap V3."
-msgstr "對於下面顯示的每個流動池，單擊“遷移”以從 Uniswap V2 贖回您的流動資金，並將其註入到 Uniswap V3。"
+msgid "For each pool shown below, click migrate to remove your liquidity from AnimeSwap V2 and deposit it into AnimeSwap V3."
+msgstr "對於下面顯示的每個流動池，單擊“遷移”以從 AnimeSwap V2 贖回您的流動資金，並將其註入到 AnimeSwap V3。"
 
 #: src/pages/Swap/index.tsx
 msgid "From"
@@ -891,7 +891,7 @@ msgstr "導入"
 msgid "Import List"
 msgstr "導入代幣列表"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Import Pool"
 msgstr "導入流動池"
 
@@ -999,13 +999,13 @@ msgstr "流動資金"
 msgid "Liquidity data not available."
 msgstr "沒有流動性數據。"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Liquidity provider rewards"
 msgstr "流動資金提供者獎勵"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Liquidity providers earn a 0.25% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity."
-msgstr "流動資金提供者在所有交易中按其在流動池中的份額獲得0.3%的手續費。手續費按實時累計方式添加到流動池中，可與流動資金一起贖回。"
+msgstr "流動資金提供者在所有交易中按其在流動池中的份額獲得0.25%的手續費。手續費按實時累計方式添加到流動池中，可與流動資金一起贖回。"
 
 #: src/components/SearchModal/Manage.tsx
 msgid "Lists"
@@ -1020,7 +1020,7 @@ msgstr "已加載"
 #: src/components/PositionCard/index.tsx
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
 #: src/pages/MigrateV2/index.tsx
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 #: src/pages/PoolFinder/index.tsx
 msgid "Loading"
 msgstr "載入中"
@@ -1083,7 +1083,7 @@ msgstr "菜單"
 msgid "Migrate"
 msgstr "遷移"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Migrate Liquidity to V3"
 msgstr "將流動資金遷移到V3"
 
@@ -1093,8 +1093,8 @@ msgid "Migrate V2 Liquidity"
 msgstr "遷移 V2 流動資金"
 
 #: src/pages/MigrateV2/index.tsx
-msgid "Migrate your liquidity tokens from Uniswap V2 to Uniswap V3."
-msgstr "將您的流動資金從 Uniswap V2 遷移到 Uniswap V3。"
+msgid "Migrate your liquidity tokens from AnimeSwap V2 to AnimeSwap V3."
+msgstr "將您的流動資金從 AnimeSwap V2 遷移到 AnimeSwap V3。"
 
 #: src/components/AccountDetails/TransactionSummary.tsx
 msgid "Migrate {0}/{1} liquidity to V3"
@@ -1162,7 +1162,7 @@ msgstr "沒有資料"
 msgid "No description."
 msgstr "沒有說明。"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "No liquidity found."
 msgstr "未找到流動資金。"
 
@@ -1398,10 +1398,10 @@ msgid "Read more about UNI"
 msgstr "了解有關 UNI 的更多資訊"
 
 #: src/pages/Vote/Landing.tsx
-msgid "Read more about Uniswap governance"
-msgstr "閱讀有關 Uniswap 治理的更多資訊"
+msgid "Read more about AnimeSwap governance"
+msgstr "閱讀有關 AnimeSwap 治理的更多資訊"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Read more about providing liquidity"
 msgstr "閱讀有關提供流動資金的更多資訊"
 
@@ -1612,24 +1612,24 @@ msgid "Swapping {0} {1} for {2} {3}"
 msgstr "將 {0} {1} 兌換為 {2} {3}"
 
 #: src/components/Popups/SurveyPopup.tsx
-msgid "Take a 10 minute survey to help us improve your experience in the Uniswap app."
-msgstr "進行 10 分鐘調查，以幫助我們改善您在 Uniswap 中的體驗。"
+msgid "Take a 10 minute survey to help us improve your experience in the AnimeSwap app."
+msgstr "進行 10 分鐘調查，以幫助我們改善您在 AnimeSwap 中的體驗。"
 
 #: src/components/Popups/SurveyPopup.tsx
 msgid "Tell us what you think ↗"
 msgstr "告訴我們你的想法↗"
 
 #: src/components/Popups/ClaimPopup.tsx
-msgid "Thanks for being part of the Uniswap community <0/>"
-msgstr "感謝您加入 Uniswap 社區 <0/>"
+msgid "Thanks for being part of the AnimeSwap community <0/>"
+msgstr "感謝您加入 AnimeSwap 社區 <0/>"
 
 #: src/components/FeeSelector/index.tsx
 msgid "The % you will earn in fees."
 msgstr "您將賺取的手續費百分比。"
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
-msgid "The Uniswap invariant x*y=k was not satisfied by the swap. This usually means one of the tokens you are swapping incorporates custom behavior on transfer."
-msgstr "兌換交易不滿足 Uniswap 不變量 X × Y = K 的要求。這通常意味著您要兌換的代幣之一在代幣轉賬過程中帶有一些自定義代幣合約特性。"
+msgid "The AnimeSwap invariant x*y=k was not satisfied by the swap. This usually means one of the tokens you are swapping incorporates custom behavior on transfer."
+msgstr "兌換交易不滿足 AnimeSwap 不變量 X × Y = K 的要求。這通常意味著您要兌換的代幣之一在代幣轉賬過程中帶有一些自定義代幣合約特性。"
 
 #: src/components/swap/AdvancedSwapDetails.tsx
 msgid "The amount you expect to receive at the current market price. You may receive less or more if the market price changes while your transaction is pending."
@@ -1644,8 +1644,8 @@ msgid "The app fetches on-chain data and constructs contract calls with an Infur
 msgstr "該應用程序獲取鏈上數據並使用 Infura API 構建合約調用。"
 
 #: src/components/PrivacyPolicy/index.tsx
-msgid "The app fetches the optimal trade route from a Uniswap Labs server."
-msgstr "該應用程序從 Uniswap Labs 服務器獲取最佳交易路徑。"
+msgid "The app fetches the optimal trade route from a AnimeSwap Labs server."
+msgstr "該應用程序從 AnimeSwap Labs 服務器獲取最佳交易路徑。"
 
 #: src/components/PrivacyPolicy/index.tsx
 msgid "The app logs anonymized usage statistics in order to improve over time."
@@ -1700,8 +1700,8 @@ msgid "The output token cannot be transferred. There may be an issue with the ou
 msgstr "輸出代幣無法進行轉賬。輸出代幣可能有些問題。"
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
-msgid "The output token cannot be transferred. There may be an issue with the output token. Note: fee on transfer and rebase tokens are incompatible with Uniswap V3."
-msgstr "輸出代幣無法進行轉賬。輸出代幣可能有些問題。註：轉賬時帶扣除費用（fee-on-transfer）的代幣和會自動重新定價（rebase）的代幣都與Uniswap V3不相容。"
+msgid "The output token cannot be transferred. There may be an issue with the output token. Note: fee on transfer and rebase tokens are incompatible with AnimeSwap V3."
+msgstr "輸出代幣無法進行轉賬。輸出代幣可能有些問題。註：轉賬時帶扣除費用（fee-on-transfer）的代幣和會自動重新定價（rebase）的代幣都與AnimeSwap V3不相容。"
 
 #: src/components/Badge/RangeBadge.tsx
 msgid "The price of this pool is outside of your selected range. Your position is not currently earning fees."
@@ -1744,16 +1744,16 @@ msgid "This token doesn't appear on the active token list(s). Make sure this is 
 msgstr "此代幣未出現在激活的代幣列表中。請確保這是您想要交易的代幣。"
 
 #: src/components/SearchModal/BlockedToken.tsx
-msgid "This token is not supported in the Uniswap Labs app"
-msgstr "Uniswap Labs 應用程序不支持此代幣"
+msgid "This token is not supported in the AnimeSwap Labs app"
+msgstr "AnimeSwap Labs 應用程序不支持此代幣"
 
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
 msgid "This tool will safely migrate your {0} liquidity to V3. The process is completely trustless thanks to the"
 msgstr "該工具將安全地將您的 {0} 流動資金遷移到 V3。該過程完全不依賴任何信任需求"
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
-msgid "This transaction will not succeed due to price movement. Try increasing your slippage tolerance. Note: fee on transfer and rebase tokens are incompatible with Uniswap V3."
-msgstr "由於兌換率變動，該交易將不會成功。請嘗試增加滑點容差。註：轉賬時帶扣除費用（fee-on-transfer）的代幣和會自動重新定價（rebase）的代幣都與Uniswap V3不兼容。"
+msgid "This transaction will not succeed due to price movement. Try increasing your slippage tolerance. Note: fee on transfer and rebase tokens are incompatible with AnimeSwap V3."
+msgstr "由於兌換率變動，該交易將不會成功。請嘗試增加滑點容差。註：轉賬時帶扣除費用（fee-on-transfer）的代幣和會自動重新定價（rebase）的代幣都與AnimeSwap V3不兼容。"
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
 msgid "This transaction will not succeed either due to price movement or fee on transfer. Try increasing your slippage tolerance."
@@ -1847,8 +1847,8 @@ msgid "UNI has arrived"
 msgstr "UNI 代幣已到賬"
 
 #: src/pages/Vote/Landing.tsx
-msgid "UNI tokens represent voting shares in Uniswap governance. You can vote on each proposal yourself or delegate your votes to a third party."
-msgstr "UNI 代幣代表了 Uniswap 治理中的投票份額。您可以自行為提案進行投票，或將您的投票權委托給第三方。"
+msgid "UNI tokens represent voting shares in AnimeSwap governance. You can vote on each proposal yourself or delegate your votes to a third party."
+msgstr "UNI 代幣代表了 AnimeSwap 治理中的投票份額。您可以自行為提案進行投票，或將您的投票權委托給第三方。"
 
 #: src/pages/RemoveLiquidity/index.tsx
 msgid "UNI {0}/{1} Burned"
@@ -1884,36 +1884,36 @@ msgid "Unexpected issue with estimating the gas. Please try again."
 msgstr "估計 gas 時遇到問題。請再試一次。"
 
 #: src/pages/Vote/Landing.tsx
-msgid "Uniswap Governance"
-msgstr "Uniswap治理"
+msgid "AnimeSwap Governance"
+msgstr "AnimeSwap治理"
 
 #: src/components/PrivacyPolicy/index.tsx
-msgid "Uniswap Labs' Terms of Service"
-msgstr "Uniswap Labs 的服務條款"
+msgid "AnimeSwap Labs' Terms of Service"
+msgstr "AnimeSwap Labs 的服務條款"
 
 #: src/components/SwitchLocaleLink/index.tsx
-msgid "Uniswap available in: <0>{0}</0>"
-msgstr "Uniswap 可選語言：<0>{0}</0>"
+msgid "AnimeSwap available in: <0>{0}</0>"
+msgstr "AnimeSwap 可選語言：<0>{0}</0>"
 
 #: src/components/vote/ProposalEmptyState.tsx
-msgid "Uniswap governance is only available on Layer 1. Switch your network to Ethereum Mainnet to view Proposals and Vote."
-msgstr "Uniswap 治理僅在 Layer 1 可用。將您的網絡切換到以太坊主網以查看提案和投票。"
+msgid "AnimeSwap governance is only available on Layer 1. Switch your network to Ethereum Mainnet to view Proposals and Vote."
+msgstr "AnimeSwap 治理僅在 Layer 1 可用。將您的網絡切換到以太坊主網以查看提案和投票。"
 
 #: src/pages/Earn/index.tsx
-msgid "Uniswap liquidity mining"
-msgstr "Uniswap 流動資金挖礦"
+msgid "AnimeSwap liquidity mining"
+msgstr "AnimeSwap 流動資金挖礦"
 
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
-msgid "Uniswap migration contract↗"
-msgstr "Uniswap 遷移合約↗"
+msgid "AnimeSwap migration contract↗"
+msgstr "AnimeSwap 遷移合約↗"
 
 #: src/components/SearchModal/TokenImportCard.tsx
 msgid "Unknown Source"
 msgstr "未知來源"
 
 #: src/utils/swapErrorToUserReadableMessage.tsx
-msgid "Unknown error{0}. Try increasing your slippage tolerance. Note: fee on transfer and rebase tokens are incompatible with Uniswap V3."
-msgstr "未知錯誤{0}。請嘗試增加滑點容差。註：轉賬時帶扣除費用（fee-on-transfer）的代幣和會自動重新定價（rebase）的代幣都與Uniswap V3不相容。"
+msgid "Unknown error{0}. Try increasing your slippage tolerance. Note: fee on transfer and rebase tokens are incompatible with AnimeSwap V3."
+msgstr "未知錯誤{0}。請嘗試增加滑點容差。註：轉賬時帶扣除費用（fee-on-transfer）的代幣和會自動重新定價（rebase）的代幣都與AnimeSwap V3不相容。"
 
 #: src/pages/Vote/Landing.tsx
 #: src/pages/Vote/VotePage.tsx
@@ -1959,14 +1959,14 @@ msgid "Update list"
 msgstr "更新代幣列表"
 
 #: src/components/Settings/index.tsx
-msgid "Use the Uniswap Labs API to get faster quotes."
-msgstr "使用 Uniswap Labs API 獲得更快的報價。"
+msgid "Use the AnimeSwap Labs API to get faster quotes."
+msgstr "使用 AnimeSwap Labs API 獲得更快的報價。"
 
 #: src/components/claim/ClaimModal.tsx
 msgid "User"
 msgstr "用戶"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "V2 Pool is not available on Layer 2. Switch to Layer 1 Ethereum."
 msgstr "V2 池在第 2 層不可用。切換到第 1 層以太坊。"
 
@@ -2136,8 +2136,8 @@ msgid "You are creating a pool"
 msgstr "您正在創建一個流動池"
 
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
-msgid "You are the first liquidity provider for this Uniswap V3 pool. Your liquidity will migrate at the current {0} price."
-msgstr "您是此 Uniswap V3 流動池的第一個流動資金提供者。您的流動資金將以當前的 {0} 兌換率遷移。"
+msgid "You are the first liquidity provider for this AnimeSwap V3 pool. Your liquidity will migrate at the current {0} price."
+msgstr "您是此 AnimeSwap V3 流動池的第一個流動資金提供者。您的流動資金將以當前的 {0} 兌換率遷移。"
 
 #: src/pages/AddLiquidity/index.tsx
 msgid "You are the first liquidity provider."
@@ -2176,16 +2176,16 @@ msgid "You must connect an account."
 msgstr "您必須連接帳戶。"
 
 #: src/pages/Swap/index.tsx
-msgid "You must give the Uniswap smart contracts permission to use your {0}. You only have to do this once per token."
-msgstr "您必須授予 Uniswap 智能合約使用您的 {0} 的權限。每個代幣只需要授權一次。"
+msgid "You must give the AnimeSwap smart contracts permission to use your {0}. You only have to do this once per token."
+msgstr "您必須授予 AnimeSwap 智能合約使用您的 {0} 的權限。每個代幣只需要授權一次。"
 
 #: src/pages/CreateProposal/index.tsx
 msgid "You must have {formattedProposalThreshold} votes to submit a proposal"
 msgstr "您必須有 {formattedProposalThreshold} 票才能提交提案"
 
 #: src/pages/MigrateV2/MigrateV2Pair.tsx
-msgid "You should only deposit liquidity into Uniswap V3 at a price you believe is correct. <0/>If the price seems incorrect, you can either make a swap to move the price or wait for someone else to do so."
-msgstr "請確保以您認為是正確的兌換率來將流動資金註入到 Uniswap V3。 <0/>如果兌換率看起來不正確，您可以進行兌換交易以移動兌換率，或者等待別人進行此操作。"
+msgid "You should only deposit liquidity into AnimeSwap V3 at a price you believe is correct. <0/>If the price seems incorrect, you can either make a swap to move the price or wait for someone else to do so."
+msgstr "請確保以您認為是正確的兌換率來將流動資金註入到 AnimeSwap V3。 <0/>如果兌換率看起來不正確，您可以進行兌換交易以移動兌換率，或者等待別人進行此操作。"
 
 #: src/pages/RemoveLiquidity/V3.tsx
 msgid "You will also collect fees earned from this position."
@@ -2196,7 +2196,7 @@ msgstr "您還將從此倉位中領取已賺取的手續費。"
 msgid "You will receive"
 msgstr "您將收到"
 
-#: src/pages/Pool/v2.tsx
+#: src/pages/Pool/index.tsx
 msgid "Your V2 liquidity"
 msgstr "您的V2流動資金"
 

@@ -175,6 +175,14 @@ export function useDerivedMintInfo(
     error = error ?? <Trans>Enter an amount</Trans>
   }
 
+  if (parsedAmounts[Field.COIN_A] && parsedAmounts[Field.COIN_A].lte(1)) {
+    error = error ?? <Trans>Enter an amount</Trans>
+  }
+
+  if (parsedAmounts[Field.COIN_B] && parsedAmounts[Field.COIN_B].lte(1)) {
+    error = error ?? <Trans>Enter an amount</Trans>
+  }
+
   const { [Field.COIN_A]: coinA_amount, [Field.COIN_B]: coinB_amount } = parsedAmounts
 
   if (coinA_amount && coinBalances?.[Field.COIN_A]?.lessThan(coinA_amount)) {

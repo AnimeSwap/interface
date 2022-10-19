@@ -14,7 +14,6 @@ import { CardBGImage, CardNoise, CardSection, DataCard } from '../../components/
 import FullPositionCard from '../../components/PositionCard'
 import { RowBetween, RowFixed } from '../../components/Row'
 import { Dots } from '../../components/swap/styleds'
-import { SwitchLocaleLink } from '../../components/SwitchLocaleLink'
 import { ExternalLink, HideSmall, ThemedText } from '../../theme'
 
 const PageWrapper = styled(AutoColumn)`
@@ -79,11 +78,12 @@ export default function Pool() {
   const [pairs, setPairs] = useState<Pair[]>([])
 
   const pairTasksPromise: Promise<Pair>[] = []
+  const allLpBalancesGT0: { [pairKey: string]: string } = {}
   for (const key in allLpBalances) {
     if (allLpBalances[key] === '0') {
-      delete allLpBalances[key]
       continue
     }
+    allLpBalancesGT0[key] = allLpBalances[key]
     const [coinX, coinY] = key.split(', ')
     pairTasksPromise.push(ConnectionInstance.getPair(coinX, coinY))
   }
@@ -166,7 +166,7 @@ export default function Pool() {
                   </Dots>
                 </ThemedText.DeprecatedBody>
               </EmptyProposals>
-            ) : Object.keys(allLpBalances)?.length > 0 ? (
+            ) : Object.keys(allLpBalancesGT0)?.length > 0 ? (
               <>
                 {/* <ButtonSecondary>
                   <RowBetween>
@@ -190,7 +190,6 @@ export default function Pool() {
           </AutoColumn>
         </AutoColumn>
       </PageWrapper>
-      <SwitchLocaleLink />
     </>
   )
 }

@@ -132,7 +132,7 @@ export function MinimalPositionCard({ pair, border }: PositionCardProps) {
               ⭐️
             </span>{' '}
             <Trans>
-              By adding liquidity you&apos;ll earn 0.3% of all trades on this pair proportional to your share of the
+              By adding liquidity you&apos;ll earn 0.25% of all trades on this pair proportional to your share of the
               pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity.
             </Trans>{' '}
           </ThemedText.DeprecatedSubHeader>
@@ -168,21 +168,15 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
           <RowFixed gap="8px" style={{ marginRight: '4px' }}>
             <ButtonEmpty
               color={'#FFF'}
-              padding="6px 8px"
+              padding="20px 20px"
               $borderRadius="12px"
               width="100%"
               onClick={() => setShowMore(!showMore)}
             >
               {showMore ? (
-                <>
-                  {/* <Trans>Manage</Trans> */}
-                  <ChevronUp size="20" style={{ marginLeft: '8px', height: '24px', minWidth: '60px' }} />
-                </>
+                <ChevronUp size="20" style={{ marginLeft: '8px', height: '24px', minWidth: '60px' }} />
               ) : (
-                <>
-                  {/* <Trans>Manage</Trans> */}
-                  <ChevronDown size="20" style={{ marginLeft: '8px', height: '24px', minWidth: '60px' }} />
-                </>
+                <ChevronDown size="20" style={{ marginLeft: '8px', height: '24px', minWidth: '60px' }} />
               )}
             </ButtonEmpty>
           </RowFixed>

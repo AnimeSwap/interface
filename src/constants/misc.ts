@@ -1,7 +1,9 @@
 import { Decimal, Utils } from '@animeswap.org/v1-sdk'
 
 // denominated in seconds
+export const MIN_DEADLINE_FROM_NOW = 10
 export const DEFAULT_DEADLINE_FROM_NOW = 120
+export const MAX_DEADLINE_FROM_NOW = 600
 
 // transaction popup dismisal amounts
 export const DEFAULT_TXN_DISMISS_MS = 25000
@@ -10,6 +12,8 @@ export const DEFAULT_TXN_DISMISS_MS = 25000
 export const BIG_INT_SECONDS_IN_WEEK = new Decimal(60 * 60 * 24 * 7)
 
 export const BIG_INT_ZERO = new Decimal(0)
+export const GAS_RESERVE = new Decimal(100000)
+export const REFRESH_TIMEOUT = 1000
 
 // 1 BP = 0.01%
 export const BP = Utils.BP

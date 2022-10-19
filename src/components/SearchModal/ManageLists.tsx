@@ -233,9 +233,6 @@ export function ManageLists({
   setImportList: (list: ImportCoinList) => void
   setListUrl: (url: string) => void
 }) {
-  const chainId = useChainId()
-  const theme = useTheme()
-
   const [listUrlInput, setListUrlInput] = useState<string>('')
 
   const lists = useAllLists()
@@ -341,7 +338,7 @@ export function ManageLists({
               </Row>
               <RowFixed mt="4px">
                 <StyledListUrlText active={true} mr="6px">
-                  <Trans>{tokenCountByListName} tokens</Trans>
+                  {tokenCountByListName} coins
                 </StyledListUrlText>
               </RowFixed>
             </Column>

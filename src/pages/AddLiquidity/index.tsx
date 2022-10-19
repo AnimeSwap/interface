@@ -2,7 +2,7 @@ import { Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
 import { MinimalPositionCard } from 'components/PositionCard'
 import { SwitchLocaleLink } from 'components/SwitchLocaleLink'
-import { BIG_INT_ZERO, BP } from 'constants/misc'
+import { BIG_INT_ZERO, BP, GAS_RESERVE, REFRESH_TIMEOUT } from 'constants/misc'
 import { amountPretty, Coin, CoinAmount, useCoin } from 'hooks/common/Coin'
 import { pairKey, PairState } from 'hooks/common/Pair'
 import { useCallback, useContext, useState } from 'react'
@@ -68,6 +68,7 @@ export default function AddLiquidity() {
   const { onFieldAInput, onFieldBInput } = useMintActionHandlers(noLiquidity)
 
   const isValid = !error
+  const creating = noLiquidity && coinA && coinB ? true : false
 
   // modal and loading
   const [showConfirm, setShowConfirm] = useState<boolean>(false)
@@ -109,7 +110,7 @@ export default function AddLiquidity() {
       setTxHash(txid)
       setTimeout(() => {
         ConnectionInstance.syncAccountResources(account)
-      }, 500)
+      }, REFRESH_TIMEOUT)
     } catch (error) {
       setAttemptingTxn(false)
       console.error('onAdd', error)
@@ -210,7 +211,7 @@ export default function AddLiquidity() {
   return (
     <>
       <AppBody>
-        <AddRemoveTabs creating={noLiquidity} adding={true} defaultSlippage={DEFAULT_ADD_SLIPPAGE_TOLERANCE} />
+        <AddRemoveTabs creating={creating} adding={true} defaultSlippage={DEFAULT_ADD_SLIPPAGE_TOLERANCE} />
         <Wrapper>
           <TransactionConfirmationModal
             isOpen={showConfirm}
@@ -219,7 +220,7 @@ export default function AddLiquidity() {
             hash={txHash}
             content={() => (
               <ConfirmationModalContent
-                title={noLiquidity ? <Trans>You are creating a pool</Trans> : <Trans>You will receive</Trans>}
+                title={creating ? <Trans>You are creating a pool</Trans> : <Trans>You will receive</Trans>}
                 onDismiss={handleDismissConfirmation}
                 topContent={modalHeader}
                 bottomContent={modalBottom}
@@ -228,7 +229,7 @@ export default function AddLiquidity() {
             pendingText={pendingText}
           />
           <AutoColumn gap="20px">
-            {noLiquidity ? (
+            {creating ? (
               <ColumnCenter>
                 <BlueCard>
                   <AutoColumn gap="10px">
@@ -265,7 +266,7 @@ export default function AddLiquidity() {
               value={formattedAmounts[Field.COIN_A]}
               onUserInput={onFieldAInput}
               onMax={() => {
-                const gasReserve = coinA.symbol === 'APT' ? Utils.d(40000) : BIG_INT_ZERO
+                const gasReserve = coinA.symbol === 'APT' ? GAS_RESERVE : BIG_INT_ZERO
                 onFieldAInput(
                   coinBalances[Field.COIN_A]?.sub(gasReserve).div(Utils.pow10(coinA.decimals)).toString() ?? ''
                 )
@@ -284,7 +285,7 @@ export default function AddLiquidity() {
               onUserInput={onFieldBInput}
               onCoinSelect={handleCurrencyBSelect}
               onMax={() => {
-                const gasReserve = coinB.symbol === 'APT' ? Utils.d(40000) : BIG_INT_ZERO
+                const gasReserve = coinB.symbol === 'APT' ? GAS_RESERVE : BIG_INT_ZERO
                 onFieldBInput(
                   coinBalances[Field.COIN_B]?.sub(gasReserve).div(Utils.pow10(coinB.decimals)).toString() ?? ''
                 )
@@ -299,11 +300,7 @@ export default function AddLiquidity() {
                 <LightCard padding="0px" $borderRadius={'20px'}>
                   <RowBetween padding="1rem">
                     <ThemedText.DeprecatedSubHeader fontWeight={500} fontSize={14}>
-                      {noLiquidity ? (
-                        <Trans>Initial prices and pool share</Trans>
-                      ) : (
-                        <Trans>Prices and pool share</Trans>
-                      )}
+                      {creating ? <Trans>Initial prices and pool share</Trans> : <Trans>Prices and pool share</Trans>}
                     </ThemedText.DeprecatedSubHeader>
                   </RowBetween>{' '}
                   <LightCard padding="1rem" $borderRadius={'20px'}>

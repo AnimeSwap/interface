@@ -7,7 +7,7 @@ import SDK, {
   Utils,
 } from '@animeswap.org/v1-sdk'
 import { AptosClient } from 'aptos'
-import { SupportedChainId } from 'constants/chains'
+import { CHAIN_IDS_TO_SDK_NETWORK, SupportedChainId } from 'constants/chains'
 import { Pair } from 'hooks/common/Pair'
 import store from 'state'
 import { updatePair } from 'state/user/reducer'
@@ -36,16 +36,14 @@ class ConnectionInstance {
   public static getSDK(): SDK {
     if (!ConnectionInstance.sdk) {
       const state = store.getState()
-      const networkType: NetworkType =
-        state.user.chainId === SupportedChainId.APTOS_DEVNET ? NetworkType.Devnet : NetworkType.Testnet
+      const networkType: NetworkType = CHAIN_IDS_TO_SDK_NETWORK[state.user.chainId]
       ConnectionInstance.sdk = new SDK(getRPCURL(state.connection.currentConnection, state.user.chainId), networkType)
     }
     return ConnectionInstance.sdk
   }
 
   public static renewSDK(connection: ConnectionType, chainId: SupportedChainId) {
-    const networkType: NetworkType =
-      chainId === SupportedChainId.APTOS_DEVNET ? NetworkType.Devnet : NetworkType.Testnet
+    const networkType: NetworkType = CHAIN_IDS_TO_SDK_NETWORK[chainId]
     ConnectionInstance.sdk = new SDK(getRPCURL(connection, chainId), networkType)
   }
 

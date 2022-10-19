@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/macro'
 import useScrollPosition from '@react-hook/window-scroll'
 import { getChainInfoOrDefault } from 'constants/chainInfo'
+import { SupportedChainId } from 'constants/chains'
 import { darken } from 'polished'
 import { useEffect } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
@@ -11,6 +12,7 @@ import ConnectionInstance from 'state/connection/instance'
 import { useChainId } from 'state/user/hooks'
 import { AutoConnectWallets, useAccount, useCoinAmount } from 'state/wallets/hooks'
 import styled from 'styled-components/macro'
+import { ExternalLink } from 'theme'
 
 import Logo from '../../assets/logo.png'
 import { ButtonPrimary } from '../Button'
@@ -188,6 +190,32 @@ const StyledNavLink = styled(NavLink)`
   }
 `
 
+const StyledExternalLink = styled(ExternalLink)`
+  ${({ theme }) => theme.flexRowNoWrap}
+  align-items: left;
+  border-radius: 3rem;
+  outline: none;
+  cursor: pointer;
+  text-decoration: none;
+  color: ${({ theme }) => theme.deprecated_text2};
+  font-size: 1rem;
+  width: fit-content;
+  margin: 0 12px;
+  font-weight: 500;
+
+  &.${activeClassName} {
+    border-radius: 14px;
+    font-weight: 600;
+    color: ${({ theme }) => theme.deprecated_text1};
+  }
+
+  :hover,
+  :focus {
+    color: ${({ theme }) => darken(0.1, theme.deprecated_text1)};
+    text-decoration: none;
+  }
+`
+
 const ANIbutton = styled(ButtonPrimary)`
   background-color: ${({ theme }) => theme.deprecated_bg3};
   background: radial-gradient(174.47% 188.91% at 1.84% 0%, #ff007a 0%, #2172e5 100%), #edeef2;
@@ -251,16 +279,24 @@ export default function Header() {
         >
           <Trans>Pool</Trans>
         </StyledNavLink>
-        <StyledNavLink id={`explore-nav-link`} to={'/explore'}>
+        {chainId === SupportedChainId.APTOS && (
+          <StyledExternalLink id={`bridge-nav-link`} href={'https://cbridge.celer.network'}>
+            <Trans>Bridge</Trans>
+            <sup>↗</sup>
+          </StyledExternalLink>
+        )}
+        {/* <StyledNavLink id={`explore-nav-link`} to={'/explore'}>
           <Trans>Charts</Trans>
-        </StyledNavLink>
+        </StyledNavLink> */}
       </HeaderLinks>
 
       <HeaderControls>
         <HeaderElement>
-          <ANIbutton onClick={faucetOnClick} padding="8px 12px" width="100%" $borderRadius="12px">
-            <Trans>Faucet</Trans>
-          </ANIbutton>
+          {[SupportedChainId.APTOS_TESTNET, SupportedChainId.APTOS_DEVNET].includes(chainId) && (
+            <ANIbutton onClick={faucetOnClick} padding="8px 12px" width="100%" $borderRadius="12px">
+              <Trans>Faucet</Trans>
+            </ANIbutton>
+          )}
         </HeaderElement>
         <HeaderElement>
           <NetworkSelector />

@@ -17,6 +17,7 @@ import { useChainId } from 'state/user/hooks'
 import styled from 'styled-components/macro'
 import { ExternalLink, MEDIA_WIDTHS } from 'theme'
 import { replaceURLParam } from 'utils'
+import { isProductionEnv } from 'utils/env'
 import { isMobile } from 'utils/userAgent'
 
 const ActiveRowLinkList = styled.div`
@@ -272,7 +273,11 @@ const getChainNameFromId = (id: string | number) => {
   return CHAIN_IDS_TO_NAMES[id as SupportedChainId] || ''
 }
 
-const NETWORK_SELECTOR_CHAINS = [SupportedChainId.APTOS_DEVNET, SupportedChainId.APTOS_TESTNET]
+const NETWORK_SELECTOR_CHAINS = [SupportedChainId.APTOS]
+// if (!isProductionEnv()) {
+NETWORK_SELECTOR_CHAINS.push(SupportedChainId.APTOS_DEVNET)
+NETWORK_SELECTOR_CHAINS.push(SupportedChainId.APTOS_TESTNET)
+// }
 
 export default function NetworkSelector() {
   const dispatch = useAppDispatch()
@@ -310,7 +315,18 @@ export default function NetworkSelector() {
     async (targetChain: SupportedChainId, skipClose?: boolean) => {
       try {
         dispatch(updateConnectionError({ chainId: targetChain, error: undefined }))
-        switchChain(connection, targetChain)
+
+        if (isProductionEnv()) {
+          // link to staging website
+          if ([SupportedChainId.APTOS_DEVNET, SupportedChainId.APTOS_TESTNET].includes(targetChain)) {
+            window.open('https://staging.animeswap.org')
+            return
+          } else {
+            switchChain(connection, targetChain)
+          }
+        } else {
+          switchChain(connection, targetChain)
+        }
       } catch (error) {
         console.error('Failed to switch networks', error)
 

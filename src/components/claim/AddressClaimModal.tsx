@@ -1,4 +1,6 @@
 import { Trans } from '@lingui/macro'
+import { SupportedChainId } from 'constants/chains'
+import { REFRESH_TIMEOUT } from 'constants/misc'
 import { useEffect, useState } from 'react'
 import ConnectionInstance from 'state/connection/instance'
 import { useChainId } from 'state/user/hooks'
@@ -47,9 +49,11 @@ export default function AddressClaimModal({ isOpen, onDismiss }: { isOpen: boole
   const [timeNow, setTimeNow] = useState(Date.now())
 
   useEffect(() => {
-    setInterval(() => {
-      setTimeNow(Date.now())
-    }, 1e3)
+    if ([SupportedChainId.APTOS_TESTNET, SupportedChainId.APTOS_DEVNET].includes(chainId)) {
+      setInterval(() => {
+        setTimeNow(Date.now())
+      }, 1e3)
+    }
   }, [])
   const formatTime = (time: number) => {
     const totalSeconds = Math.floor(time / 1e3)
@@ -79,7 +83,7 @@ export default function AddressClaimModal({ isOpen, onDismiss }: { isOpen: boole
         account,
         '0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::TestCoinsV1::BTC'
       )
-    }, 500)
+    }, REFRESH_TIMEOUT)
   }
 
   async function updateSinceTimeBTC() {
@@ -111,7 +115,7 @@ export default function AddressClaimModal({ isOpen, onDismiss }: { isOpen: boole
         account,
         '0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::TestCoinsV1::USDT'
       )
-    }, 500)
+    }, REFRESH_TIMEOUT)
   }
 
   async function updateSinceTimeUSDT() {
@@ -130,8 +134,10 @@ export default function AddressClaimModal({ isOpen, onDismiss }: { isOpen: boole
   }
 
   useEffect(() => {
-    updateSinceTimeBTC()
-    updateSinceTimeUSDT()
+    if ([SupportedChainId.APTOS_DEVNET, SupportedChainId.APTOS_TESTNET].includes(chainId)) {
+      updateSinceTimeBTC()
+      updateSinceTimeUSDT()
+    }
   }, [account, chainId])
 
   function wrappedOnDismiss() {
@@ -176,7 +182,7 @@ export default function AddressClaimModal({ isOpen, onDismiss }: { isOpen: boole
                 faucetBTC()
               }}
             >
-              {formatTime(sinceBTC.getTime() - timeNow)} Get BTC
+              {formatTime(sinceBTC.getTime() - timeNow)} Mint BTC
             </ButtonPrimary>
             <ButtonPrimary
               disabled={!account || sinceUSDT.getTime() > timeNow}
@@ -188,7 +194,7 @@ export default function AddressClaimModal({ isOpen, onDismiss }: { isOpen: boole
                 faucetUSDT()
               }}
             >
-              {formatTime(sinceUSDT.getTime() - timeNow)} Get USDT
+              {formatTime(sinceUSDT.getTime() - timeNow)} Mint USDT
             </ButtonPrimary>
           </AutoColumn>
         </ContentWrapper>
