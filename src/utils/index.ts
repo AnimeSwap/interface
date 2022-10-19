@@ -12,7 +12,7 @@ export function isAddress(value: any): string | false {
 // Azard: not very strict check
 export function isCoinAddress(value: any): string | false {
   try {
-    return value.match(/0x[0-9a-zA-Z:]{10,}$/) ? value : false
+    return value.match(/0x[0-9a-zA-Z:_]{10,}$/) ? value : false
   } catch {
     return false
   }
