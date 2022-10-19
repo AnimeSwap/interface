@@ -72,7 +72,7 @@ export default function CoinSearchModal({
   )
 
   // change min height if not searching
-  let minHeight: number | undefined = 50
+  let minHeight: number | undefined = 60
   let content
   switch (modalView) {
     case CoinModalView.search:
@@ -124,7 +124,7 @@ export default function CoinSearchModal({
       break
   }
   return (
-    <Modal isOpen={isOpen} onDismiss={onDismiss} maxHeight={50} minHeight={minHeight}>
+    <Modal isOpen={isOpen} onDismiss={onDismiss} maxHeight={90} minHeight={minHeight}>
       {content}
     </Modal>
   )
