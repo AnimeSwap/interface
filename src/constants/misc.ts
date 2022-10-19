@@ -1,7 +1,9 @@
 import { Decimal, Utils } from '@animeswap.org/v1-sdk'
 
 // denominated in seconds
+export const MIN_DEADLINE_FROM_NOW = 10
 export const DEFAULT_DEADLINE_FROM_NOW = 120
+export const MAX_DEADLINE_FROM_NOW = 600
 
 // transaction popup dismisal amounts
 export const DEFAULT_TXN_DISMISS_MS = 25000

@@ -36,6 +36,7 @@ class ConnectionInstance {
   public static getSDK(): SDK {
     if (!ConnectionInstance.sdk) {
       const state = store.getState()
+      // TODO[Azard] replace mainnet
       const networkType: NetworkType =
         state.user.chainId === SupportedChainId.APTOS_DEVNET ? NetworkType.Devnet : NetworkType.Testnet
       ConnectionInstance.sdk = new SDK(getRPCURL(state.connection.currentConnection, state.user.chainId), networkType)
@@ -44,6 +45,7 @@ class ConnectionInstance {
   }
 
   public static renewSDK(connection: ConnectionType, chainId: SupportedChainId) {
+    // TODO[Azard] replace mainnet
     const networkType: NetworkType =
       chainId === SupportedChainId.APTOS_DEVNET ? NetworkType.Devnet : NetworkType.Testnet
     ConnectionInstance.sdk = new SDK(getRPCURL(connection, chainId), networkType)

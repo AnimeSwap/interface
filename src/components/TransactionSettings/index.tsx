@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro'
-import { DEFAULT_DEADLINE_FROM_NOW } from 'constants/misc'
+import { DEFAULT_DEADLINE_FROM_NOW, MAX_DEADLINE_FROM_NOW, MIN_DEADLINE_FROM_NOW } from 'constants/misc'
 import { darken } from 'polished'
 import { useContext, useState } from 'react'
 import { useSetUserSlippageTolerance, useUserSlippageTolerance, useUserTransactionTTL } from 'state/user/hooks'
@@ -142,7 +142,7 @@ export default function TransactionSettings({ placeholderSlippage }: Transaction
     } else {
       try {
         const parsed: number = Math.floor(Number.parseFloat(value))
-        if (!Number.isInteger(parsed) || parsed < 10 || parsed > 600) {
+        if (!Number.isInteger(parsed) || parsed < MIN_DEADLINE_FROM_NOW || parsed > MAX_DEADLINE_FROM_NOW) {
           setDeadlineError(DeadlineError.InvalidInput)
         } else {
           setDeadline(parsed)
