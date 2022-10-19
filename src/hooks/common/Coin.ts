@@ -23,7 +23,7 @@ export class CoinAmount<T extends Coin> {
 
   pretty(decimals?: number): string {
     const significant = decimals || 6
-    const value = this.amount.div(Utils.pow10(this.coin.decimals))
+    const value = this.amount.div(Utils.pow10(this.coin?.decimals))
     if (value.greaterThan(Utils.pow10(significant))) {
       return value.toDP(0).toString()
     } else {
