@@ -9,6 +9,7 @@ import { Edit } from 'react-feather'
 import AutoSizer from 'react-virtualized-auto-sizer'
 import { FixedSizeList } from 'react-window'
 import { Text } from 'rebass'
+import ConnectionInstance from 'state/connection/instance'
 import { useChainId } from 'state/user/hooks'
 import { useAllCoinBalance } from 'state/wallets/hooks'
 import styled from 'styled-components/macro'
@@ -102,8 +103,6 @@ export function CoinSearch({
   const chainId = useChainId()
   const theme = useTheme()
 
-  const [tokenLoaderTimerElapsed, setTokenLoaderTimerElapsed] = useState(false)
-
   // refs for fixed size lists
   const fixedList = useRef<FixedSizeList>()
 
@@ -114,6 +113,13 @@ export function CoinSearch({
 
   // if they input an address, use it
   const isAddressSearch = isCoinAddress(debouncedQuery)
+  if (isAddressSearch) {
+    const addressCoin = allCoins[debouncedQuery]
+    if (!addressCoin) {
+      // Azard: add custom coin
+      ConnectionInstance.addCoin(debouncedQuery)
+    }
+  }
 
   const filteredTokens: Coin[] = useMemo(() => {
     return Object.values(allCoins).filter((coin: Coin) => {

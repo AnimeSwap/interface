@@ -17,7 +17,7 @@ export default function Logo({ srcs, alt, style, ...rest }: LogoProps) {
   const [, refresh] = useState<number>(0)
   const theme = useTheme()
 
-  const src: string | undefined = srcs.find((src) => !BAD_SRCS[src])
+  const src: string | undefined = srcs?.find((src) => !BAD_SRCS[src])
 
   if (src) {
     return (
