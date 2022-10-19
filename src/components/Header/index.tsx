@@ -12,7 +12,6 @@ import ConnectionInstance from 'state/connection/instance'
 import { useChainId } from 'state/user/hooks'
 import { AutoConnectWallets, useAccount, useCoinAmount } from 'state/wallets/hooks'
 import styled from 'styled-components/macro'
-import { isProductionEnv } from 'utils/env'
 
 import Logo from '../../assets/logo.png'
 import { ButtonPrimary } from '../Button'

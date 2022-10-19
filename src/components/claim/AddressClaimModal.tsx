@@ -6,7 +6,6 @@ import ConnectionInstance from 'state/connection/instance'
 import { useChainId } from 'state/user/hooks'
 import { SignAndSubmitTransaction, useAccount } from 'state/wallets/hooks'
 import styled from 'styled-components/macro'
-import { isProductionEnv } from 'utils/env'
 
 import { useIsTransactionPending } from '../../state/transactions/hooks'
 import { CloseIcon, ExternalLink, ThemedText } from '../../theme'
@@ -135,7 +134,7 @@ export default function AddressClaimModal({ isOpen, onDismiss }: { isOpen: boole
   }
 
   useEffect(() => {
-    if (!isProductionEnv()) {
+    if ([SupportedChainId.APTOS_DEVNET, SupportedChainId.APTOS_TESTNET].includes(chainId)) {
       updateSinceTimeBTC()
       updateSinceTimeUSDT()
     }
