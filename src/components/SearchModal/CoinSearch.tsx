@@ -174,10 +174,11 @@ export function CoinSearch({
 
   const filteredSortedTokens = useSortTokensByQuery(debouncedQuery, sortedTokens)
 
+  console.log('Azard', filteredSortedTokens)
+
   const handleEnter = useCallback(
     (e: KeyboardEvent<HTMLInputElement>) => {
       if (e.key !== 'Enter') return
-      const s = debouncedQuery.toLowerCase().trim()
       if (filteredSortedTokens.length > 0) {
         if (
           filteredSortedTokens[0].symbol?.toLowerCase() === debouncedQuery.trim().toLowerCase() ||
@@ -237,7 +238,8 @@ export function CoinSearch({
           {({ height }) => (
             <CoinList
               height={height}
-              currencies={coinList}
+              // currencies={coinList}
+              currencies={filteredSortedTokens}
               otherListTokens={filteredInactiveTokens}
               onCoinSelect={handleCoinSelect}
               otherCurrency={otherSelectedCurrency}
