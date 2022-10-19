@@ -140,6 +140,7 @@ const userSlice = createSlice({
       // update local coin list
       state.coins = {
         [SupportedChainId.APTOS]: {
+          ...APTOS_CoinInfo,
           ...state.coins[SupportedChainId.APTOS],
           ...APTOS_CoinInfo,
         },
@@ -147,14 +148,17 @@ const userSlice = createSlice({
       if (!isProductionEnv()) {
         state.coins = {
           [SupportedChainId.APTOS]: {
+            ...APTOS_CoinInfo,
             ...state.coins[SupportedChainId.APTOS],
             ...APTOS_CoinInfo,
           },
           [SupportedChainId.APTOS_TESTNET]: {
+            ...APTOS_TESTNET_CoinInfo,
             ...state.coins[SupportedChainId.APTOS_TESTNET],
             ...APTOS_TESTNET_CoinInfo,
           },
           [SupportedChainId.APTOS_DEVNET]: {
+            ...APTOS_DEVNET_CoinInfo,
             ...state.coins[SupportedChainId.APTOS_DEVNET],
             ...APTOS_DEVNET_CoinInfo,
           },
