@@ -174,8 +174,6 @@ export function CoinSearch({
 
   const filteredSortedTokens = useSortTokensByQuery(debouncedQuery, sortedTokens)
 
-  console.log('Azard', filteredSortedTokens)
-
   const handleEnter = useCallback(
     (e: KeyboardEvent<HTMLInputElement>) => {
       if (e.key !== 'Enter') return
