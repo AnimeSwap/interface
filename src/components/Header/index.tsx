@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/macro'
 import useScrollPosition from '@react-hook/window-scroll'
 import { getChainInfoOrDefault } from 'constants/chainInfo'
+import { SupportedChainId } from 'constants/chains'
 import { darken } from 'polished'
 import { useEffect } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
@@ -259,7 +260,7 @@ export default function Header() {
 
       <HeaderControls>
         <HeaderElement>
-          {!isProductionEnv() && (
+          {[SupportedChainId.APTOS_TESTNET, SupportedChainId.APTOS_DEVNET].includes(chainId) && (
             <ANIbutton onClick={faucetOnClick} padding="8px 12px" width="100%" $borderRadius="12px">
               <Trans>Faucet</Trans>
             </ANIbutton>

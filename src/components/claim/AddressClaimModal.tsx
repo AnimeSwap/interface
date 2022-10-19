@@ -1,4 +1,5 @@
 import { Trans } from '@lingui/macro'
+import { SupportedChainId } from 'constants/chains'
 import { REFRESH_TIMEOUT } from 'constants/misc'
 import { useEffect, useState } from 'react'
 import ConnectionInstance from 'state/connection/instance'
@@ -49,7 +50,7 @@ export default function AddressClaimModal({ isOpen, onDismiss }: { isOpen: boole
   const [timeNow, setTimeNow] = useState(Date.now())
 
   useEffect(() => {
-    if (!isProductionEnv()) {
+    if ([SupportedChainId.APTOS_TESTNET, SupportedChainId.APTOS_DEVNET].includes(chainId)) {
       setInterval(() => {
         setTimeNow(Date.now())
       }, 1e3)
