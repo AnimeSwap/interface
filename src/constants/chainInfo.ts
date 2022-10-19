@@ -21,7 +21,7 @@ export type ChainInfoMap = { readonly [chainId: number]: BaseChainInfo }
 const CHAIN_INFO: ChainInfoMap = {
   [SupportedChainId.APTOS]: {
     docs: 'https://aptoslabs.com/',
-    explorer: 'https://explorer.aptoslabs.com/',
+    explorer: 'https://explorer.aptoslabs.com/?network=mainnet',
     label: 'Aptos',
     logoUrl: aptosLogo,
     nativeCoin: APTOS_CoinInfo['0x1::aptos_coin::AptosCoin'],
