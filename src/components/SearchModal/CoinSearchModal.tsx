@@ -1,6 +1,7 @@
 import TokenSafety from 'components/TokenSafety'
 import { Coin, ImportCoinList } from 'hooks/common/Coin'
 import usePrevious from 'hooks/usePrevious'
+import { useWindowSize } from 'hooks/useWindowSize'
 import { useCallback, useEffect, useState } from 'react'
 
 import useLast from '../../hooks/useLast'
@@ -71,11 +72,17 @@ export default function CoinSearchModal({
     [setModalView, prevView]
   )
 
+  const { height: windowHeight } = useWindowSize()
+
   // change min height if not searching
-  let minHeight: number | undefined = 60
+  let modalHeight: number | undefined = 80
   let content
   switch (modalView) {
     case CoinModalView.search:
+      if (windowHeight) {
+        // Converts pixel units to vh for Modal component
+        modalHeight = Math.min(Math.round((800 / windowHeight) * 100), 80)
+      }
       content = (
         <CoinSearch
           isOpen={isOpen}
@@ -94,7 +101,7 @@ export default function CoinSearchModal({
       break
     case CoinModalView.importToken:
       if (importToken) {
-        minHeight = 50
+        modalHeight = 50
         content = (
           <TokenSafety
             tokenAddress={importToken.address}
@@ -105,13 +112,13 @@ export default function CoinSearchModal({
       }
       break
     case CoinModalView.importList:
-      minHeight = 50
+      modalHeight = 50
       if (importList && listURL) {
         content = <ImportList list={importList} listURL={listURL} onDismiss={onDismiss} setModalView={setModalView} />
       }
       break
     case CoinModalView.manage:
-      minHeight = 50
+      modalHeight = 50
       content = (
         <Manage
           onDismiss={onDismiss}
@@ -124,7 +131,7 @@ export default function CoinSearchModal({
       break
   }
   return (
-    <Modal isOpen={isOpen} onDismiss={onDismiss} maxHeight={90} minHeight={minHeight}>
+    <Modal isOpen={isOpen} onDismiss={onDismiss} maxHeight={modalHeight} minHeight={modalHeight}>
       {content}
     </Modal>
   )
