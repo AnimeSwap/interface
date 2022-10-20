@@ -17,6 +17,22 @@ export const APTOS_CoinInfo: { [address: string]: Coin } = {
     logoURL: ['https://coinlist.animeswap.org/icons/tAPT.svg'],
     projectURL: 'https://tortuga.finance/',
   },
+  '0xd11107bdf0d6d7040c6c0bfbdecb6545191fdf13e8d8d259952f53e1713f61b5::staked_coin::StakedAptos': {
+    address: '0xd11107bdf0d6d7040c6c0bfbdecb6545191fdf13e8d8d259952f53e1713f61b5::staked_coin::StakedAptos',
+    decimals: 8,
+    symbol: 'stAPT',
+    name: 'Ditto Staked Aptos',
+    logoURL: ['https://coinlist.animeswap.org/icons/DittoStakedAptos.svg'],
+    projectURL: 'https://www.dittofinance.io/',
+  },
+  '0x1000000fa32d122c18a6a31c009ce5e71674f22d06a581bb0a15575e6addadcc::usda::USDA': {
+    address: '0x1000000fa32d122c18a6a31c009ce5e71674f22d06a581bb0a15575e6addadcc::usda::USDA',
+    decimals: 6,
+    symbol: 'USDA',
+    name: 'Argo USD',
+    logoURL: ['https://coinlist.animeswap.org/icons/USDA.svg'],
+    projectURL: 'https://argo.fi/',
+  },
   '0x5e156f1207d0ebfa19a9eeff00d62a282278fb8719f4fab3a586a0a2c0fffbea::coin::T': {
     address: '0x5e156f1207d0ebfa19a9eeff00d62a282278fb8719f4fab3a586a0a2c0fffbea::coin::T',
     decimals: 6,
@@ -121,13 +137,6 @@ export const APTOS_CoinInfo: { [address: string]: Coin } = {
     symbol: 'zWETH',
     name: 'LayerZero Wrapped Ethereum',
     logoURL: ['https://coinlist.animeswap.org/icons/WETH.png'],
-  },
-  '0xa879605c9d510ea29059c64cf0d2ebd540e889896039fc5876d4e6906dc0fc1c::Dog_coin::Dog': {
-    address: '0xa879605c9d510ea29059c64cf0d2ebd540e889896039fc5876d4e6906dc0fc1c::Dog_coin::Dog',
-    decimals: 6,
-    symbol: 'Dog',
-    name: 'Dog coin',
-    logoURL: ['https://coinlist.animeswap.org/icons/Dog.png'],
   },
 }
 
