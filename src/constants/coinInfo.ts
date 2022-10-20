@@ -122,6 +122,13 @@ export const APTOS_CoinInfo: { [address: string]: Coin } = {
     name: 'LayerZero Wrapped Ethereum',
     logoURL: ['https://coinlist.animeswap.org/icons/WETH.png'],
   },
+  '0xa879605c9d510ea29059c64cf0d2ebd540e889896039fc5876d4e6906dc0fc1c::Dog_coin::Dog': {
+    address: '0xa879605c9d510ea29059c64cf0d2ebd540e889896039fc5876d4e6906dc0fc1c::Dog_coin::Dog',
+    decimals: 6,
+    symbol: 'Dog',
+    name: 'Dog coin',
+    logoURL: ['https://coinlist.animeswap.org/icons/Dog.png'],
+  },
 }
 
 export const APTOS_TESTNET_CoinInfo: { [address: string]: Coin } = {
