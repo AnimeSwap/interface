@@ -77,18 +77,20 @@ export default function Pool() {
   const [pairTasksLoading, setPairTasksLoading] = useState<boolean>(true)
   const [pairs, setPairs] = useState<Pair[]>([])
 
-  const pairTasksPromise: Promise<Pair>[] = []
-  const allLpBalancesGT0: { [pairKey: string]: string } = {}
-  for (const key in allLpBalances) {
-    if (allLpBalances[key] === '0') {
-      continue
+  const pairKeyNotZero: string[] = []
+  for (const pairKey in allLpBalances) {
+    if (allLpBalances[pairKey] !== '0') {
+      pairKeyNotZero.push(pairKey)
     }
-    allLpBalancesGT0[key] = allLpBalances[key]
-    const [coinX, coinY] = key.split(', ')
-    pairTasksPromise.push(ConnectionInstance.getPair(coinX, coinY))
   }
   useEffect(() => {
     const fetchPairTasks = async () => {
+      const pairTasksPromise: Promise<Pair>[] = []
+      for (const pairKey of pairKeyNotZero) {
+        const [coinX, coinY] = pairKey.split(', ')
+        if (!coinX || !coinY) continue
+        pairTasksPromise.push(ConnectionInstance.getPair(coinX, coinY))
+      }
       const pairResults = await Promise.all(pairTasksPromise)
       setPairTasksLoading(false)
       setPairs(pairResults)
@@ -166,7 +168,7 @@ export default function Pool() {
                   </Dots>
                 </ThemedText.DeprecatedBody>
               </EmptyProposals>
-            ) : Object.keys(allLpBalancesGT0)?.length > 0 ? (
+            ) : pairKeyNotZero.length > 0 ? (
               <>
                 {/* <ButtonSecondary>
                   <RowBetween>

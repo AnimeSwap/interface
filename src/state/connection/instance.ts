@@ -118,6 +118,7 @@ class ConnectionInstance {
   // sync from pool pair
   public static async getPair(coinX: string, coinY: string): Promise<Pair> {
     try {
+      if (!coinX || !coinY) return undefined
       const modules = this.getSDK().networkOptions.modules
       const lpCoin = Utils.composeLPCoin(modules.ResourceAccountAddress, coinX, coinY)
       const lpType = Utils.composeLP(modules.Scripts, coinX, coinY)
