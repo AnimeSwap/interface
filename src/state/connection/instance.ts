@@ -149,17 +149,19 @@ class ConnectionInstance {
     try {
       const splits = address.split('::')
       const account = splits[0]
-      const coin = await this.getAccountResource(account, `0x1::coin::CoinInfo<${address}>`)
-      store.dispatch(
-        addCoin({
-          coin: {
-            address,
-            decimals: coin.decimals,
-            symbol: coin.symbol,
-            name: coin.name,
-          },
-        })
-      )
+      const coin: AptosCoinInfoResource = await this.getAccountResource(account, `0x1::coin::CoinInfo<${address}>`)
+      if (coin) {
+        store.dispatch(
+          addCoin({
+            coin: {
+              address,
+              decimals: coin.decimals,
+              symbol: coin.symbol,
+              name: coin.name,
+            },
+          })
+        )
+      }
     } catch (error) {
       console.error('addCoin', error)
     }
