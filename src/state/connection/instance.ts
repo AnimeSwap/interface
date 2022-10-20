@@ -49,6 +49,7 @@ class ConnectionInstance {
 
   public static async syncAccountResources(account: string) {
     try {
+      if (!account) return undefined
       const aptosClient = ConnectionInstance.getAptosClient()
       const res: AptosResource<any>[] = await aptosClient.getAccountResources(account)
       const coinStore = this.getSDK().networkOptions.modules.CoinStore
