@@ -1,4 +1,5 @@
 import { Decimal, Utils } from '@animeswap.org/v1-sdk'
+import ConnectionInstance from 'state/connection/instance'
 import { useAppSelector } from 'state/hooks'
 import { useChainId } from 'state/user/hooks'
 
@@ -54,7 +55,13 @@ export class ImportCoinList {
 
 export function useCoin(address?: string | null): Coin | null | undefined {
   const chainId = useChainId()
-  return useAppSelector((state) => state.user.coins[chainId][address])
+  return useAppSelector((state) => {
+    const coin = state.user.coins[chainId][address]
+    if (address && !coin) {
+      ConnectionInstance.addCoin(address)
+    }
+    return coin
+  })
 }
 
 export function useCoinList(): Coin[] {

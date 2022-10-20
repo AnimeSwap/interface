@@ -757,8 +757,8 @@ msgid "Estimated network fee"
 msgstr "Becsült hálózati díj"
 
 #: src/components/Header/NetworkSelector.tsx
-msgid "Etherscan"
-msgstr "Etherscan"
+msgid "Aptos Explorer"
+msgstr "Aptos Explorer"
 
 #: src/components/vote/ExecuteModal.tsx
 #: src/pages/Vote/VotePage.tsx
@@ -1204,8 +1204,8 @@ msgid "Optimism is in Beta and may experience downtime. Optimism expects planned
 msgstr "Az optimizmus béta állapotban van, és leállások is előfordulhatnak. Az Optimism arra számít, hogy a tervezett leállások a közeljövőben frissítik a hálózatot. Az állásidő alatt pozíciója nem fog díjat fizetni, és nem tudja eltávolítani a likviditást. <0>Olvass tovább.</0>"
 
 #: src/components/Header/NetworkSelector.tsx
-msgid "Optimistic Etherscan"
-msgstr "Optimista Etherscan"
+msgid "Optimistic Aptos Explorer"
+msgstr "Optimista Aptos Explorer"
 
 #: src/components/Badge/RangeBadge.tsx
 msgid "Out of range"
@@ -1241,8 +1241,8 @@ msgid "Please confirm you would like to remove this list by typing REMOVE"
 msgstr "Kérjük, erősítse meg, hogy el szeretné távolítani ezt a listát, írja be a TÖRLÉS parancsot"
 
 #: src/components/vote/ProposalEmptyState.tsx
-msgid "Please connect to Layer 1 Ethereum"
-msgstr "Kérjük, csatlakozzon az 1. réteg Ethereumhoz"
+msgid "Please connect to Layer 1 Aptos"
+msgstr "Kérjük, csatlakozzon az 1. réteg Aptoshoz"
 
 #: src/components/Settings/index.tsx
 msgid "Please type the word \"{confirmWord}\" to enable expert mode."
@@ -1665,8 +1665,8 @@ msgid "The cost of sending this transaction is more than half of the value of th
 msgstr "A tranzakció elküldésének költsége több mint a fele a bevitt összeg értékének."
 
 #: src/components/Header/Polling.tsx
-msgid "The current fast gas amount for sending a transaction on L1. Gas fees are paid in Ethereum's native currency Ether (ETH) and denominated in GWEI."
-msgstr "Az aktuális gyorsgáz-összeg az L1-es tranzakció elküldéséhez. A gázdíjat az Ethereum natív pénznemében, Etherben (ETH) kell fizetni, és GWEI-ben denominálják."
+msgid "The current fast gas amount for sending a transaction on L1. Gas fees are paid in Aptos's native currency Aptos (APT) and denominated in GWEI."
+msgstr "Az aktuális gyorsgáz-összeg az L1-es tranzakció elküldéséhez. A gázdíjat az Aptos natív pénznemében, Aptosben (APT) kell fizetni, és GWEI-ben denominálják."
 
 #: src/components/CoinInputPanel/FiatValue.tsx
 msgid "The estimated difference between the USD values of input and output amounts."
@@ -1897,8 +1897,8 @@ msgid "AnimeSwap available in: <0>{0}</0>"
 msgstr "Az AnimeSwap itt érhető el: <0>{0}</0>"
 
 #: src/components/vote/ProposalEmptyState.tsx
-msgid "AnimeSwap governance is only available on Layer 1. Switch your network to Ethereum Mainnet to view Proposals and Vote."
-msgstr "Az AnimeSwap irányítás csak az 1. rétegben érhető el. A javaslatok és a szavazatok megtekintéséhez kapcsolja hálózatát Ethereum Mainnet-re."
+msgid "AnimeSwap governance is only available on Layer 1. Switch your network to Aptos Mainnet to view Proposals and Vote."
+msgstr "Az AnimeSwap irányítás csak az 1. rétegben érhető el. A javaslatok és a szavazatok megtekintéséhez kapcsolja hálózatát Aptos Mainnet-re."
 
 #: src/pages/Earn/index.tsx
 msgid "AnimeSwap liquidity mining"
@@ -1968,8 +1968,8 @@ msgid "User"
 msgstr "Felhasználó"
 
 #: src/pages/Pool/index.tsx
-msgid "V2 Pool is not available on Layer 2. Switch to Layer 1 Ethereum."
-msgstr "A V2 Pool nem érhető el a 2. rétegen. Váltson az 1. rétegű Ethereumra."
+msgid "V2 Pool is not available on Layer 2. Switch to Layer 1 Aptos."
+msgstr "A V2 Pool nem érhető el a 2. rétegen. Váltson az 1. rétegű Aptosra."
 
 #: src/pages/Pool/index.tsx
 msgid "V2 liquidity"
@@ -1989,8 +1989,8 @@ msgid "View list"
 msgstr "Lista megtekintése"
 
 #: src/pages/CreateProposal/ProposalSubmissionModal.tsx
-msgid "View on Etherscan"
-msgstr "Nézd meg az Etherscan webhelyen"
+msgid "View on Aptos Explorer"
+msgstr "Nézd meg az Aptos Explorer webhelyen"
 
 #: src/components/AccountDetails/index.tsx
 #: src/components/AccountDetails/index.tsx
@@ -2356,8 +2356,8 @@ msgid "{0} Deposited"
 msgstr "{0} letétbe helyezve"
 
 #: src/components/earn/PoolCard.tsx
-msgid "{0} ETH"
-msgstr "{0} ETH"
+msgid "{0} APT"
+msgstr "{0} APT"
 
 #: src/pages/RemoveLiquidity/V3.tsx
 #: src/pages/RemoveLiquidity/V3.tsx

@@ -38,7 +38,7 @@ msgstr "(${0})"
 
 #: src/components/AddressInputPanel/index.tsx
 msgid "(View on Explorer)"
-msgstr "(在以太坊资源浏览器上查看)"
+msgstr "(在Aptos资源浏览器上查看)"
 
 #: src/components/AccountDetails/index.tsx
 msgid "(clear all)"
@@ -757,8 +757,8 @@ msgid "Estimated network fee"
 msgstr "预估网络费用"
 
 #: src/components/Header/NetworkSelector.tsx
-msgid "Etherscan"
-msgstr "Etherscan"
+msgid "Aptos Explorer"
+msgstr "Aptos Explorer"
 
 #: src/components/vote/ExecuteModal.tsx
 #: src/pages/Vote/VotePage.tsx
@@ -1203,8 +1203,8 @@ msgid "Optimism is in Beta and may experience downtime. Optimism expects planned
 msgstr "Optimism 处于 Beta 阶段，可能会遇到停机问题。Optimism 计划近期内会停机升级网络。在停机期间，您的仓位不会赚取手续费，也将无法移除流动性。<0>阅读更多。</0>"
 
 #: src/components/Header/NetworkSelector.tsx
-msgid "Optimistic Etherscan"
-msgstr "Optimistic Etherscan"
+msgid "Optimistic Aptos Explorer"
+msgstr "Optimistic Aptos Explorer"
 
 #: src/components/Badge/RangeBadge.tsx
 msgid "Out of range"
@@ -1240,8 +1240,8 @@ msgid "Please confirm you would like to remove this list by typing REMOVE"
 msgstr "请输入 REMOVE 以确认您要删除此列表"
 
 #: src/components/vote/ProposalEmptyState.tsx
-msgid "Please connect to Layer 1 Ethereum"
-msgstr "请连接到以太坊 Layer 1"
+msgid "Please connect to Layer 1 Aptos"
+msgstr "请连接到Aptos Layer 1"
 
 #: src/components/Settings/index.tsx
 msgid "Please type the word \"{confirmWord}\" to enable expert mode."
@@ -1664,8 +1664,8 @@ msgid "The cost of sending this transaction is more than half of the value of th
 msgstr "发送此交易的成本是输入金额价值的一半以上。"
 
 #: src/components/Header/Polling.tsx
-msgid "The current fast gas amount for sending a transaction on L1. Gas fees are paid in Ethereum's native currency Ether (ETH) and denominated in GWEI."
-msgstr "当前用于在 L1 上快速发送交易的 gas 价。 Gas 费用以以太坊的本位币以太币 (ETH) 支付，并以 GWEI 计价。"
+msgid "The current fast gas amount for sending a transaction on L1. Gas fees are paid in Aptos's native currency Aptos (APT) and denominated in GWEI."
+msgstr "当前用于在 L1 上快速发送交易的 gas 价。 Gas 费用以Aptos的本位币以太币 (APT) 支付，并以 GWEI 计价。"
 
 #: src/components/CoinInputPanel/FiatValue.tsx
 msgid "The estimated difference between the USD values of input and output amounts."
@@ -1896,8 +1896,8 @@ msgid "AnimeSwap available in: <0>{0}</0>"
 msgstr "AnimeSwap可用：<0>{0}</0>"
 
 #: src/components/vote/ProposalEmptyState.tsx
-msgid "AnimeSwap governance is only available on Layer 1. Switch your network to Ethereum Mainnet to view Proposals and Vote."
-msgstr "AnimeSwap 治理仅在 Layer 1 可用。将您的网络切换到以太坊主网以查看提案和投票。"
+msgid "AnimeSwap governance is only available on Layer 1. Switch your network to Aptos Mainnet to view Proposals and Vote."
+msgstr "AnimeSwap 治理仅在 Layer 1 可用。将您的网络切换到Aptos主网以查看提案和投票。"
 
 #: src/pages/Earn/index.tsx
 msgid "AnimeSwap liquidity mining"
@@ -1967,8 +1967,8 @@ msgid "User"
 msgstr "用户"
 
 #: src/pages/Pool/index.tsx
-msgid "V2 Pool is not available on Layer 2. Switch to Layer 1 Ethereum."
-msgstr "V2 池在第 2 层不可用。切换到第 1 层以太坊。"
+msgid "V2 Pool is not available on Layer 2. Switch to Layer 1 Aptos."
+msgstr "V2 池在第 2 层不可用。切换到第 1 层Aptos。"
 
 #: src/pages/Pool/index.tsx
 msgid "V2 liquidity"
@@ -1988,15 +1988,15 @@ msgid "View list"
 msgstr "查看代币列表"
 
 #: src/pages/CreateProposal/ProposalSubmissionModal.tsx
-msgid "View on Etherscan"
-msgstr "在 Etherscan 上查看"
+msgid "View on Aptos Explorer"
+msgstr "在 Aptos Explorer 上查看"
 
 #: src/components/AccountDetails/index.tsx
 #: src/components/AccountDetails/index.tsx
 #: src/components/TransactionConfirmationModal/index.tsx
 #: src/components/TransactionConfirmationModal/index.tsx
 msgid "View on Explorer"
-msgstr "在以太坊资源浏览器上查看"
+msgstr "在Aptos资源浏览器上查看"
 
 #: src/components/ModalViews/index.tsx
 #: src/components/claim/AddressClaimModal.tsx
@@ -2005,7 +2005,7 @@ msgstr "在以太坊资源浏览器上查看"
 #: src/components/vote/QueueModal.tsx
 #: src/components/vote/VoteModal.tsx
 msgid "View transaction on Explorer"
-msgstr "在以太坊资源浏览器上查看交易"
+msgstr "在Aptos资源浏览器上查看交易"
 
 #: src/components/Header/index.tsx
 msgid "Vote"
@@ -2355,8 +2355,8 @@ msgid "{0} Deposited"
 msgstr "注入 {0}"
 
 #: src/components/earn/PoolCard.tsx
-msgid "{0} ETH"
-msgstr "{0} ETH"
+msgid "{0} APT"
+msgstr "{0} APT"
 
 #: src/pages/RemoveLiquidity/V3.tsx
 #: src/pages/RemoveLiquidity/V3.tsx
