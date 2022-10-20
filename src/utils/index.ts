@@ -1,18 +1,9 @@
 import { SupportedChainId } from '../constants/chains'
 
-// returns the checksummed address if the address is valid, otherwise returns false
-export function isAddress(value: any): string | false {
-  try {
-    return value.match(/^(0x)?[0-9a-fA-F]{60,}$/) ? value : false
-  } catch {
-    return false
-  }
-}
-
 // Azard: not very strict check
 export function isCoinAddress(value: any): string | false {
   try {
-    return value.match(/0x[0-9a-zA-Z:]{10,}$/) ? value : false
+    return value.match(/0x[0-9a-zA-Z:_]{10,}$/) ? value : false
   } catch {
     return false
   }
@@ -20,7 +11,7 @@ export function isCoinAddress(value: any): string | false {
 
 // shorten the checksummed version of the input address to have 0x + 4 characters at start and end
 export function shortenAddress(address: string, chars = 4): string {
-  const parsed = isAddress(address)
+  const parsed = isCoinAddress(address)
   if (!parsed) {
     throw Error(`Invalid 'address' parameter '${address}'.`)
   }

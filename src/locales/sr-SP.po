@@ -757,7 +757,7 @@ msgid "Estimated network fee"
 msgstr "Процењена мрежна накнада"
 
 #: src/components/Header/NetworkSelector.tsx
-msgid "Etherscan"
+msgid "Aptos Explorer"
 msgstr "Етхерсцан"
 
 #: src/components/vote/ExecuteModal.tsx
@@ -1203,7 +1203,7 @@ msgid "Optimism is in Beta and may experience downtime. Optimism expects planned
 msgstr "Оптимизам је у бета верзији и може доћи до застоја. Оптимизам очекује да планирано време застоја надогради мрежу у блиској будућности. Током застоја, ваша позиција неће зарадити накнаде и нећете моћи да уклоните ликвидност. <0>Прочитајте више.</0>"
 
 #: src/components/Header/NetworkSelector.tsx
-msgid "Optimistic Etherscan"
+msgid "Optimistic Aptos Explorer"
 msgstr "Оптимистични Етхерсцан"
 
 #: src/components/Badge/RangeBadge.tsx
@@ -1240,7 +1240,7 @@ msgid "Please confirm you would like to remove this list by typing REMOVE"
 msgstr "Потврдите да желите да уклоните ову листу тако што ћете откуцати УКЛОНИ"
 
 #: src/components/vote/ProposalEmptyState.tsx
-msgid "Please connect to Layer 1 Ethereum"
+msgid "Please connect to Layer 1 Aptos"
 msgstr "Повежите се са слојем 1 Етхереум"
 
 #: src/components/Settings/index.tsx
@@ -1664,7 +1664,7 @@ msgid "The cost of sending this transaction is more than half of the value of th
 msgstr "Цена слања ове трансакције је више од половине вредности улазног износа."
 
 #: src/components/Header/Polling.tsx
-msgid "The current fast gas amount for sending a transaction on L1. Gas fees are paid in Ethereum's native currency Ether (ETH) and denominated in GWEI."
+msgid "The current fast gas amount for sending a transaction on L1. Gas fees are paid in Aptos's native currency Aptos (APT) and denominated in GWEI."
 msgstr "Тренутна количина брзог гаса за слање трансакције на Л1. Накнаде за гас се плаћају у матичној валути Етхереума Етхер (ЕТХ) и деноминиране у ГВЕИ."
 
 #: src/components/CoinInputPanel/FiatValue.tsx
@@ -1896,7 +1896,7 @@ msgid "AnimeSwap available in: <0>{0}</0>"
 msgstr "AnimeSwap доступан у: <0>{0}</0>"
 
 #: src/components/vote/ProposalEmptyState.tsx
-msgid "AnimeSwap governance is only available on Layer 1. Switch your network to Ethereum Mainnet to view Proposals and Vote."
+msgid "AnimeSwap governance is only available on Layer 1. Switch your network to Aptos Mainnet to view Proposals and Vote."
 msgstr "Управљање разменом је доступно само на слоју 1. Пребаците мрежу на Етхереум Маиннет да бисте видели предлоге и гласали."
 
 #: src/pages/Earn/index.tsx
@@ -1967,7 +1967,7 @@ msgid "User"
 msgstr "Корисник"
 
 #: src/pages/Pool/index.tsx
-msgid "V2 Pool is not available on Layer 2. Switch to Layer 1 Ethereum."
+msgid "V2 Pool is not available on Layer 2. Switch to Layer 1 Aptos."
 msgstr "В2 фонд није доступан на слоју 2. Пређите на слој 1 Етхереум."
 
 #: src/pages/Pool/index.tsx
@@ -1988,7 +1988,7 @@ msgid "View list"
 msgstr "Погледајте листу"
 
 #: src/pages/CreateProposal/ProposalSubmissionModal.tsx
-msgid "View on Etherscan"
+msgid "View on Aptos Explorer"
 msgstr "Поглед на Етхерсцан-у"
 
 #: src/components/AccountDetails/index.tsx
@@ -2355,8 +2355,8 @@ msgid "{0} Deposited"
 msgstr "{0} Депоновано"
 
 #: src/components/earn/PoolCard.tsx
-msgid "{0} ETH"
-msgstr "{0} ETH"
+msgid "{0} APT"
+msgstr "{0} APT"
 
 #: src/pages/RemoveLiquidity/V3.tsx
 #: src/pages/RemoveLiquidity/V3.tsx

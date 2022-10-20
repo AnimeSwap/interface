@@ -53,7 +53,7 @@ export default function RemoveLiquidity() {
   const coinAReserve = Utils.d(pair?.coinXReserve).mul(lpPercentage).floor()
   const coinBReserve = Utils.d(pair?.coinYReserve).mul(lpPercentage).floor()
   const coinYdivXReserve = Utils.d(pair?.coinYReserve).div(Utils.d(pair?.coinXReserve))
-  const price = coinYdivXReserve.mul(Utils.pow10(coinA.decimals - coinB.decimals))
+  const price = coinYdivXReserve.mul(Utils.pow10((coinA?.decimals ?? 0) - (coinB?.decimals ?? 0)))
 
   // useDerivedBurnInfo
   const [parsedAmounts, setParsedAmounts] = useState({
@@ -307,7 +307,7 @@ export default function RemoveLiquidity() {
               <AutoColumn gap="10px">
                 <RowBetween>
                   <Text fontSize={24} fontWeight={500}>
-                    {amountPretty(parsedAmounts[Field.COIN_A], coinA.decimals) || '-'}
+                    {amountPretty(parsedAmounts[Field.COIN_A], coinA?.decimals) || '-'}
                   </Text>
                   <RowFixed>
                     <CoinLogo coin={coinA} style={{ marginRight: '12px' }} />
@@ -318,7 +318,7 @@ export default function RemoveLiquidity() {
                 </RowBetween>
                 <RowBetween>
                   <Text fontSize={24} fontWeight={500}>
-                    {amountPretty(parsedAmounts[Field.COIN_B], coinB.decimals) || '-'}
+                    {amountPretty(parsedAmounts[Field.COIN_B], coinB?.decimals) || '-'}
                   </Text>
                   <RowFixed>
                     <CoinLogo coin={coinB} style={{ marginRight: '12px' }} />

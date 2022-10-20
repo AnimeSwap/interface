@@ -227,7 +227,6 @@ export const SignAndSubmitTransaction = async (transaction: any) => {
   switch (store.getState().wallets.selectedWallet) {
     case WalletType.PETRA:
       await window.aptos.connect()
-      payload.arguments = payload.arguments.map(String)
       console.log('Petra tx', payload)
       const pendingTransaction = await window.aptos.signAndSubmitTransaction(payload)
       console.log(pendingTransaction)

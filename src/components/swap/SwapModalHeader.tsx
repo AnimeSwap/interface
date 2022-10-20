@@ -7,7 +7,6 @@ import { Text } from 'rebass'
 import styled, { ThemeContext } from 'styled-components/macro'
 
 import { ThemedText } from '../../theme'
-import { isAddress, shortenAddress } from '../../utils'
 import { ButtonPrimary } from '../Button'
 import { LightCard } from '../Card'
 import { FiatValue } from '../CoinInputPanel/FiatValue'

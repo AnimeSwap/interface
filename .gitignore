@@ -37,3 +37,4 @@ cypress/videos
 cypress/screenshots
 
 .vercel
+build.zip

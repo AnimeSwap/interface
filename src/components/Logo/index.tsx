@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Slash } from 'react-feather'
+import { HelpCircle } from 'react-feather'
 import { ImageProps } from 'rebass'
 
 import useTheme from '../../hooks/useTheme'
@@ -17,7 +17,7 @@ export default function Logo({ srcs, alt, style, ...rest }: LogoProps) {
   const [, refresh] = useState<number>(0)
   const theme = useTheme()
 
-  const src: string | undefined = srcs.find((src) => !BAD_SRCS[src])
+  const src: string | undefined = srcs?.find((src) => !BAD_SRCS[src])
 
   if (src) {
     return (
@@ -34,5 +34,5 @@ export default function Logo({ srcs, alt, style, ...rest }: LogoProps) {
     )
   }
 
-  return <Slash {...rest} style={{ ...style, color: theme.deprecated_bg4 }} />
+  return <HelpCircle {...rest} style={{ ...style }} />
 }

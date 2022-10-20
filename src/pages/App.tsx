@@ -58,12 +58,14 @@ const FooterWrapper = styled.div`
 `
 
 const BottomRightLogo = styled.div`
-  background: url('images/33_open.43a09438.png');
-  width: 216px;
-  height: 212px;
+  background: url('images/left_char.png');
+  width: 220px;
+  height: 220px;
   position: fixed;
   right: 0px;
   bottom: 0px;
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
 
   ${({ theme }) => theme.mediaWidth.upToMedium`
     scale: 0.8;
@@ -79,9 +81,9 @@ const BottomRightLogo = styled.div`
 `
 
 const BottomLeftLogo = styled.div`
-  background: url('images/22_open.72c00877.png');
-  width: 232px;
-  height: 210px;
+  background: url('images/left_char.png');
+  width: 220px;
+  height: 220px;
   position: fixed;
   left: 0px;
   bottom: 0px;
@@ -141,7 +143,7 @@ export default function App() {
         <FooterWrapper>
           <Footer />
         </FooterWrapper>
-        <BottomRightLogo />
+        {/* <BottomRightLogo /> */}
         <BottomLeftLogo />
       </AppWrapper>
     </ErrorBoundary>

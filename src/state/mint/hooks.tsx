@@ -76,7 +76,7 @@ export function useDerivedMintInfo(
       [Field.COIN_A]: coinA ?? undefined,
       [Field.COIN_B]: coinB ?? undefined,
     }
-  }, [coinA, coinB])
+  }, [coinA, coinB, revert])
 
   const [pairState, pair] = usePair(coinA?.address, coinB?.address)
   // coin X Y is chain data sort
@@ -127,11 +127,13 @@ export function useDerivedMintInfo(
     if (noLiquidity) {
       const { [Field.COIN_A]: CoinAAmount, [Field.COIN_B]: CoinBAmount } = parsedAmounts
       if (coinA && coinB && CoinAAmount?.greaterThan(0) && CoinBAmount?.greaterThan(0)) {
-        return CoinBAmount.div(CoinAAmount).mul(Utils.pow10(coinA.decimals - coinB.decimals)) // B div A
+        return CoinBAmount.div(CoinAAmount).mul(Utils.pow10((coinA?.decimals ?? 0) - (coinB?.decimals ?? 0))) // B div A
       }
       return undefined
     } else {
-      return pair && coinA && coinB ? coinBdivAReserve.mul(Utils.pow10(coinA.decimals - coinB.decimals)) : undefined
+      return pair && coinA && coinB
+        ? coinBdivAReserve.mul(Utils.pow10((coinA?.decimals ?? 0) - (coinB?.decimals ?? 0)))
+        : undefined
     }
   }, [coinA, noLiquidity, pair, parsedAmounts])
 

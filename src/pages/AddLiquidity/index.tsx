@@ -84,7 +84,7 @@ export default function AddLiquidity() {
     [dependentField]: noLiquidity
       ? otherTypedValue
       : parsedAmounts[dependentField] && coins[dependentField]
-      ? parsedAmounts[dependentField].div(Utils.pow10(coins[dependentField].decimals))?.toSD(6).toString()
+      ? parsedAmounts[dependentField].div(Utils.pow10(coins[dependentField]?.decimals))?.toSD(6).toString()
       : '',
   }
 
@@ -268,7 +268,7 @@ export default function AddLiquidity() {
               onMax={() => {
                 const gasReserve = coinA.symbol === 'APT' ? GAS_RESERVE : BIG_INT_ZERO
                 onFieldAInput(
-                  coinBalances[Field.COIN_A]?.sub(gasReserve).div(Utils.pow10(coinA.decimals)).toString() ?? ''
+                  coinBalances[Field.COIN_A]?.sub(gasReserve).div(Utils.pow10(coinA?.decimals)).toString() ?? ''
                 )
               }}
               onCoinSelect={handleCurrencyASelect}
@@ -287,7 +287,7 @@ export default function AddLiquidity() {
               onMax={() => {
                 const gasReserve = coinB.symbol === 'APT' ? GAS_RESERVE : BIG_INT_ZERO
                 onFieldBInput(
-                  coinBalances[Field.COIN_B]?.sub(gasReserve).div(Utils.pow10(coinB.decimals)).toString() ?? ''
+                  coinBalances[Field.COIN_B]?.sub(gasReserve).div(Utils.pow10(coinB?.decimals)).toString() ?? ''
                 )
               }}
               showMaxButton={coinBalances[Field.COIN_B] && coinBalances[Field.COIN_B].greaterThan(0)}

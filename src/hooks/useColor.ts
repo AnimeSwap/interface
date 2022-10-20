@@ -7,8 +7,8 @@ import { hex } from 'wcag-contrast'
 import { Coin } from './common/Coin'
 
 async function getColorFromToken(coin: Coin): Promise<string | null> {
-  const logoURL = coin?.logoURL[0]
   try {
+    const logoURL = coin?.logoURL[0]
     return await getColorFromUriPath(logoURL)
   } catch (e) {
     return null
@@ -16,9 +16,9 @@ async function getColorFromToken(coin: Coin): Promise<string | null> {
 }
 
 async function getColorFromUriPath(uri: string): Promise<string | null> {
-  const formattedPath = uriToHttp(uri)[0]
   let palette
   try {
+    const formattedPath = uriToHttp(uri)[0]
     palette = await Vibrant.from(formattedPath).getPalette()
   } catch (err) {
     return null

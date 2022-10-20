@@ -757,8 +757,8 @@ msgid "Estimated network fee"
 msgstr "예상 네트워크 수수료"
 
 #: src/components/Header/NetworkSelector.tsx
-msgid "Etherscan"
-msgstr "Etherscan"
+msgid "Aptos Explorer"
+msgstr "Aptos Explorer"
 
 #: src/components/vote/ExecuteModal.tsx
 #: src/pages/Vote/VotePage.tsx
@@ -1203,8 +1203,8 @@ msgid "Optimism is in Beta and may experience downtime. Optimism expects planned
 msgstr "Optimism은 베타 버전이며 가동 중지 시간이 발생할 수 있습니다. Optimism은 가까운 장래에 네트워크를 업그레이드하기 위해 계획된 가동 중지 시간이 예상됩니다. 가동 중지 시간 동안 귀하의 포지션은 수수료를 받지 못하며 유동성을 제거할 수 없습니다. <0>더 읽어보세요.</0>"
 
 #: src/components/Header/NetworkSelector.tsx
-msgid "Optimistic Etherscan"
-msgstr "Optimistic Etherscan"
+msgid "Optimistic Aptos Explorer"
+msgstr "Optimistic Aptos Explorer"
 
 #: src/components/Badge/RangeBadge.tsx
 msgid "Out of range"
@@ -1240,8 +1240,8 @@ msgid "Please confirm you would like to remove this list by typing REMOVE"
 msgstr "REMOVE를 입력하여 이 목록을 제거할 것인지 확인해주세요."
 
 #: src/components/vote/ProposalEmptyState.tsx
-msgid "Please connect to Layer 1 Ethereum"
-msgstr "레이어 1 Ethereum에 연결하세요"
+msgid "Please connect to Layer 1 Aptos"
+msgstr "레이어 1 Aptos에 연결하세요"
 
 #: src/components/Settings/index.tsx
 msgid "Please type the word \"{confirmWord}\" to enable expert mode."
@@ -1664,8 +1664,8 @@ msgid "The cost of sending this transaction is more than half of the value of th
 msgstr "이 거래를 보내는 비용은 입력 금액의 절반 이상입니다."
 
 #: src/components/Header/Polling.tsx
-msgid "The current fast gas amount for sending a transaction on L1. Gas fees are paid in Ethereum's native currency Ether (ETH) and denominated in GWEI."
-msgstr "L1에서 트랜잭션을 보내기 위한 현재 빠른 가스 양입니다. 가스 요금은 Ethereum의 기본 통화인 Ether(ETH)로 지불되며 GWEI로 표시됩니다."
+msgid "The current fast gas amount for sending a transaction on L1. Gas fees are paid in Aptos's native currency Aptos (APT) and denominated in GWEI."
+msgstr "L1에서 트랜잭션을 보내기 위한 현재 빠른 가스 양입니다. 가스 요금은 Aptos의 기본 통화인 Aptos(APT)로 지불되며 GWEI로 표시됩니다."
 
 #: src/components/CoinInputPanel/FiatValue.tsx
 msgid "The estimated difference between the USD values of input and output amounts."
@@ -1896,7 +1896,7 @@ msgid "AnimeSwap available in: <0>{0}</0>"
 msgstr "AnimeSwap 사용 가능 : <0>{0}</0>"
 
 #: src/components/vote/ProposalEmptyState.tsx
-msgid "AnimeSwap governance is only available on Layer 1. Switch your network to Ethereum Mainnet to view Proposals and Vote."
+msgid "AnimeSwap governance is only available on Layer 1. Switch your network to Aptos Mainnet to view Proposals and Vote."
 msgstr "AnimeSwap 거버넌스는 레이어 1에서만 사용할 수 있습니다. 제안 및 투표를 보려면 네트워크를 이더 리움 메인 넷으로 전환하십시오."
 
 #: src/pages/Earn/index.tsx
@@ -1967,7 +1967,7 @@ msgid "User"
 msgstr "사용자"
 
 #: src/pages/Pool/index.tsx
-msgid "V2 Pool is not available on Layer 2. Switch to Layer 1 Ethereum."
+msgid "V2 Pool is not available on Layer 2. Switch to Layer 1 Aptos."
 msgstr "V2 풀은 레이어 2에서 사용할 수 없습니다. 레이어 1 이더리움으로 전환하십시오."
 
 #: src/pages/Pool/index.tsx
@@ -1988,8 +1988,8 @@ msgid "View list"
 msgstr "목록 보기"
 
 #: src/pages/CreateProposal/ProposalSubmissionModal.tsx
-msgid "View on Etherscan"
-msgstr "Etherscan에서보기"
+msgid "View on Aptos Explorer"
+msgstr "Aptos Explorer에서보기"
 
 #: src/components/AccountDetails/index.tsx
 #: src/components/AccountDetails/index.tsx
@@ -2355,8 +2355,8 @@ msgid "{0} Deposited"
 msgstr "{0} 예치됨"
 
 #: src/components/earn/PoolCard.tsx
-msgid "{0} ETH"
-msgstr "{0} ETH"
+msgid "{0} APT"
+msgstr "{0} APT"
 
 #: src/pages/RemoveLiquidity/V3.tsx
 #: src/pages/RemoveLiquidity/V3.tsx

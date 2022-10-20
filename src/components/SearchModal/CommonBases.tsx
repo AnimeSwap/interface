@@ -1,6 +1,7 @@
 import CoinLogo from 'components/CoinLogo'
 import { AutoColumn } from 'components/Column'
 import { AutoRow } from 'components/Row'
+import { COIN_BASES } from 'constants/coinbases'
 import { Coin } from 'hooks/common/Coin'
 import { useTokenInfoFromActiveList } from 'hooks/useTokenInfoFromActiveList'
 import { Text } from 'rebass'
@@ -42,15 +43,12 @@ export default function CommonBases({
   searchQuery: string
   isAddressSearch: string | false
 }) {
-  // const bases = typeof chainId !== 'undefined' ? COMMON_BASES[chainId] ?? [] : []
-  const bases = []
-
+  const bases = COIN_BASES[chainId] ?? []
   return bases.length > 0 ? (
     <MobileWrapper gap="md">
       <AutoRow gap="4px">
         {bases.map((currency: Coin) => {
-          const isSelected = selectedCurrency.address === currency.address
-
+          const isSelected = selectedCurrency?.address === currency.address
           return (
             <BaseWrapper
               tabIndex={0}

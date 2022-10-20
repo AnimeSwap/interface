@@ -757,8 +757,8 @@ msgid "Estimated network fee"
 msgstr "עמלת רשת משוערת"
 
 #: src/components/Header/NetworkSelector.tsx
-msgid "Etherscan"
-msgstr "Etherscan"
+msgid "Aptos Explorer"
+msgstr "Aptos Explorer"
 
 #: src/components/vote/ExecuteModal.tsx
 #: src/pages/Vote/VotePage.tsx
@@ -1203,7 +1203,7 @@ msgid "Optimism is in Beta and may experience downtime. Optimism expects planned
 msgstr "האופטימיות נמצאת בגרסת בטא ועשויה לחוות זמן השבתה. אופטימיות צופה זמן השבתה מתוכנן כדי לשדרג את הרשת בעתיד הקרוב. בזמן השבתה, העמדה שלך לא תזכה בעמלות ולא תוכל להסיר נזילות. <0>קרא עוד.</0>"
 
 #: src/components/Header/NetworkSelector.tsx
-msgid "Optimistic Etherscan"
+msgid "Optimistic Aptos Explorer"
 msgstr "את'רקאן אופטימי"
 
 #: src/components/Badge/RangeBadge.tsx
@@ -1240,7 +1240,7 @@ msgid "Please confirm you would like to remove this list by typing REMOVE"
 msgstr "אנא אשר שברצונך להסיר רשימה זו על ידי הקלדה REMOVE"
 
 #: src/components/vote/ProposalEmptyState.tsx
-msgid "Please connect to Layer 1 Ethereum"
+msgid "Please connect to Layer 1 Aptos"
 msgstr "אנא התחבר לאתריום של שכבה 1"
 
 #: src/components/Settings/index.tsx
@@ -1664,8 +1664,8 @@ msgid "The cost of sending this transaction is more than half of the value of th
 msgstr "עלות שליחת העסקה הזו היא יותר ממחצית הערך של סכום הקלט."
 
 #: src/components/Header/Polling.tsx
-msgid "The current fast gas amount for sending a transaction on L1. Gas fees are paid in Ethereum's native currency Ether (ETH) and denominated in GWEI."
-msgstr "סכום הגז המהיר הנוכחי לשליחת עסקה ב-L1. עמלות הגז משולמות במטבע המקומי Ether (ETH) של Ethereum ונקובות ב-GWEI."
+msgid "The current fast gas amount for sending a transaction on L1. Gas fees are paid in Aptos's native currency Aptos (APT) and denominated in GWEI."
+msgstr "סכום הגז המהיר הנוכחי לשליחת עסקה ב-L1. עמלות הגז משולמות במטבע המקומי Aptos (APT) של Aptos ונקובות ב-GWEI."
 
 #: src/components/CoinInputPanel/FiatValue.tsx
 msgid "The estimated difference between the USD values of input and output amounts."
@@ -1896,8 +1896,8 @@ msgid "AnimeSwap available in: <0>{0}</0>"
 msgstr "AnimeSwap זמין ב: <0>{0}</0>"
 
 #: src/components/vote/ProposalEmptyState.tsx
-msgid "AnimeSwap governance is only available on Layer 1. Switch your network to Ethereum Mainnet to view Proposals and Vote."
-msgstr "ממשל ללא החלפה זמין רק בשכבה 1. העבר את הרשת שלך ל- Ethereum Mainnet כדי להציג הצעות והצבעה."
+msgid "AnimeSwap governance is only available on Layer 1. Switch your network to Aptos Mainnet to view Proposals and Vote."
+msgstr "ממשל ללא החלפה זמין רק בשכבה 1. העבר את הרשת שלך ל- Aptos Mainnet כדי להציג הצעות והצבעה."
 
 #: src/pages/Earn/index.tsx
 msgid "AnimeSwap liquidity mining"
@@ -1967,8 +1967,8 @@ msgid "User"
 msgstr "מִשׁתַמֵשׁ"
 
 #: src/pages/Pool/index.tsx
-msgid "V2 Pool is not available on Layer 2. Switch to Layer 1 Ethereum."
-msgstr "V2 Pool אינו זמין בשכבה 2. עבור אל Layer 1 Ethereum."
+msgid "V2 Pool is not available on Layer 2. Switch to Layer 1 Aptos."
+msgstr "V2 Pool אינו זמין בשכבה 2. עבור אל Layer 1 Aptos."
 
 #: src/pages/Pool/index.tsx
 msgid "V2 liquidity"
@@ -1988,7 +1988,7 @@ msgid "View list"
 msgstr "רשימת צפייה"
 
 #: src/pages/CreateProposal/ProposalSubmissionModal.tsx
-msgid "View on Etherscan"
+msgid "View on Aptos Explorer"
 msgstr "מבט על אתרסקאן"
 
 #: src/components/AccountDetails/index.tsx
@@ -2355,8 +2355,8 @@ msgid "{0} Deposited"
 msgstr "{0} מופקד"
 
 #: src/components/earn/PoolCard.tsx
-msgid "{0} ETH"
-msgstr "{0} ETH"
+msgid "{0} APT"
+msgstr "{0} APT"
 
 #: src/pages/RemoveLiquidity/V3.tsx
 #: src/pages/RemoveLiquidity/V3.tsx

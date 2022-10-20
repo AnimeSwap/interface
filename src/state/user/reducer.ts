@@ -97,8 +97,8 @@ const userSlice = createSlice({
       if (!state.coins) {
         state.coins = {}
       }
-      state.coins[coin.chainId] = state.coins[coin.chainId] || {}
-      state.coins[coin.chainId][coin.address] = coin
+      state.coins[state.chainId] = state.coins[state.chainId] || {}
+      state.coins[state.chainId][coin.address] = coin
     },
     removeCoin(state, { payload: { address, chainId } }) {
       if (!state.coins) {
@@ -139,13 +139,29 @@ const userSlice = createSlice({
       }
       // update local coin list
       state.coins = {
-        [SupportedChainId.APTOS]: APTOS_CoinInfo,
+        [SupportedChainId.APTOS]: {
+          ...APTOS_CoinInfo,
+          ...state.coins[SupportedChainId.APTOS],
+          ...APTOS_CoinInfo,
+        },
       }
       if (!isProductionEnv()) {
         state.coins = {
-          [SupportedChainId.APTOS]: APTOS_CoinInfo,
-          [SupportedChainId.APTOS_TESTNET]: APTOS_TESTNET_CoinInfo,
-          [SupportedChainId.APTOS_DEVNET]: APTOS_DEVNET_CoinInfo,
+          [SupportedChainId.APTOS]: {
+            ...APTOS_CoinInfo,
+            ...state.coins[SupportedChainId.APTOS],
+            ...APTOS_CoinInfo,
+          },
+          [SupportedChainId.APTOS_TESTNET]: {
+            ...APTOS_TESTNET_CoinInfo,
+            ...state.coins[SupportedChainId.APTOS_TESTNET],
+            ...APTOS_TESTNET_CoinInfo,
+          },
+          [SupportedChainId.APTOS_DEVNET]: {
+            ...APTOS_DEVNET_CoinInfo,
+            ...state.coins[SupportedChainId.APTOS_DEVNET],
+            ...APTOS_DEVNET_CoinInfo,
+          },
         }
       }
 

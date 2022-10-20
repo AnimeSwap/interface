@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-restricted-imports
-import { Trans } from '@lingui/macro'
+import { t, Trans } from '@lingui/macro'
 import useDebounce from 'hooks/useDebounce'
 import { useOnClickOutside } from 'hooks/useOnClickOutside'
 import useTheme from 'hooks/useTheme'
@@ -9,12 +9,14 @@ import { Edit } from 'react-feather'
 import AutoSizer from 'react-virtualized-auto-sizer'
 import { FixedSizeList } from 'react-window'
 import { Text } from 'rebass'
+import ConnectionInstance from 'state/connection/instance'
 import { useChainId } from 'state/user/hooks'
+import { useAllCoinBalance } from 'state/wallets/hooks'
 import styled from 'styled-components/macro'
 
-import { Coin, useCoinList } from '../../hooks/common/Coin'
+import { Coin, useCoinList, useCoinMap } from '../../hooks/common/Coin'
 import { ButtonText, CloseIcon, IconWrapper, ThemedText } from '../../theme'
-import { isAddress } from '../../utils'
+import { isCoinAddress } from '../../utils'
 import Column from '../Column'
 import Row, { RowBetween, RowFixed } from '../Row'
 import CoinList from './CoinList'
@@ -52,6 +54,39 @@ interface CoinSearchProps {
   setImportToken: (token: Coin) => void
 }
 
+export function useSortTokensByQuery(query: string, tokens?: Coin[]): Coin[] {
+  return useMemo(() => {
+    if (!tokens) {
+      return []
+    }
+
+    const matches = query
+      .toLowerCase()
+      .split(/\s+/)
+      .filter((s) => s.length > 0)
+
+    if (matches.length > 1) {
+      return tokens
+    }
+
+    const exactMatches: Coin[] = []
+    const symbolSubtrings: Coin[] = []
+    const rest: Coin[] = []
+
+    // sort tokens by exact match -> subtring on symbol match -> rest
+    tokens.map((token) => {
+      if (token.symbol?.toLowerCase() === matches[0]) {
+        return exactMatches.push(token)
+      } else if (token.symbol?.toLowerCase().startsWith(query.toLowerCase().trim())) {
+        return symbolSubtrings.push(token)
+      } else {
+        return rest.push(token)
+      }
+    })
+    return [...exactMatches, ...symbolSubtrings, ...rest]
+  }, [tokens, query])
+}
+
 export function CoinSearch({
   selectedCurrency,
   onCoinSelect,
@@ -68,24 +103,58 @@ export function CoinSearch({
   const chainId = useChainId()
   const theme = useTheme()
 
-  const [tokenLoaderTimerElapsed, setTokenLoaderTimerElapsed] = useState(false)
-
   // refs for fixed size lists
   const fixedList = useRef<FixedSizeList>()
 
   const [searchQuery, setSearchQuery] = useState<string>('')
   const debouncedQuery = useDebounce(searchQuery, 200)
 
+  const allCoins = useCoinMap()
+
   // if they input an address, use it
-  const isAddressSearch = isAddress(debouncedQuery)
+  const isAddressSearch = isCoinAddress(debouncedQuery)
+  if (isAddressSearch) {
+    const addressCoin = allCoins[debouncedQuery]
+    if (!addressCoin) {
+      // Azard: add custom coin
+      ConnectionInstance.addCoin(debouncedQuery)
+    }
+  }
 
-  const filteredTokens = []
+  const filteredTokens: Coin[] = useMemo(() => {
+    return Object.values(allCoins).filter((coin: Coin) => {
+      const searchingAddress = isCoinAddress(debouncedQuery)
+      if (searchingAddress) {
+        const address = searchingAddress.toLowerCase()
+        return address === coin.address.toLowerCase()
+      }
+      const queryParts = debouncedQuery
+        .toLowerCase()
+        .split(/\s+/)
+        .filter((s) => s.length > 0)
+      if (queryParts.length === 0) return true
 
-  // const [balances, balancesIsLoading] = useAllTokenBalances()
-  // const sortedTokens: Token[] = useMemo(
-  //   () => (!balancesIsLoading ? [...filteredTokens].sort(tokenComparator.bind(null, balances)) : []),
-  //   [balances, filteredTokens, balancesIsLoading]
-  // )
+      const match = (s: string): boolean => {
+        const parts = s
+          .toLowerCase()
+          .split(/\s+/)
+          .filter((s) => s.length > 0)
+        return queryParts.every((p) => p.length === 0 || parts.some((sp) => sp.startsWith(p) || sp.endsWith(p)))
+      }
+      return match(coin.symbol) || match(coin.name)
+    })
+  }, [allCoins, debouncedQuery])
+
+  const allCoinbalance = useAllCoinBalance()
+  const sortedTokens: Coin[] = useMemo(
+    () =>
+      [...filteredTokens].sort((coinA, coinB) => {
+        const balanceA = parseInt(allCoinbalance[coinA.address] ?? '0')
+        const balanceB = parseInt(allCoinbalance[coinB.address] ?? '0')
+        return balanceB - balanceA
+      }),
+    [allCoinbalance, filteredTokens]
+  )
 
   const handleCoinSelect = useCallback(
     (currency: Coin) => {
@@ -104,29 +173,27 @@ export function CoinSearch({
   const inputRef = useRef<HTMLInputElement>()
   const handleInput = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     const input = event.target.value
-    const checksummedInput = isAddress(input)
+    const checksummedInput = isCoinAddress(input)
     setSearchQuery(checksummedInput || input)
     fixedList.current?.scrollTo(0)
   }, [])
 
-  // const handleEnter = useCallback(
-  //   (e: KeyboardEvent<HTMLInputElement>) => {
-  //     if (e.key === 'Enter') {
-  //       const s = debouncedQuery.toLowerCase().trim()
-  //       if (s === native?.symbol?.toLowerCase()) {
-  //         handleCoinSelect(native)
-  //       } else if (filteredSortedTokensWithETH.length > 0) {
-  //         if (
-  //           filteredSortedTokensWithETH[0].symbol?.toLowerCase() === debouncedQuery.trim().toLowerCase() ||
-  //           filteredSortedTokensWithETH.length === 1
-  //         ) {
-  //           handleCoinSelect(filteredSortedTokensWithETH[0])
-  //         }
-  //       }
-  //     }
-  //   },
-  //   [debouncedQuery, native, filteredSortedTokensWithETH, handleCoinSelect]
-  // )
+  const filteredSortedTokens = useSortTokensByQuery(debouncedQuery, sortedTokens)
+
+  const handleEnter = useCallback(
+    (e: KeyboardEvent<HTMLInputElement>) => {
+      if (e.key !== 'Enter') return
+      if (filteredSortedTokens.length > 0) {
+        if (
+          filteredSortedTokens[0].symbol?.toLowerCase() === debouncedQuery.trim().toLowerCase() ||
+          filteredSortedTokens.length === 1
+        ) {
+          handleCoinSelect(filteredSortedTokens[0])
+        }
+      }
+    },
+    [debouncedQuery, filteredSortedTokens, handleCoinSelect]
+  )
 
   // menu ui
   const [open, toggle] = useToggle(false)
@@ -147,19 +214,19 @@ export function CoinSearch({
           </Text>
           <CloseIcon onClick={onDismiss} />
         </RowBetween>
-        {/* <Row>
-            <SearchInput
-              type="text"
-              id="token-search-input"
-              placeholder={t`Search name or paste address`}
-              autoComplete="off"
-              value={searchQuery}
-              ref={inputRef as RefObject<HTMLInputElement>}
-              onChange={handleInput}
-              // onKeyDown={handleEnter}
-            />
-          </Row> */}
-        {/* {showCommonBases && (
+        <Row>
+          <SearchInput
+            type="text"
+            id="token-search-input"
+            placeholder={t`Search name or paste address`}
+            autoComplete="off"
+            value={searchQuery}
+            ref={inputRef as RefObject<HTMLInputElement>}
+            onChange={handleInput}
+            onKeyDown={handleEnter}
+          />
+        </Row>
+        {showCommonBases && (
           <CommonBases
             chainId={chainId}
             onSelect={handleCoinSelect}
@@ -167,7 +234,7 @@ export function CoinSearch({
             searchQuery={searchQuery}
             isAddressSearch={isAddressSearch}
           />
-        )} */}
+        )}
       </PaddedColumn>
       <Separator />
       <div style={{ flex: '1' }}>
@@ -175,7 +242,8 @@ export function CoinSearch({
           {({ height }) => (
             <CoinList
               height={height}
-              currencies={coinList}
+              // currencies={coinList}
+              currencies={filteredSortedTokens}
               otherListTokens={filteredInactiveTokens}
               onCoinSelect={handleCoinSelect}
               otherCurrency={otherSelectedCurrency}

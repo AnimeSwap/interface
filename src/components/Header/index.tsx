@@ -279,15 +279,15 @@ export default function Header() {
         >
           <Trans>Pool</Trans>
         </StyledNavLink>
-        {chainId === SupportedChainId.APTOS && (
+        {/* {chainId === SupportedChainId.APTOS && (
           <StyledExternalLink id={`bridge-nav-link`} href={'https://cbridge.celer.network'}>
             <Trans>Bridge</Trans>
             <sup>↗</sup>
           </StyledExternalLink>
-        )}
-        {/* <StyledNavLink id={`explore-nav-link`} to={'/explore'}>
+        )} */}
+        <StyledNavLink id={`explore-nav-link`} to={'/explore'}>
           <Trans>Charts</Trans>
-        </StyledNavLink> */}
+        </StyledNavLink>
       </HeaderLinks>
 
       <HeaderControls>
@@ -295,6 +295,19 @@ export default function Header() {
           {[SupportedChainId.APTOS_TESTNET, SupportedChainId.APTOS_DEVNET].includes(chainId) && (
             <ANIbutton onClick={faucetOnClick} padding="8px 12px" width="100%" $borderRadius="12px">
               <Trans>Faucet</Trans>
+            </ANIbutton>
+          )}
+          {[SupportedChainId.APTOS].includes(chainId) && (
+            <ANIbutton
+              onClick={() => {
+                window.open('https://cbridge.celer.network', '_blank')
+              }}
+              padding="8px 12px"
+              width="100%"
+              $borderRadius="12px"
+            >
+              <Trans>Bridge</Trans>
+              <sup>↗</sup>
             </ANIbutton>
           )}
         </HeaderElement>

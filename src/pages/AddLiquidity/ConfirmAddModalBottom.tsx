@@ -57,9 +57,10 @@ export function ConfirmAddModalBottom({
       </RowBetween>
       <RowBetween style={{ justifyContent: 'flex-end' }}>
         <ThemedText.DeprecatedBody>
-          {`1 ${coins[Field.COIN_B]?.symbol} = ${new Decimal(1).div(price).toSD(4).toString()} ${
-            coins[Field.COIN_A]?.symbol
-          }`}
+          {`1 ${coins[Field.COIN_B]?.symbol} = ${new Decimal(1)
+            .div(price ?? 1)
+            .toSD(4)
+            .toString()} ${coins[Field.COIN_A]?.symbol}`}
         </ThemedText.DeprecatedBody>
       </RowBetween>
       <RowBetween>

@@ -10,7 +10,7 @@ import { AptosClient } from 'aptos'
 import { CHAIN_IDS_TO_SDK_NETWORK, SupportedChainId } from 'constants/chains'
 import { Pair } from 'hooks/common/Pair'
 import store from 'state'
-import { updatePair } from 'state/user/reducer'
+import { addCoin, updatePair } from 'state/user/reducer'
 import { resetCoinBalances, resetLpBalances, setCoinBalances } from 'state/wallets/reducer'
 
 import { ConnectionType, getRPCURL } from './reducer'
@@ -49,6 +49,7 @@ class ConnectionInstance {
 
   public static async syncAccountResources(account: string) {
     try {
+      if (!account) return undefined
       const aptosClient = ConnectionInstance.getAptosClient()
       const res: AptosResource<any>[] = await aptosClient.getAccountResources(account)
       const coinStore = this.getSDK().networkOptions.modules.CoinStore
@@ -82,6 +83,9 @@ class ConnectionInstance {
 
   public static async getAccountResource(account: string, type: string) {
     try {
+      if (!account || !type) {
+        return undefined
+      }
       const aptosClient = ConnectionInstance.getAptosClient()
       const res: AptosResource<any> = await aptosClient.getAccountResource(account, type)
       const data = res.data
@@ -93,6 +97,9 @@ class ConnectionInstance {
 
   public static async getCoinBalance(account: string, type: string) {
     try {
+      if (!account || !type) {
+        return undefined
+      }
       console.log(`getCoinBalance ${account} ${type}`)
       const coinStore = this.getSDK().networkOptions.modules.CoinStore
       const res: AptosCoinStoreResource = await ConnectionInstance.getAccountResource(
@@ -111,6 +118,7 @@ class ConnectionInstance {
   // sync from pool pair
   public static async getPair(coinX: string, coinY: string): Promise<Pair> {
     try {
+      if (!coinX || !coinY) return undefined
       const modules = this.getSDK().networkOptions.modules
       const lpCoin = Utils.composeLPCoin(modules.ResourceAccountAddress, coinX, coinY)
       const lpType = Utils.composeLP(modules.Scripts, coinX, coinY)
@@ -142,6 +150,28 @@ class ConnectionInstance {
     } catch (error) {
       store.dispatch(updatePair({ pair: undefined }))
       return undefined
+    }
+  }
+
+  public static async addCoin(address: string) {
+    try {
+      const splits = address.split('::')
+      const account = splits[0]
+      const coin: AptosCoinInfoResource = await this.getAccountResource(account, `0x1::coin::CoinInfo<${address}>`)
+      if (coin) {
+        store.dispatch(
+          addCoin({
+            coin: {
+              address,
+              decimals: coin.decimals,
+              symbol: coin.symbol,
+              name: coin.name,
+            },
+          })
+        )
+      }
+    } catch (error) {
+      console.error('addCoin', error)
     }
   }
 }

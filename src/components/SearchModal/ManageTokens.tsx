@@ -8,7 +8,7 @@ import { ChangeEvent, RefObject, useCallback, useMemo, useRef, useState } from '
 import { useChainId } from 'state/user/hooks'
 import styled from 'styled-components/macro'
 import { ButtonText, ExternalLink, ExternalLinkIcon, ThemedText, TrashIcon } from 'theme'
-import { isAddress } from 'utils'
+import { isCoinAddress } from 'utils'
 
 import useTheme from '../../hooks/useTheme'
 import { ExplorerDataType, getExplorerLink } from '../../utils/getExplorerLink'
@@ -51,12 +51,12 @@ export default function ManageTokens({
   const inputRef = useRef<HTMLInputElement>()
   const handleInput = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     const input = event.target.value
-    const checksummedInput = isAddress(input)
+    const checksummedInput = isCoinAddress(input)
     setSearchQuery(checksummedInput || input)
   }, [])
 
   // if they input an address, use it
-  const isAddressSearch = isAddress(searchQuery)
+  const isAddressSearch = isCoinAddress(searchQuery)
   // const searchToken = useToken(searchQuery)
 
   // all tokens for local lisr
