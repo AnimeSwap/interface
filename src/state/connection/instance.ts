@@ -82,6 +82,9 @@ class ConnectionInstance {
 
   public static async getAccountResource(account: string, type: string) {
     try {
+      if (!account || !type) {
+        return undefined
+      }
       const aptosClient = ConnectionInstance.getAptosClient()
       const res: AptosResource<any> = await aptosClient.getAccountResource(account, type)
       const data = res.data
@@ -93,6 +96,9 @@ class ConnectionInstance {
 
   public static async getCoinBalance(account: string, type: string) {
     try {
+      if (!account || !type) {
+        return undefined
+      }
       console.log(`getCoinBalance ${account} ${type}`)
       const coinStore = this.getSDK().networkOptions.modules.CoinStore
       const res: AptosCoinStoreResource = await ConnectionInstance.getAccountResource(

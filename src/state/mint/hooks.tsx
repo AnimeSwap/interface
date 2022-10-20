@@ -76,7 +76,7 @@ export function useDerivedMintInfo(
       [Field.COIN_A]: coinA ?? undefined,
       [Field.COIN_B]: coinB ?? undefined,
     }
-  }, [coinA, coinB])
+  }, [coinA, coinB, revert])
 
   const [pairState, pair] = usePair(coinA?.address, coinB?.address)
   // coin X Y is chain data sort
