@@ -9,6 +9,20 @@ export const APTOS_CoinInfo: { [address: string]: Coin } = {
     logoURL: ['https://coinlist.animeswap.org/icons/APT.svg'],
     projectURL: 'https://aptoslabs.com/',
   },
+  '0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::USDC': {
+    address: '0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::USDC',
+    decimals: 6,
+    symbol: 'zUSDC',
+    name: 'LayerZero USD Coin',
+    logoURL: ['https://coinlist.animeswap.org/icons/USDC.webp'],
+  },
+  '0x5e156f1207d0ebfa19a9eeff00d62a282278fb8719f4fab3a586a0a2c0fffbea::coin::T': {
+    address: '0x5e156f1207d0ebfa19a9eeff00d62a282278fb8719f4fab3a586a0a2c0fffbea::coin::T',
+    decimals: 6,
+    symbol: 'whUSDC',
+    name: 'Wormhole USD Coin',
+    logoURL: ['https://coinlist.animeswap.org/icons/USDC.webp'],
+  },
   '0x84d7aeef42d38a5ffc3ccef853e1b82e4958659d16a7de736a29c55fbbeb0114::staked_aptos_coin::StakedAptosCoin': {
     address: '0x84d7aeef42d38a5ffc3ccef853e1b82e4958659d16a7de736a29c55fbbeb0114::staked_aptos_coin::StakedAptosCoin',
     decimals: 8,
@@ -32,13 +46,6 @@ export const APTOS_CoinInfo: { [address: string]: Coin } = {
     name: 'Argo USD',
     logoURL: ['https://coinlist.animeswap.org/icons/USDA.svg'],
     projectURL: 'https://argo.fi/',
-  },
-  '0x5e156f1207d0ebfa19a9eeff00d62a282278fb8719f4fab3a586a0a2c0fffbea::coin::T': {
-    address: '0x5e156f1207d0ebfa19a9eeff00d62a282278fb8719f4fab3a586a0a2c0fffbea::coin::T',
-    decimals: 6,
-    symbol: 'whUSDC',
-    name: 'Wormhole USD Coin',
-    logoURL: ['https://coinlist.animeswap.org/icons/USDC.webp'],
   },
   '0xa2eda21a58856fda86451436513b867c97eecb4ba099da5775520e0f7492e852::coin::T': {
     address: '0xa2eda21a58856fda86451436513b867c97eecb4ba099da5775520e0f7492e852::coin::T',
@@ -116,13 +123,6 @@ export const APTOS_CoinInfo: { [address: string]: Coin } = {
     symbol: 'ceBUSD',
     name: 'Celer Binance USD',
     logoURL: ['https://coinlist.animeswap.org/icons/BUSD.png'],
-  },
-  '0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::USDC': {
-    address: '0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::USDC',
-    decimals: 6,
-    symbol: 'zUSDC',
-    name: 'LayerZero USD Coin',
-    logoURL: ['https://coinlist.animeswap.org/icons/USDC.webp'],
   },
   '0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::USDT': {
     address: '0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::USDT',
