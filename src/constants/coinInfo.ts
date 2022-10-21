@@ -37,6 +37,13 @@ export const APTOS_CoinInfo: { [address: string]: Coin } = {
     name: 'Wormhole USD Coin',
     logoURL: ['https://coinlist.animeswap.org/icons/USDC.webp'],
   },
+  '0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::USDT': {
+    address: '0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::USDT',
+    decimals: 6,
+    symbol: 'zUSDT',
+    name: 'LayerZero Tether USD',
+    logoURL: ['https://coinlist.animeswap.org/icons/USDT.webp'],
+  },
   '0x8d87a65ba30e09357fa2edea2c80dbac296e5dec2b18287113500b902942929d::celer_coin_manager::DaiCoin': {
     address: '0x8d87a65ba30e09357fa2edea2c80dbac296e5dec2b18287113500b902942929d::celer_coin_manager::DaiCoin',
     decimals: 8,
@@ -123,13 +130,6 @@ export const APTOS_CoinInfo: { [address: string]: Coin } = {
     symbol: 'whSOL',
     name: 'Wormhole Solana',
     logoURL: ['https://coinlist.animeswap.org/icons/SOL.svg'],
-  },
-  '0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::USDT': {
-    address: '0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::USDT',
-    decimals: 6,
-    symbol: 'zUSDT',
-    name: 'LayerZero Tether USD',
-    logoURL: ['https://coinlist.animeswap.org/icons/USDT.webp'],
   },
   '0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::WETH': {
     address: '0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::WETH',

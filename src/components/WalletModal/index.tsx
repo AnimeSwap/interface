@@ -195,8 +195,8 @@ export default function WalletModal({
                 <MartianOption />
                 <PetraOption />
                 {/* <FewchaOption /> */}
-                <PontemOption />
                 {/* <RiseOption /> */}
+                <PontemOption />
               </OptionGrid>
             )}
           </AutoColumn>
