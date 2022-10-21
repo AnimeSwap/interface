@@ -62,19 +62,19 @@ export async function AutoConnectWallets() {
     // case WalletType.FEWCHA:
     //   if (await AutoConnectFewcha()) return
     //   break
+    case WalletType.RISE:
+      if (await AutoConnectRise()) return
+      break
     case WalletType.PONTEM:
       if (await AutoConnectPontem()) return
       break
-    // case WalletType.RISE:
-    //   if (await AutoConnectRise()) return
-    //   break
   }
   // auto connect wallet in order
   if (await AutoConnectMartian()) return
   if (await AutoConnectPetra()) return
   // if (await AutoConnectFewcha()) return
+  if (await AutoConnectRise()) return
   if (await AutoConnectPontem()) return
-  // if (await AutoConnectRise()) return
 }
 
 export async function ConnectPetra() {
@@ -217,11 +217,6 @@ export const ResetConnection = () => {
   store.dispatch(setAccount({ account: undefined }))
 }
 
-const payloadOptions = {
-  max_gas_amount: 200000,
-  gas_unit_price: 1000,
-}
-
 export const SignAndSubmitTransaction = async (transaction: any) => {
   const payload = Object.assign({}, transaction)
   switch (store.getState().wallets.selectedWallet) {
@@ -252,11 +247,11 @@ export const SignAndSubmitTransaction = async (transaction: any) => {
     case WalletType.PONTEM:
       const pontemTx = await window.pontem.signAndSubmit(payload)
       console.log('Pontem tx', pontemTx)
-      break
+      return pontemTx?.result?.hash
     case WalletType.RISE:
       const riseTx = await window.rise.signAndSubmitTransaction(payload)
       console.log('Rise tx', riseTx)
-      break
+      return riseTx.hash
     default:
       break
   }
