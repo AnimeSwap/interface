@@ -300,7 +300,7 @@ export default function Header() {
           {[SupportedChainId.APTOS].includes(chainId) && (
             <ANIbutton
               onClick={() => {
-                window.open('https://cbridge.celer.network', '_blank')
+                window.open('https://cbridge.celer.network/1/12360001/USDC', '_blank')
               }}
               padding="8px 12px"
               width="100%"

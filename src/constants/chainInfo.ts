@@ -20,7 +20,7 @@ export type ChainInfoMap = { readonly [chainId: number]: BaseChainInfo }
 
 const CHAIN_INFO: ChainInfoMap = {
   [SupportedChainId.APTOS]: {
-    bridge: 'https://cbridge.celer.network/',
+    bridge: 'https://cbridge.celer.network/1/12360001/USDC',
     docs: 'https://aptoslabs.com/',
     explorer: 'https://explorer.aptoslabs.com/?network=mainnet',
     label: 'Aptos',
