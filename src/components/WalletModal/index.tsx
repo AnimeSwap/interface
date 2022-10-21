@@ -14,6 +14,7 @@ import { useModalIsOpen, useToggleWalletModal } from '../../state/application/ho
 import { ApplicationModal } from '../../state/application/reducer'
 import AccountDetails from '../AccountDetails'
 import Modal from '../Modal'
+import BitkeepOption from './BitKeepOption'
 import FewchaOption from './FewchaOption'
 import MartianOption from './MartianOption'
 import PetraOption from './PetraOption'
@@ -196,6 +197,7 @@ export default function WalletModal({
                 <PetraOption />
                 {/* <FewchaOption /> */}
                 <RiseOption />
+                <BitkeepOption />
                 <PontemOption />
               </OptionGrid>
             )}

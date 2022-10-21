@@ -65,6 +65,9 @@ export async function AutoConnectWallets() {
     case WalletType.RISE:
       if (await AutoConnectRise()) return
       break
+    case WalletType.BITKEEP:
+      if (await AutoConnectBitkeep()) return
+      break
     case WalletType.PONTEM:
       if (await AutoConnectPontem()) return
       break
@@ -74,6 +77,7 @@ export async function AutoConnectWallets() {
   if (await AutoConnectPetra()) return
   // if (await AutoConnectFewcha()) return
   if (await AutoConnectRise()) return
+  if (await AutoConnectBitkeep()) return
   if (await AutoConnectPontem()) return
 }
 
@@ -212,6 +216,33 @@ export async function AutoConnectRise() {
   return false
 }
 
+export async function ConnectBitkeep() {
+  try {
+    const res = await window.bitkeep.aptos.connect()
+    store.dispatch(setSelectedWallet({ wallet: WalletType.BITKEEP }))
+    store.dispatch(setAccount({ account: res.address }))
+    console.log('BitKeep connect success')
+    return true
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export async function AutoConnectBitkeep() {
+  if (!(window.bitkeep && window.bitkeep?.aptos)) {
+    return false
+  }
+  try {
+    if (await ConnectBitkeep()) {
+      console.log('BitKeep auto connected')
+      return true
+    }
+  } catch (error) {
+    console.error(error)
+  }
+  return false
+}
+
 export const ResetConnection = () => {
   store.dispatch(setSelectedWallet({ wallet: WalletType.PETRA }))
   store.dispatch(setAccount({ account: undefined }))
@@ -252,6 +283,10 @@ export const SignAndSubmitTransaction = async (transaction: any) => {
       const riseTx = await window.rise.signAndSubmitTransaction(payload)
       console.log('Rise tx', riseTx)
       return riseTx.hash
+    case WalletType.BITKEEP:
+      const bitkeepTx = await window.bitkeep.aptos.signAndSubmitTransaction(payload)
+      console.log('BitKeep tx', bitkeepTx)
+      return bitkeepTx.hash
     default:
       break
   }
