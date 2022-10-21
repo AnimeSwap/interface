@@ -252,7 +252,7 @@ export const SignAndSubmitTransaction = async (transaction: any) => {
     case WalletType.PONTEM:
       const pontemTx = await window.pontem.signAndSubmit(payload)
       console.log('Pontem tx', pontemTx)
-      break
+      return pontemTx.result.hash
     case WalletType.RISE:
       const riseTx = await window.rise.signAndSubmitTransaction(payload)
       console.log('Rise tx', riseTx)
