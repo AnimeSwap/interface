@@ -285,7 +285,7 @@ export default function Header() {
             <sup>↗</sup>
           </StyledExternalLink>
         )} */}
-        <StyledNavLink id={`explore-nav-link`} to={'/explore'}>
+        <StyledNavLink id={`explore-nav-link`} to={'/charts'}>
           <Trans>Charts</Trans>
         </StyledNavLink>
       </HeaderLinks>
