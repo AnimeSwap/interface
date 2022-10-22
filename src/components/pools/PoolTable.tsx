@@ -1,12 +1,12 @@
 import { Decimal, Utils } from '@animeswap.org/v1-sdk'
 import { DarkCard, GreyBadge } from 'components/Card'
-import { AutoColumn } from 'components/Column'
+import Column, { AutoColumn } from 'components/Column'
 import DoubleCoinLogo from 'components/DoubleLogo'
 import Loader, { LoadingRows } from 'components/Loader'
 import { RowFixed } from 'components/Row'
 import { Arrow, Break, PageButtons } from 'components/shared'
 import { ClickableText, Label } from 'components/Text'
-import { Coin, CoinAmount, useCoin } from 'hooks/common/Coin'
+import { CoinAmount, useCoin } from 'hooks/common/Coin'
 import { Pair } from 'hooks/common/Pair'
 import useTheme from 'hooks/useTheme'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
@@ -24,7 +24,7 @@ const ResponsiveGrid = styled.div`
   grid-gap: 1em;
   align-items: center;
 
-  grid-template-columns: 20px 3.5fr repeat(3, 1fr);
+  grid-template-columns: 20px 1.5fr repeat(2, 1fr);
 
   @media screen and (max-width: 900px) {
     grid-template-columns: 20px 1.5fr repeat(2, 1fr);
@@ -85,9 +85,10 @@ const DataRow = ({ poolData, index }: { poolData: PoolData; index: number }) => 
         </Label>
         <Label end={1} fontWeight={400}>
           <RowFixed>
-            <ThemedText.DeprecatedSubHeader>
-              {coinXAmount.prettyWithSymbol()} {'\n'} {coinYAmount.prettyWithSymbol()}
-            </ThemedText.DeprecatedSubHeader>
+            <Column style={{ alignItems: 'flex-end' }}>
+              <ThemedText.DeprecatedSubHeader>{coinXAmount.prettyWithSymbol()}</ThemedText.DeprecatedSubHeader>
+              <ThemedText.DeprecatedSubHeader>{coinYAmount.prettyWithSymbol()}</ThemedText.DeprecatedSubHeader>
+            </Column>
           </RowFixed>
         </Label>
         <Label end={1} fontWeight={400}>
@@ -114,7 +115,7 @@ export interface PoolData {
   volumeUSDWeek: number
 }
 
-export default function PoolTable({ poolDatas, maxItems = MAX_ITEMS }: { poolDatas: PoolData[]; maxItems?: number }) {
+export default function PoolTable({ poolDatas, maxItems = 10 }: { poolDatas: PoolData[]; maxItems?: number }) {
   // theming
   const theme = useTheme()
 

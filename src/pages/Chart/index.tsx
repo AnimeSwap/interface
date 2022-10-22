@@ -1,26 +1,23 @@
 import { Decimal, Utils } from '@animeswap.org/v1-sdk'
-import { Trans } from '@lingui/macro'
 import { ButtonPrimary } from 'components/Button'
 import PoolTable, { PoolData } from 'components/pools/PoolTable'
-import { Dots } from 'components/swap/styleds'
 import { getChainInfoOrDefault } from 'constants/chainInfo'
 import { BIG_INT_ZERO } from 'constants/misc'
-import { Coin, useCoin } from 'hooks/common/Coin'
 import { Pair, pairKey } from 'hooks/common/Pair'
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Text } from 'rebass'
 import ConnectionInstance from 'state/connection/instance'
 import { useChainId } from 'state/user/hooks'
-import styled, { ThemeContext } from 'styled-components/macro'
+import styled from 'styled-components/macro'
 
 import { AutoColumn } from '../../components/Column'
-import { RowBetween, RowFixed } from '../../components/Row'
-import { ExternalLink, HideSmall, ThemedText } from '../../theme'
+import { RowBetween } from '../../components/Row'
+import { ThemedText } from '../../theme'
 
 const ChartContainer = styled.div`
   width: 100%;
   min-width: 320px;
-  max-width: 1000px;
+  max-width: 1200px;
   padding: 0px 12px;
 `
 
@@ -76,9 +73,6 @@ export default function Explore() {
     const preparePoolData = async () => {
       const pairs = await ConnectionInstance.getAllPair()
       const USD_per_APT = queryPrice(pairs, nativeCoin.address, stableCoin.address)
-      // .div(
-      //   Utils.pow10(stableCoin.decimals - nativeCoin.decimals)
-      // )
       const tempPoolData: PoolData[] = []
       for (const pair of Object.values(pairs)) {
         let tvlAPT = BIG_INT_ZERO
