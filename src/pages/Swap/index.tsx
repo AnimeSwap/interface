@@ -3,7 +3,7 @@ import { Trans } from '@lingui/macro'
 // import PriceImpactWarning from 'components/swap/PriceImpactWarning'
 import SwapDetailsDropdown from 'components/swap/SwapDetailsDropdown'
 import { MouseoverTooltip } from 'components/Tooltip'
-import { isSupportedChain } from 'constants/chains'
+import { isSupportedChain, SupportedChainId } from 'constants/chains'
 import { BIG_INT_ZERO, BP, GAS_RESERVE, REFRESH_TIMEOUT } from 'constants/misc'
 import { Coin } from 'hooks/common/Coin'
 import { BestTrade, TradeState, TradeType } from 'hooks/useBestTrade'
@@ -137,6 +137,12 @@ export default function Swap() {
       setTimeout(() => {
         ConnectionInstance.getCoinBalance(account, tradeToConfirm.inputCoin.address)
         ConnectionInstance.getCoinBalance(account, tradeToConfirm.outputCoin.address)
+        if (chainId === SupportedChainId.APTOS) {
+          setTimeout(() => {
+            ConnectionInstance.getCoinBalance(account, tradeToConfirm.inputCoin.address)
+            ConnectionInstance.getCoinBalance(account, tradeToConfirm.outputCoin.address)
+          }, REFRESH_TIMEOUT)
+        }
       }, REFRESH_TIMEOUT)
       console.log('txid', txid)
       return txid

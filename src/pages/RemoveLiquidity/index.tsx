@@ -1,6 +1,7 @@
 import { Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
 import { SwitchLocaleLink } from 'components/SwitchLocaleLink'
+import { SupportedChainId } from 'constants/chains'
 import { BIG_INT_ZERO, BP, REFRESH_TIMEOUT } from 'constants/misc'
 import { amountPretty, CoinAmount, useCoin } from 'hooks/common/Coin'
 import { pairKey, usePair } from 'hooks/common/Pair'
@@ -42,6 +43,7 @@ export enum Field {
 
 export default function RemoveLiquidity() {
   const { coinIdA, coinIdB } = useParams<{ coinIdA: string; coinIdB: string }>()
+  const chainId = useChainId()
   const coinA = useCoin(coinIdA)
   const coinB = useCoin(coinIdB)
   const account = useAccount()
@@ -111,6 +113,11 @@ export default function RemoveLiquidity() {
       setTxHash(txid)
       setTimeout(() => {
         ConnectionInstance.syncAccountResources(account)
+        if (chainId === SupportedChainId.APTOS) {
+          setTimeout(() => {
+            ConnectionInstance.syncAccountResources(account)
+          }, REFRESH_TIMEOUT)
+        }
       }, REFRESH_TIMEOUT)
     } catch (error) {
       setAttemptingTxn(false)
