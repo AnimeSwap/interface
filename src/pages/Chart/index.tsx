@@ -1,9 +1,14 @@
+import { Decimal, Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
 import PoolTable, { PoolData } from 'components/pools/PoolTable'
 import { Dots } from 'components/swap/styleds'
-import { APTOS_CoinInfo } from 'constants/coinInfo'
-import { useCoin } from 'hooks/common/Coin'
+import { getChainInfoOrDefault } from 'constants/chainInfo'
+import { BIG_INT_ZERO } from 'constants/misc'
+import { Coin, useCoin } from 'hooks/common/Coin'
+import { Pair, pairKey } from 'hooks/common/Pair'
 import { useContext, useEffect, useState } from 'react'
+import ConnectionInstance from 'state/connection/instance'
+import { useChainId } from 'state/user/hooks'
 import styled, { ThemeContext } from 'styled-components/macro'
 
 import { AutoColumn } from '../../components/Column'
@@ -36,22 +41,83 @@ const EmptyProposals = styled.div`
   align-items: center;
 `
 
+function queryPrice(pairs: { [pairKey: string]: Pair }, coinX: string, coinY: string): Decimal {
+  if (coinX === coinY) return Utils.d(1)
+  let y_per_x = BIG_INT_ZERO
+  const pair_x_y = pairs[pairKey(coinX, coinY)]
+  if (pair_x_y) {
+    y_per_x = Utils.d(pair_x_y.coinYReserve).div(Utils.d(pair_x_y.coinXReserve))
+  }
+  return y_per_x
+}
+
+function queryToUnitCoin(
+  pairs: { [pairKey: string]: Pair },
+  coinX: string,
+  coinXReserve: string,
+  coinY: string,
+  coinYReserve: string,
+  unitCoin: string
+): Decimal {
+  const native_per_x = queryPrice(pairs, coinX, unitCoin)
+  if (native_per_x.gt(0)) {
+    return native_per_x.mul(Utils.d(coinXReserve)).mul(2)
+  }
+  const native_per_y = queryPrice(pairs, coinY, unitCoin)
+  if (native_per_y.gt(0)) {
+    return native_per_y.mul(Utils.d(coinYReserve)).mul(2)
+  }
+  return BIG_INT_ZERO
+}
+
 export default function Explore() {
-  const theme = useContext(ThemeContext)
+  const chainId = useChainId()
+  const { nativeCoin, stableCoin } = getChainInfoOrDefault(chainId)
   const [poolDatas, setPoolDatas] = useState<PoolData[]>([])
 
-  const coin = useCoin('0x1::aptos_coin::AptosCoin')
-
   useEffect(() => {
-    const poolData: PoolData = {
-      address: '1',
-      coin0: APTOS_CoinInfo['0x1::aptos_coin::AptosCoin'],
-      coin1: APTOS_CoinInfo['0x1::aptos_coin::AptosCoin'],
-      tvlUSD: 0,
-      volumeUSD: 0,
-      volumeUSDWeek: 0,
+    const preparePoolData = async () => {
+      const pairs = await ConnectionInstance.getAllPair()
+      const USD_per_APT = queryPrice(pairs, nativeCoin.address, stableCoin.address)
+      // .div(
+      //   Utils.pow10(stableCoin.decimals - nativeCoin.decimals)
+      // )
+      const tempPoolData: PoolData[] = []
+      for (const pair of Object.values(pairs)) {
+        let tvlAPT = BIG_INT_ZERO
+        let tvlUSD = BIG_INT_ZERO
+        tvlAPT = queryToUnitCoin(
+          pairs,
+          pair.coinX,
+          pair.coinXReserve,
+          pair.coinY,
+          pair.coinYReserve,
+          nativeCoin.address
+        )
+        if (tvlAPT.gt(0)) {
+          tvlUSD = tvlAPT.mul(USD_per_APT)
+        } else {
+          tvlUSD = queryToUnitCoin(
+            pairs,
+            pair.coinX,
+            pair.coinXReserve,
+            pair.coinY,
+            pair.coinYReserve,
+            stableCoin.address
+          )
+          tvlAPT = tvlUSD.div(USD_per_APT)
+        }
+        tempPoolData.push({
+          pair,
+          tvlAPT,
+          tvlUSD,
+          volumeUSD: 0,
+          volumeUSDWeek: 0,
+        })
+      }
+      setPoolDatas(tempPoolData)
     }
-    setPoolDatas([poolData])
+    preparePoolData()
   }, [])
 
   return (

@@ -112,6 +112,10 @@ const userSlice = createSlice({
       state.pairs[chainId] = state.pairs[chainId] || {}
       state.pairs[chainId][pairKey(pair.coinX, pair.coinY)] = pair
     },
+    setAllPairs(state, { payload: { pairs } }: { payload: { pairs: { [pairKey: string]: Pair } } }) {
+      const chainId = state.chainId
+      state.pairs[chainId] = pairs
+    },
     removePair(state, { payload: { coinX, coinY } }: { payload: { coinX: string; coinY: string } }) {
       const chainId = state.chainId
       if (state.pairs[chainId]) {
@@ -203,6 +207,7 @@ export const {
   addCoin,
   removeCoin,
   updatePair,
+  setAllPairs,
   removePair,
   updateChainId,
   updateMatchesDarkMode,
