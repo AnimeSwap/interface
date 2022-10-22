@@ -10,7 +10,7 @@ import { AptosClient } from 'aptos'
 import { CHAIN_IDS_TO_SDK_NETWORK, SupportedChainId } from 'constants/chains'
 import { Pair } from 'hooks/common/Pair'
 import store from 'state'
-import { addCoin, setAllPairs, updatePair } from 'state/user/reducer'
+import { addCoin, addTempCoin, setAllPairs, updatePair } from 'state/user/reducer'
 import { resetCoinBalances, resetLpBalances, setCoinBalances } from 'state/wallets/reducer'
 
 import { ConnectionType, getRPCURL } from './reducer'
@@ -211,6 +211,28 @@ class ConnectionInstance {
         store.dispatch(
           addCoin({
             coin: {
+              address,
+              decimals: coin.decimals,
+              symbol: coin.symbol,
+              name: coin.name,
+            },
+          })
+        )
+      }
+    } catch (error) {
+      console.error('addCoin', error)
+    }
+  }
+
+  public static async addTempCoin(address: string) {
+    try {
+      const splits = address.split('::')
+      const account = splits[0]
+      const coin: AptosCoinInfoResource = await this.getAccountResource(account, `0x1::coin::CoinInfo<${address}>`)
+      if (coin) {
+        store.dispatch(
+          addTempCoin({
+            tempCoin: {
               address,
               decimals: coin.decimals,
               symbol: coin.symbol,

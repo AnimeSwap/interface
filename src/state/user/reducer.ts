@@ -32,6 +32,12 @@ export interface UserState {
     }
   }
 
+  tempCoins: {
+    [chainId: number]: {
+      [address: string]: Coin
+    }
+  }
+
   pairs: {
     [chainId: number]: {
       // keyed by coin0Address, coin1Address
@@ -51,6 +57,9 @@ export const initialState: UserState = {
   coins: {
     [SupportedChainId.APTOS]: APTOS_CoinInfo,
   },
+  tempCoins: {
+    [SupportedChainId.APTOS]: {},
+  },
   pairs: {
     [SupportedChainId.APTOS]: {},
   },
@@ -63,6 +72,11 @@ if (!isProductionEnv()) {
     [SupportedChainId.APTOS]: APTOS_CoinInfo,
     [SupportedChainId.APTOS_TESTNET]: APTOS_TESTNET_CoinInfo,
     [SupportedChainId.APTOS_DEVNET]: APTOS_DEVNET_CoinInfo,
+  }
+  initialState.tempCoins = {
+    [SupportedChainId.APTOS]: {},
+    [SupportedChainId.APTOS_TESTNET]: {},
+    [SupportedChainId.APTOS_DEVNET]: {},
   }
   initialState.pairs = {
     [SupportedChainId.APTOS]: {},
@@ -99,6 +113,13 @@ const userSlice = createSlice({
       }
       state.coins[state.chainId] = state.coins[state.chainId] || {}
       state.coins[state.chainId][coin.address] = coin
+    },
+    addTempCoin(state, { payload: { tempCoin } }) {
+      if (!state.tempCoins) {
+        state.tempCoins = {}
+      }
+      state.tempCoins[state.chainId] = state.tempCoins[state.chainId] || {}
+      state.tempCoins[state.chainId][tempCoin.address] = tempCoin
     },
     removeCoin(state, { payload: { address, chainId } }) {
       if (!state.coins) {
@@ -149,6 +170,9 @@ const userSlice = createSlice({
           ...APTOS_CoinInfo,
         },
       }
+      state.tempCoins = {
+        [SupportedChainId.APTOS]: {},
+      }
       if (!isProductionEnv()) {
         state.coins = {
           [SupportedChainId.APTOS]: {
@@ -166,6 +190,9 @@ const userSlice = createSlice({
             ...state.coins[SupportedChainId.APTOS_DEVNET],
             ...APTOS_DEVNET_CoinInfo,
           },
+        }
+        state.tempCoins = {
+          [SupportedChainId.APTOS]: {},
         }
       }
 
@@ -205,6 +232,7 @@ const userSlice = createSlice({
 
 export const {
   addCoin,
+  addTempCoin,
   removeCoin,
   updatePair,
   setAllPairs,

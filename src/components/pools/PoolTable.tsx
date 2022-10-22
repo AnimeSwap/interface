@@ -6,7 +6,7 @@ import Loader, { LoadingRows } from 'components/Loader'
 import { RowFixed } from 'components/Row'
 import { Arrow, Break, PageButtons } from 'components/shared'
 import { ClickableText, Label } from 'components/Text'
-import { CoinAmount, useCoin } from 'hooks/common/Coin'
+import { CoinAmount, useCoin, useTempCoin } from 'hooks/common/Coin'
 import { Pair } from 'hooks/common/Pair'
 import useTheme from 'hooks/useTheme'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
@@ -24,7 +24,7 @@ const ResponsiveGrid = styled.div`
   grid-gap: 1em;
   align-items: center;
 
-  grid-template-columns: 20px 1.5fr repeat(2, 1fr);
+  grid-template-columns: 20px 1.5fr repeat(3, 1fr);
 
   @media screen and (max-width: 900px) {
     grid-template-columns: 20px 1.5fr repeat(2, 1fr);
@@ -64,8 +64,8 @@ const SORT_FIELD = {
 }
 
 const DataRow = ({ poolData, index }: { poolData: PoolData; index: number }) => {
-  const coinX = useCoin(poolData.pair.coinX)
-  const coinY = useCoin(poolData.pair.coinY)
+  const coinX = useTempCoin(poolData.pair.coinX)
+  const coinY = useTempCoin(poolData.pair.coinY)
   const coinXAmount = new CoinAmount(coinX, Utils.d(poolData.pair.coinXReserve))
   const coinYAmount = new CoinAmount(coinY, Utils.d(poolData.pair.coinYReserve))
   return (

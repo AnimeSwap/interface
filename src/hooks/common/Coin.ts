@@ -64,6 +64,17 @@ export function useCoin(address?: string | null): Coin | null | undefined {
   })
 }
 
+export function useTempCoin(address?: string | null): Coin | null | undefined {
+  const chainId = useChainId()
+  return useAppSelector((state) => {
+    const coin = state.user.coins[chainId][address] || state.user.tempCoins[chainId][address]
+    if (address && !coin) {
+      ConnectionInstance.addTempCoin(address)
+    }
+    return coin
+  })
+}
+
 export function useCoinList(): Coin[] {
   const chainId = useChainId()
   const coinMap = useAppSelector((state) => state.user.coins[chainId])
