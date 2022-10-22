@@ -1,7 +1,9 @@
 import { Trans } from '@lingui/macro'
-import PoolTable from 'components/pools/PoolTable'
+import PoolTable, { PoolData } from 'components/pools/PoolTable'
 import { Dots } from 'components/swap/styleds'
-import { useContext, useState } from 'react'
+import { APTOS_CoinInfo } from 'constants/coinInfo'
+import { useCoin } from 'hooks/common/Coin'
+import { useContext, useEffect, useState } from 'react'
 import styled, { ThemeContext } from 'styled-components/macro'
 
 import { AutoColumn } from '../../components/Column'
@@ -36,7 +38,21 @@ const EmptyProposals = styled.div`
 
 export default function Explore() {
   const theme = useContext(ThemeContext)
-  const [allPoolsLoading, setAllPoolsLoading] = useState<boolean>(true)
+  const [poolDatas, setPoolDatas] = useState<PoolData[]>([])
+
+  const coin = useCoin('0x1::aptos_coin::AptosCoin')
+
+  useEffect(() => {
+    const poolData: PoolData = {
+      address: '1',
+      coin0: APTOS_CoinInfo['0x1::aptos_coin::AptosCoin'],
+      coin1: APTOS_CoinInfo['0x1::aptos_coin::AptosCoin'],
+      tvlUSD: 0,
+      volumeUSD: 0,
+      volumeUSDWeek: 0,
+    }
+    setPoolDatas([poolData])
+  }, [])
 
   return (
     <ChartContainer>
@@ -47,18 +63,7 @@ export default function Explore() {
               All Pools
             </ThemedText.DeprecatedMediumHeader>
           </TitleRow>
-
-          {allPoolsLoading ? (
-            <ThemedText.DeprecatedBody color={theme.deprecated_text3} textAlign="center">
-              <EmptyProposals>
-                <Dots>
-                  <Trans>Loading</Trans>
-                </Dots>
-              </EmptyProposals>
-            </ThemedText.DeprecatedBody>
-          ) : (
-            <PoolTable poolDatas={[]} />
-          )}
+          <PoolTable poolDatas={poolDatas} />
         </AutoColumn>
       </AutoColumn>
     </ChartContainer>

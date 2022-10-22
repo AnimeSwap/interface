@@ -1,4 +1,4 @@
-import { DarkGreyCard, GreyBadge } from 'components/Card'
+import { DarkCard, GreyBadge } from 'components/Card'
 import { AutoColumn } from 'components/Column'
 import DoubleCoinLogo from 'components/DoubleLogo'
 import Loader, { LoadingRows } from 'components/Loader'
@@ -13,7 +13,7 @@ import styled from 'styled-components'
 import { ThemedText } from 'theme'
 import { formatDollarAmount } from 'utils/formatDollarAmt'
 
-const Wrapper = styled(DarkGreyCard)`
+const Wrapper = styled(DarkCard)`
   width: 100%;
 `
 
