@@ -41,6 +41,10 @@ function queryPrice(pairs: { [pairKey: string]: Pair }, coinX: string, coinY: st
   if (pair_x_y) {
     y_per_x = Utils.d(pair_x_y.coinYReserve).div(Utils.d(pair_x_y.coinXReserve))
   }
+  const pair_y_x = pairs[pairKey(coinY, coinX)]
+  if (pair_y_x) {
+    y_per_x = Utils.d(pair_y_x.coinXReserve).div(Utils.d(pair_y_x.coinYReserve))
+  }
   return y_per_x
 }
 
@@ -52,13 +56,13 @@ function queryToUnitCoin(
   coinYReserve: string,
   unitCoin: string
 ): Decimal {
-  const native_per_x = queryPrice(pairs, coinX, unitCoin)
-  if (native_per_x.gt(0)) {
-    return native_per_x.mul(Utils.d(coinXReserve)).mul(2)
+  const unit_per_x = queryPrice(pairs, coinX, unitCoin)
+  if (unit_per_x.gt(0)) {
+    return unit_per_x.mul(Utils.d(coinXReserve)).mul(2)
   }
-  const native_per_y = queryPrice(pairs, coinY, unitCoin)
-  if (native_per_y.gt(0)) {
-    return native_per_y.mul(Utils.d(coinYReserve)).mul(2)
+  const unit_per_y = queryPrice(pairs, coinY, unitCoin)
+  if (unit_per_y.gt(0)) {
+    return unit_per_y.mul(Utils.d(coinYReserve)).mul(2)
   }
   return BIG_INT_ZERO
 }
