@@ -74,7 +74,7 @@ const DataRow = ({ poolData, index }: { poolData: PoolData; index: number }) => 
         <Label fontWeight={400}>{index + 1}</Label>
         <Label fontWeight={400}>
           <RowFixed>
-            <DoubleCoinLogo coinX={coinX} coinY={coinY} size={24} sizeraw={54} margin={true} />
+            <DoubleCoinLogo coinX={coinX} coinY={coinY} size={24} sizeraw={44} margin={true} />
             <ThemedText.DeprecatedLabel ml="8px">
               {coinX?.symbol}/{coinY?.symbol}
             </ThemedText.DeprecatedLabel>

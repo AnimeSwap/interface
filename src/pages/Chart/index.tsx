@@ -1,5 +1,6 @@
 import { Decimal, Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
+import { ButtonPrimary } from 'components/Button'
 import PoolTable, { PoolData } from 'components/pools/PoolTable'
 import { Dots } from 'components/swap/styleds'
 import { getChainInfoOrDefault } from 'constants/chainInfo'
@@ -7,6 +8,7 @@ import { BIG_INT_ZERO } from 'constants/misc'
 import { Coin, useCoin } from 'hooks/common/Coin'
 import { Pair, pairKey } from 'hooks/common/Pair'
 import { useContext, useEffect, useState } from 'react'
+import { Text } from 'rebass'
 import ConnectionInstance from 'state/connection/instance'
 import { useChainId } from 'state/user/hooks'
 import styled, { ThemeContext } from 'styled-components/macro'
@@ -27,18 +29,12 @@ const TitleRow = styled(RowBetween)`
     flex-wrap: wrap;
     gap: 12px;
     width: 100%;
-    flex-direction: column-reverse;
   `};
 `
 
-const EmptyProposals = styled.div`
-  border: 1px solid ${({ theme }) => theme.deprecated_text4};
-  padding: 16px 12px;
+const ResponsiveButtonPrimary = styled(ButtonPrimary)`
+  width: fit-content;
   border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 `
 
 function queryPrice(pairs: { [pairKey: string]: Pair }, coinX: string, coinY: string): Decimal {
@@ -74,6 +70,7 @@ export default function Explore() {
   const chainId = useChainId()
   const { nativeCoin, stableCoin } = getChainInfoOrDefault(chainId)
   const [poolDatas, setPoolDatas] = useState<PoolData[]>([])
+  const [seeAll, setSeeAll] = useState<boolean>(false)
 
   useEffect(() => {
     const preparePoolData = async () => {
@@ -128,8 +125,21 @@ export default function Explore() {
             <ThemedText.DeprecatedMediumHeader style={{ marginTop: '0.5rem', justifySelf: 'flex-start' }}>
               All Pools
             </ThemedText.DeprecatedMediumHeader>
+            {!seeAll && (
+              <ResponsiveButtonPrimary
+                padding="6px 8px"
+                style={{ marginTop: '0.5rem', justifySelf: 'flex-end' }}
+                onClick={() => {
+                  setSeeAll(true)
+                }}
+              >
+                <Text fontWeight={500} fontSize={16}>
+                  See All
+                </Text>
+              </ResponsiveButtonPrimary>
+            )}
           </TitleRow>
-          <PoolTable poolDatas={poolDatas} />
+          <PoolTable poolDatas={poolDatas} maxItems={seeAll ? 200 : 10} />
         </AutoColumn>
       </AutoColumn>
     </ChartContainer>
