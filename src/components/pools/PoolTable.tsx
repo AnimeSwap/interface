@@ -105,8 +105,6 @@ const DataRow = ({ poolData, index }: { poolData: PoolData; index: number }) => 
   )
 }
 
-const MAX_ITEMS = 10
-
 export interface PoolData {
   pair: Pair
   tvlAPT: Decimal
@@ -132,6 +130,7 @@ export default function PoolTable({ poolDatas, maxItems = 10 }: { poolDatas: Poo
       extraPages = 0
     }
     setMaxPage(Math.floor(poolDatas.length / maxItems) + extraPages)
+    setPage(1)
   }, [maxItems, poolDatas])
 
   const sortedPools = useMemo(() => {
@@ -194,7 +193,7 @@ export default function PoolTable({ poolDatas, maxItems = 10 }: { poolDatas: Poo
             if (poolData) {
               return (
                 <React.Fragment key={i}>
-                  <DataRow index={(page - 1) * MAX_ITEMS + i} poolData={poolData} />
+                  <DataRow index={(page - 1) * maxItems + i} poolData={poolData} />
                   <Break />
                 </React.Fragment>
               )
