@@ -62,19 +62,23 @@ export async function AutoConnectWallets() {
     // case WalletType.FEWCHA:
     //   if (await AutoConnectFewcha()) return
     //   break
+    case WalletType.RISE:
+      if (await AutoConnectRise()) return
+      break
+    case WalletType.BITKEEP:
+      if (await AutoConnectBitkeep()) return
+      break
     case WalletType.PONTEM:
       if (await AutoConnectPontem()) return
       break
-    // case WalletType.RISE:
-    //   if (await AutoConnectRise()) return
-    //   break
   }
   // auto connect wallet in order
   if (await AutoConnectMartian()) return
   if (await AutoConnectPetra()) return
   // if (await AutoConnectFewcha()) return
+  if (await AutoConnectRise()) return
+  if (await AutoConnectBitkeep()) return
   if (await AutoConnectPontem()) return
-  // if (await AutoConnectRise()) return
 }
 
 export async function ConnectPetra() {
@@ -212,14 +216,36 @@ export async function AutoConnectRise() {
   return false
 }
 
+export async function ConnectBitkeep() {
+  try {
+    const res = await window.bitkeep.aptos.connect()
+    store.dispatch(setSelectedWallet({ wallet: WalletType.BITKEEP }))
+    store.dispatch(setAccount({ account: res.address }))
+    console.log('BitKeep connect success')
+    return true
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export async function AutoConnectBitkeep() {
+  if (!(window.bitkeep && window.bitkeep?.aptos)) {
+    return false
+  }
+  try {
+    if (await ConnectBitkeep()) {
+      console.log('BitKeep auto connected')
+      return true
+    }
+  } catch (error) {
+    console.error(error)
+  }
+  return false
+}
+
 export const ResetConnection = () => {
   store.dispatch(setSelectedWallet({ wallet: WalletType.PETRA }))
   store.dispatch(setAccount({ account: undefined }))
-}
-
-const payloadOptions = {
-  max_gas_amount: 200000,
-  gas_unit_price: 1000,
 }
 
 export const SignAndSubmitTransaction = async (transaction: any) => {
@@ -252,11 +278,15 @@ export const SignAndSubmitTransaction = async (transaction: any) => {
     case WalletType.PONTEM:
       const pontemTx = await window.pontem.signAndSubmit(payload)
       console.log('Pontem tx', pontemTx)
-      break
+      return pontemTx?.result?.hash
     case WalletType.RISE:
       const riseTx = await window.rise.signAndSubmitTransaction(payload)
       console.log('Rise tx', riseTx)
-      break
+      return riseTx.hash
+    case WalletType.BITKEEP:
+      const bitkeepTx = await window.bitkeep.aptos.signAndSubmitTransaction(payload)
+      console.log('BitKeep tx', bitkeepTx)
+      return bitkeepTx.hash
     default:
       break
   }

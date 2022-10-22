@@ -33,7 +33,7 @@ export class CoinAmount<T extends Coin> {
   }
 
   prettyWithSymbol(decimals?: number): string {
-    return this.pretty(decimals) + ' ' + this.coin.symbol
+    return this.pretty(decimals) + ' ' + this.coin?.symbol
   }
 }
 
@@ -59,6 +59,17 @@ export function useCoin(address?: string | null): Coin | null | undefined {
     const coin = state.user.coins[chainId][address]
     if (address && !coin) {
       ConnectionInstance.addCoin(address)
+    }
+    return coin
+  })
+}
+
+export function useTempCoin(address?: string | null): Coin | null | undefined {
+  const chainId = useChainId()
+  return useAppSelector((state) => {
+    const coin = state.user.coins[chainId][address] || state.user.tempCoins[chainId][address]
+    if (address && !coin) {
+      ConnectionInstance.addTempCoin(address)
     }
     return coin
   })

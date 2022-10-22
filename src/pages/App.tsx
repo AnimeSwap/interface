@@ -13,7 +13,7 @@ import Popups from '../components/Popups'
 import DarkModeQueryParamReader from '../theme/DarkModeQueryParamReader'
 import AddLiquidity from './AddLiquidity'
 import { RedirectDuplicateTokenIds } from './AddLiquidity/redirects'
-import Explore from './Explore'
+import Chart from './Chart'
 import Pool from './Pool'
 import RemoveLiquidity from './RemoveLiquidity'
 import Swap from './Swap'
@@ -132,7 +132,7 @@ export default function App() {
                   <Route path=":coinIdA/:coinIdB" element={<AddLiquidity />} />
                 </Route>
                 <Route path="remove/:coinIdA/:coinIdB" element={<RemoveLiquidity />} />
-                <Route path="explore" element={<Explore />} />
+                <Route path="charts" element={<Chart />} />
                 <Route path="*" element={<RedirectPathToSwapOnly />} />
               </Routes>
             ) : (

@@ -285,7 +285,7 @@ export default function Header() {
             <sup>↗</sup>
           </StyledExternalLink>
         )} */}
-        <StyledNavLink id={`explore-nav-link`} to={'/explore'}>
+        <StyledNavLink id={`explore-nav-link`} to={'/charts'}>
           <Trans>Charts</Trans>
         </StyledNavLink>
       </HeaderLinks>
@@ -300,7 +300,7 @@ export default function Header() {
           {[SupportedChainId.APTOS].includes(chainId) && (
             <ANIbutton
               onClick={() => {
-                window.open('https://cbridge.celer.network', '_blank')
+                window.open('https://cbridge.celer.network/1/12360001/USDC', '_blank')
               }}
               padding="8px 12px"
               width="100%"

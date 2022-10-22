@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro'
-import { Pair, pairKey, usePair } from 'hooks/common/Pair'
+import { Pair, pairKey } from 'hooks/common/Pair'
 import { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Text } from 'rebass'

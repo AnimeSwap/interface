@@ -45,3 +45,12 @@ export const BlueCard = styled(Card)`
   color: ${({ theme }) => theme.deprecated_blue2};
   border-radius: 12px;
 `
+
+export const GreyBadge = styled(Card)`
+  width: fit-content;
+  border-radius: 8px;
+  background: ${({ theme }) => theme.deprecated_bg3};
+  color: ${({ theme }) => theme.deprecated_text1};
+  padding: 4px 6px;
+  font-weight: 400;
+`

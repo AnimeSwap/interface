@@ -10,7 +10,7 @@ import { AptosClient } from 'aptos'
 import { CHAIN_IDS_TO_SDK_NETWORK, SupportedChainId } from 'constants/chains'
 import { Pair } from 'hooks/common/Pair'
 import store from 'state'
-import { addCoin, updatePair } from 'state/user/reducer'
+import { addCoin, addTempCoin, setAllPairs, updatePair } from 'state/user/reducer'
 import { resetCoinBalances, resetLpBalances, setCoinBalances } from 'state/wallets/reducer'
 
 import { ConnectionType, getRPCURL } from './reducer'
@@ -153,6 +153,55 @@ class ConnectionInstance {
     }
   }
 
+  public static async getAllPair(): Promise<{ [pairKey: string]: Pair }> {
+    try {
+      const aptosClient = ConnectionInstance.getAptosClient()
+      const modules = this.getSDK().networkOptions.modules
+      const poolResources: AptosResource<any>[] = await aptosClient.getAccountResources(modules.ResourceAccountAddress)
+      const pairs: { [pairKey: string]: Pair } = {}
+      for (const resource of poolResources) {
+        const coinInfoPrefix = `${modules.CoinInfo}<${modules.ResourceAccountAddress}::LPCoinV1::LPCoin<`
+        const poolPrefix = `${modules.Scripts}::LiquidityPool<`
+        if (resource.type.startsWith(coinInfoPrefix)) {
+          const pairKey = resource.type.substring(coinInfoPrefix.length, resource.type.length - 2)
+          const [coinX, coinY] = pairKey.split(', ')
+          if (pairs[pairKey]) {
+            pairs[pairKey].lpTotal = resource.data.supply.vec[0].integer.vec[0].value
+          } else {
+            pairs[pairKey] = {
+              coinX,
+              coinY,
+              coinXReserve: '0',
+              coinYReserve: '0',
+              lpTotal: resource.data.supply.vec[0].integer.vec[0].value,
+            }
+          }
+          continue
+        }
+        if (resource.type.startsWith(poolPrefix)) {
+          const pairKey = resource.type.substring(poolPrefix.length, resource.type.length - 1)
+          if (pairs[pairKey]) {
+            pairs[pairKey].coinXReserve = resource.data.coin_x_reserve.value
+            pairs[pairKey].coinYReserve = resource.data.coin_y_reserve.value
+          } else {
+            const [coinX, coinY] = pairKey.split(', ')
+            pairs[pairKey] = {
+              coinX,
+              coinY,
+              lpTotal: '0',
+              coinXReserve: resource.data.coin_x_reserve.value,
+              coinYReserve: resource.data.coin_y_reserve.value,
+            }
+          }
+          continue
+        }
+      }
+      return pairs
+    } catch (error) {
+      return {}
+    }
+  }
+
   public static async addCoin(address: string) {
     try {
       const splits = address.split('::')
@@ -162,6 +211,28 @@ class ConnectionInstance {
         store.dispatch(
           addCoin({
             coin: {
+              address,
+              decimals: coin.decimals,
+              symbol: coin.symbol,
+              name: coin.name,
+            },
+          })
+        )
+      }
+    } catch (error) {
+      console.error('addCoin', error)
+    }
+  }
+
+  public static async addTempCoin(address: string) {
+    try {
+      const splits = address.split('::')
+      const account = splits[0]
+      const coin: AptosCoinInfoResource = await this.getAccountResource(account, `0x1::coin::CoinInfo<${address}>`)
+      if (coin) {
+        store.dispatch(
+          addTempCoin({
+            tempCoin: {
               address,
               decimals: coin.decimals,
               symbol: coin.symbol,

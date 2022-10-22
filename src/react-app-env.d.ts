@@ -10,4 +10,5 @@ interface Window {
   fewcha?: any
   pontem?: any
   rise?: any
+  bitkeep?: any
 }

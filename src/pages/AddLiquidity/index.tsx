@@ -2,6 +2,7 @@ import { Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
 import { MinimalPositionCard } from 'components/PositionCard'
 import { SwitchLocaleLink } from 'components/SwitchLocaleLink'
+import { SupportedChainId } from 'constants/chains'
 import { BIG_INT_ZERO, BP, GAS_RESERVE, REFRESH_TIMEOUT } from 'constants/misc'
 import { amountPretty, Coin, CoinAmount, useCoin } from 'hooks/common/Coin'
 import { pairKey, PairState } from 'hooks/common/Pair'
@@ -24,7 +25,7 @@ import TransactionConfirmationModal, { ConfirmationModalContent } from '../../co
 import { useToggleWalletModal } from '../../state/application/hooks'
 import { Field } from '../../state/mint/actions'
 import { useDerivedMintInfo, useMintActionHandlers, useMintState } from '../../state/mint/hooks'
-import { useNativeCoin, useUserSlippageTolerance } from '../../state/user/hooks'
+import { useChainId, useNativeCoin, useUserSlippageTolerance } from '../../state/user/hooks'
 import { ThemedText } from '../../theme'
 import AppBody from '../AppBody'
 import { Wrapper } from '../Pool/styleds'
@@ -35,6 +36,7 @@ const DEFAULT_ADD_SLIPPAGE_TOLERANCE = 50
 
 export default function AddLiquidity() {
   const navigate = useNavigate()
+  const chainId = useChainId()
   const account = useAccount()
   const nativeCoin = useNativeCoin()
   const { coinIdA, coinIdB } = useParams<{ coinIdA?: string; coinIdB?: string }>()
@@ -110,6 +112,11 @@ export default function AddLiquidity() {
       setTxHash(txid)
       setTimeout(() => {
         ConnectionInstance.syncAccountResources(account)
+        if (chainId === SupportedChainId.APTOS) {
+          setTimeout(() => {
+            ConnectionInstance.syncAccountResources(account)
+          }, REFRESH_TIMEOUT)
+        }
       }, REFRESH_TIMEOUT)
     } catch (error) {
       setAttemptingTxn(false)
