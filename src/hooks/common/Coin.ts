@@ -33,7 +33,7 @@ export class CoinAmount<T extends Coin> {
   }
 
   prettyWithSymbol(decimals?: number): string {
-    return this.pretty(decimals) + ' ' + this.coin.symbol
+    return this.pretty(decimals) + ' ' + this.coin?.symbol
   }
 }
 

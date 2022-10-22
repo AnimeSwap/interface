@@ -1,4 +1,4 @@
-import { Decimal } from '@animeswap.org/v1-sdk'
+import { Decimal, Utils } from '@animeswap.org/v1-sdk'
 import { DarkCard, GreyBadge } from 'components/Card'
 import { AutoColumn } from 'components/Column'
 import DoubleCoinLogo from 'components/DoubleLogo'
@@ -6,7 +6,7 @@ import Loader, { LoadingRows } from 'components/Loader'
 import { RowFixed } from 'components/Row'
 import { Arrow, Break, PageButtons } from 'components/shared'
 import { ClickableText, Label } from 'components/Text'
-import { Coin, useCoin } from 'hooks/common/Coin'
+import { Coin, CoinAmount, useCoin } from 'hooks/common/Coin'
 import { Pair } from 'hooks/common/Pair'
 import useTheme from 'hooks/useTheme'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
@@ -66,13 +66,15 @@ const SORT_FIELD = {
 const DataRow = ({ poolData, index }: { poolData: PoolData; index: number }) => {
   const coinX = useCoin(poolData.pair.coinX)
   const coinY = useCoin(poolData.pair.coinY)
+  const coinXAmount = new CoinAmount(coinX, Utils.d(poolData.pair.coinXReserve))
+  const coinYAmount = new CoinAmount(coinY, Utils.d(poolData.pair.coinYReserve))
   return (
-    <LinkWrapper to={'pools/' + poolData.pair.coinX + poolData.pair.coinY}>
+    <LinkWrapper to={'swap/?inputCoin=' + poolData.pair.coinX + '&outputCoin=' + poolData.pair.coinY}>
       <ResponsiveGrid>
         <Label fontWeight={400}>{index + 1}</Label>
         <Label fontWeight={400}>
           <RowFixed>
-            <DoubleCoinLogo coinX={coinX} coinY={coinY} />
+            <DoubleCoinLogo coinX={coinX} coinY={coinY} size={24} sizeraw={54} margin={true} />
             <ThemedText.DeprecatedLabel ml="8px">
               {coinX?.symbol}/{coinY?.symbol}
             </ThemedText.DeprecatedLabel>
@@ -82,7 +84,14 @@ const DataRow = ({ poolData, index }: { poolData: PoolData; index: number }) => 
           </RowFixed>
         </Label>
         <Label end={1} fontWeight={400}>
-          {formatDollarAmount(poolData.tvlUSD.toNumber())}
+          <RowFixed>
+            <ThemedText.DeprecatedSubHeader>
+              {coinXAmount.prettyWithSymbol()} {'\n'} {coinYAmount.prettyWithSymbol()}
+            </ThemedText.DeprecatedSubHeader>
+          </RowFixed>
+        </Label>
+        <Label end={1} fontWeight={400}>
+          {formatDollarAmount(poolData.tvlUSD)}
         </Label>
         {/* <Label end={1} fontWeight={400}>
           {formatDollarAmount(poolData.volumeUSD)}
@@ -100,7 +109,7 @@ const MAX_ITEMS = 10
 export interface PoolData {
   pair: Pair
   tvlAPT: Decimal
-  tvlUSD: Decimal
+  tvlUSD: number
   volumeUSD: number
   volumeUSDWeek: number
 }
@@ -165,8 +174,9 @@ export default function PoolTable({ poolDatas, maxItems = MAX_ITEMS }: { poolDat
         <AutoColumn gap="16px">
           <ResponsiveGrid>
             <Label color={theme.deprecated_text2}>#</Label>
-            <ClickableText color={theme.deprecated_text2} onClick={() => handleSort(SORT_FIELD.feeTier)}>
-              Pool {arrow(SORT_FIELD.feeTier)}
+            <ClickableText color={theme.deprecated_text2}>Pool</ClickableText>
+            <ClickableText color={theme.deprecated_text2} end={1}>
+              Reserve
             </ClickableText>
             <ClickableText color={theme.deprecated_text2} end={1} onClick={() => handleSort(SORT_FIELD.tvlUSD)}>
               TVL {arrow(SORT_FIELD.tvlUSD)}

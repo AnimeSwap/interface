@@ -18,7 +18,7 @@ import { ExternalLink, HideSmall, ThemedText } from '../../theme'
 const ChartContainer = styled.div`
   width: 100%;
   min-width: 320px;
-  max-width: 800px;
+  max-width: 1000px;
   padding: 0px 12px;
 `
 
@@ -110,7 +110,7 @@ export default function Explore() {
         tempPoolData.push({
           pair,
           tvlAPT,
-          tvlUSD,
+          tvlUSD: tvlUSD.div(Utils.pow10(stableCoin.decimals)).toNumber(),
           volumeUSD: 0,
           volumeUSDWeek: 0,
         })
