@@ -9,6 +9,7 @@ import { Text } from 'rebass'
 import ConnectionInstance from 'state/connection/instance'
 import { useChainId } from 'state/user/hooks'
 import styled from 'styled-components/macro'
+import { formatDollarAmount } from 'utils/formatDollarAmt'
 
 import { AutoColumn } from '../../components/Column'
 import { RowBetween } from '../../components/Row'
@@ -72,12 +73,14 @@ export default function Explore() {
   const { nativeCoin, stableCoin } = getChainInfoOrDefault(chainId)
   const [poolDatas, setPoolDatas] = useState<PoolData[]>([])
   const [seeAll, setSeeAll] = useState<boolean>(false)
+  const [tvlUSD, setTvlUSD] = useState<number>(0)
 
   useEffect(() => {
     const preparePoolData = async () => {
       const pairs = await ConnectionInstance.getAllPair()
       const USD_per_APT = queryPrice(pairs, nativeCoin.address, stableCoin.address)
       const tempPoolData: PoolData[] = []
+      let totalTvlUSD = BIG_INT_ZERO
       for (const pair of Object.values(pairs)) {
         let tvlAPT = BIG_INT_ZERO
         let tvlUSD = BIG_INT_ZERO
@@ -102,6 +105,7 @@ export default function Explore() {
           )
           tvlAPT = tvlUSD.div(USD_per_APT)
         }
+        totalTvlUSD = totalTvlUSD.add(tvlUSD)
         tempPoolData.push({
           pair,
           tvlAPT,
@@ -111,6 +115,7 @@ export default function Explore() {
         })
       }
       setPoolDatas(tempPoolData)
+      setTvlUSD(totalTvlUSD.div(Utils.pow10(stableCoin.decimals)).toNumber())
     }
     preparePoolData()
   }, [])
@@ -122,6 +127,9 @@ export default function Explore() {
           <TitleRow style={{ marginTop: '1rem' }} padding={'0'}>
             <ThemedText.DeprecatedMediumHeader style={{ marginTop: '0.5rem', justifySelf: 'flex-start' }}>
               All Pools
+            </ThemedText.DeprecatedMediumHeader>
+            <ThemedText.DeprecatedMediumHeader style={{ marginTop: '0.5rem', justifySelf: 'flex-start' }}>
+              TVL: {formatDollarAmount(tvlUSD)}
             </ThemedText.DeprecatedMediumHeader>
             {!seeAll && (
               <ResponsiveButtonPrimary
