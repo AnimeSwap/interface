@@ -128,7 +128,7 @@ export default class ErrorBoundary extends React.Component<PropsWithChildren<unk
                     </ExternalLink>
                   </LinkWrapper>
                   <LinkWrapper>
-                    <ExternalLink id="get-support-on-discord" href="https://discord.gg/rbUG6SpRAM" target="_blank">
+                    <ExternalLink id="get-support-on-discord" href="https://discord.com/invite/animeswap" target="_blank">
                       <ThemedText.DeprecatedLink fontSize={16}>
                         <Trans>Get support on Discord</Trans>
                         <span>↗</span>
