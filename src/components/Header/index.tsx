@@ -297,7 +297,7 @@ export default function Header() {
               <Trans>Faucet</Trans>
             </ANIbutton>
           )}
-          {[SupportedChainId.APTOS].includes(chainId) && (
+          {/* {[SupportedChainId.APTOS].includes(chainId) && (
             <ANIbutton
               onClick={() => {
                 window.open('https://cbridge.celer.network/1/12360001/USDC', '_blank')
@@ -309,7 +309,7 @@ export default function Header() {
               <Trans>Bridge</Trans>
               <sup>↗</sup>
             </ANIbutton>
-          )}
+          )} */}
         </HeaderElement>
         <HeaderElement>
           <NetworkSelector />

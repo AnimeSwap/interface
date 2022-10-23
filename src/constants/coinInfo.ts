@@ -44,6 +44,14 @@ export const APTOS_CoinInfo: { [address: string]: Coin } = {
     name: 'Wormhole Wrapped Ether',
     logoURL: ['https://coinlist.animeswap.org/icons/WETH.png'],
   },
+  '0x881ac202b1f1e6ad4efcff7a1d0579411533f2502417a19211cfc49751ddb5f4::coin::MOJO': {
+    address: '0x881ac202b1f1e6ad4efcff7a1d0579411533f2502417a19211cfc49751ddb5f4::coin::MOJO',
+    decimals: 8,
+    symbol: 'MOJO',
+    name: 'Mojito',
+    logoURL: ['https://coinlist.animeswap.org/icons/MOJO.svg'],
+    projectURL: 'https://www.mojito.markets/',
+  },
   '0x84d7aeef42d38a5ffc3ccef853e1b82e4958659d16a7de736a29c55fbbeb0114::staked_aptos_coin::StakedAptosCoin': {
     address: '0x84d7aeef42d38a5ffc3ccef853e1b82e4958659d16a7de736a29c55fbbeb0114::staked_aptos_coin::StakedAptosCoin',
     decimals: 8,
@@ -67,14 +75,6 @@ export const APTOS_CoinInfo: { [address: string]: Coin } = {
     name: 'Argo USD',
     logoURL: ['https://coinlist.animeswap.org/icons/USDA.svg'],
     projectURL: 'https://argo.fi/',
-  },
-  '0x881ac202b1f1e6ad4efcff7a1d0579411533f2502417a19211cfc49751ddb5f4::coin::MOJO': {
-    address: '0x881ac202b1f1e6ad4efcff7a1d0579411533f2502417a19211cfc49751ddb5f4::coin::MOJO',
-    decimals: 8,
-    symbol: 'MOJO',
-    name: 'Mojito',
-    logoURL: ['https://coinlist.animeswap.org/icons/MOJO.svg'],
-    projectURL: 'https://www.mojito.markets/',
   },
   '0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::USDT': {
     address: '0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::USDT',
