@@ -44,6 +44,13 @@ export const APTOS_CoinInfo: { [address: string]: Coin } = {
     name: 'Wormhole Wrapped Ether',
     logoURL: ['https://coinlist.animeswap.org/icons/WETH.png'],
   },
+  '0x5c738a5dfa343bee927c39ebe85b0ceb95fdb5ee5b323c95559614f5a77c47cf::Aptoge::Aptoge': {
+    address: '0x5c738a5dfa343bee927c39ebe85b0ceb95fdb5ee5b323c95559614f5a77c47cf::Aptoge::Aptoge',
+    decimals: 6,
+    symbol: 'APTOGE',
+    name: 'Aptoge',
+    logoURL: ['https://coinlist.animeswap.org/icons/APTOGE.svg'],
+  },
   '0x881ac202b1f1e6ad4efcff7a1d0579411533f2502417a19211cfc49751ddb5f4::coin::MOJO': {
     address: '0x881ac202b1f1e6ad4efcff7a1d0579411533f2502417a19211cfc49751ddb5f4::coin::MOJO',
     decimals: 8,
@@ -170,6 +177,13 @@ export const APTOS_TESTNET_CoinInfo: { [address: string]: Coin } = {
     symbol: 'BTC',
     name: 'Bitcoin',
     logoURL: ['https://coinlist.animeswap.org/icons/BTC.webp'],
+  },
+  '0x3ebeee719166f9982331dd216280703b68da432b14ab19cfbe519e0b50cf7c5f::koiz_coin::KoizCoin': {
+    address: '0x3ebeee719166f9982331dd216280703b68da432b14ab19cfbe519e0b50cf7c5f::koiz_coin::KoizCoin',
+    decimals: 6,
+    symbol: 'KOIZ',
+    name: 'Koizumi Coin',
+    logoURL: ['https://coinlist.animeswap.org/icons/KOIZ.png'],
   },
   '0x2a2ad97dfdbe4e34cdc9321c63592dda455f18bc25c9bb1f28260312159eae27::staked_aptos_coin::StakedAptosCoin': {
     address: '0x2a2ad97dfdbe4e34cdc9321c63592dda455f18bc25c9bb1f28260312159eae27::staked_aptos_coin::StakedAptosCoin',

@@ -203,8 +203,6 @@ export function CoinSearch({
   // if no results on main list, show option to expand into inactive
   const filteredInactiveTokens = []
 
-  const coinList = useCoinList()
-
   return (
     <ContentWrapper>
       <PaddedColumn gap="16px">
@@ -242,7 +240,6 @@ export function CoinSearch({
           {({ height }) => (
             <CoinList
               height={height}
-              // currencies={coinList}
               currencies={filteredSortedTokens}
               otherListTokens={filteredInactiveTokens}
               onCoinSelect={handleCoinSelect}
