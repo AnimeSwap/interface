@@ -247,7 +247,6 @@ class ConnectionInstance {
           pairs[key].APY = NaN
         }
       }
-      console.log(pairs)
       return pairs
     } catch (error) {
       return {}
