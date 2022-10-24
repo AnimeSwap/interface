@@ -153,6 +153,7 @@ class ConnectionInstance {
     }
   }
 
+  // TODO[Azard] with APR
   public static async getAllPair(): Promise<{ [pairKey: string]: Pair }> {
     try {
       const aptosClient = ConnectionInstance.getAptosClient()
@@ -196,6 +197,8 @@ class ConnectionInstance {
           continue
         }
       }
+      // getPricePerLPCoinBatch
+      // this.getSDK().swap.getPricePerLPCoinBatch
       return pairs
     } catch (error) {
       return {}

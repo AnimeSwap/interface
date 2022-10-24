@@ -77,6 +77,7 @@ export default function Explore() {
 
   useEffect(() => {
     const preparePoolData = async () => {
+      // TODO[Azard]
       const pairs = await ConnectionInstance.getAllPair()
       const USD_per_APT = queryPrice(pairs, nativeCoin.address, stableCoin.address)
       const tempPoolData: PoolData[] = []
