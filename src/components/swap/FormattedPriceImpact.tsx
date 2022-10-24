@@ -3,7 +3,7 @@ import { Decimal } from '@animeswap.org/v1-sdk'
 import { warningSeverity } from '../../utils/prices'
 import { ErrorText } from './styleds'
 
-export const formatPriceImpact = (priceImpact: Decimal) => `${priceImpact.mul(-100).toFixed(2)}%`
+export const formatPriceImpact = (priceImpact: Decimal) => `${priceImpact.mul(100).toFixed(2)}%`
 
 /**
  * Formatted version of price impact text with warning colors
