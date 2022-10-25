@@ -70,7 +70,8 @@ const DataRow = ({ poolData, index }: { poolData: PoolData; index: number }) => 
   const coinXAmount = new CoinAmount(coinX, Utils.d(poolData.pair.coinXReserve))
   const coinYAmount = new CoinAmount(coinY, Utils.d(poolData.pair.coinYReserve))
   return (
-    <LinkWrapper to={'swap/?inputCoin=' + poolData.pair.coinX + '&outputCoin=' + poolData.pair.coinY}>
+    // <LinkWrapper to={'swap/?inputCoin=' + poolData.pair.coinX + '&outputCoin=' + poolData.pair.coinY}>
+    <LinkWrapper to={'/add/' + poolData.pair.coinX + '/' + poolData.pair.coinY}>
       <ResponsiveGrid>
         <Label fontWeight={400}>{index + 1}</Label>
         <Label fontWeight={400}>
