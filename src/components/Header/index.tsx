@@ -1,5 +1,6 @@
 import { Trans } from '@lingui/macro'
 import useScrollPosition from '@react-hook/window-scroll'
+import { ReactComponent as Discord } from 'assets/discord.svg'
 import { getChainInfoOrDefault } from 'constants/chainInfo'
 import { SupportedChainId } from 'constants/chains'
 import { darken } from 'polished'
@@ -13,6 +14,7 @@ import { useChainId } from 'state/user/hooks'
 import { AutoConnectWallets, useAccount, useCoinAmount } from 'state/wallets/hooks'
 import styled from 'styled-components/macro'
 import { ExternalLink } from 'theme'
+import { isDevelopmentEnv } from 'utils/env'
 
 import Logo from '../../assets/logo.png'
 import { ButtonPrimary } from '../Button'
@@ -310,6 +312,19 @@ export default function Header() {
               <sup>↗</sup>
             </ANIbutton>
           )} */}
+          {[SupportedChainId.APTOS].includes(chainId) && isDevelopmentEnv() && (
+            <ANIbutton
+              onClick={() => {
+                //
+              }}
+              padding="4px 8px"
+              width="100%"
+              $borderRadius="12px"
+            >
+              Bind
+              <Discord width="28px" height="28px" fill="#EEE" style={{ paddingLeft: '4px' }}></Discord>
+            </ANIbutton>
+          )}
         </HeaderElement>
         <HeaderElement>
           <NetworkSelector />
