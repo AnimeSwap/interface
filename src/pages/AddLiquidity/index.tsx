@@ -112,11 +112,9 @@ export default function AddLiquidity() {
       setTxHash(txid)
       setTimeout(() => {
         ConnectionInstance.syncAccountResources(account)
-        if (chainId === SupportedChainId.APTOS) {
-          setTimeout(() => {
-            ConnectionInstance.syncAccountResources(account)
-          }, REFRESH_TIMEOUT * 2)
-        }
+        setTimeout(() => {
+          ConnectionInstance.syncAccountResources(account)
+        }, REFRESH_TIMEOUT * 2)
       }, REFRESH_TIMEOUT)
     } catch (error) {
       setAttemptingTxn(false)
