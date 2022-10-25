@@ -247,6 +247,7 @@ class ConnectionInstance {
           pairs[key].APY = NaN
         }
       }
+      // const windowSeconds = deltaTimestamp.div(1e6).floor()
       return pairs
     } catch (error) {
       return {}
