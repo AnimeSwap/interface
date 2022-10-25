@@ -196,7 +196,7 @@ export default function RemoveLiquidity() {
           <RowBetween>
             <div />
             <Text fontWeight={500} fontSize={16} color={theme.deprecated_text1}>
-              1 {coinB?.symbol} = {Utils.d(1).div(price).toSD(6).toString()} {coinB?.symbol}
+              1 {coinB?.symbol} = {Utils.d(1).div(price).toSD(6).toString()} {coinA?.symbol}
             </Text>
           </RowBetween>
         </>
@@ -346,7 +346,7 @@ export default function RemoveLiquidity() {
               <RowBetween>
                 <div />
                 <div>
-                  1 {coinB?.symbol} = {Utils.d(1).div(price).toSD(6).toString()} {coinB?.symbol}
+                  1 {coinB?.symbol} = {Utils.d(1).div(price).toSD(6).toString()} {coinA?.symbol}
                 </div>
               </RowBetween>
             </div>
