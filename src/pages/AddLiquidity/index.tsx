@@ -115,7 +115,7 @@ export default function AddLiquidity() {
         if (chainId === SupportedChainId.APTOS) {
           setTimeout(() => {
             ConnectionInstance.syncAccountResources(account)
-          }, REFRESH_TIMEOUT)
+          }, REFRESH_TIMEOUT * 2)
         }
       }, REFRESH_TIMEOUT)
     } catch (error) {

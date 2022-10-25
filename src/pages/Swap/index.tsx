@@ -141,7 +141,7 @@ export default function Swap() {
           setTimeout(() => {
             ConnectionInstance.getCoinBalance(account, tradeToConfirm.inputCoin.address)
             ConnectionInstance.getCoinBalance(account, tradeToConfirm.outputCoin.address)
-          }, REFRESH_TIMEOUT)
+          }, REFRESH_TIMEOUT * 2)
         }
       }, REFRESH_TIMEOUT)
       console.log('txid', txid)
