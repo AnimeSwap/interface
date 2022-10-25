@@ -113,6 +113,11 @@ export function useDerivedSwapInfo(): {
     if (!parsedAmount || parsedAmount.lte(0)) {
       inputError = inputError ?? <Trans>Enter an amount</Trans>
     }
+
+    if (trade?.bestTrade?.priceImpact && trade.bestTrade.priceImpact.gt(0.15)) {
+      inputError = inputError ?? <Trans>High Price Impact</Trans>
+    }
+
     // compare input balance to max input based on version
     const [balanceIn, amountIn] = [inputCoinBalance, trade.bestTrade?.maximumAmountIn]
     if (balanceIn && amountIn && balanceIn.lt(amountIn.amount)) {
