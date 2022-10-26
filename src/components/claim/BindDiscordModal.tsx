@@ -1,4 +1,5 @@
 import { Trans } from '@lingui/macro'
+import { ReactComponent as Discord } from 'assets/discord.svg'
 import { SupportedChainId } from 'constants/chains'
 import { REFRESH_TIMEOUT } from 'constants/misc'
 import { useEffect, useState } from 'react'
@@ -35,105 +36,25 @@ const ConfirmOrLoadingWrapper = styled.div<{ activeBG: boolean }>`
     'radial-gradient(76.02% 75.41% at 1.84% 0%, rgba(255, 0, 122, 0.2) 0%, rgba(33, 114, 229, 0.2) 100%), #FFFFFF;'};
 `
 
-export default function AddressClaimModal({ isOpen, onDismiss }: { isOpen: boolean; onDismiss: () => void }) {
+export default function BindDiscordModal({ isOpen, onDismiss }: { isOpen: boolean; onDismiss: () => void }) {
   const account = useAccount()
   const chainId = useChainId()
   const [attempting, setAttempting] = useState<boolean>(false)
   const [hash, setHash] = useState<string | undefined>()
-  const [sinceBTC, setSinceBTC] = useState<Date>(new Date(0))
-  const [sinceUSDT, setSinceUSDT] = useState<Date>(new Date(0))
-  const [timeNow, setTimeNow] = useState(Date.now())
 
   useEffect(() => {
-    if ([SupportedChainId.APTOS_TESTNET, SupportedChainId.APTOS_DEVNET].includes(chainId)) {
-      setInterval(() => {
-        setTimeNow(Date.now())
-      }, 1e3)
-    }
+    //
   }, [])
-  const formatTime = (time: number) => {
-    const totalSeconds = Math.floor(time / 1e3)
-    if (totalSeconds <= 0) return ''
-    const minutes = Math.floor(totalSeconds / 60)
-    const seconds = totalSeconds % 60
-    return `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
-  }
-
-  const period = 3600 * 1e3 // 60min
 
   // monitor the status of the claim from contracts and txns
   const claimPending = useIsTransactionPending(hash ?? '')
   const claimConfirmed = hash && !claimPending
 
-  async function faucetBTC() {
-    const transaction = {
-      type: 'entry_function_payload',
-      function: '0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::FaucetV1::request',
-      type_arguments: ['0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::TestCoinsV1::BTC'],
-      arguments: ['0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c'],
-    }
-    await SignAndSubmitTransaction(transaction)
-    setTimeout(() => {
-      updateSinceTimeBTC()
-      ConnectionInstance.getCoinBalance(
-        account,
-        '0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::TestCoinsV1::BTC'
-      )
-    }, REFRESH_TIMEOUT)
-  }
-
-  async function updateSinceTimeBTC() {
-    if (account) {
-      const res = await ConnectionInstance.getAccountResource(
-        account,
-        '0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::FaucetV1::Restricted<0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::TestCoinsV1::BTC>'
-      )
-      if (res && res.since) {
-        const date = new Date(Number(res.since * 1e3) + period)
-        setSinceBTC(date)
-      } else {
-        setSinceBTC(new Date(0))
-      }
-    }
-  }
-
-  async function faucetUSDT() {
-    const transaction = {
-      type: 'entry_function_payload',
-      function: '0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::FaucetV1::request',
-      type_arguments: ['0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::TestCoinsV1::USDT'],
-      arguments: ['0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c'],
-    }
-    await SignAndSubmitTransaction(transaction)
-    setTimeout(() => {
-      updateSinceTimeUSDT()
-      ConnectionInstance.getCoinBalance(
-        account,
-        '0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::TestCoinsV1::USDT'
-      )
-    }, REFRESH_TIMEOUT)
-  }
-
-  async function updateSinceTimeUSDT() {
-    if (account) {
-      const res = await ConnectionInstance.getAccountResource(
-        account,
-        '0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::FaucetV1::Restricted<0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::TestCoinsV1::USDT>'
-      )
-      if (res && res.since) {
-        const date = new Date(Number(res.since * 1e3) + period)
-        setSinceUSDT(date)
-      } else {
-        setSinceUSDT(new Date(0))
-      }
-    }
-  }
-
   useEffect(() => {
-    if ([SupportedChainId.APTOS_DEVNET, SupportedChainId.APTOS_TESTNET].includes(chainId)) {
-      updateSinceTimeBTC()
-      updateSinceTimeUSDT()
-    }
+    // if ([SupportedChainId.APTOS_DEVNET, SupportedChainId.APTOS_TESTNET].includes(chainId)) {
+    //   updateSinceTimeBTC()
+    //   updateSinceTimeUSDT()
+    // }
   }, [account, chainId])
 
   function wrappedOnDismiss() {
@@ -152,7 +73,7 @@ export default function AddressClaimModal({ isOpen, onDismiss }: { isOpen: boole
             <CardSection gap="md">
               <RowBetween>
                 <ThemedText.DeprecatedWhite fontWeight={500}>
-                  <Trans>Faucet of Test Coins</Trans>
+                  <Trans>Bind Discord For Airdrop $ANI</Trans>
                 </ThemedText.DeprecatedWhite>
                 <CloseIcon onClick={wrappedOnDismiss} style={{ zIndex: 99 }} stroke="white" />
               </RowBetween>
@@ -160,37 +81,38 @@ export default function AddressClaimModal({ isOpen, onDismiss }: { isOpen: boole
             <Break />
           </ModalUpper>
           <AutoColumn gap="md" style={{ padding: '1rem', paddingTop: '0', paddingBottom: '0' }} justify="start">
-            <ThemedText.DeprecatedSubHeader fontWeight={500}>
-              Get APT coin from wallet airdrop.
-            </ThemedText.DeprecatedSubHeader>
-            <ThemedText.DeprecatedSubHeader fontWeight={500}>
-              Get test BTC USDT for AnimeSwap testing, test coins are no practical value on Aptos DevNet.
-            </ThemedText.DeprecatedSubHeader>
+            <ThemedText.DeprecatedBody fontWeight={400}>
+              1. For all Discord OG roles, bind Discord and Aptos address to get the incoming Airdrop{' '}
+              <span style={{ color: '#b15bff', fontWeight: '800' }}>$ANI</span>.
+            </ThemedText.DeprecatedBody>
+            <ThemedText.DeprecatedBody fontWeight={400}>
+              2. One Discord account can only bind the{' '}
+              <span style={{ color: 'red', fontWeight: '800' }}>first one</span> Aptos address. Once bound, you can't
+              change it.
+            </ThemedText.DeprecatedBody>
+            <ThemedText.DeprecatedBody fontWeight={400}>
+              3. The bind operation will close after{' '}
+              <span style={{ color: 'red', fontWeight: '800' }}>November 1 UTC</span>, please bind it in time.
+            </ThemedText.DeprecatedBody>
+            <ThemedText.DeprecatedBody fontWeight={400}>
+              4. This is <span style={{ color: 'red', fontWeight: '800' }}>NOT the only way</span> to get the incoming
+              Airdrop. Wait airdrop rule and address list announcement.
+            </ThemedText.DeprecatedBody>
           </AutoColumn>
           <AutoColumn gap="md" style={{ padding: '1rem', paddingTop: '0', paddingBottom: '2rem' }} justify="center">
             <ButtonPrimary
-              disabled={!account || sinceBTC.getTime() > timeNow}
-              padding="16px 16px"
+              disabled={!account}
+              padding="12px 12px"
               width="100%"
               $borderRadius="12px"
               mt="1rem"
+              fontSize={20}
               onClick={() => {
-                faucetBTC()
+                // faucetBTC()
               }}
             >
-              {formatTime(sinceBTC.getTime() - timeNow)} Mint BTC
-            </ButtonPrimary>
-            <ButtonPrimary
-              disabled={!account || sinceUSDT.getTime() > timeNow}
-              padding="16px 16px"
-              width="100%"
-              $borderRadius="12px"
-              mt="1rem"
-              onClick={() => {
-                faucetUSDT()
-              }}
-            >
-              {formatTime(sinceUSDT.getTime() - timeNow)} Mint USDT
+              Bind
+              <Discord width="30px" height="30px" fill="#EEE" style={{ paddingLeft: '4px' }}></Discord>
             </ButtonPrimary>
           </AutoColumn>
         </ContentWrapper>

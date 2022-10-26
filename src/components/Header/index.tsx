@@ -253,10 +253,7 @@ export default function Header() {
     pathname.startsWith('/find')
 
   const openClaimModal = useToggleModal(ApplicationModal.ADDRESS_CLAIM)
-
-  const faucetOnClick = () => {
-    openClaimModal()
-  }
+  const openBindModal = useToggleModal(ApplicationModal.BIND_DISCORD)
 
   return (
     <HeaderFrame showBackground={scrollY > 45}>
@@ -295,7 +292,14 @@ export default function Header() {
       <HeaderControls>
         <HeaderElement>
           {[SupportedChainId.APTOS_TESTNET, SupportedChainId.APTOS_DEVNET].includes(chainId) && (
-            <ANIbutton onClick={faucetOnClick} padding="8px 12px" width="100%" $borderRadius="12px">
+            <ANIbutton
+              onClick={() => {
+                openClaimModal()
+              }}
+              padding="8px 12px"
+              width="100%"
+              $borderRadius="12px"
+            >
               <Trans>Faucet</Trans>
             </ANIbutton>
           )}
@@ -315,7 +319,7 @@ export default function Header() {
           {[SupportedChainId.APTOS].includes(chainId) && isDevelopmentEnv() && (
             <ANIbutton
               onClick={() => {
-                //
+                openBindModal()
               }}
               padding="4px 8px"
               width="100%"
