@@ -1,5 +1,6 @@
 import { Trans } from '@lingui/macro'
 import { ReactComponent as Discord } from 'assets/discord.svg'
+import axios from 'axios'
 import { SupportedChainId } from 'constants/chains'
 import { REFRESH_TIMEOUT } from 'constants/misc'
 import { useEffect, useState } from 'react'
@@ -37,15 +38,56 @@ const ConfirmOrLoadingWrapper = styled.div<{ activeBG: boolean }>`
     'radial-gradient(76.02% 75.41% at 1.84% 0%, rgba(255, 0, 122, 0.2) 0%, rgba(33, 114, 229, 0.2) 100%), #FFFFFF;'};
 `
 
+const checkAddressBind = async (address: string) => {
+  try {
+    const res = await axios.get(`https://bind.animeswap.org/checkAddressBind?address=${address}`, {
+      timeout: 5000,
+    })
+    // console.log(res)
+    if (res.status === 200) {
+      return res.data.bind
+    }
+  } catch (e) {
+    console.error(e)
+  }
+}
+
 export default function BindDiscordModal({ isOpen, onDismiss }: { isOpen: boolean; onDismiss: () => void }) {
   const account = useAccount()
   const chainId = useChainId()
   const [attempting, setAttempting] = useState<boolean>(false)
   const [hash, setHash] = useState<string | undefined>()
+  const [alreadyBind, setAlreadyBind] = useState<boolean>(false)
+  const [checkIsBindInterval, setCheckIsBindInterval] = useState<boolean>(false)
 
   useEffect(() => {
-    //
-  }, [])
+    const checkBind = async () => {
+      if (isOpen && account) {
+        const isBind = await checkAddressBind(account)
+        if (isBind) {
+          setAlreadyBind(true)
+        }
+      }
+    }
+    checkBind()
+  }, [isOpen, account])
+
+  useEffect(() => {
+    const checkBind = async () => {
+      if (checkIsBindInterval && account) {
+        const isBind = await checkAddressBind(account)
+        if (isBind) {
+          setAlreadyBind(true)
+          setCheckIsBindInterval(false)
+        } else {
+          setTimeout(() => {
+            checkBind()
+          }, 1500)
+        }
+      }
+    }
+    checkBind()
+  }, [checkIsBindInterval])
 
   // monitor the status of the claim from contracts and txns
   const claimPending = useIsTransactionPending(hash ?? '')
@@ -108,23 +150,32 @@ export default function BindDiscordModal({ isOpen, onDismiss }: { isOpen: boolea
           </AutoColumn>
           <AutoColumn gap="md" style={{ padding: '1rem', paddingTop: '0', paddingBottom: '2rem' }} justify="center">
             <ButtonPrimary
-              disabled={!account}
+              disabled={!account || alreadyBind}
               padding="12px 12px"
               width="100%"
               $borderRadius="12px"
               mt="1rem"
               fontSize={20}
               onClick={() => {
-                // faucetBTC()
+                setCheckIsBindInterval(true)
+                window.open(
+                  `https://discord.com/oauth2/authorize?response_type=code&client_id=1035092636085796874&scope=identify%20guilds%20guilds.members.read&state=${account}&redirect_uri=https://bind.animeswap.org/bind&prompt=consent`,
+                  '_blank'
+                )
+                // window.open(
+                //   `https://discord.com/oauth2/authorize?response_type=code&client_id=1035092636085796874&scope=identify%20guilds%20guilds.members.read&state=${account}&redirect_uri=http://localhost:3001/bind&prompt=consent`,
+                //   '_blank'
+                // )
               }}
             >
-              {account && (
+              {!account && <>No Connected Wallet</>}
+              {account && !alreadyBind && (
                 <>
                   Bind
                   <Discord width="30px" height="30px" fill="#EEE" style={{ paddingLeft: '4px' }}></Discord>
                 </>
               )}
-              {!account && <>Not Connect Wallet</>}
+              {account && alreadyBind && <>Already Bind</>}
             </ButtonPrimary>
           </AutoColumn>
         </ContentWrapper>
