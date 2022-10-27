@@ -7,6 +7,7 @@ import ConnectionInstance from 'state/connection/instance'
 import { useChainId } from 'state/user/hooks'
 import { SignAndSubmitTransaction, useAccount } from 'state/wallets/hooks'
 import styled from 'styled-components/macro'
+import { shortenAddress } from 'utils'
 
 import { useIsTransactionPending } from '../../state/transactions/hooks'
 import { CloseIcon, ExternalLink, ThemedText } from '../../theme'
@@ -98,6 +99,12 @@ export default function BindDiscordModal({ isOpen, onDismiss }: { isOpen: boolea
               4. This is <span style={{ color: 'red', fontWeight: '800' }}>NOT the only way</span> to get the incoming
               Airdrop. Wait airdrop rule and address list announcement.
             </ThemedText.DeprecatedBody>
+            {account && (
+              <ThemedText.DeprecatedBody fontWeight={400}>
+                <br />
+                Connected Address: <span style={{ color: 'red', fontWeight: '800' }}>{shortenAddress(account, 8)}</span>
+              </ThemedText.DeprecatedBody>
+            )}
           </AutoColumn>
           <AutoColumn gap="md" style={{ padding: '1rem', paddingTop: '0', paddingBottom: '2rem' }} justify="center">
             <ButtonPrimary
@@ -111,8 +118,13 @@ export default function BindDiscordModal({ isOpen, onDismiss }: { isOpen: boolea
                 // faucetBTC()
               }}
             >
-              Bind
-              <Discord width="30px" height="30px" fill="#EEE" style={{ paddingLeft: '4px' }}></Discord>
+              {account && (
+                <>
+                  Bind
+                  <Discord width="30px" height="30px" fill="#EEE" style={{ paddingLeft: '4px' }}></Discord>
+                </>
+              )}
+              {!account && <>Not Connect Wallet</>}
             </ButtonPrimary>
           </AutoColumn>
         </ContentWrapper>
