@@ -316,7 +316,7 @@ export default function Header() {
               <sup>↗</sup>
             </ANIbutton>
           )} */}
-          {[SupportedChainId.APTOS].includes(chainId) && isDevelopmentEnv() && (
+          {[SupportedChainId.APTOS].includes(chainId) && (
             <ANIbutton
               onClick={() => {
                 openBindModal()
