@@ -86,13 +86,13 @@ export default function BindDiscordModal({ isOpen, onDismiss }: { isOpen: boolea
               <span style={{ color: '#b15bff', fontWeight: '800' }}>$ANI</span>.
             </ThemedText.DeprecatedBody>
             <ThemedText.DeprecatedBody fontWeight={400}>
-              2. One Discord account can only bind the{' '}
+              2. Each Discord account can only bind the{' '}
               <span style={{ color: 'red', fontWeight: '800' }}>first one</span> Aptos address. Once bound, you can't
               change it.
             </ThemedText.DeprecatedBody>
             <ThemedText.DeprecatedBody fontWeight={400}>
               3. The bind operation will close after{' '}
-              <span style={{ color: 'red', fontWeight: '800' }}>November 1 UTC</span>, please bind it in time.
+              <span style={{ color: 'red', fontWeight: '800' }}>November 1st 08:00 UTC</span>, please bind it in time.
             </ThemedText.DeprecatedBody>
             <ThemedText.DeprecatedBody fontWeight={400}>
               4. This is <span style={{ color: 'red', fontWeight: '800' }}>NOT the only way</span> to get the incoming
