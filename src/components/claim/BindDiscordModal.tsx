@@ -74,7 +74,7 @@ export default function BindDiscordModal({ isOpen, onDismiss }: { isOpen: boolea
 
   useEffect(() => {
     const checkBind = async () => {
-      if (checkIsBindInterval && account) {
+      if (checkIsBindInterval && account && isOpen) {
         const isBind = await checkAddressBind(account)
         if (isBind) {
           setAlreadyBind(true)
@@ -87,7 +87,7 @@ export default function BindDiscordModal({ isOpen, onDismiss }: { isOpen: boolea
       }
     }
     checkBind()
-  }, [checkIsBindInterval])
+  }, [checkIsBindInterval, account, isOpen])
 
   // monitor the status of the claim from contracts and txns
   const claimPending = useIsTransactionPending(hash ?? '')

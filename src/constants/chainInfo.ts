@@ -21,7 +21,6 @@ export type ChainInfoMap = { readonly [chainId: number]: BaseChainInfo }
 
 const CHAIN_INFO: ChainInfoMap = {
   [SupportedChainId.APTOS]: {
-    bridge: 'https://cbridge.celer.network/1/12360001/USDC',
     docs: 'https://aptoslabs.com/',
     explorer: 'https://explorer.aptoslabs.com/?network=mainnet',
     label: 'Aptos',
@@ -30,7 +29,6 @@ const CHAIN_INFO: ChainInfoMap = {
     stableCoin: APTOS_CoinInfo['0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::USDC'],
   },
   [SupportedChainId.APTOS_TESTNET]: {
-    bridge: 'https://cbridge-aptos-testnet.netlify.app/',
     docs: 'https://aptoslabs.com/',
     explorer: 'https://explorer.aptoslabs.com/?network=testnet',
     label: 'AptosTest',
@@ -40,7 +38,6 @@ const CHAIN_INFO: ChainInfoMap = {
       APTOS_TESTNET_CoinInfo['0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::TestCoinsV1::USDT'],
   },
   [SupportedChainId.APTOS_DEVNET]: {
-    bridge: 'https://cbridge-aptos-devnet.netlify.app/',
     docs: 'https://aptoslabs.com/',
     explorer: 'https://explorer.aptoslabs.com/?network=devnet',
     label: 'AptosDev',
