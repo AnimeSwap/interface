@@ -6,7 +6,7 @@ import Loader, { LoadingRows } from 'components/Loader'
 import { RowFixed } from 'components/Row'
 import { Arrow, Break, PageButtons } from 'components/shared'
 import { ClickableText, Label } from 'components/Text'
-import { CoinAmount, useCoin, useTempCoin } from 'hooks/common/Coin'
+import { CoinAmount, useTempCoin } from 'hooks/common/Coin'
 import { Pair } from 'hooks/common/Pair'
 import useTheme from 'hooks/useTheme'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
@@ -60,6 +60,7 @@ const SORT_FIELD = {
   feeTier: 'feeTier',
   volumeUSD: 'volumeUSD',
   tvlUSD: 'tvlUSD',
+  APY: 'APY',
   volumeUSDWeek: 'volumeUSDWeek',
 }
 
@@ -69,7 +70,8 @@ const DataRow = ({ poolData, index }: { poolData: PoolData; index: number }) => 
   const coinXAmount = new CoinAmount(coinX, Utils.d(poolData.pair.coinXReserve))
   const coinYAmount = new CoinAmount(coinY, Utils.d(poolData.pair.coinYReserve))
   return (
-    <LinkWrapper to={'swap/?inputCoin=' + poolData.pair.coinX + '&outputCoin=' + poolData.pair.coinY}>
+    // <LinkWrapper to={'swap/?inputCoin=' + poolData.pair.coinX + '&outputCoin=' + poolData.pair.coinY}>
+    <LinkWrapper to={'/add/' + poolData.pair.coinX + '/' + poolData.pair.coinY}>
       <ResponsiveGrid>
         <Label fontWeight={400}>{index + 1}</Label>
         <Label fontWeight={400}>
@@ -91,7 +93,10 @@ const DataRow = ({ poolData, index }: { poolData: PoolData; index: number }) => 
             </Column>
           </RowFixed>
         </Label>
-        <Label end={1} fontWeight={400}>
+        <Label end={2} fontWeight={400}>
+          {poolData.APY > 0 ? (poolData.APY * 100).toFixed(2) + '%' : '-'}
+        </Label>
+        <Label end={3} fontWeight={400}>
           {formatDollarAmount(poolData.tvlUSD)}
         </Label>
         {/* <Label end={1} fontWeight={400}>
@@ -107,6 +112,7 @@ const DataRow = ({ poolData, index }: { poolData: PoolData; index: number }) => 
 
 export interface PoolData {
   pair: Pair
+  APY: number
   tvlAPT: Decimal
   tvlUSD: number
   volumeUSD: number
@@ -177,6 +183,9 @@ export default function PoolTable({ poolDatas, maxItems = 10 }: { poolDatas: Poo
             <ClickableText color={theme.deprecated_text2}>Pool</ClickableText>
             <ClickableText color={theme.deprecated_text2} end={1}>
               Reserve
+            </ClickableText>
+            <ClickableText color={theme.deprecated_text2} end={1} onClick={() => handleSort(SORT_FIELD.APY)}>
+              LP APY(48h) {arrow(SORT_FIELD.APY)}
             </ClickableText>
             <ClickableText color={theme.deprecated_text2} end={1} onClick={() => handleSort(SORT_FIELD.tvlUSD)}>
               TVL {arrow(SORT_FIELD.tvlUSD)}

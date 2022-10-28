@@ -193,6 +193,8 @@ const userSlice = createSlice({
         }
         state.tempCoins = {
           [SupportedChainId.APTOS]: {},
+          [SupportedChainId.APTOS_TESTNET]: {},
+          [SupportedChainId.APTOS_DEVNET]: {},
         }
       }
 

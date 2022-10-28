@@ -22,11 +22,17 @@ export class CoinAmount<T extends Coin> {
     this.amount = Utils.d(amount)
   }
 
-  pretty(decimals?: number): string {
+  pretty(decimals?: number, lessThanFlag?: boolean): string {
     const significant = decimals || 6
     const value = this.amount.div(Utils.pow10(this.coin?.decimals))
     if (value.greaterThan(Utils.pow10(significant))) {
       return value.toDP(0).toString()
+    } else if (lessThanFlag) {
+      if (value.lt(Utils.pow10(-significant)) && value.gt(0)) {
+        return '< ' + Utils.pow10(-significant).toSD(significant).toString()
+      } else {
+        return value.toSD(significant).toString()
+      }
     } else {
       return value.toSD(significant).toString()
     }

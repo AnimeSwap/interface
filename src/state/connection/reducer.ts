@@ -7,8 +7,10 @@ export enum ConnectionType {
 
 const connectionURLMap = {
   [ConnectionType.APTOSLAB]: {
-    [SupportedChainId.APTOS]: `https://fullnode.mainnet.aptoslabs.com`,
+    // [SupportedChainId.APTOS]: `https://fullnode.mainnet.aptoslabs.com`,
+    [SupportedChainId.APTOS]: `https://aptos-mainnet.nodereal.io/v1/0b8627f45c4544efaa2b71672a21d1c7`,
     [SupportedChainId.APTOS_TESTNET]: `https://testnet.aptoslabs.com`,
+    // [SupportedChainId.APTOS_TESTNET]: `https://aptos-testnet.nodereal.io/v1/7ca94432049e401aa362258b5083d1ef`,
     [SupportedChainId.APTOS_DEVNET]: `https://fullnode.devnet.aptoslabs.com`,
   },
 }

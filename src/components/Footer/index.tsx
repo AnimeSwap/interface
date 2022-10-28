@@ -20,7 +20,7 @@ export default function Footer() {
       <FooterItem target="_blank" href="https://docs.animeswap.org" rel="noreferrer">
         <Blog width="28px" height="28px"></Blog>
       </FooterItem>
-      <FooterItem target="_blank" href="https://discord.gg/rbUG6SpRAM" rel="noreferrer">
+      <FooterItem target="_blank" href="https://discord.com/invite/animeswap" rel="noreferrer">
         <Discord width="28px" height="28px"></Discord>
       </FooterItem>
       <FooterItem target="_blank" href="https://twitter.com/animeswap_org" rel="noreferrer">

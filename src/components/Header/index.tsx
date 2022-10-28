@@ -1,5 +1,6 @@
 import { Trans } from '@lingui/macro'
 import useScrollPosition from '@react-hook/window-scroll'
+import { ReactComponent as Discord } from 'assets/discord.svg'
 import { getChainInfoOrDefault } from 'constants/chainInfo'
 import { SupportedChainId } from 'constants/chains'
 import { darken } from 'polished'
@@ -13,6 +14,7 @@ import { useChainId } from 'state/user/hooks'
 import { AutoConnectWallets, useAccount, useCoinAmount } from 'state/wallets/hooks'
 import styled from 'styled-components/macro'
 import { ExternalLink } from 'theme'
+import { isDevelopmentEnv } from 'utils/env'
 
 import Logo from '../../assets/logo.png'
 import { ButtonPrimary } from '../Button'
@@ -251,10 +253,7 @@ export default function Header() {
     pathname.startsWith('/find')
 
   const openClaimModal = useToggleModal(ApplicationModal.ADDRESS_CLAIM)
-
-  const faucetOnClick = () => {
-    openClaimModal()
-  }
+  const openBindModal = useToggleModal(ApplicationModal.BIND_DISCORD)
 
   return (
     <HeaderFrame showBackground={scrollY > 45}>
@@ -293,11 +292,18 @@ export default function Header() {
       <HeaderControls>
         <HeaderElement>
           {[SupportedChainId.APTOS_TESTNET, SupportedChainId.APTOS_DEVNET].includes(chainId) && (
-            <ANIbutton onClick={faucetOnClick} padding="8px 12px" width="100%" $borderRadius="12px">
+            <ANIbutton
+              onClick={() => {
+                openClaimModal()
+              }}
+              padding="8px 12px"
+              width="100%"
+              $borderRadius="12px"
+            >
               <Trans>Faucet</Trans>
             </ANIbutton>
           )}
-          {[SupportedChainId.APTOS].includes(chainId) && (
+          {/* {[SupportedChainId.APTOS].includes(chainId) && (
             <ANIbutton
               onClick={() => {
                 window.open('https://cbridge.celer.network/1/12360001/USDC', '_blank')
@@ -308,6 +314,19 @@ export default function Header() {
             >
               <Trans>Bridge</Trans>
               <sup>↗</sup>
+            </ANIbutton>
+          )} */}
+          {[SupportedChainId.APTOS].includes(chainId) && (
+            <ANIbutton
+              onClick={() => {
+                openBindModal()
+              }}
+              padding="4px 8px"
+              width="100%"
+              $borderRadius="12px"
+            >
+              Bind
+              <Discord width="28px" height="28px" fill="#EEE" style={{ paddingLeft: '4px' }}></Discord>
             </ANIbutton>
           )}
         </HeaderElement>

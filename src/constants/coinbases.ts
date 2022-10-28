@@ -9,8 +9,8 @@ export const COIN_BASES = {
     APTOS_CoinInfo[
       '0x84d7aeef42d38a5ffc3ccef853e1b82e4958659d16a7de736a29c55fbbeb0114::staked_aptos_coin::StakedAptosCoin'
     ],
-    APTOS_CoinInfo['0xd11107bdf0d6d7040c6c0bfbdecb6545191fdf13e8d8d259952f53e1713f61b5::staked_coin::StakedAptos'],
-    APTOS_CoinInfo['0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::USDT'],
+    APTOS_CoinInfo['0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::WETH'],
+    APTOS_CoinInfo['0xcc8a89c8dce9693d354449f1f73e60e14e347417854f029db5bc8e7454008abb::coin::T'],
   ],
   [SupportedChainId.APTOS_TESTNET]: [],
   [SupportedChainId.APTOS_DEVNET]: [],

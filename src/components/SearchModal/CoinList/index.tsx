@@ -62,7 +62,7 @@ const FixedContentRow = styled.div`
   align-items: center;
 `
 function Balance({ coinAmount }: { coinAmount: CoinAmount<Coin> }) {
-  return <StyledBalanceText title={coinAmount.coin.symbol}>{coinAmount.pretty(4)}</StyledBalanceText>
+  return <StyledBalanceText title={coinAmount.coin.symbol}>{coinAmount.pretty(4, true)}</StyledBalanceText>
 }
 
 const TagContainer = styled.div`

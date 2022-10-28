@@ -1,7 +1,10 @@
 import SDK, {
   AptosCoinInfoResource,
   AptosCoinStoreResource,
+  AptosLedgerInfo,
   AptosResource,
+  AptosTransaction,
+  Decimal,
   NetworkType,
   SwapPoolResource,
   Utils,
@@ -155,10 +158,43 @@ class ConnectionInstance {
 
   public static async getAllPair(): Promise<{ [pairKey: string]: Pair }> {
     try {
-      const aptosClient = ConnectionInstance.getAptosClient()
-      const modules = this.getSDK().networkOptions.modules
-      const poolResources: AptosResource<any>[] = await aptosClient.getAccountResources(modules.ResourceAccountAddress)
+      const sdk = this.getSDK()
       const pairs: { [pairKey: string]: Pair } = {}
+      const aptosClient = ConnectionInstance.getAptosClient()
+      const modules = sdk.networkOptions.modules
+      const ledgerInfo = await sdk.resources.fetchLedgerInfo<AptosLedgerInfo>()
+      // APY code
+      const timestampNow = ledgerInfo.ledger_timestamp
+      const currentLedgerVersion = ledgerInfo.ledger_version
+      const oldestLedgerVersion = ledgerInfo.oldest_ledger_version
+      const queryDeltaVersion = Utils.d(2e6) // APY window
+      const queryLedgerVersion = Utils.d(currentLedgerVersion).sub(queryDeltaVersion).gte(Utils.d(oldestLedgerVersion))
+        ? Utils.d(currentLedgerVersion).sub(queryDeltaVersion)
+        : Utils.d(oldestLedgerVersion)
+
+      // const poolResources: AptosResource<any>[]
+      const task1: Promise<AptosResource<any>[]> = aptosClient.getAccountResources(modules.ResourceAccountAddress)
+      // const poolResourcesLedger: AptosResource<any>[]
+      const task2: Promise<AptosResource<any>[]> = this.sdk.resources.fetchAccountResources<unknown>(
+        modules.ResourceAccountAddress,
+        BigInt(queryLedgerVersion.toString())
+      )
+      // txn
+      const task3: Promise<AptosTransaction> = this.sdk.resources.fetchTransactionByVersion<AptosTransaction>(
+        BigInt(queryLedgerVersion.toString())
+      )
+      const [poolResources, poolResourcesLedger, txn] = await Promise.all([task1, task2, task3])
+
+      // pass second params, this call has no network call
+      const coinX2coinY2DecimalCurrent = await sdk.swap.getPricePerLPCoinBatch(undefined, poolResources)
+      // pass second params, this call has no network call
+      const coinX2coinY2DecimalPast = await sdk.swap.getPricePerLPCoinBatch(
+        BigInt(queryLedgerVersion.toString()),
+        poolResourcesLedger
+      )
+      const deltaTimestamp = Utils.d(timestampNow).sub(Utils.d(txn.timestamp))
+
+      // parse coinX, coinY, LP, reserve
       for (const resource of poolResources) {
         const coinInfoPrefix = `${modules.CoinInfo}<${modules.ResourceAccountAddress}::LPCoinV1::LPCoin<`
         const poolPrefix = `${modules.Scripts}::LiquidityPool<`
@@ -196,6 +232,22 @@ class ConnectionInstance {
           continue
         }
       }
+
+      // write APY
+      for (const key of Object.keys(coinX2coinY2DecimalCurrent)) {
+        const base = coinX2coinY2DecimalPast[key]
+        if (base) {
+          pairs[key].APY = coinX2coinY2DecimalCurrent[key]
+            .sub(base)
+            .div(base)
+            .mul(Utils.YEAR_NS)
+            .div(deltaTimestamp)
+            .toNumber()
+        } else {
+          pairs[key].APY = NaN
+        }
+      }
+      // const windowSeconds = deltaTimestamp.div(1e6).floor()
       return pairs
     } catch (error) {
       return {}
