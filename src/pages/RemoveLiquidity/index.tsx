@@ -129,7 +129,7 @@ export default function RemoveLiquidity() {
       <AutoColumn gap={'md'} style={{ marginTop: '20px' }}>
         <RowBetween align="flex-end">
           <Text fontSize={24} fontWeight={500}>
-            {amountPretty(parsedAmounts[Field.COIN_A], 8)}
+            {amountPretty(parsedAmounts[Field.COIN_A], coinA?.decimals ?? 8)}
           </Text>
           <RowFixed gap="4px">
             <CoinLogo coin={coinA} size={'24px'} />
@@ -143,7 +143,7 @@ export default function RemoveLiquidity() {
         </RowFixed>
         <RowBetween align="flex-end">
           <Text fontSize={24} fontWeight={500}>
-            {amountPretty(parsedAmounts[Field.COIN_B], 8)}
+            {amountPretty(parsedAmounts[Field.COIN_B], coinB?.decimals ?? 8)}
           </Text>
           <RowFixed gap="4px">
             <CoinLogo coin={coinB} size={'24px'} />
