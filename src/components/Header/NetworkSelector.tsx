@@ -17,7 +17,7 @@ import { useChainId } from 'state/user/hooks'
 import styled from 'styled-components/macro'
 import { ExternalLink, MEDIA_WIDTHS } from 'theme'
 import { replaceURLParam } from 'utils'
-import { isProductionEnv } from 'utils/env'
+import { isDevelopmentEnv, isProductionEnv } from 'utils/env'
 import { isMobile } from 'utils/userAgent'
 
 const ActiveRowLinkList = styled.div`
@@ -274,10 +274,10 @@ const getChainNameFromId = (id: string | number) => {
 }
 
 const NETWORK_SELECTOR_CHAINS = [SupportedChainId.APTOS]
-// if (!isProductionEnv()) {
-NETWORK_SELECTOR_CHAINS.push(SupportedChainId.APTOS_DEVNET)
 NETWORK_SELECTOR_CHAINS.push(SupportedChainId.APTOS_TESTNET)
-// }
+if (isDevelopmentEnv()) {
+  NETWORK_SELECTOR_CHAINS.push(SupportedChainId.APTOS_DEVNET)
+}
 
 export default function NetworkSelector() {
   const dispatch = useAppDispatch()
