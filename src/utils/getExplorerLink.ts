@@ -30,7 +30,7 @@ export function getExplorerLink(chainId: SupportedChainId, data: string, type: E
 function getNextworkTag(chainId: SupportedChainId) {
   switch (chainId) {
     case SupportedChainId.APTOS:
-      return 'testnet'
+      return 'mainnet'
     case SupportedChainId.APTOS_TESTNET:
       return 'testnet'
     case SupportedChainId.APTOS_DEVNET:
