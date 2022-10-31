@@ -7,7 +7,7 @@ export interface Pair {
   lpTotal: string
   coinXReserve: string
   coinYReserve: string
-  APY?: number
+  APR?: number
 }
 
 export enum PairState {

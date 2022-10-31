@@ -237,14 +237,14 @@ class ConnectionInstance {
       for (const key of Object.keys(coinX2coinY2DecimalCurrent)) {
         const base = coinX2coinY2DecimalPast[key]
         if (base) {
-          pairs[key].APY = coinX2coinY2DecimalCurrent[key]
+          pairs[key].APR = coinX2coinY2DecimalCurrent[key]
             .sub(base)
             .div(base)
             .mul(Utils.YEAR_NS)
             .div(deltaTimestamp)
             .toNumber()
         } else {
-          pairs[key].APY = NaN
+          pairs[key].APR = NaN
         }
       }
       // const windowSeconds = deltaTimestamp.div(1e6).floor()
