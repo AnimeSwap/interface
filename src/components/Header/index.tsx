@@ -316,7 +316,7 @@ export default function Header() {
               <sup>↗</sup>
             </ANIbutton>
           )} */}
-          {[SupportedChainId.APTOS].includes(chainId) && (
+          {/* {[SupportedChainId.APTOS].includes(chainId) && (
             <ANIbutton
               onClick={() => {
                 openBindModal()
@@ -328,7 +328,7 @@ export default function Header() {
               Bind
               <Discord width="28px" height="28px" fill="#EEE" style={{ paddingLeft: '4px' }}></Discord>
             </ANIbutton>
-          )}
+          )} */}
         </HeaderElement>
         <HeaderElement>
           <NetworkSelector />
