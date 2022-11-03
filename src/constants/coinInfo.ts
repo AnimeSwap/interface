@@ -201,19 +201,12 @@ export const APTOS_TESTNET_CoinInfo: { [address: string]: Coin } = {
     logoURL: ['https://coinlist.animeswap.org/icons/MOVE.svg'],
     projectURL: 'https://bluemove.net/',
   },
-  '0x4dd8a22e95f3ec2448ee1cc6634298024095ce8baa3031650b3852af6e2d41d0::celer_coin_manager::UsdcCoin': {
-    address: '0x4dd8a22e95f3ec2448ee1cc6634298024095ce8baa3031650b3852af6e2d41d0::celer_coin_manager::UsdcCoin',
+  '0x5c341dec2396029a7713cb59decee89635a6f851a5fe528fc39761ec2ddbf99a::celer_coin_manager::UsdcCoin': {
+    address: '0x5c341dec2396029a7713cb59decee89635a6f851a5fe528fc39761ec2ddbf99a::celer_coin_manager::UsdcCoin',
     decimals: 8,
     symbol: 'ceUSDC',
     name: 'Celer USD Coin',
     logoURL: ['https://coinlist.animeswap.org/icons/USDC.webp'],
-  },
-  '0x4dd8a22e95f3ec2448ee1cc6634298024095ce8baa3031650b3852af6e2d41d0::celer_coin_manager::WethCoin': {
-    address: '0x4dd8a22e95f3ec2448ee1cc6634298024095ce8baa3031650b3852af6e2d41d0::celer_coin_manager::WethCoin',
-    decimals: 8,
-    symbol: 'ceWETH',
-    name: 'Celer Wrapped Ethereum',
-    logoURL: ['https://coinlist.animeswap.org/icons/WETH.png'],
   },
 }
 
