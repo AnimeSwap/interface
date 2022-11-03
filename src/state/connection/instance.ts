@@ -50,7 +50,7 @@ class ConnectionInstance {
     ConnectionInstance.sdk = new SDK(getRPCURL(connection, chainId), networkType)
   }
 
-  public static async syncAccountResources(account: string) {
+  public static async syncAccountResources(account: string, poolPair = false) {
     try {
       if (!account) return undefined
       const aptosClient = ConnectionInstance.getAptosClient()
@@ -69,8 +69,10 @@ class ConnectionInstance {
           if (coinType.startsWith(`${lpCoinNamespace}<`)) {
             const lpCoinType = coinType.substring(lpCoinNamespace.length + 1, coinType.length - 1)
             lpBalances[lpCoinType] = resource.data.coin.value
-            const [coinX, coinY] = lpCoinType.split(', ')
-            this.getPair(coinX, coinY)
+            if (poolPair) {
+              const [coinX, coinY] = lpCoinType.split(', ')
+              this.getPair(coinX, coinY)
+            }
           }
         }
       }

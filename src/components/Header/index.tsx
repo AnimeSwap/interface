@@ -236,7 +236,7 @@ export default function Header() {
 
   useEffect(() => {
     if (account) {
-      ConnectionInstance.syncAccountResources(account)
+      ConnectionInstance.syncAccountResources(account, false)
     }
   }, [account, chainId])
 
