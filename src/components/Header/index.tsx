@@ -253,7 +253,8 @@ export default function Header() {
     pathname.startsWith('/find')
 
   const openClaimModal = useToggleModal(ApplicationModal.ADDRESS_CLAIM)
-  const openBindModal = useToggleModal(ApplicationModal.BIND_DISCORD)
+  // const openBindModal = useToggleModal(ApplicationModal.BIND_DISCORD)
+  const openAirdropClaimModal = useToggleModal(ApplicationModal.ANI_AIRDROP_CLAIM)
 
   return (
     <HeaderFrame showBackground={scrollY > 45}>
@@ -329,6 +330,19 @@ export default function Header() {
               <Discord width="28px" height="28px" fill="#EEE" style={{ paddingLeft: '4px' }}></Discord>
             </ANIbutton>
           )} */}
+          {[SupportedChainId.APTOS, SupportedChainId.APTOS_DEVNET, SupportedChainId.APTOS_TESTNET].includes(chainId) &&
+            isDevelopmentEnv() && (
+              <ANIbutton
+                onClick={() => {
+                  openAirdropClaimModal()
+                }}
+                padding="8px 12px"
+                width="100%"
+                $borderRadius="12px"
+              >
+                Claim
+              </ANIbutton>
+            )}
         </HeaderElement>
         <HeaderElement>
           <NetworkSelector />
