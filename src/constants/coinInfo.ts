@@ -164,6 +164,14 @@ export const APTOS_TESTNET_CoinInfo: { [address: string]: Coin } = {
     logoURL: ['https://coinlist.animeswap.org/icons/APT.svg'],
     projectURL: 'https://aptoslabs.com/',
   },
+  '0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI': {
+    address: '0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI',
+    decimals: 8,
+    symbol: 'ANI',
+    name: 'AnimeSwap Coin',
+    logoURL: ['https://coinlist.animeswap.org/icons/ANI.png'],
+    projectURL: 'http://animeswap.org/',
+  },
   '0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::TestCoinsV1::USDT': {
     address: '0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::TestCoinsV1::USDT',
     decimals: 8,
@@ -218,6 +226,14 @@ export const APTOS_DEVNET_CoinInfo: { [address: string]: Coin } = {
     name: 'Aptos',
     logoURL: ['https://coinlist.animeswap.org/icons/APT.svg'],
     projectURL: 'https://aptoslabs.com/',
+  },
+  '0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI': {
+    address: '0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI',
+    decimals: 8,
+    symbol: 'ANI',
+    name: 'AnimeSwap Coin',
+    logoURL: ['https://coinlist.animeswap.org/icons/ANI.png'],
+    projectURL: 'http://animeswap.org/',
   },
   '0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::TestCoinsV1::USDT': {
     address: '0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::TestCoinsV1::USDT',
