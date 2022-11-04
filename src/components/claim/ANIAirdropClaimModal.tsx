@@ -2,14 +2,12 @@ import { Trans } from '@lingui/macro'
 import { SupportedChainId } from 'constants/chains'
 import { REFRESH_TIMEOUT } from 'constants/misc'
 import { useEffect, useState } from 'react'
-import { Link } from 'rebass'
 import ConnectionInstance from 'state/connection/instance'
 import { useChainId } from 'state/user/hooks'
 import { SignAndSubmitTransaction, useAccount } from 'state/wallets/hooks'
 import styled from 'styled-components/macro'
 import { shortenAddress } from 'utils'
 
-import { useIsTransactionPending } from '../../state/transactions/hooks'
 import { CloseIcon, ExternalLink, ThemedText } from '../../theme'
 import { ExplorerDataType, getExplorerLink } from '../../utils/getExplorerLink'
 import { ButtonPrimary } from '../Button'
@@ -41,8 +39,7 @@ export default function ANIAirdropClaimModal({ isOpen, onDismiss }: { isOpen: bo
   const account = useAccount()
   const chainId = useChainId()
   const [attempting, setAttempting] = useState<boolean>(false)
-  const [txHash, setTxHash] = useState<string>('')
-  const [hash, setHash] = useState<string | undefined>()
+  const [hash, setHash] = useState<string | undefined>('')
   const [query, setQuery] = useState<boolean>(true)
   const [ani, setAni] = useState<number>(0)
   const [successAni, setSuccessAni] = useState<number>(0)
@@ -68,7 +65,7 @@ export default function ANIAirdropClaimModal({ isOpen, onDismiss }: { isOpen: bo
       setAttempting(true)
       const txid = await SignAndSubmitTransaction(payload)
       setAttempting(false)
-      setTxHash(txid)
+      setHash(txid)
       setSuccessAni(ani)
       setTimeout(() => {
         updateAni()
@@ -89,7 +86,7 @@ export default function ANIAirdropClaimModal({ isOpen, onDismiss }: { isOpen: bo
 
   return (
     <Modal isOpen={isOpen} onDismiss={wrappedOnDismiss} maxHeight={90}>
-      {!attempting && (
+      {!attempting && !hash && (
         <ContentWrapper gap="lg">
           <ModalUpper>
             <CardBGImage />
@@ -167,6 +164,9 @@ export default function ANIAirdropClaimModal({ isOpen, onDismiss }: { isOpen: bo
                 {hash ? <Trans>Claimed</Trans> : <Trans>Claiming</Trans>}
               </ThemedText.DeprecatedLargeHeader>
             </AutoColumn>
+            <ThemedText.DeprecatedLargeHeader color="black">
+              {successAni.toFixed(2)} ANI
+            </ThemedText.DeprecatedLargeHeader>
             {hash && (
               <>
                 <ThemedText.DeprecatedSubHeader fontWeight={500} color="black">
