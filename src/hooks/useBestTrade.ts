@@ -48,18 +48,30 @@ export function useBestTrade(
     const fetchRoute = async () => {
       if (!amount || !inputCoin || !outputCoin || amount.eq(0)) return
       setTradeState(TradeState.LOADING)
+      const fromCoin = inputCoin.address
+      const toCoin = outputCoin.address
       const tradeList =
         tradeType === TradeType.EXACT_INPUT
           ? await ConnectionInstance.getSDK().route.getRouteSwapExactCoinForCoin({
-              fromCoin: inputCoin.address,
-              toCoin: outputCoin.address,
+              fromCoin,
+              toCoin,
               amount,
             })
           : await ConnectionInstance.getSDK().route.getRouteSwapCoinForExactCoin({
-              fromCoin: inputCoin.address,
-              toCoin: outputCoin.address,
+              fromCoin,
+              toCoin,
               amount,
             })
+      // const allRoutes = await ConnectionInstance.getSDK().routeV2.getAllRoutes(inputCoin.address, outputCoin.address)
+      // const candidateRouteList = ConnectionInstance.getSDK().routeV2.getCandidateRoutes(allRoutes)
+      // const allCandidateRouteResources = await ConnectionInstance.getSDK().routeV2.getAllCandidateRouteResources(candidateRouteList)
+      // const bestTrades = ConnectionInstance.getSDK().routeV2.bestTradeExactOut(
+      //   candidateRouteList,
+      //   allCandidateRouteResources,
+      //   inputCoin.address,
+      //   outputCoin.address,
+      //   amount,
+      // )
       if (tradeList.length === 0) {
         setTradeState(TradeState.INVALID)
         return
