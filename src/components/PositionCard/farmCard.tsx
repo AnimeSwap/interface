@@ -63,7 +63,7 @@ export default function FarmCard({ CoinX, CoinY, border, stakedBalance }: FarmCa
           )}
         </FixedHeightRow>
 
-        <AutoColumn gap="12px">
+        <AutoColumn gap="16px">
           <FixedHeightRow>
             <RowFixed>
               <ThemedText.DeprecatedMain fontSize={14}>APR</ThemedText.DeprecatedMain>
@@ -97,8 +97,8 @@ export default function FarmCard({ CoinX, CoinY, border, stakedBalance }: FarmCa
               <Text fontSize={16} fontWeight={500}>
                 100.00
               </Text>
-              <Text fontSize={12} fontWeight={500} style={{ paddingLeft: '6px' }}>
-                {/* $100 */}
+              <Text fontSize={10} fontWeight={500} style={{ paddingLeft: '6px' }}>
+                $10.00
               </Text>
             </Column>
           </FixedHeightRow>
@@ -108,8 +108,8 @@ export default function FarmCard({ CoinX, CoinY, border, stakedBalance }: FarmCa
               <Text fontSize={16} fontWeight={500}>
                 100.00
               </Text>
-              <Text fontSize={12} fontWeight={500} style={{ paddingLeft: '6px' }}>
-                $100
+              <Text fontSize={10} fontWeight={500} style={{ paddingLeft: '6px' }}>
+                $10.00
               </Text>
             </Column>
           </FixedHeightRow>
@@ -139,8 +139,7 @@ export default function FarmCard({ CoinX, CoinY, border, stakedBalance }: FarmCa
               padding="8px"
               $borderRadius="8px"
               as={Link}
-              // to={'/swap?outputCoin=' + CoinX?.address}
-              to={isFarm ? `/add/${CoinX?.address}/${CoinY?.address}` : '/swap?outputCoin=' + CoinX?.address}
+              to={isFarm ? `/add/${CoinX?.address}/${CoinY?.address}` : '/swap'}
             >
               Get {isFarm ? 'LP' : 'ANI'}
             </ButtonSecondary>
