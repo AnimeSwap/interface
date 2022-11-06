@@ -1,9 +1,13 @@
 import { Trans } from '@lingui/macro'
+import FarmCard from 'components/PositionCard/farmCard'
+import { getChainInfoOrDefault } from 'constants/chainInfo'
+import { useCoin } from 'hooks/common/Coin'
 import { Pair, pairKey } from 'hooks/common/Pair'
 import { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Text } from 'rebass'
 import ConnectionInstance from 'state/connection/instance'
+import { useChainId } from 'state/user/hooks'
 import { useAccount, useAllLpBalance } from 'state/wallets/hooks'
 import styled, { ThemeContext } from 'styled-components/macro'
 
@@ -12,12 +16,12 @@ import Card from '../../components/Card'
 import { AutoColumn } from '../../components/Column'
 import { CardBGImage, CardNoise, CardSection, DataCard } from '../../components/earn/styled'
 import FullPositionCard from '../../components/PositionCard'
-import { RowBetween, RowFixed } from '../../components/Row'
+import { AutoRow, RowBetween, RowFixed } from '../../components/Row'
 import { Dots } from '../../components/swap/styleds'
 import { ExternalLink, HideSmall, ThemedText } from '../../theme'
 
 const PageWrapper = styled(AutoColumn)`
-  max-width: 640px;
+  max-width: 740px;
   width: 100%;
 `
 
@@ -98,44 +102,28 @@ export default function Pool() {
     fetchPairTasks()
   }, [account, allLpBalances])
 
+  const chainId = useChainId()
+  const { aniCoin, nativeCoin } = getChainInfoOrDefault(chainId)
+
   return (
     <>
       <PageWrapper>
-        <VoteCard>
-          <CardBGImage />
-          <CardNoise />
-          <CardSection>
-            <AutoColumn gap="md">
-              <RowBetween>
-                <ThemedText.DeprecatedWhite fontWeight={600}>
-                  <Trans>Liquidity provider rewards</Trans>
-                </ThemedText.DeprecatedWhite>
-              </RowBetween>
-              <RowBetween>
-                <ThemedText.DeprecatedWhite fontSize={14}>
-                  <Trans>
-                    Liquidity providers earn a 0.25% fee on all trades proportional to their share of the pool. Fees are
-                    added to the pool, accrue in real time and can be claimed by withdrawing your liquidity.
-                  </Trans>
-                </ThemedText.DeprecatedWhite>
-              </RowBetween>
-              <ExternalLink
-                style={{ color: theme.deprecated_white, textDecoration: 'underline' }}
-                target="_blank"
-                href="https://docs.animeswap.org"
-              >
-                {/* <ThemedText.DeprecatedWhite fontSize={14}>
-                  <Trans>Read more about providing liquidity</Trans>
-                </ThemedText.DeprecatedWhite> */}
-              </ExternalLink>
-            </AutoColumn>
-          </CardSection>
-          <CardBGImage />
-          <CardNoise />
-        </VoteCard>
-
         <AutoColumn gap="lg" justify="center">
           <AutoColumn gap="md" style={{ width: '100%' }}>
+            <TitleRow style={{ marginTop: '0.5rem' }} padding={'0'}>
+              <ThemedText.DeprecatedMediumHeader style={{ marginTop: '0.5rem', justifySelf: 'flex-start' }}>
+                Stake and Farms
+              </ThemedText.DeprecatedMediumHeader>
+            </TitleRow>
+            <AutoRow gap="5px" justify="space-around">
+              <FarmCard CoinX={aniCoin}></FarmCard>
+              <FarmCard CoinX={nativeCoin} CoinY={aniCoin}></FarmCard>
+            </AutoRow>
+          </AutoColumn>
+        </AutoColumn>
+
+        <AutoColumn gap="lg" justify="center">
+          <AutoColumn gap="md" style={{ width: '100%', paddingBottom: '20px' }}>
             <TitleRow style={{ marginTop: '1rem' }} padding={'0'}>
               <HideSmall>
                 <ThemedText.DeprecatedMediumHeader style={{ marginTop: '0.5rem', justifySelf: 'flex-start' }}>
@@ -191,6 +179,39 @@ export default function Pool() {
             )}
           </AutoColumn>
         </AutoColumn>
+
+        <VoteCard>
+          <CardBGImage />
+          <CardNoise />
+          <CardSection>
+            <AutoColumn gap="md">
+              <RowBetween>
+                <ThemedText.DeprecatedWhite fontWeight={600}>
+                  <Trans>Liquidity provider rewards</Trans>
+                </ThemedText.DeprecatedWhite>
+              </RowBetween>
+              <RowBetween>
+                <ThemedText.DeprecatedWhite fontSize={14}>
+                  <Trans>
+                    Liquidity providers earn a 0.25% fee on all trades proportional to their share of the pool. Fees are
+                    added to the pool, accrue in real time and can be claimed by withdrawing your liquidity.
+                  </Trans>
+                </ThemedText.DeprecatedWhite>
+              </RowBetween>
+              <ExternalLink
+                style={{ color: theme.deprecated_white, textDecoration: 'underline' }}
+                target="_blank"
+                href="https://docs.animeswap.org"
+              >
+                {/* <ThemedText.DeprecatedWhite fontSize={14}>
+                  <Trans>Read more about providing liquidity</Trans>
+                </ThemedText.DeprecatedWhite> */}
+              </ExternalLink>
+            </AutoColumn>
+          </CardSection>
+          <CardBGImage />
+          <CardNoise />
+        </VoteCard>
       </PageWrapper>
     </>
   )

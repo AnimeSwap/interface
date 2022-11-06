@@ -12,6 +12,7 @@ interface BaseChainInfo {
   readonly label: string
   readonly helpCenterUrl?: string
   readonly nativeCoin: Coin
+  readonly aniCoin?: Coin
   readonly defaultBuyCoin?: Coin
   readonly stableCoin: Coin
   readonly color?: string
@@ -36,6 +37,8 @@ const CHAIN_INFO: ChainInfoMap = {
     label: 'AptosTest',
     logoUrl: aptosLogo,
     nativeCoin: APTOS_TESTNET_CoinInfo['0x1::aptos_coin::AptosCoin'],
+    aniCoin:
+      APTOS_TESTNET_CoinInfo['0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI'],
     defaultBuyCoin:
       APTOS_TESTNET_CoinInfo['0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI'],
     stableCoin:
@@ -47,6 +50,8 @@ const CHAIN_INFO: ChainInfoMap = {
     label: 'AptosDev',
     logoUrl: aptosLogo,
     nativeCoin: APTOS_DEVNET_CoinInfo['0x1::aptos_coin::AptosCoin'],
+    aniCoin:
+      APTOS_DEVNET_CoinInfo['0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI'],
     defaultBuyCoin:
       APTOS_DEVNET_CoinInfo['0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI'],
     stableCoin:
