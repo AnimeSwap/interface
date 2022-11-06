@@ -108,10 +108,10 @@ export default function Pool() {
   return (
     <>
       <PageWrapper>
-        <AutoColumn gap="lg" justify="center">
+        <AutoColumn gap="lg" justify="center" style={{ marginBottom: '2rem' }}>
           <AutoColumn gap="md" style={{ width: '100%' }}>
             <TitleRow style={{ marginTop: '0.5rem' }} padding={'0'}>
-              <ThemedText.DeprecatedMediumHeader style={{ marginTop: '0.5rem', justifySelf: 'flex-start' }}>
+              <ThemedText.DeprecatedMediumHeader style={{ marginTop: '0rem', justifySelf: 'flex-start' }}>
                 Stake and Farms
               </ThemedText.DeprecatedMediumHeader>
             </TitleRow>
@@ -121,6 +121,39 @@ export default function Pool() {
             </AutoRow>
           </AutoColumn>
         </AutoColumn>
+
+        <VoteCard>
+          <CardBGImage />
+          <CardNoise />
+          <CardSection>
+            <AutoColumn gap="md">
+              <RowBetween>
+                <ThemedText.DeprecatedWhite fontWeight={600}>
+                  <Trans>Liquidity provider rewards</Trans>
+                </ThemedText.DeprecatedWhite>
+              </RowBetween>
+              <RowBetween>
+                <ThemedText.DeprecatedWhite fontSize={14}>
+                  <Trans>
+                    Liquidity providers earn a 0.25% fee on all trades proportional to their share of the pool. Fees are
+                    added to the pool, accrue in real time and can be claimed by withdrawing your liquidity.
+                  </Trans>
+                </ThemedText.DeprecatedWhite>
+              </RowBetween>
+              <ExternalLink
+                style={{ color: theme.deprecated_white, textDecoration: 'underline' }}
+                target="_blank"
+                href="https://docs.animeswap.org"
+              >
+                {/* <ThemedText.DeprecatedWhite fontSize={14}>
+                  <Trans>Read more about providing liquidity</Trans>
+                </ThemedText.DeprecatedWhite> */}
+              </ExternalLink>
+            </AutoColumn>
+          </CardSection>
+          <CardBGImage />
+          <CardNoise />
+        </VoteCard>
 
         <AutoColumn gap="lg" justify="center">
           <AutoColumn gap="md" style={{ width: '100%', paddingBottom: '20px' }}>
@@ -179,39 +212,6 @@ export default function Pool() {
             )}
           </AutoColumn>
         </AutoColumn>
-
-        <VoteCard>
-          <CardBGImage />
-          <CardNoise />
-          <CardSection>
-            <AutoColumn gap="md">
-              <RowBetween>
-                <ThemedText.DeprecatedWhite fontWeight={600}>
-                  <Trans>Liquidity provider rewards</Trans>
-                </ThemedText.DeprecatedWhite>
-              </RowBetween>
-              <RowBetween>
-                <ThemedText.DeprecatedWhite fontSize={14}>
-                  <Trans>
-                    Liquidity providers earn a 0.25% fee on all trades proportional to their share of the pool. Fees are
-                    added to the pool, accrue in real time and can be claimed by withdrawing your liquidity.
-                  </Trans>
-                </ThemedText.DeprecatedWhite>
-              </RowBetween>
-              <ExternalLink
-                style={{ color: theme.deprecated_white, textDecoration: 'underline' }}
-                target="_blank"
-                href="https://docs.animeswap.org"
-              >
-                {/* <ThemedText.DeprecatedWhite fontSize={14}>
-                  <Trans>Read more about providing liquidity</Trans>
-                </ThemedText.DeprecatedWhite> */}
-              </ExternalLink>
-            </AutoColumn>
-          </CardSection>
-          <CardBGImage />
-          <CardNoise />
-        </VoteCard>
       </PageWrapper>
     </>
   )
