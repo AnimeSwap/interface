@@ -139,8 +139,8 @@ export default function FarmCard({ CoinX, CoinY, border, stakedBalance }: FarmCa
               padding="8px"
               $borderRadius="8px"
               as={Link}
-              to={''}
-              // to={`/add/${pair.coinX}/${pair.coinY}`}
+              // to={'/swap?outputCoin=' + CoinX?.address}
+              to={isFarm ? `/add/${CoinX?.address}/${CoinY?.address}` : '/swap?outputCoin=' + CoinX?.address}
             >
               Get {isFarm ? 'LP' : 'ANI'}
             </ButtonSecondary>

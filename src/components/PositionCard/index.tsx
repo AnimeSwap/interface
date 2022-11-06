@@ -155,7 +155,13 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
   const backgroundColor = useColor(coinX)
 
   return (
-    <StyledPositionCard border={border} bgColor={backgroundColor}>
+    <StyledPositionCard
+      border={border}
+      bgColor={backgroundColor}
+      // maxWidth={'500px'}
+      // marginLeft="auto"
+      // marginRight="auto"
+    >
       <CardNoise />
       <AutoColumn gap="12px">
         <FixedHeightRow>

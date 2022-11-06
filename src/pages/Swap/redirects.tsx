@@ -17,7 +17,7 @@ export function RedirectToSwap() {
       to={{
         ...location,
         pathname: '/swap',
-        search: search && search.length > 1 ? `${search}&toCoin=${toCoin}` : `?toCoin=${toCoin}`,
+        search: search && search.length > 1 ? `${search}&outputCoin=${toCoin}` : `?outputCoin=${toCoin}`,
       }}
       replace
     />
