@@ -32,17 +32,18 @@ const StyledPositionCard = styled(LightCard)<{ bgColor: any }>`
 interface FarmCardProps {
   CoinX?: Coin
   CoinY?: Coin
-  border?: string
-  stakedBalance?: Decimal // optional balance to indicate that liquidity is deposited in mining pool
+  poolLP?: Decimal
+  stakedLP?: Decimal
+  earnedANI?: Decimal
 }
 
-export default function FarmCard({ CoinX, CoinY, border, stakedBalance }: FarmCardProps) {
+export default function FarmCard({ CoinX, CoinY }: FarmCardProps) {
   const backgroundColor = useColor()
 
   const isFarm = CoinY ? true : false
 
   return (
-    <StyledPositionCard border={border} bgColor={backgroundColor} maxWidth={'340px'} width={'100%'}>
+    <StyledPositionCard bgColor={backgroundColor} maxWidth={'340px'} width={'100%'}>
       {/* <CardNoise /> */}
       <AutoColumn gap="12px">
         <FixedHeightRow style={{ marginBottom: '8px' }}>
