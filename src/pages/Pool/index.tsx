@@ -2,7 +2,7 @@ import { Trans } from '@lingui/macro'
 import FarmCard from 'components/PositionCard/farmCard'
 import { getChainInfoOrDefault } from 'constants/chainInfo'
 import { useCoin } from 'hooks/common/Coin'
-import { Pair, pairKey } from 'hooks/common/Pair'
+import { Pair, pairKey, useNativePrice } from 'hooks/common/Pair'
 import { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Text } from 'rebass'
@@ -76,6 +76,7 @@ const EmptyProposals = styled.div`
 export default function Pool() {
   const theme = useContext(ThemeContext)
   const account = useAccount()
+  const nativePrice = useNativePrice()
   const allLpBalances = useAllLpBalance()
 
   const [pairTasksLoading, setPairTasksLoading] = useState<boolean>(true)
@@ -105,16 +106,17 @@ export default function Pool() {
   const chainId = useChainId()
   const { aniCoin, nativeCoin } = getChainInfoOrDefault(chainId)
 
-  useEffect(() => {
-    const fetchStake = async () => {
-      const res = await ConnectionInstance.getSDK().MasterChef.getUserInfoAll(account)
-      console.log(res)
-      const res2 = await ConnectionInstance.getSDK().MasterChef.getFirstTwoPairStakingApr()
-      console.log(res2[0].toNumber() * 100)
-      console.log(res2[1].toNumber() * 100)
-    }
-    fetchStake()
-  }, [chainId, account])
+  // TODO[Azard]
+  // useEffect(() => {
+  //   const fetchStake = async () => {
+  //     const res = await ConnectionInstance.getSDK().MasterChef.getUserInfoAll(account)
+  //     console.log(res)
+  //     const res2 = await ConnectionInstance.getSDK().MasterChef.getFirstTwoPairStakingApr()
+  //     console.log(res2[0].toNumber() * 100)
+  //     console.log(res2[1].toNumber() * 100)
+  //   }
+  //   fetchStake()
+  // }, [chainId, account])
 
   return (
     <>
@@ -127,8 +129,8 @@ export default function Pool() {
               </ThemedText.DeprecatedMediumHeader>
             </TitleRow>
             <AutoRow gap="5px" justify="space-around">
-              <FarmCard coinX={aniCoin}></FarmCard>
-              <FarmCard coinX={nativeCoin} coinY={aniCoin}></FarmCard>
+              {/* <FarmCard coinX={aniCoin}></FarmCard> TODO[Azard]
+              <FarmCard coinX={nativeCoin} coinY={aniCoin}></FarmCard> */}
             </AutoRow>
           </AutoColumn>
         </AutoColumn>
@@ -212,7 +214,12 @@ export default function Pool() {
                     </Trans>
                   </RowBetween>
                 </ButtonSecondary> */}
-                {pairs.map((pair) => pair && <FullPositionCard key={pairKey(pair.coinX, pair.coinY)} pair={pair} />)}
+                {pairs.map(
+                  (pair) =>
+                    pair && (
+                      <FullPositionCard key={pairKey(pair.coinX, pair.coinY)} pair={pair} nativePrice={nativePrice} />
+                    )
+                )}
               </>
             ) : (
               <EmptyProposals>

@@ -1,14 +1,17 @@
 import { Decimal, Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
+import { getChainInfoOrDefault } from 'constants/chainInfo'
 import { amountPretty, CoinAmount, useCoin } from 'hooks/common/Coin'
-import { Pair, pairKey } from 'hooks/common/Pair'
+import { Pair, pairKey, PairState, useNativePrice, usePair } from 'hooks/common/Pair'
 import { transparentize } from 'polished'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ChevronDown, ChevronUp } from 'react-feather'
 import { Link } from 'react-router-dom'
 import { Text } from 'rebass'
+import { useChainId } from 'state/user/hooks'
 import { useLpBalance } from 'state/wallets/hooks'
 import styled from 'styled-components/macro'
+import { formatDollarAmount } from 'utils/formatDollarAmt'
 
 import { useColor } from '../../hooks/useColor'
 import { ThemedText } from '../../theme'
@@ -35,30 +38,50 @@ const StyledPositionCard = styled(LightCard)<{ bgColor: any }>`
 interface PositionCardProps {
   pair: Pair
   border?: string
-  stakedBalance?: Decimal // optional balance to indicate that liquidity is deposited in mining pool
+  nativePrice: Decimal
 }
 
-export function MinimalPositionCard({ pair, border }: PositionCardProps) {
+export function MinimalPositionCard({ pair, border, nativePrice }: PositionCardProps) {
+  const [tvlUSD, setTvlUSD] = useState<number>(0)
+  const chainId = useChainId()
+  const { nativeCoin, stableCoin } = getChainInfoOrDefault(chainId)
   const coinX = useCoin(pair.coinX)
   const coinY = useCoin(pair.coinY)
   const lpBalance = Utils.d(useLpBalance(pairKey(pair.coinX, pair.coinY)))
   const poolLpPercentage = lpBalance.div(Utils.d(pair.lpTotal))
   const coinXAmount = new CoinAmount(coinX, Utils.d(pair.coinXReserve).mul(poolLpPercentage))
   const coinYAmount = new CoinAmount(coinY, Utils.d(pair.coinYReserve).mul(poolLpPercentage))
-
+  const nativeCoinXPair = usePair(nativeCoin.address, pair.coinX)
+  const nativeCoinYPair = usePair(nativeCoin.address, pair.coinY)
   const [showMore, setShowMore] = useState(false)
 
-  // const userPoolBalance = useTokenBalance(account ?? undefined, pair.liquidityToken)
-  const userPoolBalance = new Decimal(0)
-  // const totalPoolTokens = useTotalSupply(pair.liquidityToken)
-
-  const poolTokenPercentage = new Decimal(0)
-
-  const [token0Deposited, token1Deposited] = [new Decimal(0), new Decimal(0)]
+  useEffect(() => {
+    let usdAmount = Utils.d(0)
+    if (coinX?.address === nativeCoin.address) {
+      usdAmount = coinXAmount.amount.mul(nativePrice).mul(2)
+    } else if (coinY?.address === nativeCoin.address) {
+      usdAmount = coinYAmount.amount.mul(nativePrice).mul(2)
+    } else if (nativeCoinXPair[0] === PairState.EXISTS) {
+      const pair = nativeCoinXPair[1]
+      usdAmount = Utils.d(pair.coinXReserve)
+        .div(Utils.d(pair.coinYReserve))
+        .mul(coinXAmount.amount)
+        .mul(nativePrice)
+        .mul(2)
+    } else if (nativeCoinYPair[0] === PairState.EXISTS) {
+      const pair = nativeCoinYPair[1]
+      usdAmount = Utils.d(pair.coinXReserve)
+        .div(Utils.d(pair.coinYReserve))
+        .mul(coinYAmount.amount)
+        .mul(nativePrice)
+        .mul(2)
+    }
+    setTvlUSD(usdAmount.div(Utils.pow10(stableCoin.decimals)).toNumber())
+  }, [pair, coinX, coinY, nativePrice])
 
   return (
     <>
-      {userPoolBalance ? (
+      {poolLpPercentage.toNumber() > 0 ? (
         <GreyCard border={border}>
           <AutoColumn gap="12px">
             <FixedHeightRow>
@@ -79,6 +102,7 @@ export function MinimalPositionCard({ pair, border }: PositionCardProps) {
                 <Text fontSize={16} fontWeight={500}>
                   {amountPretty(lpBalance, 8)}
                 </Text>
+                {tvlUSD > 0 && <ThemedText.DeprecatedMain>~{formatDollarAmount(tvlUSD)}</ThemedText.DeprecatedMain>}
               </RowFixed>
             </FixedHeightRow>
             <AutoColumn gap="4px">
@@ -142,17 +166,45 @@ export function MinimalPositionCard({ pair, border }: PositionCardProps) {
   )
 }
 
-export default function FullPositionCard({ pair, border, stakedBalance }: PositionCardProps) {
+export default function FullPositionCard({ pair, border, nativePrice }: PositionCardProps) {
+  const [tvlUSD, setTvlUSD] = useState<number>(0)
+  const chainId = useChainId()
+  const { nativeCoin, stableCoin } = getChainInfoOrDefault(chainId)
   const coinX = useCoin(pair.coinX)
   const coinY = useCoin(pair.coinY)
   const lpBalance = Utils.d(useLpBalance(pairKey(pair.coinX, pair.coinY)))
   const poolLpPercentage = lpBalance.div(Utils.d(pair.lpTotal))
   const coinXAmount = new CoinAmount(coinX, Utils.d(pair.coinXReserve).mul(poolLpPercentage))
   const coinYAmount = new CoinAmount(coinY, Utils.d(pair.coinYReserve).mul(poolLpPercentage))
-
+  const nativeCoinXPair = usePair(nativeCoin.address, pair.coinX)
+  const nativeCoinYPair = usePair(nativeCoin.address, pair.coinY)
   const [showMore, setShowMore] = useState(false)
 
   const backgroundColor = useColor(coinX)
+
+  useEffect(() => {
+    let usdAmount = Utils.d(0)
+    if (coinX?.address === nativeCoin.address) {
+      usdAmount = coinXAmount.amount.mul(nativePrice).mul(2)
+    } else if (coinY?.address === nativeCoin.address) {
+      usdAmount = coinYAmount.amount.mul(nativePrice).mul(2)
+    } else if (nativeCoinXPair[0] === PairState.EXISTS) {
+      const pair = nativeCoinXPair[1]
+      usdAmount = Utils.d(pair.coinXReserve)
+        .div(Utils.d(pair.coinYReserve))
+        .mul(coinXAmount.amount)
+        .mul(nativePrice)
+        .mul(2)
+    } else if (nativeCoinYPair[0] === PairState.EXISTS) {
+      const pair = nativeCoinYPair[1]
+      usdAmount = Utils.d(pair.coinXReserve)
+        .div(Utils.d(pair.coinYReserve))
+        .mul(coinYAmount.amount)
+        .mul(nativePrice)
+        .mul(2)
+    }
+    setTvlUSD(usdAmount.div(Utils.pow10(stableCoin.decimals)).toNumber())
+  }, [pair, coinX, coinY, nativePrice])
 
   return (
     <StyledPositionCard
@@ -194,20 +246,13 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
               <Text fontSize={16} fontWeight={500}>
                 <Trans>Your total pool tokens:</Trans>
               </Text>
-              <Text fontSize={16} fontWeight={500}>
-                {amountPretty(lpBalance, 8)}
-              </Text>
+              <RowFixed>
+                <Text fontSize={16} fontWeight={500}>
+                  {amountPretty(lpBalance, 8)}
+                </Text>
+                {tvlUSD > 0 && <ThemedText.DeprecatedMain>~{formatDollarAmount(tvlUSD)}</ThemedText.DeprecatedMain>}
+              </RowFixed>
             </FixedHeightRow>
-            {stakedBalance && (
-              <FixedHeightRow>
-                <Text fontSize={16} fontWeight={500}>
-                  <Trans>Pool tokens in rewards pool:</Trans>
-                </Text>
-                <Text fontSize={16} fontWeight={500}>
-                  {stakedBalance.toSD(4).toString()}
-                </Text>
-              </FixedHeightRow>
-            )}
             <FixedHeightRow>
               <RowFixed>
                 <Text fontSize={16} fontWeight={500}>

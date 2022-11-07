@@ -4,7 +4,7 @@ import { SwitchLocaleLink } from 'components/SwitchLocaleLink'
 import { SupportedChainId } from 'constants/chains'
 import { BIG_INT_ZERO, BP, REFRESH_TIMEOUT } from 'constants/misc'
 import { amountPretty, CoinAmount, useCoin } from 'hooks/common/Coin'
-import { pairKey, usePair } from 'hooks/common/Pair'
+import { pairKey, useNativePrice, usePair } from 'hooks/common/Pair'
 import { ReactNode, useCallback, useContext, useMemo, useState } from 'react'
 import { ArrowDown, Plus } from 'react-feather'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -56,6 +56,7 @@ export default function RemoveLiquidity() {
   const coinBReserve = Utils.d(pair?.coinYReserve).mul(lpPercentage).floor()
   const coinYdivXReserve = Utils.d(pair?.coinYReserve).div(Utils.d(pair?.coinXReserve))
   const price = coinYdivXReserve.mul(Utils.pow10((coinA?.decimals ?? 0) - (coinB?.decimals ?? 0)))
+  const nativePrice = useNativePrice()
 
   // useDerivedBurnInfo
   const [parsedAmounts, setParsedAmounts] = useState({
@@ -375,7 +376,7 @@ export default function RemoveLiquidity() {
       <SwitchLocaleLink />
 
       <AutoColumn style={{ minWidth: '20rem', width: '100%', maxWidth: '400px', marginTop: '1rem' }}>
-        <MinimalPositionCard pair={pair} />
+        <MinimalPositionCard pair={pair} nativePrice={nativePrice} />
       </AutoColumn>
     </>
   )

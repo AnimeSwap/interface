@@ -227,7 +227,7 @@ const ANIbutton = styled(ButtonPrimary)`
 export default function Header() {
   const account = useAccount()
   const chainId = useChainId()
-  const { nativeCoin } = getChainInfoOrDefault(chainId)
+  const { nativeCoin, stableCoin } = getChainInfoOrDefault(chainId)
   const nativeCoinAmount = useCoinAmount(nativeCoin.address)
 
   useEffect(() => {
@@ -235,6 +235,9 @@ export default function Header() {
   }, [])
 
   useEffect(() => {
+    if (chainId) {
+      ConnectionInstance.getPair(nativeCoin.address, stableCoin.address)
+    }
     if (account) {
       ConnectionInstance.syncAccountResources(account, false)
     }
@@ -330,19 +333,18 @@ export default function Header() {
               <Discord width="28px" height="28px" fill="#EEE" style={{ paddingLeft: '4px' }}></Discord>
             </ANIbutton>
           )} */}
-          {[SupportedChainId.APTOS, SupportedChainId.APTOS_DEVNET, SupportedChainId.APTOS_TESTNET].includes(chainId) &&
-            isDevelopmentEnv() && (
-              <ANIbutton
-                onClick={() => {
-                  openAirdropClaimModal()
-                }}
-                padding="8px 12px"
-                width="100%"
-                $borderRadius="12px"
-              >
-                Claim
-              </ANIbutton>
-            )}
+          {[SupportedChainId.APTOS_DEVNET].includes(chainId) && isDevelopmentEnv() && (
+            <ANIbutton
+              onClick={() => {
+                openAirdropClaimModal()
+              }}
+              padding="8px 12px"
+              width="100%"
+              $borderRadius="12px"
+            >
+              Claim
+            </ANIbutton>
+          )}
         </HeaderElement>
         <HeaderElement>
           <NetworkSelector />

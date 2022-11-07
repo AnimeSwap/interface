@@ -5,7 +5,7 @@ import { SwitchLocaleLink } from 'components/SwitchLocaleLink'
 import { SupportedChainId } from 'constants/chains'
 import { BIG_INT_ZERO, BP, GAS_RESERVE, REFRESH_TIMEOUT } from 'constants/misc'
 import { amountPretty, Coin, CoinAmount, useCoin } from 'hooks/common/Coin'
-import { pairKey, PairState } from 'hooks/common/Pair'
+import { pairKey, PairState, useNativePrice } from 'hooks/common/Pair'
 import { useCallback, useContext, useState } from 'react'
 import { Plus } from 'react-feather'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
@@ -39,6 +39,7 @@ export default function AddLiquidity() {
   const chainId = useChainId()
   const account = useAccount()
   const nativeCoin = useNativeCoin()
+  const nativePrice = useNativePrice()
   const { coinIdA, coinIdB } = useParams<{ coinIdA?: string; coinIdB?: string }>()
   const coinA = useCoin(coinIdA)
   const coinB = useCoin(coinIdB)
@@ -346,7 +347,7 @@ export default function AddLiquidity() {
 
       {lpBalance.gt(0) && pair && !noLiquidity && pairState !== PairState.INVALID ? (
         <AutoColumn style={{ minWidth: '20rem', width: '100%', maxWidth: '400px', marginTop: '1rem' }}>
-          <MinimalPositionCard pair={pair} />
+          <MinimalPositionCard pair={pair} nativePrice={nativePrice} />
         </AutoColumn>
       ) : null}
     </>
