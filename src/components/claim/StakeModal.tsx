@@ -71,10 +71,18 @@ export default function StakeModal({ isOpen, onDismiss }: { isOpen: boolean; onD
 
   async function onConfirm() {
     try {
-      const payload = ConnectionInstance.getSDK().MasterChef.stakeANIPayload({
-        amount: amount.toString(),
-        method: action === 'stake' ? 'enter_staking' : 'leave_staking',
-      })
+      const payload = isFarm
+        ? ConnectionInstance.getSDK().MasterChef.stakeLPCoinPayload({
+            amount: amount.toString(),
+            coinType:
+              '0x796900ebe1a1a54ff9e932f19c548f5c1af5c6e7d34965857ac2f7b1d1ab2cbf::LPCoinV1::LPCoin<0x1::aptos_coin::AptosCoin,0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI>',
+            method: action === 'stake' ? 'deposit' : 'withdraw',
+          })
+        : ConnectionInstance.getSDK().MasterChef.stakeANIPayload({
+            amount: amount.toString(),
+            method: action === 'stake' ? 'enter_staking' : 'leave_staking',
+          })
+
       setShowConfirm(true)
       setAttemptingTxn(true)
       const txid = await SignAndSubmitTransaction(payload)
