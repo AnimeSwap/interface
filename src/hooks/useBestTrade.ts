@@ -54,9 +54,7 @@ export function useBestTrade(
 
   useEffect(() => {
     const fetchRoute = async () => {
-      console.log(111)
       if (!amount || !inputCoin || !outputCoin || amount.eq(0)) return
-      console.log(333)
       setTradeState(TradeState.LOADING)
       const fromCoin = inputCoin.address
       const toCoin = outputCoin.address
