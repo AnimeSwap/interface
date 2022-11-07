@@ -13,4 +13,5 @@ interface Window {
   bitkeep?: any
   farmCardProps?: any
   farmCardBalance?: any
+  farmCardAction?: any
 }

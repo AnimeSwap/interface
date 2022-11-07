@@ -54,6 +54,7 @@ export default function StakeModal({ isOpen, onDismiss }: { isOpen: boolean; onD
 
   const farmCardProps: FarmCardProps = window.farmCardProps
   const balance: Decimal = window.farmCardBalance
+  const action: string = window.farmCardAction
   const isFarm = farmCardProps?.coinY ? true : false
 
   const handleDismissConfirmation = useCallback(() => {
@@ -72,7 +73,7 @@ export default function StakeModal({ isOpen, onDismiss }: { isOpen: boolean; onD
     try {
       const payload = ConnectionInstance.getSDK().MasterChef.stakeANIPayload({
         amount: amount.toString(),
-        method: 'enter_staking',
+        method: action === 'stake' ? 'enter_staking' : 'leave_staking',
       })
       setShowConfirm(true)
       setAttemptingTxn(true)
@@ -115,7 +116,7 @@ export default function StakeModal({ isOpen, onDismiss }: { isOpen: boolean; onD
             <CardSection gap="md">
               <RowBetween>
                 <ThemedText.DeprecatedWhite fontWeight={500}>
-                  {isFarm ? 'Stake LP tokens' : 'Stake ANI'}
+                  {(action === 'stake' ? 'Stake ' : 'Unstake ') + (isFarm ? 'LP tokens' : 'ANI')}
                 </ThemedText.DeprecatedWhite>
                 <CloseIcon onClick={wrappedOnDismiss} style={{ zIndex: 99 }} stroke="white" />
               </RowBetween>
@@ -195,12 +196,14 @@ export default function StakeModal({ isOpen, onDismiss }: { isOpen: boolean; onD
             </ButtonPrimary>
           </AutoRow>
           <AutoColumn gap="md" style={{ paddingTop: '0', paddingBottom: '2rem' }} justify="center">
-            <ExternalLink
-              href={isFarm ? `/add/${farmCardProps?.coinX?.address}/${farmCardProps?.coinY?.address}` : '/'}
-            >
-              Get {isFarm ? `${farmCardProps?.coinX?.symbol}-${farmCardProps?.coinY?.symbol}` : 'ANI'}
-              <sup>↗</sup>
-            </ExternalLink>
+            {action === 'stake' && (
+              <ExternalLink
+                href={isFarm ? `/add/${farmCardProps?.coinX?.address}/${farmCardProps?.coinY?.address}` : '/'}
+              >
+                Get {isFarm ? `${farmCardProps?.coinX?.symbol}-${farmCardProps?.coinY?.symbol}` : 'ANI'}
+                <sup>↗</sup>
+              </ExternalLink>
+            )}
           </AutoColumn>
         </ContentWrapper>
       )}

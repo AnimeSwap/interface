@@ -185,6 +185,7 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
               onClick={() => {
                 window.farmCardProps = farmCardProps
                 window.farmCardBalance = isFarm ? lpBalance : aniBalance.amount
+                window.farmCardAction = 'stake'
                 openStakeModal()
               }}
             >
@@ -198,6 +199,7 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
                 onClick={() => {
                   window.farmCardProps = farmCardProps
                   window.farmCardBalance = stakedLP
+                  window.farmCardAction = 'unstake'
                   openStakeModal()
                 }}
               >
