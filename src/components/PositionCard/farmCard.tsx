@@ -7,6 +7,8 @@ import { transparentize } from 'polished'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Text } from 'rebass'
+import { useToggleModal } from 'state/application/hooks'
+import { ApplicationModal } from 'state/application/reducer'
 import { useChainId } from 'state/user/hooks'
 import { useCoinAmount, useCoinBalance, useLpBalance } from 'state/wallets/hooks'
 import styled from 'styled-components/macro'
@@ -47,20 +49,12 @@ export interface FarmCardProps {
   nativePrice?: Decimal
 }
 
-export default function FarmCard({
-  coinX,
-  coinY,
-  poolLP,
-  poolCoinXAmount,
-  poolCoinYAmount,
-  stakedLP,
-  earnedANI,
-  LPAPR,
-  stakeAPR,
-  nativePrice,
-}: FarmCardProps) {
+export default function FarmCard(farmCardProps: FarmCardProps) {
+  const { coinX, coinY, poolLP, poolCoinXAmount, poolCoinYAmount, stakedLP, earnedANI, LPAPR, stakeAPR, nativePrice } =
+    farmCardProps
   const [tvlUSD, setTvlUSD] = useState<number>(0)
 
+  const openStakeModal = useToggleModal(ApplicationModal.STAKE)
   const chainId = useChainId()
   const { nativeCoin, stableCoin } = getChainInfoOrDefault(chainId)
   const backgroundColor = useColor()
@@ -168,11 +162,26 @@ export default function FarmCard({
             </Column>
           </FixedHeightRow>
           <RowBetween marginTop="10px">
-            <ButtonPrimary padding="8px" $borderRadius="8px" as={Link} to={''}>
+            <ButtonPrimary
+              padding="8px"
+              $borderRadius="8px"
+              onClick={() => {
+                window.farmCardProps = farmCardProps
+                openStakeModal()
+              }}
+            >
               Stake
             </ButtonPrimary>
             {stakedLP?.toNumber() > 0 && (
-              <ButtonPrimary padding="8px" margin="0 0 0 16px" $borderRadius="8px" onClick={() => {}}>
+              <ButtonPrimary
+                padding="8px"
+                margin="0 0 0 16px"
+                $borderRadius="8px"
+                onClick={() => {
+                  window.farmCardProps = farmCardProps
+                  openStakeModal()
+                }}
+              >
                 Unstake
               </ButtonPrimary>
             )}
@@ -182,7 +191,7 @@ export default function FarmCard({
               padding="8px"
               $borderRadius="8px"
               as={Link}
-              to={isFarm ? `/add/${coinX?.address}/${coinY?.address}` : '/swap'}
+              to={isFarm ? `/add/${coinX?.address}/${coinY?.address}` : '/'}
             >
               Get {isFarm ? 'LP' : 'ANI'}
             </ButtonSecondary>

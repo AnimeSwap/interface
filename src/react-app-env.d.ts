@@ -11,4 +11,5 @@ interface Window {
   pontem?: any
   rise?: any
   bitkeep?: any
+  farmCardProps?: any
 }

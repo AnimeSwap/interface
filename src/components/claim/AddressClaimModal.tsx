@@ -45,7 +45,7 @@ export default function AddressClaimModal({ isOpen, onDismiss }: { isOpen: boole
   const [timeNow, setTimeNow] = useState(Date.now())
 
   useEffect(() => {
-    if ([SupportedChainId.APTOS_TESTNET, SupportedChainId.APTOS_DEVNET].includes(chainId)) {
+    if ([SupportedChainId.APTOS_TESTNET].includes(chainId)) {
       setInterval(() => {
         setTimeNow(Date.now())
       }, 1e3)

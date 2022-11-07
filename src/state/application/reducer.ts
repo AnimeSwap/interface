@@ -33,6 +33,7 @@ export enum ApplicationModal {
   FEATURE_FLAGS,
   BIND_DISCORD,
   ANI_AIRDROP_CLAIM,
+  STAKE,
 }
 
 type PopupList = Array<{ key: string; show: boolean; content: PopupContent; removeAfterMs: number | null }>
