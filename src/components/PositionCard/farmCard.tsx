@@ -30,17 +30,19 @@ const StyledPositionCard = styled(LightCard)<{ bgColor: any }>`
 `
 
 interface FarmCardProps {
-  CoinX?: Coin
-  CoinY?: Coin
+  coinX?: Coin
+  coinY?: Coin
   poolLP?: Decimal
   stakedLP?: Decimal
   earnedANI?: Decimal
+  LPAPR?: Decimal
+  stakeAPR?: Decimal
 }
 
-export default function FarmCard({ CoinX, CoinY }: FarmCardProps) {
+export default function FarmCard({ coinX, coinY }: FarmCardProps) {
   const backgroundColor = useColor()
 
-  const isFarm = CoinY ? true : false
+  const isFarm = coinY ? true : false
 
   return (
     <StyledPositionCard bgColor={backgroundColor} maxWidth={'340px'} width={'100%'}>
@@ -49,16 +51,16 @@ export default function FarmCard({ CoinX, CoinY }: FarmCardProps) {
         <FixedHeightRow style={{ marginBottom: '8px' }}>
           {isFarm ? (
             <AutoRow gap="8px" style={{ marginLeft: '4px' }}>
-              <DoubleCoinLogo coinX={CoinX} coinY={CoinY} size={30} margin={false} />
+              <DoubleCoinLogo coinX={coinX} coinY={coinY} size={30} margin={false} />
               <Text fontWeight={500} fontSize={20}>
-                {`${CoinX?.symbol}-${CoinY?.symbol}`}
+                {`${coinX?.symbol}-${coinY?.symbol}`}
               </Text>
             </AutoRow>
           ) : (
             <AutoRow gap="8px" style={{ marginLeft: '0px' }}>
-              <CoinLogo coin={CoinX} size={'30px'} />
+              <CoinLogo coin={coinX} size={'30px'} />
               <Text fontWeight={500} fontSize={20}>
-                Stake {CoinX?.symbol}
+                Stake {coinX?.symbol}
               </Text>
             </AutoRow>
           )}
@@ -81,7 +83,7 @@ export default function FarmCard({ CoinX, CoinY }: FarmCardProps) {
           </FixedHeightRow>
           <FixedHeightRow>
             <ThemedText.DeprecatedMain fontSize={16}>
-              Available {isFarm ? 'LP' : CoinX.symbol}
+              Available {isFarm ? 'LP' : coinX.symbol}
             </ThemedText.DeprecatedMain>
             <Column style={{ alignItems: 'flex-end' }}>
               <Text fontSize={16} fontWeight={500}>
@@ -93,7 +95,7 @@ export default function FarmCard({ CoinX, CoinY }: FarmCardProps) {
             </Column>
           </FixedHeightRow>
           <FixedHeightRow>
-            <ThemedText.DeprecatedMain fontSize={16}>Staked {isFarm ? 'LP' : CoinX.symbol}</ThemedText.DeprecatedMain>
+            <ThemedText.DeprecatedMain fontSize={16}>Staked {isFarm ? 'LP' : coinX.symbol}</ThemedText.DeprecatedMain>
             <Column style={{ alignItems: 'flex-end' }}>
               <Text fontSize={16} fontWeight={500}>
                 100.00
@@ -140,7 +142,7 @@ export default function FarmCard({ CoinX, CoinY }: FarmCardProps) {
               padding="8px"
               $borderRadius="8px"
               as={Link}
-              to={isFarm ? `/add/${CoinX?.address}/${CoinY?.address}` : '/swap'}
+              to={isFarm ? `/add/${coinX?.address}/${coinY?.address}` : '/swap'}
             >
               Get {isFarm ? 'LP' : 'ANI'}
             </ButtonSecondary>

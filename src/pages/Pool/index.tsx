@@ -127,8 +127,8 @@ export default function Pool() {
               </ThemedText.DeprecatedMediumHeader>
             </TitleRow>
             <AutoRow gap="5px" justify="space-around">
-              <FarmCard CoinX={aniCoin}></FarmCard>
-              <FarmCard CoinX={nativeCoin} CoinY={aniCoin}></FarmCard>
+              <FarmCard coinX={aniCoin}></FarmCard>
+              <FarmCard coinX={nativeCoin} coinY={aniCoin}></FarmCard>
             </AutoRow>
           </AutoColumn>
         </AutoColumn>
