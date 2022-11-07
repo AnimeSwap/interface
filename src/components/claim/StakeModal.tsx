@@ -2,10 +2,11 @@ import { Decimal, Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
 import { Input } from '@rebass/forms'
 import { FarmCardProps } from 'components/PositionCard/farmCard'
+import TransactionConfirmationModal, { ConfirmationModalContent } from 'components/TransactionConfirmationModal'
 import { SupportedChainId } from 'constants/chains'
 import { REFRESH_TIMEOUT } from 'constants/misc'
 import { amountPretty } from 'hooks/common/Coin'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import ConnectionInstance from 'state/connection/instance'
 import { useChainId } from 'state/user/hooks'
 import { SignAndSubmitTransaction, useAccount } from 'state/wallets/hooks'
@@ -41,8 +42,12 @@ const ConfirmOrLoadingWrapper = styled.div<{ activeBG: boolean }>`
 export default function StakeModal({ isOpen, onDismiss }: { isOpen: boolean; onDismiss: () => void }) {
   const account = useAccount()
   const chainId = useChainId()
-  const [attempting, setAttempting] = useState<boolean>(false)
-  const [hash, setHash] = useState<string | undefined>('')
+
+  // modal and loading
+  const [showConfirm, setShowConfirm] = useState<boolean>(false)
+  const [attemptingTxn, setAttemptingTxn] = useState<boolean>(false)
+  const [txHash, setTxHash] = useState<string>('')
+
   const [inputValue, setInputValue] = useState<string>('')
   const [amount, setAmount] = useState<number>(0)
   const [error, setError] = useState<string>('')
@@ -51,13 +56,29 @@ export default function StakeModal({ isOpen, onDismiss }: { isOpen: boolean; onD
   const balance: Decimal = window.farmCardBalance
   const isFarm = farmCardProps?.coinY ? true : false
 
-  async function claimCall() {
+  const handleDismissConfirmation = useCallback(() => {
+    setShowConfirm(false)
+    // if there was a tx hash, we want to clear the input
+    if (txHash) {
+      wrappedOnDismiss()
+      setInputValue('')
+      setAmount(0)
+      setError('')
+    }
+    setTxHash('')
+  }, [txHash])
+
+  async function onConfirm() {
     try {
-      const payload = ConnectionInstance.getSDK().Misc.claimAirdropPayload()
-      setAttempting(true)
+      const payload = ConnectionInstance.getSDK().MasterChef.stakeANIPayload({
+        amount: amount.toString(),
+        method: 'enter_staking',
+      })
+      setShowConfirm(true)
+      setAttemptingTxn(true)
       const txid = await SignAndSubmitTransaction(payload)
-      setAttempting(false)
-      setHash(txid)
+      setAttemptingTxn(false)
+      setTxHash(txid)
       setTimeout(() => {
         ConnectionInstance.syncAccountResources(account, false)
         setTimeout(() => {
@@ -65,7 +86,8 @@ export default function StakeModal({ isOpen, onDismiss }: { isOpen: boolean; onD
         }, REFRESH_TIMEOUT * 2)
       }, REFRESH_TIMEOUT)
     } catch (e) {
-      setAttempting(false)
+      setAttemptingTxn(false)
+      setShowConfirm(false)
     }
   }
 
@@ -78,14 +100,14 @@ export default function StakeModal({ isOpen, onDismiss }: { isOpen: boolean; onD
   }, [isOpen])
 
   function wrappedOnDismiss() {
-    setAttempting(false)
-    setHash(undefined)
+    setAttemptingTxn(false)
+    setTxHash(undefined)
     onDismiss()
   }
 
   return (
     <Modal isOpen={isOpen} onDismiss={wrappedOnDismiss} maxHeight={90}>
-      {!attempting && !hash && (
+      {!attemptingTxn && !txHash && (
         <ContentWrapper gap="lg">
           <ModalUpper>
             <CardBGImage />
@@ -166,7 +188,7 @@ export default function StakeModal({ isOpen, onDismiss }: { isOpen: boolean; onD
               $borderRadius="12px"
               mt="1rem"
               onClick={() => {
-                // claimCall()
+                onConfirm()
               }}
             >
               Confirm
@@ -182,7 +204,17 @@ export default function StakeModal({ isOpen, onDismiss }: { isOpen: boolean; onD
           </AutoColumn>
         </ContentWrapper>
       )}
-      {(attempting || hash) && (
+      <TransactionConfirmationModal
+        isOpen={showConfirm}
+        onDismiss={handleDismissConfirmation}
+        attemptingTxn={attemptingTxn}
+        hash={txHash}
+        content={() => {
+          return <></>
+        }}
+        pendingText={''}
+      />
+      {/* {(attempting || hash) && (
         <ConfirmOrLoadingWrapper activeBG={true}>
           <CardNoise />
           <RowBetween>
@@ -202,7 +234,7 @@ export default function StakeModal({ isOpen, onDismiss }: { isOpen: boolean; onD
             )}
           </AutoColumn>
         </ConfirmOrLoadingWrapper>
-      )}
+      )} */}
     </Modal>
   )
 }

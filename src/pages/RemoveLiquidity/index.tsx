@@ -210,7 +210,7 @@ export default function RemoveLiquidity() {
 
   const pendingText = (
     <>
-      Supplying {coinA_amount?.prettyWithSymbol()} and {coinB_amount?.prettyWithSymbol()}
+      Withdrawing {coinA_amount?.prettyWithSymbol()} and {coinB_amount?.prettyWithSymbol()}
     </>
   )
 
