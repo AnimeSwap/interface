@@ -12,4 +12,5 @@ interface Window {
   rise?: any
   bitkeep?: any
   farmCardProps?: any
+  farmCardBalance?: any
 }

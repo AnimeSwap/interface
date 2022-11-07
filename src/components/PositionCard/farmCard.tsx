@@ -132,7 +132,7 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
             </ThemedText.DeprecatedMain>
             <Column style={{ alignItems: 'flex-end' }}>
               <Text fontSize={16} fontWeight={500}>
-                {isFarm ? amountPretty(lpBalance, 8) : aniBalance?.pretty()}
+                {isFarm ? amountPretty(lpBalance, 8, 8) : aniBalance?.pretty(8)}
               </Text>
               <Text fontSize={12} fontWeight={500} style={{ paddingLeft: '6px' }}>
                 {/* $100 */}
@@ -143,7 +143,7 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
             <ThemedText.DeprecatedMain fontSize={16}>Staked {isFarm ? 'LP' : coinX.symbol}</ThemedText.DeprecatedMain>
             <Column style={{ alignItems: 'flex-end' }}>
               <Text fontSize={16} fontWeight={500}>
-                {amountPretty(stakedLP, 8)}
+                {amountPretty(stakedLP, 8, 8)}
               </Text>
               <Text fontSize={10} fontWeight={500} style={{ paddingLeft: '6px' }}>
                 $0.00
@@ -154,7 +154,7 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
             <ThemedText.DeprecatedMain fontSize={16}>Earned ANI</ThemedText.DeprecatedMain>
             <Column style={{ alignItems: 'flex-end' }}>
               <Text fontSize={16} fontWeight={500}>
-                {amountPretty(earnedANI, 8)}
+                {amountPretty(earnedANI, 8, 8)}
               </Text>
               <Text fontSize={10} fontWeight={500} style={{ paddingLeft: '6px' }}>
                 $0.00
@@ -167,6 +167,7 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
               $borderRadius="8px"
               onClick={() => {
                 window.farmCardProps = farmCardProps
+                window.farmCardBalance = isFarm ? lpBalance : aniBalance.amount
                 openStakeModal()
               }}
             >
@@ -179,6 +180,7 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
                 $borderRadius="8px"
                 onClick={() => {
                   window.farmCardProps = farmCardProps
+                  window.farmCardBalance = stakedLP
                   openStakeModal()
                 }}
               >

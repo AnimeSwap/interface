@@ -1,14 +1,15 @@
+import { Decimal, Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
+import { Input } from '@rebass/forms'
 import { FarmCardProps } from 'components/PositionCard/farmCard'
 import { SupportedChainId } from 'constants/chains'
 import { REFRESH_TIMEOUT } from 'constants/misc'
+import { amountPretty } from 'hooks/common/Coin'
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import ConnectionInstance from 'state/connection/instance'
 import { useChainId } from 'state/user/hooks'
 import { SignAndSubmitTransaction, useAccount } from 'state/wallets/hooks'
 import styled from 'styled-components/macro'
-import { shortenAddress } from 'utils'
 
 import { CloseIcon, ExternalLink, ThemedText } from '../../theme'
 import { ExplorerDataType, getExplorerLink } from '../../utils/getExplorerLink'
@@ -42,7 +43,12 @@ export default function StakeModal({ isOpen, onDismiss }: { isOpen: boolean; onD
   const chainId = useChainId()
   const [attempting, setAttempting] = useState<boolean>(false)
   const [hash, setHash] = useState<string | undefined>('')
+  const [inputValue, setInputValue] = useState<string>('')
+  const [amount, setAmount] = useState<number>(0)
+  const [error, setError] = useState<string>('')
+
   const farmCardProps: FarmCardProps = window.farmCardProps
+  const balance: Decimal = window.farmCardBalance
   const isFarm = farmCardProps?.coinY ? true : false
 
   async function claimCall() {
@@ -86,12 +92,54 @@ export default function StakeModal({ isOpen, onDismiss }: { isOpen: boolean; onD
             </CardSection>
             <Break />
           </ModalUpper>
-          <AutoColumn gap="md" style={{ padding: '1rem', paddingTop: '0', paddingBottom: '0' }} justify="start">
-            <ThemedText.DeprecatedBody fontWeight={400}>
-              asdasdasdasdasdasdasdasdasdasdasdasdasdasd
-            </ThemedText.DeprecatedBody>
+          <AutoColumn gap="md" style={{ paddingLeft: '2rem', paddingRight: '2rem' }} justify="start">
+            <RowBetween>
+              <ThemedText.DeprecatedMain>Stake</ThemedText.DeprecatedMain>
+              <ThemedText.DeprecatedMain>Balance: {amountPretty(balance, 8, 8)}</ThemedText.DeprecatedMain>
+            </RowBetween>
+            <RowBetween>
+              <Input
+                id="amount"
+                name="amount"
+                placeholder="0"
+                width={'75%'}
+                onChange={(v) => {
+                  const value = v.target.value
+                  if (/^\d*\.?\d*$/.test(value)) {
+                    setInputValue(v.target.value)
+                    try {
+                      const amount = Utils.d(value).mul(Utils.pow10(8))
+                      if (amount.gt(balance)) {
+                        setError('Insufficient balance')
+                      } else {
+                        setError('')
+                      }
+                      setAmount(amount.toNumber())
+                    } catch (e) {
+                      setError('')
+                      setAmount(0)
+                    }
+                  }
+                }}
+                value={inputValue}
+              />
+              <ButtonPrimary
+                width={'20%'}
+                maxWidth="100px"
+                fontSize={'4px'}
+                padding="0.75rem"
+                onClick={() => {
+                  setInputValue(balance.div(Utils.pow10(8)).toString())
+                  setAmount(balance.toNumber())
+                }}
+              >
+                MAX
+              </ButtonPrimary>
+            </RowBetween>
+            {error !== '' && <ThemedText.DeprecatedError error={true}>{error}</ThemedText.DeprecatedError>}
+            {amount <= 0 && <ThemedText.DeprecatedError error={true}>{'Input empty'}</ThemedText.DeprecatedError>}
           </AutoColumn>
-          <AutoRow style={{ padding: '1rem', paddingTop: '0', paddingBottom: '0' }} justify="center">
+          <AutoRow style={{ padding: '1rem', paddingTop: '0' }} justify="center">
             <ButtonSecondary
               disabled={false}
               padding="12px 12px"
@@ -104,7 +152,7 @@ export default function StakeModal({ isOpen, onDismiss }: { isOpen: boolean; onD
               Cancel
             </ButtonSecondary>
             <ButtonPrimary
-              disabled={false}
+              disabled={amount <= 0 || error !== ''}
               padding="12px 12px"
               width="44%"
               $borderRadius="12px"
