@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro'
-import FarmCard from 'components/PositionCard/farmCard'
+import FarmCard, { FarmCardProps } from 'components/PositionCard/farmCard'
 import { getChainInfoOrDefault } from 'constants/chainInfo'
 import { useCoin } from 'hooks/common/Coin'
 import { Pair, pairKey, useNativePrice } from 'hooks/common/Pair'
@@ -105,14 +105,25 @@ export default function Pool() {
 
   const chainId = useChainId()
   const { aniCoin, nativeCoin } = getChainInfoOrDefault(chainId)
+  const [aniPool, setAniPool] = useState<FarmCardProps>({})
+  const [aptAniPool, setAptAniPool] = useState<FarmCardProps>({})
 
   useEffect(() => {
     const fetchStake = async () => {
       const res = await ConnectionInstance.getSDK().MasterChef.getUserInfoAll(account)
       console.log(res)
-      const res2 = await ConnectionInstance.getSDK().MasterChef.getFirstTwoPairStakingApr()
-      console.log(res2[0].toNumber() * 100)
-      console.log(res2[1].toNumber() * 100)
+      const res2 = await ConnectionInstance.getSDK().MasterChef.getFirstTwoPairStakedLPInfo()
+      console.log(res2)
+      setAniPool({
+        poolLP: res2[0]?.lpAmount,
+        stakeAPR: res2[0]?.apr,
+      })
+      setAptAniPool({
+        poolLP: res2[1]?.lpAmount,
+        poolCoinXAmount: res2[1]?.coinX,
+        poolCoinYAmount: res2[1]?.coinY,
+        stakeAPR: res2[1]?.apr,
+      })
     }
     fetchStake()
   }, [chainId, account])
@@ -128,8 +139,13 @@ export default function Pool() {
               </ThemedText.DeprecatedMediumHeader>
             </TitleRow>
             <AutoRow gap="5px" justify="space-around">
-              <FarmCard coinX={aniCoin}></FarmCard>
-              <FarmCard coinX={nativeCoin} coinY={aniCoin}></FarmCard>
+              <FarmCard coinX={aniCoin} poolLP={aniPool.poolLP} stakeAPR={aniPool.stakeAPR}></FarmCard>
+              <FarmCard
+                coinX={nativeCoin}
+                coinY={aniCoin}
+                poolLP={aptAniPool.poolLP}
+                stakeAPR={aptAniPool.stakeAPR}
+              ></FarmCard>
             </AutoRow>
           </AutoColumn>
         </AutoColumn>

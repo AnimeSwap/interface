@@ -29,17 +29,29 @@ const StyledPositionCard = styled(LightCard)<{ bgColor: any }>`
   overflow: hidden;
 `
 
-interface FarmCardProps {
+export interface FarmCardProps {
   coinX?: Coin
   coinY?: Coin
   poolLP?: Decimal
+  poolCoinXAmount?: Decimal
+  poolCoinYAmount?: Decimal
   stakedLP?: Decimal
   earnedANI?: Decimal
   LPAPR?: Decimal
   stakeAPR?: Decimal
 }
 
-export default function FarmCard({ coinX, coinY }: FarmCardProps) {
+export default function FarmCard({
+  coinX,
+  coinY,
+  poolLP,
+  poolCoinXAmount,
+  poolCoinYAmount,
+  stakedLP,
+  earnedANI,
+  LPAPR,
+  stakeAPR,
+}: FarmCardProps) {
   const backgroundColor = useColor()
 
   const isFarm = coinY ? true : false
@@ -71,7 +83,7 @@ export default function FarmCard({ coinX, coinY }: FarmCardProps) {
             <RowFixed>
               <ThemedText.DeprecatedMain fontSize={14}>APR</ThemedText.DeprecatedMain>
               <Text fontSize={16} fontWeight={500} style={{ paddingLeft: '6px' }}>
-                50.00%
+                {((stakeAPR?.toNumber() ?? 0) * 100).toFixed(2)}%
               </Text>
             </RowFixed>
             <RowFixed>

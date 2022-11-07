@@ -130,7 +130,7 @@ export default function AddressClaimModal({ isOpen, onDismiss }: { isOpen: boole
   }
 
   useEffect(() => {
-    if ([SupportedChainId.APTOS_DEVNET, SupportedChainId.APTOS_TESTNET].includes(chainId)) {
+    if ([SupportedChainId.APTOS_TESTNET].includes(chainId)) {
       updateSinceTimeBTC()
       updateSinceTimeUSDT()
     }
