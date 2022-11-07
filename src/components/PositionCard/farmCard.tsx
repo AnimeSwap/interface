@@ -1,11 +1,16 @@
 import { Decimal, Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
+import { getChainInfoOrDefault } from 'constants/chainInfo'
 import { amountPretty, Coin, CoinAmount, useCoin } from 'hooks/common/Coin'
+import { pairKey, PairState, usePair } from 'hooks/common/Pair'
 import { transparentize } from 'polished'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Text } from 'rebass'
-import { useLpBalance } from 'state/wallets/hooks'
+import { useChainId } from 'state/user/hooks'
+import { useCoinAmount, useCoinBalance, useLpBalance } from 'state/wallets/hooks'
 import styled from 'styled-components/macro'
+import { formatDollarAmount } from 'utils/formatDollarAmt'
 
 import { useColor } from '../../hooks/useColor'
 import { ThemedText } from '../../theme'
@@ -39,6 +44,7 @@ export interface FarmCardProps {
   earnedANI?: Decimal
   LPAPR?: Decimal
   stakeAPR?: Decimal
+  nativePrice?: Decimal
 }
 
 export default function FarmCard({
@@ -51,10 +57,43 @@ export default function FarmCard({
   earnedANI,
   LPAPR,
   stakeAPR,
+  nativePrice,
 }: FarmCardProps) {
-  const backgroundColor = useColor()
+  const [tvlUSD, setTvlUSD] = useState<number>(0)
 
+  const chainId = useChainId()
+  const { nativeCoin, stableCoin } = getChainInfoOrDefault(chainId)
+  const backgroundColor = useColor()
   const isFarm = coinY ? true : false
+  const aniBalance = useCoinAmount(coinX?.address)
+  const lpBalanceString = useLpBalance(pairKey(coinX?.address, coinY?.address))
+  const lpBalance = Utils.d(lpBalanceString)
+  const nativeCoinXPair = usePair(nativeCoin.address, coinX?.address)
+  const nativeCoinYPair = usePair(nativeCoin.address, coinY?.address)
+
+  useEffect(() => {
+    let usdAmount = Utils.d(0)
+    if (coinX?.address === nativeCoin.address) {
+      usdAmount = Utils.d(poolCoinXAmount).mul(nativePrice).mul(2)
+    } else if (coinY?.address === nativeCoin.address) {
+      usdAmount = Utils.d(poolCoinYAmount).mul(nativePrice).mul(2)
+    } else if (nativeCoinXPair[0] === PairState.EXISTS) {
+      const pair = nativeCoinXPair[1]
+      usdAmount = Utils.d(pair.coinXReserve)
+        .div(Utils.d(pair.coinYReserve))
+        .mul(Utils.d(poolCoinXAmount))
+        .mul(nativePrice)
+        .mul(2)
+    } else if (nativeCoinYPair[0] === PairState.EXISTS) {
+      const pair = nativeCoinYPair[1]
+      usdAmount = Utils.d(pair.coinXReserve)
+        .div(Utils.d(pair.coinYReserve))
+        .mul(Utils.d(poolCoinYAmount))
+        .mul(nativePrice)
+        .mul(2)
+    }
+    setTvlUSD(usdAmount.div(Utils.pow10(stableCoin.decimals)).toNumber())
+  }, [coinX, coinY, poolCoinXAmount, poolCoinYAmount, poolLP, nativePrice])
 
   return (
     <StyledPositionCard bgColor={backgroundColor} maxWidth={'340px'} width={'100%'}>
@@ -89,7 +128,7 @@ export default function FarmCard({
             <RowFixed>
               <ThemedText.DeprecatedMain fontSize={14}>TVL</ThemedText.DeprecatedMain>
               <Text fontSize={16} fontWeight={500} style={{ paddingLeft: '6px' }}>
-                $100.00
+                {formatDollarAmount(tvlUSD)}
               </Text>
             </RowFixed>
           </FixedHeightRow>
@@ -99,7 +138,7 @@ export default function FarmCard({
             </ThemedText.DeprecatedMain>
             <Column style={{ alignItems: 'flex-end' }}>
               <Text fontSize={16} fontWeight={500}>
-                100.00
+                {isFarm ? amountPretty(lpBalance, 8) : aniBalance?.pretty()}
               </Text>
               <Text fontSize={12} fontWeight={500} style={{ paddingLeft: '6px' }}>
                 {/* $100 */}

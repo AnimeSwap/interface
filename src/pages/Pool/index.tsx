@@ -116,6 +116,7 @@ export default function Pool() {
       console.log(res2)
       setAniPool({
         poolLP: res2[0]?.lpAmount,
+        poolCoinXAmount: res2[0]?.lpAmount,
         stakeAPR: res2[0]?.apr,
       })
       setAptAniPool({
@@ -139,12 +140,21 @@ export default function Pool() {
               </ThemedText.DeprecatedMediumHeader>
             </TitleRow>
             <AutoRow gap="5px" justify="space-around">
-              <FarmCard coinX={aniCoin} poolLP={aniPool.poolLP} stakeAPR={aniPool.stakeAPR}></FarmCard>
+              <FarmCard
+                coinX={aniCoin}
+                poolLP={aniPool.poolLP}
+                poolCoinXAmount={aniPool.poolCoinXAmount}
+                stakeAPR={aniPool.stakeAPR}
+                nativePrice={nativePrice}
+              ></FarmCard>
               <FarmCard
                 coinX={nativeCoin}
                 coinY={aniCoin}
                 poolLP={aptAniPool.poolLP}
+                poolCoinXAmount={aniPool.poolCoinXAmount}
+                poolCoinYAmount={aniPool.poolCoinYAmount}
                 stakeAPR={aptAniPool.stakeAPR}
+                nativePrice={nativePrice}
               ></FarmCard>
             </AutoRow>
           </AutoColumn>
