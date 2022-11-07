@@ -69,6 +69,14 @@ export default function StakeModal({ isOpen, onDismiss }: { isOpen: boolean; onD
     }
   }
 
+  useEffect(() => {
+    if (isOpen) {
+      setInputValue('')
+      setAmount(0)
+      setError('')
+    }
+  }, [isOpen])
+
   function wrappedOnDismiss() {
     setAttempting(false)
     setHash(undefined)
