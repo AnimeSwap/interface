@@ -43,10 +43,20 @@ export function useBestTrade(
 } {
   const [bestTrade, setBestTrade] = useState<BestTrade>(null)
   const [tradeState, setTradeState] = useState<TradeState>(TradeState.LOADING)
+  const [count, setCount] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCount((count) => count + 1)
+    }, 8000)
+    return () => clearInterval(interval)
+  }, [])
 
   useEffect(() => {
     const fetchRoute = async () => {
+      console.log(111)
       if (!amount || !inputCoin || !outputCoin || amount.eq(0)) return
+      console.log(333)
       setTradeState(TradeState.LOADING)
       const fromCoin = inputCoin.address
       const toCoin = outputCoin.address
@@ -113,7 +123,7 @@ export function useBestTrade(
     }
     // execution
     fetchRoute()
-  }, [tradeType, amount, inputCoin, outputCoin, allowedSlippage])
+  }, [tradeType, amount, inputCoin, outputCoin, allowedSlippage, count])
 
   return useMemo(() => {
     return {
