@@ -217,27 +217,6 @@ export default function StakeModal({ isOpen, onDismiss }: { isOpen: boolean; onD
         }}
         pendingText={''}
       />
-      {/* {(attempting || hash) && (
-        <ConfirmOrLoadingWrapper activeBG={true}>
-          <CardNoise />
-          <RowBetween>
-            <div />
-            <CloseIcon onClick={wrappedOnDismiss} style={{ zIndex: 99 }} stroke="black" />
-          </RowBetween>
-          <AutoColumn gap="100px" justify={'center'}>
-            {attempting && !hash && (
-              <ThemedText.DeprecatedSubHeader color="black">
-                <Trans>Confirm this transaction in your wallet</Trans>
-              </ThemedText.DeprecatedSubHeader>
-            )}
-            {attempting && hash && (
-              <ExternalLink href={getExplorerLink(chainId, hash, ExplorerDataType.TRANSACTION)} style={{ zIndex: 99 }}>
-                <Trans>View transaction on Explorer</Trans>
-              </ExternalLink>
-            )}
-          </AutoColumn>
-        </ConfirmOrLoadingWrapper>
-      )} */}
     </Modal>
   )
 }

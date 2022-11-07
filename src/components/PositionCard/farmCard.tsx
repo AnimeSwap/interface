@@ -1,16 +1,19 @@
 import { Decimal, Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
+import TransactionConfirmationModal from 'components/TransactionConfirmationModal'
 import { getChainInfoOrDefault } from 'constants/chainInfo'
+import { REFRESH_TIMEOUT } from 'constants/misc'
 import { amountPretty, Coin, CoinAmount, useCoin } from 'hooks/common/Coin'
 import { pairKey, PairState, usePair } from 'hooks/common/Pair'
 import { transparentize } from 'polished'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Text } from 'rebass'
 import { useToggleModal } from 'state/application/hooks'
 import { ApplicationModal } from 'state/application/reducer'
+import ConnectionInstance from 'state/connection/instance'
 import { useChainId } from 'state/user/hooks'
-import { useCoinAmount, useCoinBalance, useLpBalance } from 'state/wallets/hooks'
+import { SignAndSubmitTransaction, useAccount, useCoinAmount, useCoinBalance, useLpBalance } from 'state/wallets/hooks'
 import styled from 'styled-components/macro'
 import { formatDollarAmount } from 'utils/formatDollarAmt'
 
@@ -59,6 +62,7 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
 
   const openStakeModal = useToggleModal(ApplicationModal.STAKE)
   const chainId = useChainId()
+  const account = useAccount()
   const { nativeCoin, stableCoin } = getChainInfoOrDefault(chainId)
   const backgroundColor = useColor()
   const isFarm = coinY ? true : false
@@ -99,6 +103,39 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
     setStakedUSD(Utils.d(stakedLP).div(Utils.d(poolLP)).mul(usdNumber).toNumber())
     setEarnedUSD(Utils.d(earnedANI).div(Utils.d(poolLP)).mul(usdNumber).toNumber())
   }, [coinX, coinY, poolCoinXAmount, poolCoinYAmount, poolLP, stakedLP, earnedANI, nativePrice])
+
+  // modal and loading
+  const [showConfirm, setShowConfirm] = useState<boolean>(false)
+  const [attemptingTxn, setAttemptingTxn] = useState<boolean>(false)
+  const [txHash, setTxHash] = useState<string>('')
+
+  const handleDismissConfirmation = useCallback(() => {
+    setShowConfirm(false)
+    setTxHash('')
+  }, [txHash])
+
+  async function onHarvest() {
+    try {
+      const payload = ConnectionInstance.getSDK().MasterChef.stakeANIPayload({
+        amount: '0',
+        method: 'enter_staking',
+      })
+      setShowConfirm(true)
+      setAttemptingTxn(true)
+      const txid = await SignAndSubmitTransaction(payload)
+      setAttemptingTxn(false)
+      setTxHash(txid)
+      setTimeout(() => {
+        ConnectionInstance.syncAccountResources(account, false)
+        setTimeout(() => {
+          ConnectionInstance.syncAccountResources(account, false)
+        }, REFRESH_TIMEOUT * 2)
+      }, REFRESH_TIMEOUT)
+    } catch (e) {
+      setAttemptingTxn(false)
+      setShowConfirm(false)
+    }
+  }
 
   return (
     <StyledPositionCard bgColor={backgroundColor} maxWidth={'340px'} width={'100%'}>
@@ -222,7 +259,7 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
                 margin="0 0 0 16px"
                 $borderRadius="8px"
                 onClick={() => {
-                  console.log(123)
+                  onHarvest()
                 }}
               >
                 Harvest
@@ -231,6 +268,16 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
           </RowBetween>
         </AutoColumn>
       </AutoColumn>
+      <TransactionConfirmationModal
+        isOpen={showConfirm}
+        onDismiss={handleDismissConfirmation}
+        attemptingTxn={attemptingTxn}
+        hash={txHash}
+        content={() => {
+          return <></>
+        }}
+        pendingText={''}
+      />
     </StyledPositionCard>
   )
 }
