@@ -117,7 +117,9 @@ export default function Pool() {
       setAniPool({
         poolLP: res2[0]?.lpAmount,
         poolCoinXAmount: res2[0]?.lpAmount,
+        stakedLP: res.get(aniCoin?.address)?.amount,
         stakeAPR: res2[0]?.apr,
+        earnedANI: res.get(aniCoin?.address)?.pendingAni,
       })
       setAptAniPool({
         poolLP: res2[1]?.lpAmount,
@@ -144,6 +146,8 @@ export default function Pool() {
                 coinX={aniCoin}
                 poolLP={aniPool.poolLP}
                 poolCoinXAmount={aniPool.poolCoinXAmount}
+                stakedLP={aniPool.stakedLP}
+                earnedANI={aniPool.earnedANI}
                 stakeAPR={aniPool.stakeAPR}
                 nativePrice={nativePrice}
               ></FarmCard>
@@ -153,6 +157,8 @@ export default function Pool() {
                 poolLP={aptAniPool.poolLP}
                 poolCoinXAmount={aniPool.poolCoinXAmount}
                 poolCoinYAmount={aniPool.poolCoinYAmount}
+                stakedLP={aptAniPool.stakedLP}
+                earnedANI={aptAniPool.earnedANI}
                 stakeAPR={aptAniPool.stakeAPR}
                 nativePrice={nativePrice}
               ></FarmCard>

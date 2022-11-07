@@ -65,6 +65,8 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
   const nativeCoinXPair = usePair(nativeCoin.address, coinX?.address)
   const nativeCoinYPair = usePair(nativeCoin.address, coinY?.address)
 
+  console.log('Azard', earnedANI?.toNumber())
+
   useEffect(() => {
     let usdAmount = Utils.d(0)
     if (coinX?.address === nativeCoin.address) {
@@ -87,7 +89,7 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
         .mul(2)
     }
     setTvlUSD(usdAmount.div(Utils.pow10(stableCoin.decimals)).toNumber())
-  }, [coinX, coinY, poolCoinXAmount, poolCoinYAmount, poolLP, nativePrice])
+  }, [coinX, coinY, poolCoinXAmount, poolCoinYAmount, poolLP, stakedLP, nativePrice])
 
   return (
     <StyledPositionCard bgColor={backgroundColor} maxWidth={'340px'} width={'100%'}>
@@ -132,7 +134,7 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
             </ThemedText.DeprecatedMain>
             <Column style={{ alignItems: 'flex-end' }}>
               <Text fontSize={16} fontWeight={500}>
-                {isFarm ? amountPretty(lpBalance, 8, 8) : aniBalance?.pretty(8)}
+                {isFarm ? amountPretty(lpBalance, 8, 6) : aniBalance?.pretty(6)}
               </Text>
               <Text fontSize={12} fontWeight={500} style={{ paddingLeft: '6px' }}>
                 {/* $100 */}
@@ -143,7 +145,7 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
             <ThemedText.DeprecatedMain fontSize={16}>Staked {isFarm ? 'LP' : coinX.symbol}</ThemedText.DeprecatedMain>
             <Column style={{ alignItems: 'flex-end' }}>
               <Text fontSize={16} fontWeight={500}>
-                {amountPretty(stakedLP, 8, 8)}
+                {amountPretty(stakedLP, 8, 6)}
               </Text>
               <Text fontSize={10} fontWeight={500} style={{ paddingLeft: '6px' }}>
                 $0.00
@@ -154,7 +156,7 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
             <ThemedText.DeprecatedMain fontSize={16}>Earned ANI</ThemedText.DeprecatedMain>
             <Column style={{ alignItems: 'flex-end' }}>
               <Text fontSize={16} fontWeight={500}>
-                {amountPretty(earnedANI, 8, 8)}
+                {amountPretty(earnedANI, 8, 6)}
               </Text>
               <Text fontSize={10} fontWeight={500} style={{ paddingLeft: '6px' }}>
                 $0.00
