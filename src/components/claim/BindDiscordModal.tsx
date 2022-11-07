@@ -60,45 +60,38 @@ export default function BindDiscordModal({ isOpen, onDismiss }: { isOpen: boolea
   const [alreadyBind, setAlreadyBind] = useState<boolean>(false)
   const [checkIsBindInterval, setCheckIsBindInterval] = useState<boolean>(false)
 
-  useEffect(() => {
-    const checkBind = async () => {
-      if (isOpen && account) {
-        const isBind = await checkAddressBind(account)
-        if (isBind) {
-          setAlreadyBind(true)
-        }
-      }
-    }
-    checkBind()
-  }, [isOpen, account])
+  // useEffect(() => {
+  //   const checkBind = async () => {
+  //     if (isOpen && account) {
+  //       const isBind = await checkAddressBind(account)
+  //       if (isBind) {
+  //         setAlreadyBind(true)
+  //       }
+  //     }
+  //   }
+  //   checkBind()
+  // }, [isOpen, account])
 
-  useEffect(() => {
-    const checkBind = async () => {
-      if (checkIsBindInterval && account && isOpen) {
-        const isBind = await checkAddressBind(account)
-        if (isBind) {
-          setAlreadyBind(true)
-          setCheckIsBindInterval(false)
-        } else {
-          setTimeout(() => {
-            checkBind()
-          }, 1500)
-        }
-      }
-    }
-    checkBind()
-  }, [checkIsBindInterval, account, isOpen])
+  // useEffect(() => {
+  //   const checkBind = async () => {
+  //     if (checkIsBindInterval && account && isOpen) {
+  //       const isBind = await checkAddressBind(account)
+  //       if (isBind) {
+  //         setAlreadyBind(true)
+  //         setCheckIsBindInterval(false)
+  //       } else {
+  //         setTimeout(() => {
+  //           checkBind()
+  //         }, 1500)
+  //       }
+  //     }
+  //   }
+  //   checkBind()
+  // }, [checkIsBindInterval, account, isOpen])
 
   // monitor the status of the claim from contracts and txns
   const claimPending = useIsTransactionPending(hash ?? '')
   const claimConfirmed = hash && !claimPending
-
-  useEffect(() => {
-    // if ([SupportedChainId.APTOS_DEVNET, SupportedChainId.APTOS_TESTNET].includes(chainId)) {
-    //   updateSinceTimeBTC()
-    //   updateSinceTimeUSDT()
-    // }
-  }, [account, chainId])
 
   function wrappedOnDismiss() {
     setAttempting(false)

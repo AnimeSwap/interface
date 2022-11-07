@@ -106,17 +106,16 @@ export default function Pool() {
   const chainId = useChainId()
   const { aniCoin, nativeCoin } = getChainInfoOrDefault(chainId)
 
-  // TODO[Azard]
-  // useEffect(() => {
-  //   const fetchStake = async () => {
-  //     const res = await ConnectionInstance.getSDK().MasterChef.getUserInfoAll(account)
-  //     console.log(res)
-  //     const res2 = await ConnectionInstance.getSDK().MasterChef.getFirstTwoPairStakingApr()
-  //     console.log(res2[0].toNumber() * 100)
-  //     console.log(res2[1].toNumber() * 100)
-  //   }
-  //   fetchStake()
-  // }, [chainId, account])
+  useEffect(() => {
+    const fetchStake = async () => {
+      const res = await ConnectionInstance.getSDK().MasterChef.getUserInfoAll(account)
+      console.log(res)
+      const res2 = await ConnectionInstance.getSDK().MasterChef.getFirstTwoPairStakingApr()
+      console.log(res2[0].toNumber() * 100)
+      console.log(res2[1].toNumber() * 100)
+    }
+    fetchStake()
+  }, [chainId, account])
 
   return (
     <>
@@ -129,8 +128,8 @@ export default function Pool() {
               </ThemedText.DeprecatedMediumHeader>
             </TitleRow>
             <AutoRow gap="5px" justify="space-around">
-              {/* <FarmCard coinX={aniCoin}></FarmCard> TODO[Azard]
-              <FarmCard coinX={nativeCoin} coinY={aniCoin}></FarmCard> */}
+              <FarmCard coinX={aniCoin}></FarmCard>
+              <FarmCard coinX={nativeCoin} coinY={aniCoin}></FarmCard>
             </AutoRow>
           </AutoColumn>
         </AutoColumn>

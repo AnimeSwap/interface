@@ -44,16 +44,15 @@ export default function ANIAirdropClaimModal({ isOpen, onDismiss }: { isOpen: bo
   const [ani, setAni] = useState<number>(0)
   const [successAni, setSuccessAni] = useState<number>(0)
 
-  // TODO[Azard]
-  // useEffect(() => {
-  //   const queryClaim = async () => {
-  //     await updateAni()
-  //     setQuery(false)
-  //   }
-  //   if (account) {
-  //     queryClaim()
-  //   }
-  // }, [account])
+  useEffect(() => {
+    const queryClaim = async () => {
+      await updateAni()
+      setQuery(false)
+    }
+    if (account) {
+      queryClaim()
+    }
+  }, [account])
 
   async function updateAni() {
     const res = await ConnectionInstance.getSDK().Misc.checkUserAirdropBalance(account)
