@@ -53,6 +53,7 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
   const { coinX, coinY, poolLP, poolCoinXAmount, poolCoinYAmount, stakedLP, earnedANI, LPAPR, stakeAPR, nativePrice } =
     farmCardProps
   const [tvlUSD, setTvlUSD] = useState<number>(0)
+  const [availableUSD, setAvailableUSD] = useState<number>(0)
   const [stakedUSD, setStakedUSD] = useState<number>(0)
   const [earnedUSD, setEarnedUSD] = useState<number>(0)
 
@@ -90,6 +91,11 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
     }
     const usdNumber = usdAmount.div(Utils.pow10(stableCoin.decimals)).toNumber()
     setTvlUSD(usdNumber)
+    if (isFarm) {
+      setAvailableUSD(Utils.d(lpBalance).div(Utils.d(poolLP)).mul(usdNumber).toNumber())
+    } else {
+      setAvailableUSD(Utils.d(aniBalance.amount).div(Utils.d(poolLP)).mul(usdNumber).toNumber())
+    }
     setStakedUSD(Utils.d(stakedLP).div(Utils.d(poolLP)).mul(usdNumber).toNumber())
     setEarnedUSD(Utils.d(earnedANI).div(Utils.d(poolLP)).mul(usdNumber).toNumber())
   }, [coinX, coinY, poolCoinXAmount, poolCoinYAmount, poolLP, stakedLP, earnedANI, nativePrice])
@@ -139,9 +145,11 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
               <Text fontSize={16} fontWeight={500}>
                 {isFarm ? amountPretty(lpBalance, 8, 6) : aniBalance?.pretty(6)}
               </Text>
-              <Text fontSize={12} fontWeight={500} style={{ paddingLeft: '6px' }}>
-                {/* $100 */}
-              </Text>
+              {availableUSD > 0 && (
+                <ThemedText.DeprecatedMain fontSize={10} style={{ paddingLeft: '6px' }}>
+                  {formatDollarAmount(availableUSD)}
+                </ThemedText.DeprecatedMain>
+              )}
             </Column>
           </FixedHeightRow>
           <FixedHeightRow>
