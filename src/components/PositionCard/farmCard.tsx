@@ -53,6 +53,8 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
   const { coinX, coinY, poolLP, poolCoinXAmount, poolCoinYAmount, stakedLP, earnedANI, LPAPR, stakeAPR, nativePrice } =
     farmCardProps
   const [tvlUSD, setTvlUSD] = useState<number>(0)
+  const [stakedUSD, setStakedUSD] = useState<number>(0)
+  const [earnedUSD, setEarnedUSD] = useState<number>(0)
 
   const openStakeModal = useToggleModal(ApplicationModal.STAKE)
   const chainId = useChainId()
@@ -64,8 +66,6 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
   const lpBalance = Utils.d(lpBalanceString)
   const nativeCoinXPair = usePair(nativeCoin.address, coinX?.address)
   const nativeCoinYPair = usePair(nativeCoin.address, coinY?.address)
-
-  console.log('Azard', earnedANI?.toNumber())
 
   useEffect(() => {
     let usdAmount = Utils.d(0)
@@ -88,8 +88,11 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
         .mul(nativePrice)
         .mul(2)
     }
-    setTvlUSD(usdAmount.div(Utils.pow10(stableCoin.decimals)).toNumber())
-  }, [coinX, coinY, poolCoinXAmount, poolCoinYAmount, poolLP, stakedLP, nativePrice])
+    const usdNumber = usdAmount.div(Utils.pow10(stableCoin.decimals)).toNumber()
+    setTvlUSD(usdNumber)
+    setStakedUSD(Utils.d(stakedLP).div(Utils.d(poolLP)).mul(usdNumber).toNumber())
+    setEarnedUSD(Utils.d(earnedANI).div(Utils.d(poolLP)).mul(usdNumber).toNumber())
+  }, [coinX, coinY, poolCoinXAmount, poolCoinYAmount, poolLP, stakedLP, earnedANI, nativePrice])
 
   return (
     <StyledPositionCard bgColor={backgroundColor} maxWidth={'340px'} width={'100%'}>
@@ -147,9 +150,11 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
               <Text fontSize={16} fontWeight={500}>
                 {amountPretty(stakedLP, 8, 6)}
               </Text>
-              <Text fontSize={10} fontWeight={500} style={{ paddingLeft: '6px' }}>
-                $0.00
-              </Text>
+              {stakedUSD > 0 && (
+                <ThemedText.DeprecatedMain fontSize={10} style={{ paddingLeft: '6px' }}>
+                  {formatDollarAmount(stakedUSD)}
+                </ThemedText.DeprecatedMain>
+              )}
             </Column>
           </FixedHeightRow>
           <FixedHeightRow>
@@ -158,9 +163,11 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
               <Text fontSize={16} fontWeight={500}>
                 {amountPretty(earnedANI, 8, 6)}
               </Text>
-              <Text fontSize={10} fontWeight={500} style={{ paddingLeft: '6px' }}>
-                $0.00
-              </Text>
+              {earnedUSD > 0 && (
+                <ThemedText.DeprecatedMain fontSize={10} style={{ paddingLeft: '6px' }}>
+                  {formatDollarAmount(earnedUSD)}
+                </ThemedText.DeprecatedMain>
+              )}
             </Column>
           </FixedHeightRow>
           <RowBetween marginTop="10px">
