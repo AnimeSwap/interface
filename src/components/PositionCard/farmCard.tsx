@@ -75,23 +75,27 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
   useEffect(() => {
     let usdAmount = Utils.d(0)
     if (coinX?.address === nativeCoin.address) {
-      usdAmount = Utils.d(poolCoinXAmount).mul(nativePrice).mul(2)
+      usdAmount = Utils.d(poolCoinXAmount)
+        .mul(nativePrice)
+        .mul(isFarm ? 2 : 1)
     } else if (coinY?.address === nativeCoin.address) {
-      usdAmount = Utils.d(poolCoinYAmount).mul(nativePrice).mul(2)
+      usdAmount = Utils.d(poolCoinYAmount)
+        .mul(nativePrice)
+        .mul(isFarm ? 2 : 1)
     } else if (nativeCoinXPair[0] === PairState.EXISTS) {
       const pair = nativeCoinXPair[1]
       usdAmount = Utils.d(pair.coinXReserve)
         .div(Utils.d(pair.coinYReserve))
         .mul(Utils.d(poolCoinXAmount))
         .mul(nativePrice)
-        .mul(2)
+        .mul(isFarm ? 2 : 1)
     } else if (nativeCoinYPair[0] === PairState.EXISTS) {
       const pair = nativeCoinYPair[1]
       usdAmount = Utils.d(pair.coinXReserve)
         .div(Utils.d(pair.coinYReserve))
         .mul(Utils.d(poolCoinYAmount))
         .mul(nativePrice)
-        .mul(2)
+        .mul(isFarm ? 2 : 1)
     }
     const usdNumber = usdAmount.div(Utils.pow10(stableCoin.decimals)).toNumber()
     setTvlUSD(usdNumber)
@@ -116,10 +120,17 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
 
   async function onHarvest() {
     try {
-      const payload = ConnectionInstance.getSDK().MasterChef.stakeANIPayload({
-        amount: '0',
-        method: 'enter_staking',
-      })
+      const payload = isFarm
+        ? ConnectionInstance.getSDK().MasterChef.stakeLPCoinPayload({
+            amount: '0',
+            coinType:
+              '0x796900ebe1a1a54ff9e932f19c548f5c1af5c6e7d34965857ac2f7b1d1ab2cbf::LPCoinV1::LPCoin<0x1::aptos_coin::AptosCoin,0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI>',
+            method: 'deposit',
+          })
+        : ConnectionInstance.getSDK().MasterChef.stakeANIPayload({
+            amount: '0',
+            method: 'enter_staking',
+          })
       setShowConfirm(true)
       setAttemptingTxn(true)
       const txid = await SignAndSubmitTransaction(payload)

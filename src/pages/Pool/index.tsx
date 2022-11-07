@@ -111,9 +111,9 @@ export default function Pool() {
   useEffect(() => {
     const fetchStake = async () => {
       const res = await ConnectionInstance.getSDK().MasterChef.getUserInfoAll(account)
-      console.log(res)
+      // console.log(res)
       const res2 = await ConnectionInstance.getSDK().MasterChef.getFirstTwoPairStakedLPInfo()
-      console.log(res2)
+      // console.log(res2)
       setAniPool({
         poolLP: res2[0]?.lpAmount,
         poolCoinXAmount: res2[0]?.lpAmount,
@@ -125,7 +125,13 @@ export default function Pool() {
         poolLP: res2[1]?.lpAmount,
         poolCoinXAmount: res2[1]?.coinX,
         poolCoinYAmount: res2[1]?.coinY,
+        stakedLP: res.get(
+          '0x796900ebe1a1a54ff9e932f19c548f5c1af5c6e7d34965857ac2f7b1d1ab2cbf::LPCoinV1::LPCoin<0x1::aptos_coin::AptosCoin, 0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI>'
+        )?.amount,
         stakeAPR: res2[1]?.apr,
+        earnedANI: res.get(
+          '0x796900ebe1a1a54ff9e932f19c548f5c1af5c6e7d34965857ac2f7b1d1ab2cbf::LPCoinV1::LPCoin<0x1::aptos_coin::AptosCoin, 0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI>'
+        )?.pendingAni,
       })
     }
     fetchStake()
@@ -155,8 +161,8 @@ export default function Pool() {
                 coinX={nativeCoin}
                 coinY={aniCoin}
                 poolLP={aptAniPool.poolLP}
-                poolCoinXAmount={aniPool.poolCoinXAmount}
-                poolCoinYAmount={aniPool.poolCoinYAmount}
+                poolCoinXAmount={aptAniPool.poolCoinXAmount}
+                poolCoinYAmount={aptAniPool.poolCoinYAmount}
                 stakedLP={aptAniPool.stakedLP}
                 earnedANI={aptAniPool.earnedANI}
                 stakeAPR={aptAniPool.stakeAPR}
