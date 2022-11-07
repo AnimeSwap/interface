@@ -149,10 +149,10 @@ export default function FarmCard({
             <ThemedText.DeprecatedMain fontSize={16}>Staked {isFarm ? 'LP' : coinX.symbol}</ThemedText.DeprecatedMain>
             <Column style={{ alignItems: 'flex-end' }}>
               <Text fontSize={16} fontWeight={500}>
-                100.00
+                {amountPretty(stakedLP, 8)}
               </Text>
               <Text fontSize={10} fontWeight={500} style={{ paddingLeft: '6px' }}>
-                $10.00
+                $0.00
               </Text>
             </Column>
           </FixedHeightRow>
@@ -160,33 +160,22 @@ export default function FarmCard({
             <ThemedText.DeprecatedMain fontSize={16}>Earned ANI</ThemedText.DeprecatedMain>
             <Column style={{ alignItems: 'flex-end' }}>
               <Text fontSize={16} fontWeight={500}>
-                100.00
+                {amountPretty(earnedANI, 8)}
               </Text>
               <Text fontSize={10} fontWeight={500} style={{ paddingLeft: '6px' }}>
-                $10.00
+                $0.00
               </Text>
             </Column>
           </FixedHeightRow>
           <RowBetween marginTop="10px">
-            <ButtonPrimary
-              padding="8px"
-              $borderRadius="8px"
-              as={Link}
-              to={''}
-              // to={`/add/${pair.coinX}/${pair.coinY}`}
-              // width="47%"
-            >
+            <ButtonPrimary padding="8px" $borderRadius="8px" as={Link} to={''}>
               Stake
             </ButtonPrimary>
-            <ButtonPrimary
-              padding="8px"
-              margin="0 0 0 16px"
-              $borderRadius="8px"
-              onClick={() => {}}
-              // to={`/remove/${pair.coinX}/${pair.coinY}`}
-            >
-              Unstake
-            </ButtonPrimary>
+            {stakedLP?.toNumber() > 0 && (
+              <ButtonPrimary padding="8px" margin="0 0 0 16px" $borderRadius="8px" onClick={() => {}}>
+                Unstake
+              </ButtonPrimary>
+            )}
           </RowBetween>
           <RowBetween marginTop="0px">
             <ButtonSecondary
@@ -197,16 +186,18 @@ export default function FarmCard({
             >
               Get {isFarm ? 'LP' : 'ANI'}
             </ButtonSecondary>
-            <ButtonGreen
-              padding="8px"
-              margin="0 0 0 16px"
-              $borderRadius="8px"
-              onClick={() => {
-                console.log(123)
-              }}
-            >
-              Harvest
-            </ButtonGreen>
+            {stakedLP?.toNumber() > 0 && (
+              <ButtonGreen
+                padding="8px"
+                margin="0 0 0 16px"
+                $borderRadius="8px"
+                onClick={() => {
+                  console.log(123)
+                }}
+              >
+                Harvest
+              </ButtonGreen>
+            )}
           </RowBetween>
         </AutoColumn>
       </AutoColumn>

@@ -127,7 +127,7 @@ export default function Pool() {
       })
     }
     fetchStake()
-  }, [chainId, account])
+  }, [chainId, account, allLpBalances])
 
   return (
     <>
