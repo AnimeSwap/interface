@@ -227,7 +227,7 @@ const ANIbutton = styled(ButtonPrimary)`
 export default function Header() {
   const account = useAccount()
   const chainId = useChainId()
-  const { nativeCoin, stableCoin } = getChainInfoOrDefault(chainId)
+  const { nativeCoin, stableCoin, aniCoin } = getChainInfoOrDefault(chainId)
   const nativeCoinAmount = useCoinAmount(nativeCoin.address)
 
   useEffect(() => {
@@ -237,6 +237,7 @@ export default function Header() {
   useEffect(() => {
     if (chainId) {
       ConnectionInstance.getPair(nativeCoin.address, stableCoin.address)
+      ConnectionInstance.getPair(nativeCoin.address, aniCoin.address)
     }
     if (account) {
       ConnectionInstance.syncAccountResources(account, false)

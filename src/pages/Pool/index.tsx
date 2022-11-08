@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/macro'
 import FarmCard, { FarmCardProps } from 'components/PositionCard/farmCard'
 import { getChainInfoOrDefault } from 'constants/chainInfo'
+import { SupportedChainId } from 'constants/chains'
 import { useCoin } from 'hooks/common/Coin'
 import { Pair, pairKey, useNativePrice } from 'hooks/common/Pair'
 import { useContext, useEffect, useState } from 'react'
@@ -10,6 +11,7 @@ import ConnectionInstance from 'state/connection/instance'
 import { useChainId } from 'state/user/hooks'
 import { useAccount, useAllLpBalance } from 'state/wallets/hooks'
 import styled, { ThemeContext } from 'styled-components/macro'
+import { isDevelopmentEnv } from 'utils/env'
 
 import { ButtonPrimary, ButtonSecondary } from '../../components/Button'
 import Card from '../../components/Card'
@@ -76,11 +78,15 @@ const EmptyProposals = styled.div`
 export default function Pool() {
   const theme = useContext(ThemeContext)
   const account = useAccount()
+  const chainId = useChainId()
   const nativePrice = useNativePrice()
   const allLpBalances = useAllLpBalance()
 
   const [pairTasksLoading, setPairTasksLoading] = useState<boolean>(true)
   const [pairs, setPairs] = useState<Pair[]>([])
+
+  // TODO[Azard]: remove isDevelopmentEnv
+  const showFarm = [SupportedChainId.APTOS_DEVNET, SupportedChainId.APTOS_TESTNET].includes(chainId) // && isDevelopmentEnv()
 
   const pairKeyNotZero: string[] = []
   for (const pairKey in allLpBalances) {
@@ -103,13 +109,13 @@ export default function Pool() {
     fetchPairTasks()
   }, [account, allLpBalances])
 
-  const chainId = useChainId()
   const { aniCoin, nativeCoin } = getChainInfoOrDefault(chainId)
   const [aniPool, setAniPool] = useState<FarmCardProps>({})
   const [aptAniPool, setAptAniPool] = useState<FarmCardProps>({})
 
   useEffect(() => {
     const fetchStake = async () => {
+      if (!showFarm) return
       const res = await ConnectionInstance.getSDK().MasterChef.getUserInfoAll(account)
       // console.log(res)
       const res2 = await ConnectionInstance.getSDK().MasterChef.getFirstTwoPairStakedLPInfo()
@@ -140,37 +146,39 @@ export default function Pool() {
   return (
     <>
       <PageWrapper>
-        <AutoColumn gap="lg" justify="center" style={{ marginBottom: '2rem' }}>
-          <AutoColumn gap="md" style={{ width: '100%' }}>
-            <TitleRow style={{ marginTop: '0.5rem' }} padding={'0'}>
-              <ThemedText.DeprecatedMediumHeader style={{ marginTop: '0rem', justifySelf: 'flex-start' }}>
-                Stake and Farms
-              </ThemedText.DeprecatedMediumHeader>
-            </TitleRow>
-            <AutoRow gap="5px" justify="space-around">
-              <FarmCard
-                coinX={aniCoin}
-                poolLP={aniPool.poolLP}
-                poolCoinXAmount={aniPool.poolCoinXAmount}
-                stakedLP={aniPool.stakedLP}
-                earnedANI={aniPool.earnedANI}
-                stakeAPR={aniPool.stakeAPR}
-                nativePrice={nativePrice}
-              ></FarmCard>
-              <FarmCard
-                coinX={nativeCoin}
-                coinY={aniCoin}
-                poolLP={aptAniPool.poolLP}
-                poolCoinXAmount={aptAniPool.poolCoinXAmount}
-                poolCoinYAmount={aptAniPool.poolCoinYAmount}
-                stakedLP={aptAniPool.stakedLP}
-                earnedANI={aptAniPool.earnedANI}
-                stakeAPR={aptAniPool.stakeAPR}
-                nativePrice={nativePrice}
-              ></FarmCard>
-            </AutoRow>
+        {showFarm && (
+          <AutoColumn gap="lg" justify="center" style={{ marginBottom: '2rem' }}>
+            <AutoColumn gap="md" style={{ width: '100%' }}>
+              <TitleRow style={{ marginTop: '0.5rem' }} padding={'0'}>
+                <ThemedText.DeprecatedMediumHeader style={{ marginTop: '0rem', justifySelf: 'flex-start' }}>
+                  Stake and Farms
+                </ThemedText.DeprecatedMediumHeader>
+              </TitleRow>
+              <AutoRow gap="5px" justify="space-around">
+                <FarmCard
+                  coinX={aniCoin}
+                  poolLP={aniPool.poolLP}
+                  poolCoinXAmount={aniPool.poolCoinXAmount}
+                  stakedLP={aniPool.stakedLP}
+                  earnedANI={aniPool.earnedANI}
+                  stakeAPR={aniPool.stakeAPR}
+                  nativePrice={nativePrice}
+                ></FarmCard>
+                <FarmCard
+                  coinX={nativeCoin}
+                  coinY={aniCoin}
+                  poolLP={aptAniPool.poolLP}
+                  poolCoinXAmount={aptAniPool.poolCoinXAmount}
+                  poolCoinYAmount={aptAniPool.poolCoinYAmount}
+                  stakedLP={aptAniPool.stakedLP}
+                  earnedANI={aptAniPool.earnedANI}
+                  stakeAPR={aptAniPool.stakeAPR}
+                  nativePrice={nativePrice}
+                ></FarmCard>
+              </AutoRow>
+            </AutoColumn>
           </AutoColumn>
-        </AutoColumn>
+        )}
 
         <VoteCard>
           <CardBGImage />
