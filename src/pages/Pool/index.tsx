@@ -122,8 +122,6 @@ export default function Pool() {
         ConnectionInstance.getSDK().MasterChef.getFirstTwoPairStakedLPInfo(),
       ]
       const [res, res2] = await Promise.all(task)
-      // const res = await ConnectionInstance.getSDK().MasterChef.getUserInfoAll(account)
-      // const res2 = await ConnectionInstance.getSDK().MasterChef.getFirstTwoPairStakedLPInfo()
       setAniPool({
         poolLP: res2[0]?.lpAmount,
         poolCoinXAmount: res2[0]?.lpAmount,
