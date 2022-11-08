@@ -87,7 +87,8 @@ export default function Pool() {
   const [pairs, setPairs] = useState<Pair[]>([])
 
   // TODO[Azard]: remove isDevelopmentEnv
-  const showFarm = [SupportedChainId.APTOS_DEVNET, SupportedChainId.APTOS_TESTNET].includes(chainId) // && isDevelopmentEnv()
+  const showFarm =
+    [SupportedChainId.APTOS_DEVNET, SupportedChainId.APTOS_TESTNET].includes(chainId) && isDevelopmentEnv()
 
   const pairKeyNotZero: string[] = []
   for (const pairKey in allLpBalances) {
