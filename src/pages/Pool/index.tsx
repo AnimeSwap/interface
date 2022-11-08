@@ -1,3 +1,4 @@
+import { Decimal, Utils } from '@animeswap.org/v1-sdk'
 import { StakedLPInfo, UserInfoReturn } from '@animeswap.org/v1-sdk/dist/tsc/modules/MasterChefModule'
 import { Trans } from '@lingui/macro'
 import FarmCard, { FarmCardProps } from 'components/PositionCard/farmCard'
@@ -114,8 +115,10 @@ export default function Pool() {
   const { aniCoin, nativeCoin } = getChainInfoOrDefault(chainId)
   const [aniPool, setAniPool] = useState<FarmCardProps>({})
   const [aptAniPool, setAptAniPool] = useState<FarmCardProps>({})
+  const [aptAniLPAPR, setAptAniLPAPR] = useState<Decimal>(Utils.d(0))
   const [count, setCount] = useState(0)
 
+  // Farm data interval
   useEffect(() => {
     const interval = setInterval(() => {
       setCount((count) => count + 1)
@@ -123,6 +126,7 @@ export default function Pool() {
     return () => clearInterval(interval)
   }, [])
 
+  // Farm data
   useEffect(() => {
     const fetchStake = async () => {
       if (!showFarm) return
@@ -158,6 +162,21 @@ export default function Pool() {
     fetchStake()
   }, [chainId, account, allLpBalances, count])
 
+  // LP APR
+  useEffect(() => {
+    const fetchLPAPR = async () => {
+      const ret = await ConnectionInstance.getSDK().swap.getLPCoinAPY(
+        {
+          coinX: nativeCoin.address,
+          coinY: aniCoin.address,
+        },
+        Utils.d(2e6)
+      )
+      setAptAniLPAPR(Utils.d(ret?.apy))
+    }
+    fetchLPAPR()
+  }, [chainId])
+
   return (
     <>
       <PageWrapper>
@@ -187,6 +206,7 @@ export default function Pool() {
                   poolCoinYAmount={aptAniPool.poolCoinYAmount}
                   stakedLP={aptAniPool.stakedLP}
                   earnedANI={aptAniPool.earnedANI}
+                  LPAPR={aptAniLPAPR}
                   stakeAPR={aptAniPool.stakeAPR}
                   nativePrice={nativePrice}
                 ></FarmCard>

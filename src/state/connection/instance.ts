@@ -165,11 +165,11 @@ class ConnectionInstance {
       const aptosClient = ConnectionInstance.getAptosClient()
       const modules = sdk.networkOptions.modules
       const ledgerInfo = await sdk.resources.fetchLedgerInfo<AptosLedgerInfo>()
-      // APY code
+      // APR code
       const timestampNow = ledgerInfo.ledger_timestamp
       const currentLedgerVersion = ledgerInfo.ledger_version
       const oldestLedgerVersion = ledgerInfo.oldest_ledger_version
-      const queryDeltaVersion = Utils.d(2e6) // APY window
+      const queryDeltaVersion = Utils.d(2e6) // APR window
       const queryLedgerVersion = Utils.d(currentLedgerVersion).sub(queryDeltaVersion).gte(Utils.d(oldestLedgerVersion))
         ? Utils.d(currentLedgerVersion).sub(queryDeltaVersion)
         : Utils.d(oldestLedgerVersion)
@@ -235,7 +235,7 @@ class ConnectionInstance {
         }
       }
 
-      // write APY
+      // write APR
       for (const key of Object.keys(coinX2coinY2DecimalCurrent)) {
         const base = coinX2coinY2DecimalPast[key]
         if (base) {
