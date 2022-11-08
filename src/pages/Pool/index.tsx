@@ -1,3 +1,4 @@
+import { StakedLPInfo, UserInfoReturn } from '@animeswap.org/v1-sdk/dist/tsc/modules/MasterChefModule'
 import { Trans } from '@lingui/macro'
 import FarmCard, { FarmCardProps } from 'components/PositionCard/farmCard'
 import { getChainInfoOrDefault } from 'constants/chainInfo'
@@ -116,25 +117,32 @@ export default function Pool() {
   useEffect(() => {
     const fetchStake = async () => {
       if (!showFarm) return
-      const res = await ConnectionInstance.getSDK().MasterChef.getUserInfoAll(account)
-      // console.log(res)
-      const res2 = await ConnectionInstance.getSDK().MasterChef.getFirstTwoPairStakedLPInfo()
-      // console.log(res2)
+      const task = [
+        account ? ConnectionInstance.getSDK().MasterChef.getUserInfoAll(account) : Promise.resolve(new Map()),
+        ConnectionInstance.getSDK().MasterChef.getFirstTwoPairStakedLPInfo(),
+      ]
+      const [res, res2] = await Promise.all(task)
+      // const res = await ConnectionInstance.getSDK().MasterChef.getUserInfoAll(account)
+      // const res2 = await ConnectionInstance.getSDK().MasterChef.getFirstTwoPairStakedLPInfo()
       setAniPool({
         poolLP: res2[0]?.lpAmount,
         poolCoinXAmount: res2[0]?.lpAmount,
+        // @ts-ignore
         stakedLP: res.get(aniCoin?.address)?.amount,
         stakeAPR: res2[0]?.apr,
+        // @ts-ignore
         earnedANI: res.get(aniCoin?.address)?.pendingAni,
       })
       setAptAniPool({
         poolLP: res2[1]?.lpAmount,
         poolCoinXAmount: res2[1]?.coinX,
         poolCoinYAmount: res2[1]?.coinY,
+        // @ts-ignore
         stakedLP: res.get(
           '0x796900ebe1a1a54ff9e932f19c548f5c1af5c6e7d34965857ac2f7b1d1ab2cbf::LPCoinV1::LPCoin<0x1::aptos_coin::AptosCoin, 0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI>'
         )?.amount,
         stakeAPR: res2[1]?.apr,
+        // @ts-ignore
         earnedANI: res.get(
           '0x796900ebe1a1a54ff9e932f19c548f5c1af5c6e7d34965857ac2f7b1d1ab2cbf::LPCoinV1::LPCoin<0x1::aptos_coin::AptosCoin, 0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI>'
         )?.pendingAni,
