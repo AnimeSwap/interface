@@ -237,7 +237,8 @@ export default function Header() {
   useEffect(() => {
     if (chainId) {
       ConnectionInstance.getPair(nativeCoin.address, stableCoin.address)
-      ConnectionInstance.getPair(nativeCoin.address, aniCoin.address)
+      // TODO[Azard]
+      // ConnectionInstance.getPair(nativeCoin.address, aniCoin.address)
     }
     if (account) {
       ConnectionInstance.syncAccountResources(account, false)
