@@ -333,7 +333,8 @@ export default function Header() {
               <Discord width="28px" height="28px" fill="#EEE" style={{ paddingLeft: '4px' }}></Discord>
             </ANIbutton>
           )} */}
-          {[SupportedChainId.APTOS_DEVNET].includes(chainId) && isDevelopmentEnv() && (
+          {/* {TODO[Azard]: remove isDevelopmentEnv} */}
+          {[SupportedChainId.APTOS_DEVNET, SupportedChainId.APTOS_TESTNET].includes(chainId) && isDevelopmentEnv() && (
             <ANIbutton
               onClick={() => {
                 openAirdropClaimModal()

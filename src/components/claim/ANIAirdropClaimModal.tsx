@@ -42,7 +42,7 @@ export default function ANIAirdropClaimModal({ isOpen, onDismiss }: { isOpen: bo
   const [hash, setHash] = useState<string | undefined>('')
   const [query, setQuery] = useState<boolean>(true)
   const [ani, setAni] = useState<number>(0)
-  const [successAni, setSuccessAni] = useState<number>(0)
+  // const [successAni, setSuccessAni] = useState<number>(0)
 
   useEffect(() => {
     const queryClaim = async () => {
@@ -66,15 +66,15 @@ export default function ANIAirdropClaimModal({ isOpen, onDismiss }: { isOpen: bo
       const txid = await SignAndSubmitTransaction(payload)
       setAttempting(false)
       setHash(txid)
-      setSuccessAni(ani)
-      setTimeout(() => {
-        updateAni()
-        ConnectionInstance.syncAccountResources(account, false)
-        setTimeout(() => {
-          updateAni()
-          ConnectionInstance.syncAccountResources(account, false)
-        }, REFRESH_TIMEOUT * 2)
-      }, REFRESH_TIMEOUT)
+      // setSuccessAni(ani)
+      // setTimeout(() => {
+      //   updateAni()
+      //   ConnectionInstance.syncAccountResources(account, false)
+      //   setTimeout(() => {
+      //     updateAni()
+      //     ConnectionInstance.syncAccountResources(account, false)
+      //   }, REFRESH_TIMEOUT * 2)
+      // }, REFRESH_TIMEOUT)
     } catch (e) {
       setAttempting(false)
     }
@@ -165,7 +165,8 @@ export default function ANIAirdropClaimModal({ isOpen, onDismiss }: { isOpen: bo
               </ThemedText.DeprecatedLargeHeader>
             </AutoColumn>
             <ThemedText.DeprecatedLargeHeader color="black">
-              {successAni.toFixed(2)} ANI
+              {(ani / 1e8).toFixed(2)} ANI
+              {/* {successAni.toFixed(2)} ANI */}
             </ThemedText.DeprecatedLargeHeader>
             {hash && (
               <>
