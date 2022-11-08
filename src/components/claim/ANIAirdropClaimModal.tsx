@@ -116,7 +116,7 @@ export default function ANIAirdropClaimModal({ isOpen, onDismiss }: { isOpen: bo
             </ThemedText.DeprecatedBody>
             <ThemedText.DeprecatedBody fontWeight={400}>
               3. Unclaimed <span style={{ color: '#b15bff', fontWeight: '800' }}>ANI</span> will be burned at{' '}
-              <span style={{ color: 'red', fontWeight: '800' }}>December 1st 08:00 UTC</span>
+              <span style={{ color: 'red', fontWeight: '800' }}>December 9th 08:00 UTC</span>
             </ThemedText.DeprecatedBody>
             {account && (
               <ThemedText.DeprecatedBody fontWeight={400}>
