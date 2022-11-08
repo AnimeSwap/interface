@@ -122,7 +122,7 @@ export default function Pool() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCount((count) => count + 1)
-    }, 10000)
+    }, 12000)
     return () => clearInterval(interval)
   }, [])
 
