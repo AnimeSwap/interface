@@ -113,6 +113,14 @@ export default function Pool() {
   const { aniCoin, nativeCoin } = getChainInfoOrDefault(chainId)
   const [aniPool, setAniPool] = useState<FarmCardProps>({})
   const [aptAniPool, setAptAniPool] = useState<FarmCardProps>({})
+  const [count, setCount] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCount((count) => count + 1)
+    }, 10000)
+    return () => clearInterval(interval)
+  }, [])
 
   useEffect(() => {
     const fetchStake = async () => {
@@ -147,7 +155,7 @@ export default function Pool() {
       })
     }
     fetchStake()
-  }, [chainId, account, allLpBalances])
+  }, [chainId, account, allLpBalances, count])
 
   return (
     <>
