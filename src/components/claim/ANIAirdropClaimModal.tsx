@@ -110,7 +110,7 @@ export default function ANIAirdropClaimModal({ isOpen, onDismiss }: { isOpen: bo
             </ThemedText.DeprecatedBody>
             <ThemedText.DeprecatedBody fontWeight={400}>
               2.
-              <ExternalLink href="https://docs.animeswap.org/docs/tutorial/Tokenmic" target="_blank">
+              <ExternalLink href="https://docs.animeswap.org/docs/tutorial/Tokenomics" target="_blank">
                 <span style={{ color: '#b15bff', fontWeight: '800' }}> ANI</span> Tokenomic
               </ExternalLink>
             </ThemedText.DeprecatedBody>
