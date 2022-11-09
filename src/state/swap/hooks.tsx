@@ -184,7 +184,7 @@ export function queryParametersToSwapState(parsedQs: ParsedQs, chainId: Supporte
     outputCoin = ''
   }
   // TODO[Azard]: remove isDevelopmentEnv
-  if ([SupportedChainId.APTOS_DEVNET, SupportedChainId.APTOS_TESTNET].includes(chainId) && isDevelopmentEnv()) {
+  if ([SupportedChainId.APTOS_DEVNET, SupportedChainId.APTOS_TESTNET, SupportedChainId.APTOS].includes(chainId)) {
     // if ([SupportedChainId.APTOS_DEVNET, SupportedChainId.APTOS_TESTNET].includes(chainId)) {
     outputCoin = getChainInfoOrDefault(chainId).defaultBuyCoin?.address ?? ''
   }

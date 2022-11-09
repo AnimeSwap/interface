@@ -205,7 +205,7 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
           </FixedHeightRow>
           <FixedHeightRow>
             <ThemedText.DeprecatedMain fontSize={16}>
-              Available {isFarm ? 'LP' : coinX.symbol}
+              Available {isFarm ? 'LP' : coinX?.symbol}
             </ThemedText.DeprecatedMain>
             <Column style={{ alignItems: 'flex-end' }}>
               <Text fontSize={16} fontWeight={500}>
@@ -219,7 +219,7 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
             </Column>
           </FixedHeightRow>
           <FixedHeightRow>
-            <ThemedText.DeprecatedMain fontSize={16}>Staked {isFarm ? 'LP' : coinX.symbol}</ThemedText.DeprecatedMain>
+            <ThemedText.DeprecatedMain fontSize={16}>Staked {isFarm ? 'LP' : coinX?.symbol}</ThemedText.DeprecatedMain>
             <Column style={{ alignItems: 'flex-end' }}>
               <Text fontSize={16} fontWeight={500}>
                 {amountPretty(stakedLP, 8, 6)}

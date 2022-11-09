@@ -28,6 +28,9 @@ const CHAIN_INFO: ChainInfoMap = {
     label: 'Aptos',
     logoUrl: aptosLogo,
     nativeCoin: APTOS_CoinInfo['0x1::aptos_coin::AptosCoin'],
+    aniCoin: APTOS_CoinInfo['0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI'],
+    defaultBuyCoin:
+      APTOS_CoinInfo['0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI'],
     stableCoin: APTOS_CoinInfo['0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::USDC'],
   },
   [SupportedChainId.APTOS_TESTNET]: {

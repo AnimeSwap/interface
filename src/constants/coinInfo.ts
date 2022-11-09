@@ -9,6 +9,14 @@ export const APTOS_CoinInfo: { [address: string]: Coin } = {
     logoURL: ['https://coinlist.animeswap.org/icons/APT.svg'],
     projectURL: 'https://aptoslabs.com/',
   },
+  '0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI': {
+    address: '0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI',
+    decimals: 8,
+    symbol: 'ANI',
+    name: 'AnimeSwap Coin',
+    logoURL: ['https://coinlist.animeswap.org/icons/ANI.png'],
+    projectURL: 'http://animeswap.org/',
+  },
   '0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::USDC': {
     address: '0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::USDC',
     decimals: 6,

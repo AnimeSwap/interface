@@ -237,8 +237,7 @@ export default function Header() {
   useEffect(() => {
     if (chainId) {
       ConnectionInstance.getPair(nativeCoin.address, stableCoin.address)
-      // TODO[Azard]
-      // ConnectionInstance.getPair(nativeCoin.address, aniCoin.address)
+      ConnectionInstance.getPair(nativeCoin.address, aniCoin.address)
     }
     if (account) {
       ConnectionInstance.syncAccountResources(account, false)
@@ -336,7 +335,9 @@ export default function Header() {
             </ANIbutton>
           )} */}
           {/* {TODO[Azard]: remove isDevelopmentEnv} */}
-          {[SupportedChainId.APTOS_DEVNET, SupportedChainId.APTOS_TESTNET].includes(chainId) && isDevelopmentEnv() && (
+          {[SupportedChainId.APTOS_DEVNET, SupportedChainId.APTOS_TESTNET, SupportedChainId.APTOS].includes(
+            chainId
+          ) && (
             <ANIbutton
               onClick={() => {
                 openAirdropClaimModal()
