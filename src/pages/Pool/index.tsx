@@ -170,7 +170,7 @@ export default function Pool() {
           coinX: nativeCoin.address,
           coinY: aniCoin.address,
         },
-        Utils.d(2e6)
+        Utils.d(1e6)
       )
       setAptAniLPAPR(Utils.d(ret?.apy))
     }

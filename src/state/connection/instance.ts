@@ -169,7 +169,7 @@ class ConnectionInstance {
       const timestampNow = ledgerInfo.ledger_timestamp
       const currentLedgerVersion = ledgerInfo.ledger_version
       const oldestLedgerVersion = ledgerInfo.oldest_ledger_version
-      const queryDeltaVersion = Utils.d(2e6) // APR window
+      const queryDeltaVersion = Utils.d(1e6) // APR window
       const queryLedgerVersion = Utils.d(currentLedgerVersion).sub(queryDeltaVersion).gte(Utils.d(oldestLedgerVersion))
         ? Utils.d(currentLedgerVersion).sub(queryDeltaVersion)
         : Utils.d(oldestLedgerVersion)
@@ -250,6 +250,7 @@ class ConnectionInstance {
         }
       }
       // const windowSeconds = deltaTimestamp.div(1e6).floor()
+      // console.log(deltaTimestamp.div(1e6).floor().toNumber())
       return pairs
     } catch (error) {
       return {}
