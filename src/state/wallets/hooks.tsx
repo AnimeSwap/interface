@@ -1,10 +1,11 @@
 import { Utils } from '@animeswap.org/v1-sdk'
+import { SupportedChainId } from 'constants/chains'
 import { Coin, CoinAmount, useCoin } from 'hooks/common/Coin'
 import { useCallback } from 'react'
 import store from 'state'
 import { useAppDispatch, useAppSelector } from 'state/hooks'
 
-import { addConnectedWallet, setAccount, setSelectedWallet } from './reducer'
+import { addConnectedWallet, setAccount, setSelectedWallet, setWalletChain } from './reducer'
 import { Wallet, WalletType } from './types'
 
 export function useCoinBalance(address: string): string | undefined {
@@ -35,6 +36,10 @@ export function useAccount(): string | undefined {
 
 export function useWallet(): WalletType {
   return useAppSelector((state) => state.wallets.selectedWallet)
+}
+
+export function useWalletNetwork(): SupportedChainId {
+  return useAppSelector((state) => state.wallets.walletChain)
 }
 
 export function useConnectedWallets(): [Wallet[], (wallet: Wallet) => void] {
@@ -87,9 +92,29 @@ export async function ConnectPetra() {
     store.dispatch(setSelectedWallet({ wallet: WalletType.PETRA }))
     store.dispatch(setAccount({ account: res.address }))
     console.log('Petra wallet connect success')
+    const network = await window.aptos.network()
+    store.dispatch(setWalletChain({ chainId: PetraNetworkToChainId(network) }))
+    window.aptos.onNetworkChange((network) => {
+      if (store.getState().wallets.selectedWallet === WalletType.PETRA) {
+        store.dispatch(setWalletChain({ chainId: PetraNetworkToChainId(network.networkName) }))
+      }
+    })
     return true
   } catch (error) {
     console.error(error)
+  }
+}
+
+function PetraNetworkToChainId(network: string) {
+  switch (network) {
+    case 'Mainnet':
+      return SupportedChainId.APTOS
+    case 'Testnet':
+      return SupportedChainId.APTOS_TESTNET
+    case 'Devnet':
+      return SupportedChainId.APTOS_DEVNET
+    default:
+      return SupportedChainId.APTOS
   }
 }
 
@@ -113,9 +138,30 @@ export async function ConnectMartian() {
     store.dispatch(setSelectedWallet({ wallet: WalletType.MARTIAN }))
     store.dispatch(setAccount({ account: res.address }))
     console.log('Martian wallet connect success')
+    const network = await window.martian.network()
+    store.dispatch(setWalletChain({ chainId: MartianNetworkToChainId(network) }))
+    window.martian.onNetworkChange((network) => {
+      if (store.getState().wallets.selectedWallet === WalletType.MARTIAN) {
+        store.dispatch(setWalletChain({ chainId: MartianNetworkToChainId(network) }))
+      }
+    })
+
     return true
   } catch (error) {
     console.error(error)
+  }
+}
+
+function MartianNetworkToChainId(network: string) {
+  switch (network) {
+    case 'Mainnet':
+      return SupportedChainId.APTOS
+    case 'Testnet':
+      return SupportedChainId.APTOS_TESTNET
+    case 'Devnet':
+      return SupportedChainId.APTOS_DEVNET
+    default:
+      return SupportedChainId.APTOS
   }
 }
 
@@ -168,6 +214,13 @@ export async function ConnectPontem() {
     store.dispatch(setSelectedWallet({ wallet: WalletType.PONTEM }))
     store.dispatch(setAccount({ account: res.address }))
     console.log('Pontem wallet connect success')
+    const network = await window.pontem.network()
+    store.dispatch(setWalletChain({ chainId: Number.parseInt(network.chainId) }))
+    window.pontem.onChangeNetwork((network) => {
+      if (store.getState().wallets.selectedWallet === WalletType.PONTEM) {
+        store.dispatch(setWalletChain({ chainId: Number.parseInt(network.chainId) }))
+      }
+    })
     return true
   } catch (error) {
     console.error(error)

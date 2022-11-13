@@ -1,11 +1,12 @@
 // eslint-disable-next-line no-restricted-imports
 import { Trans } from '@lingui/macro'
 import { darken } from 'polished'
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { AlertTriangle } from 'react-feather'
 import { useAppSelector } from 'state/hooks'
 import { useChainId } from 'state/user/hooks'
-import { useAccount, useWallet } from 'state/wallets/hooks'
+import { useAccount, useWallet, useWalletNetwork } from 'state/wallets/hooks'
+import { WalletType } from 'state/wallets/types'
 import styled, { css } from 'styled-components/macro'
 
 import { useToggleWalletModal } from '../../state/application/hooks'
@@ -114,8 +115,10 @@ function newTransactionsFirst(a: TransactionDetails, b: TransactionDetails) {
 function StatusInner() {
   const account = useAccount()
   const chainId = useChainId()
-
-  const error = useAppSelector((state) => state.connection.error[chainId])
+  const wallet = useWallet()
+  const walletNetwork = useWalletNetwork()
+  // const error = useAppSelector((state) => state.connection.error[chainId])
+  const [error, setError] = useState<boolean>(false)
 
   const allTransactions = useAllTransactions()
 
@@ -123,6 +126,14 @@ function StatusInner() {
     const txs = Object.values(allTransactions)
     return txs.filter(isTransactionRecent).sort(newTransactionsFirst)
   }, [allTransactions])
+
+  useEffect(() => {
+    if ([WalletType.PETRA, WalletType.MARTIAN, WalletType.PONTEM].includes(wallet)) {
+      setError(walletNetwork !== chainId)
+    } else {
+      setError(false)
+    }
+  }, [chainId, account, wallet, walletNetwork])
 
   const pending = sortedRecentTransactions.filter((tx) => !tx.receipt).map((tx) => tx.hash)
 

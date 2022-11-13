@@ -230,6 +230,7 @@ export default function Header() {
   const { nativeCoin, stableCoin, aniCoin } = getChainInfoOrDefault(chainId)
   const nativeCoinAmount = useCoinAmount(nativeCoin.address)
 
+  // wallet
   useEffect(() => {
     AutoConnectWallets()
   }, [])
