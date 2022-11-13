@@ -128,7 +128,7 @@ function StatusInner() {
   }, [allTransactions])
 
   useEffect(() => {
-    if ([WalletType.PETRA, WalletType.MARTIAN, WalletType.PONTEM].includes(wallet)) {
+    if ([WalletType.PETRA, WalletType.MARTIAN, WalletType.PONTEM].includes(wallet) && account) {
       setError(walletNetwork !== chainId)
     } else {
       setError(false)
