@@ -202,11 +202,11 @@ export const APTOS_TESTNET_CoinInfo: { [address: string]: Coin } = {
     name: 'Bitcoin',
     logoURL: ['https://coinlist.animeswap.org/icons/BTC.webp'],
   },
-  '0x4a20134c25f301ba6fc6044bb9a678a4542ddd8d187670cf27d0d2254d32d0f5::koiz_coin::KoizCoin': {
-    address: '0x4a20134c25f301ba6fc6044bb9a678a4542ddd8d187670cf27d0d2254d32d0f5::koiz_coin::KoizCoin',
+  '0xc7aef22455c9e3744d98d6dc024d0ed898dc6d307def82abd563653ecbb1e022::koiz_coin::KoizCoin': {
+    address: '0xc7aef22455c9e3744d98d6dc024d0ed898dc6d307def82abd563653ecbb1e022::koiz_coin::KoizCoin',
     decimals: 6,
     symbol: 'KOIZ',
-    name: 'Koizumi Coin',
+    name: 'Koiz Coin',
     logoURL: ['https://coinlist.animeswap.org/icons/KOIZ.png'],
   },
   '0x2a2ad97dfdbe4e34cdc9321c63592dda455f18bc25c9bb1f28260312159eae27::staked_aptos_coin::StakedAptosCoin': {
