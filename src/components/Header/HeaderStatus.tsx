@@ -1,5 +1,6 @@
 // eslint-disable-next-line no-restricted-imports
 import { Trans } from '@lingui/macro'
+import { SupportedChainId } from 'constants/chains'
 import { darken } from 'polished'
 import { useEffect, useMemo, useState } from 'react'
 import { AlertTriangle } from 'react-feather'
@@ -118,7 +119,7 @@ function StatusInner() {
   const wallet = useWallet()
   const walletNetwork = useWalletNetwork()
   // const error = useAppSelector((state) => state.connection.error[chainId])
-  const [error, setError] = useState<boolean>(false)
+  const [error, setError] = useState<string>('')
 
   const allTransactions = useAllTransactions()
 
@@ -129,9 +130,21 @@ function StatusInner() {
 
   useEffect(() => {
     if ([WalletType.PETRA, WalletType.MARTIAN, WalletType.PONTEM].includes(wallet) && account) {
-      setError(walletNetwork !== chainId)
+      if (walletNetwork !== chainId) {
+        if (chainId === SupportedChainId.APTOS) {
+          setError('Mainnet')
+        } else if (chainId === SupportedChainId.APTOS_TESTNET) {
+          setError('Testnet')
+        } else if (chainId === SupportedChainId.APTOS_DEVNET) {
+          setError('Devnet')
+        } else {
+          setError('Mainnet')
+        }
+      } else {
+        setError('')
+      }
     } else {
-      setError(false)
+      setError('')
     }
   }, [chainId, account, wallet, walletNetwork])
 
@@ -146,9 +159,7 @@ function StatusInner() {
     return (
       <StatusError onClick={toggleWalletModal}>
         <NetworkIcon />
-        <Text>
-          <Trans>Error</Trans>
-        </Text>
+        <Text>{error}</Text>
       </StatusError>
     )
   } else if (account) {
