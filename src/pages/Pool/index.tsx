@@ -130,11 +130,13 @@ export default function Pool() {
   useEffect(() => {
     const fetchStake = async () => {
       if (!showFarm) return
-      const task = [
-        account ? ConnectionInstance.getSDK().MasterChef.getUserInfoAll(account) : Promise.resolve(new Map()),
-        ConnectionInstance.getSDK().MasterChef.getFirstTwoPairStakedLPInfo(),
-      ]
-      const [res, res2] = await Promise.all(task)
+      let res = new Map()
+      try {
+        res = account ? await ConnectionInstance.getSDK().MasterChef.getUserInfoAll(account) : new Map()
+      } catch (e) {
+        console.error(e)
+      }
+      const res2 = await ConnectionInstance.getSDK().MasterChef.getFirstTwoPairStakedLPInfo()
       setAniPool({
         poolLP: res2[0]?.lpAmount,
         poolCoinXAmount: res2[0]?.lpAmount,
