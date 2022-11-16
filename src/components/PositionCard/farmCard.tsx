@@ -111,7 +111,11 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
       setAvailableUSD(Utils.d(aniBalance.amount).div(Utils.d(poolLP)).mul(usdNumber).toNumber())
     }
     setStakedUSD(Utils.d(stakedLP).div(Utils.d(poolLP)).mul(usdNumber).toNumber())
-    setEarnedUSD(Utils.d(earnedANI).div(Utils.d(poolLP)).mul(usdNumber).toNumber())
+    if (isFarm) {
+      setEarnedUSD(Utils.d(earnedANI).div(Utils.d(poolCoinYAmount)).div(2).mul(usdNumber).toNumber())
+    } else {
+      setEarnedUSD(Utils.d(earnedANI).div(Utils.d(poolLP)).mul(usdNumber).toNumber())
+    }
   }, [coinX, coinY, poolCoinXAmount, poolCoinYAmount, poolLP, stakedLP, earnedANI, nativePrice])
 
   // modal and loading
