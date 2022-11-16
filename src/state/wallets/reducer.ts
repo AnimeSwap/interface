@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { SupportedChainId } from 'constants/chains'
 import { shallowEqual } from 'react-redux'
 
 import { Wallet, WalletType } from './types'
@@ -8,6 +9,7 @@ export interface WalletState {
   coinBalances: { [address: string]: string }
   lpBalances: { [address: string]: string } // `${coin0.address}, ${coin1.address}`
   selectedWallet: WalletType
+  walletChain: SupportedChainId
   connectedWallets: Wallet[]
 }
 
@@ -16,6 +18,7 @@ export const initialState: WalletState = {
   coinBalances: {},
   lpBalances: {},
   selectedWallet: WalletType.MARTIAN,
+  walletChain: SupportedChainId.APTOS,
   connectedWallets: [],
 }
 
@@ -41,6 +44,9 @@ const walletsSlice = createSlice({
     setSelectedWallet(state, { payload }: { payload: { wallet: WalletType } }) {
       state.selectedWallet = payload.wallet
     },
+    setWalletChain(state, { payload }: { payload: { chainId: SupportedChainId } }) {
+      state.walletChain = payload.chainId
+    },
     addConnectedWallet(state, { payload }) {
       const existsAlready = state.connectedWallets.find((wallet) => shallowEqual(payload, wallet))
       if (!existsAlready) {
@@ -60,6 +66,7 @@ export const {
   setLpBalances,
   resetLpBalances,
   setSelectedWallet,
+  setWalletChain,
   addConnectedWallet,
   removeConnectedWallet,
 } = walletsSlice.actions

@@ -227,16 +227,21 @@ const ANIbutton = styled(ButtonPrimary)`
 export default function Header() {
   const account = useAccount()
   const chainId = useChainId()
-  const { nativeCoin } = getChainInfoOrDefault(chainId)
+  const { nativeCoin, stableCoin, aniCoin } = getChainInfoOrDefault(chainId)
   const nativeCoinAmount = useCoinAmount(nativeCoin.address)
 
+  // wallet
   useEffect(() => {
     AutoConnectWallets()
   }, [])
 
   useEffect(() => {
+    if (chainId) {
+      ConnectionInstance.getPair(nativeCoin.address, stableCoin.address)
+      ConnectionInstance.getPair(nativeCoin.address, aniCoin.address)
+    }
     if (account) {
-      ConnectionInstance.syncAccountResources(account)
+      ConnectionInstance.syncAccountResources(account, false)
     }
   }, [account, chainId])
 
@@ -253,7 +258,8 @@ export default function Header() {
     pathname.startsWith('/find')
 
   const openClaimModal = useToggleModal(ApplicationModal.ADDRESS_CLAIM)
-  const openBindModal = useToggleModal(ApplicationModal.BIND_DISCORD)
+  // const openBindModal = useToggleModal(ApplicationModal.BIND_DISCORD)
+  const openAirdropClaimModal = useToggleModal(ApplicationModal.ANI_AIRDROP_CLAIM)
 
   return (
     <HeaderFrame showBackground={scrollY > 45}>
@@ -316,7 +322,7 @@ export default function Header() {
               <sup>↗</sup>
             </ANIbutton>
           )} */}
-          {[SupportedChainId.APTOS].includes(chainId) && (
+          {/* {[SupportedChainId.APTOS].includes(chainId) && (
             <ANIbutton
               onClick={() => {
                 openBindModal()
@@ -328,7 +334,21 @@ export default function Header() {
               Bind
               <Discord width="28px" height="28px" fill="#EEE" style={{ paddingLeft: '4px' }}></Discord>
             </ANIbutton>
-          )}
+          )} */}
+          {/* {[SupportedChainId.APTOS_DEVNET, SupportedChainId.APTOS_TESTNET, SupportedChainId.APTOS].includes(
+            chainId
+          ) && (
+            <ANIbutton
+              onClick={() => {
+                openAirdropClaimModal()
+              }}
+              padding="8px 12px"
+              width="100%"
+              $borderRadius="12px"
+            >
+              Claim
+            </ANIbutton>
+          )} */}
         </HeaderElement>
         <HeaderElement>
           <NetworkSelector />

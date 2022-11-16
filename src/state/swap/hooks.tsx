@@ -1,6 +1,7 @@
 import { Decimal, Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
 import { getChainInfoOrDefault } from 'constants/chainInfo'
+import { SupportedChainId } from 'constants/chains'
 import { BestTrade, TradeType, useBestTrade } from 'hooks/useBestTrade'
 import { TradeState } from 'hooks/useBestTrade'
 import { ParsedQs } from 'qs'
@@ -8,6 +9,7 @@ import { ReactNode, useCallback, useEffect, useMemo } from 'react'
 import { useAppDispatch, useAppSelector } from 'state/hooks'
 import { useChainId, useUserSlippageTolerance, useUserTransactionTTL } from 'state/user/hooks'
 import { useAccount, useCoinBalance } from 'state/wallets/hooks'
+import { isDevelopmentEnv } from 'utils/env'
 import { tryParseCoinAmount } from 'utils/tryParseCoinAmount'
 
 import { Coin, useCoin } from '../../hooks/common/Coin'
@@ -169,17 +171,20 @@ function parseIndependentFieldURLParameter(urlParam: any): Field {
   return typeof urlParam === 'string' && urlParam.toLowerCase() === 'output' ? Field.OUTPUT : Field.INPUT
 }
 
-export function queryParametersToSwapState(parsedQs: ParsedQs): SwapState {
+export function queryParametersToSwapState(parsedQs: ParsedQs, chainId: SupportedChainId): SwapState {
   let inputCoin = parseCoinFromURLParameter(parsedQs.inputCoin)
   let outputCoin = parseCoinFromURLParameter(parsedQs.outputCoin)
   const typedValue = parseTokenAmountURLParameter(parsedQs.exactAmount)
   const independentField = parseIndependentFieldURLParameter(parsedQs.exactField)
   if (inputCoin === '' && outputCoin === '' && typedValue === '' && independentField === Field.INPUT) {
     // Defaults to having the native coin selected
-    inputCoin = getChainInfoOrDefault(undefined).nativeCoin.address
+    inputCoin = getChainInfoOrDefault(chainId).nativeCoin.address
   } else if (inputCoin === outputCoin) {
     // clear output if identical
     outputCoin = ''
+  }
+  if ([SupportedChainId.APTOS_DEVNET, SupportedChainId.APTOS_TESTNET, SupportedChainId.APTOS].includes(chainId)) {
+    outputCoin = getChainInfoOrDefault(chainId).defaultBuyCoin?.address ?? ''
   }
   return {
     [Field.INPUT]: {
@@ -200,8 +205,8 @@ export function useDefaultsFromURLSearch(): SwapState {
   const parsedQs = useParsedQueryString()
 
   const parsedSwapState = useMemo(() => {
-    return queryParametersToSwapState(parsedQs)
-  }, [parsedQs])
+    return queryParametersToSwapState(parsedQs, chainId)
+  }, [parsedQs, chainId])
 
   useEffect(() => {
     if (!chainId) return

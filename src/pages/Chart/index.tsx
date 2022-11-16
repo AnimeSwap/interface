@@ -108,7 +108,7 @@ export default function Explore() {
         totalTvlUSD = totalTvlUSD.add(tvlUSD)
         tempPoolData.push({
           pair,
-          APY: Number.isNaN(pair.APY) ? 0 : pair.APY,
+          APR: Number.isNaN(pair.APR) ? 0 : pair.APR,
           tvlAPT,
           tvlUSD: tvlUSD.div(Utils.pow10(stableCoin.decimals)).toNumber(),
           volumeUSD: 0,

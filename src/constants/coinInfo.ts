@@ -9,6 +9,14 @@ export const APTOS_CoinInfo: { [address: string]: Coin } = {
     logoURL: ['https://coinlist.animeswap.org/icons/APT.svg'],
     projectURL: 'https://aptoslabs.com/',
   },
+  '0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI': {
+    address: '0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI',
+    decimals: 8,
+    symbol: 'ANI',
+    name: 'AnimeSwap Coin',
+    logoURL: ['https://coinlist.animeswap.org/icons/ANI.png'],
+    projectURL: 'http://animeswap.org/',
+  },
   '0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::USDC': {
     address: '0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::USDC',
     decimals: 6,
@@ -30,35 +38,6 @@ export const APTOS_CoinInfo: { [address: string]: Coin } = {
     name: 'LayerZero Wrapped Ethereum',
     logoURL: ['https://coinlist.animeswap.org/icons/WETH.png'],
   },
-  '0xae478ff7d83ed072dbc5e264250e67ef58f57c99d89b447efd8a0a2e8b2be76e::coin::T': {
-    address: '0xae478ff7d83ed072dbc5e264250e67ef58f57c99d89b447efd8a0a2e8b2be76e::coin::T',
-    decimals: 8,
-    symbol: 'whWBTC',
-    name: 'Wormhole Wrapped BTC',
-    logoURL: ['https://coinlist.animeswap.org/icons/BTC.webp'],
-  },
-  '0xcc8a89c8dce9693d354449f1f73e60e14e347417854f029db5bc8e7454008abb::coin::T': {
-    address: '0xcc8a89c8dce9693d354449f1f73e60e14e347417854f029db5bc8e7454008abb::coin::T',
-    decimals: 8,
-    symbol: 'whWETH',
-    name: 'Wormhole Wrapped Ether',
-    logoURL: ['https://coinlist.animeswap.org/icons/WETH.png'],
-  },
-  '0x5c738a5dfa343bee927c39ebe85b0ceb95fdb5ee5b323c95559614f5a77c47cf::Aptoge::Aptoge': {
-    address: '0x5c738a5dfa343bee927c39ebe85b0ceb95fdb5ee5b323c95559614f5a77c47cf::Aptoge::Aptoge',
-    decimals: 6,
-    symbol: 'APTOGE',
-    name: 'Aptoge',
-    logoURL: ['https://coinlist.animeswap.org/icons/APTOGE.svg'],
-  },
-  '0x881ac202b1f1e6ad4efcff7a1d0579411533f2502417a19211cfc49751ddb5f4::coin::MOJO': {
-    address: '0x881ac202b1f1e6ad4efcff7a1d0579411533f2502417a19211cfc49751ddb5f4::coin::MOJO',
-    decimals: 8,
-    symbol: 'MOJO',
-    name: 'Mojito',
-    logoURL: ['https://coinlist.animeswap.org/icons/MOJO.svg'],
-    projectURL: 'https://www.mojito.markets/',
-  },
   '0x84d7aeef42d38a5ffc3ccef853e1b82e4958659d16a7de736a29c55fbbeb0114::staked_aptos_coin::StakedAptosCoin': {
     address: '0x84d7aeef42d38a5ffc3ccef853e1b82e4958659d16a7de736a29c55fbbeb0114::staked_aptos_coin::StakedAptosCoin',
     decimals: 8,
@@ -74,6 +53,29 @@ export const APTOS_CoinInfo: { [address: string]: Coin } = {
     name: 'Ditto Staked Aptos',
     logoURL: ['https://coinlist.animeswap.org/icons/DittoStakedAptos.svg'],
     projectURL: 'https://www.dittofinance.io/',
+  },
+  '0xe9c192ff55cffab3963c695cff6dbf9dad6aff2bb5ac19a6415cad26a81860d9::mee_coin::MeeCoin': {
+    address: '0xe9c192ff55cffab3963c695cff6dbf9dad6aff2bb5ac19a6415cad26a81860d9::mee_coin::MeeCoin',
+    decimals: 6,
+    symbol: 'MEE',
+    name: 'Meeiro',
+    logoURL: ['https://coinlist.animeswap.org/icons/MEE.svg'],
+    projectURL: 'https://meeiro.xyz',
+  },
+  '0x5c738a5dfa343bee927c39ebe85b0ceb95fdb5ee5b323c95559614f5a77c47cf::Aptoge::Aptoge': {
+    address: '0x5c738a5dfa343bee927c39ebe85b0ceb95fdb5ee5b323c95559614f5a77c47cf::Aptoge::Aptoge',
+    decimals: 6,
+    symbol: 'APTOGE',
+    name: 'Aptoge',
+    logoURL: ['https://coinlist.animeswap.org/icons/APTOGE.svg'],
+  },
+  '0x881ac202b1f1e6ad4efcff7a1d0579411533f2502417a19211cfc49751ddb5f4::coin::MOJO': {
+    address: '0x881ac202b1f1e6ad4efcff7a1d0579411533f2502417a19211cfc49751ddb5f4::coin::MOJO',
+    decimals: 8,
+    symbol: 'MOJO',
+    name: 'Mojito',
+    logoURL: ['https://coinlist.animeswap.org/icons/MOJO.svg'],
+    projectURL: 'https://www.mojito.markets/',
   },
   '0x1000000fa32d122c18a6a31c009ce5e71674f22d06a581bb0a15575e6addadcc::usda::USDA': {
     address: '0x1000000fa32d122c18a6a31c009ce5e71674f22d06a581bb0a15575e6addadcc::usda::USDA',
@@ -139,6 +141,20 @@ export const APTOS_CoinInfo: { [address: string]: Coin } = {
     name: 'Celer Wrapped BTC',
     logoURL: ['https://coinlist.animeswap.org/icons/BTC.webp'],
   },
+  '0xae478ff7d83ed072dbc5e264250e67ef58f57c99d89b447efd8a0a2e8b2be76e::coin::T': {
+    address: '0xae478ff7d83ed072dbc5e264250e67ef58f57c99d89b447efd8a0a2e8b2be76e::coin::T',
+    decimals: 8,
+    symbol: 'whWBTC',
+    name: 'Wormhole Wrapped BTC',
+    logoURL: ['https://coinlist.animeswap.org/icons/BTC.webp'],
+  },
+  '0xcc8a89c8dce9693d354449f1f73e60e14e347417854f029db5bc8e7454008abb::coin::T': {
+    address: '0xcc8a89c8dce9693d354449f1f73e60e14e347417854f029db5bc8e7454008abb::coin::T',
+    decimals: 8,
+    symbol: 'whWETH',
+    name: 'Wormhole Wrapped Ether',
+    logoURL: ['https://coinlist.animeswap.org/icons/WETH.png'],
+  },
   '0xa2eda21a58856fda86451436513b867c97eecb4ba099da5775520e0f7492e852::coin::T': {
     address: '0xa2eda21a58856fda86451436513b867c97eecb4ba099da5775520e0f7492e852::coin::T',
     decimals: 6,
@@ -164,6 +180,14 @@ export const APTOS_TESTNET_CoinInfo: { [address: string]: Coin } = {
     logoURL: ['https://coinlist.animeswap.org/icons/APT.svg'],
     projectURL: 'https://aptoslabs.com/',
   },
+  '0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI': {
+    address: '0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI',
+    decimals: 8,
+    symbol: 'ANI',
+    name: 'AnimeSwap Coin',
+    logoURL: ['https://coinlist.animeswap.org/icons/ANI.png'],
+    projectURL: 'http://animeswap.org/',
+  },
   '0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::TestCoinsV1::USDT': {
     address: '0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::TestCoinsV1::USDT',
     decimals: 8,
@@ -178,11 +202,11 @@ export const APTOS_TESTNET_CoinInfo: { [address: string]: Coin } = {
     name: 'Bitcoin',
     logoURL: ['https://coinlist.animeswap.org/icons/BTC.webp'],
   },
-  '0x3ebeee719166f9982331dd216280703b68da432b14ab19cfbe519e0b50cf7c5f::koiz_coin::KoizCoin': {
-    address: '0x3ebeee719166f9982331dd216280703b68da432b14ab19cfbe519e0b50cf7c5f::koiz_coin::KoizCoin',
+  '0xc7aef22455c9e3744d98d6dc024d0ed898dc6d307def82abd563653ecbb1e022::koiz_coin::KoizCoin': {
+    address: '0xc7aef22455c9e3744d98d6dc024d0ed898dc6d307def82abd563653ecbb1e022::koiz_coin::KoizCoin',
     decimals: 6,
     symbol: 'KOIZ',
-    name: 'Koizumi Coin',
+    name: 'Koiz Coin',
     logoURL: ['https://coinlist.animeswap.org/icons/KOIZ.png'],
   },
   '0x2a2ad97dfdbe4e34cdc9321c63592dda455f18bc25c9bb1f28260312159eae27::staked_aptos_coin::StakedAptosCoin': {
@@ -201,19 +225,12 @@ export const APTOS_TESTNET_CoinInfo: { [address: string]: Coin } = {
     logoURL: ['https://coinlist.animeswap.org/icons/MOVE.svg'],
     projectURL: 'https://bluemove.net/',
   },
-  '0x4dd8a22e95f3ec2448ee1cc6634298024095ce8baa3031650b3852af6e2d41d0::celer_coin_manager::UsdcCoin': {
-    address: '0x4dd8a22e95f3ec2448ee1cc6634298024095ce8baa3031650b3852af6e2d41d0::celer_coin_manager::UsdcCoin',
+  '0x5c341dec2396029a7713cb59decee89635a6f851a5fe528fc39761ec2ddbf99a::celer_coin_manager::UsdcCoin': {
+    address: '0x5c341dec2396029a7713cb59decee89635a6f851a5fe528fc39761ec2ddbf99a::celer_coin_manager::UsdcCoin',
     decimals: 8,
     symbol: 'ceUSDC',
     name: 'Celer USD Coin',
     logoURL: ['https://coinlist.animeswap.org/icons/USDC.webp'],
-  },
-  '0x4dd8a22e95f3ec2448ee1cc6634298024095ce8baa3031650b3852af6e2d41d0::celer_coin_manager::WethCoin': {
-    address: '0x4dd8a22e95f3ec2448ee1cc6634298024095ce8baa3031650b3852af6e2d41d0::celer_coin_manager::WethCoin',
-    decimals: 8,
-    symbol: 'ceWETH',
-    name: 'Celer Wrapped Ethereum',
-    logoURL: ['https://coinlist.animeswap.org/icons/WETH.png'],
   },
 }
 
@@ -225,6 +242,14 @@ export const APTOS_DEVNET_CoinInfo: { [address: string]: Coin } = {
     name: 'Aptos',
     logoURL: ['https://coinlist.animeswap.org/icons/APT.svg'],
     projectURL: 'https://aptoslabs.com/',
+  },
+  '0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI': {
+    address: '0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI',
+    decimals: 8,
+    symbol: 'ANI',
+    name: 'AnimeSwap Coin',
+    logoURL: ['https://coinlist.animeswap.org/icons/ANI.png'],
+    projectURL: 'http://animeswap.org/',
   },
   '0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::TestCoinsV1::USDT': {
     address: '0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::TestCoinsV1::USDT',

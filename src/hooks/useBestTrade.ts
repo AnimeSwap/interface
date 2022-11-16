@@ -43,23 +43,43 @@ export function useBestTrade(
 } {
   const [bestTrade, setBestTrade] = useState<BestTrade>(null)
   const [tradeState, setTradeState] = useState<TradeState>(TradeState.LOADING)
+  const [count, setCount] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCount((count) => count + 1)
+    }, 8000)
+    return () => clearInterval(interval)
+  }, [])
 
   useEffect(() => {
     const fetchRoute = async () => {
       if (!amount || !inputCoin || !outputCoin || amount.eq(0)) return
       setTradeState(TradeState.LOADING)
+      const fromCoin = inputCoin.address
+      const toCoin = outputCoin.address
       const tradeList =
         tradeType === TradeType.EXACT_INPUT
           ? await ConnectionInstance.getSDK().route.getRouteSwapExactCoinForCoin({
-              fromCoin: inputCoin.address,
-              toCoin: outputCoin.address,
+              fromCoin,
+              toCoin,
               amount,
             })
           : await ConnectionInstance.getSDK().route.getRouteSwapCoinForExactCoin({
-              fromCoin: inputCoin.address,
-              toCoin: outputCoin.address,
+              fromCoin,
+              toCoin,
               amount,
             })
+      // const allRoutes = await ConnectionInstance.getSDK().routeV2.getAllRoutes(inputCoin.address, outputCoin.address)
+      // const candidateRouteList = ConnectionInstance.getSDK().routeV2.getCandidateRoutes(allRoutes)
+      // const allCandidateRouteResources = await ConnectionInstance.getSDK().routeV2.getAllCandidateRouteResources(candidateRouteList)
+      // const bestTrades = ConnectionInstance.getSDK().routeV2.bestTradeExactOut(
+      //   candidateRouteList,
+      //   allCandidateRouteResources,
+      //   inputCoin.address,
+      //   outputCoin.address,
+      //   amount,
+      // )
       if (tradeList.length === 0) {
         setTradeState(TradeState.INVALID)
         return
@@ -101,7 +121,7 @@ export function useBestTrade(
     }
     // execution
     fetchRoute()
-  }, [tradeType, amount, inputCoin, outputCoin, allowedSlippage])
+  }, [tradeType, amount, inputCoin, outputCoin, allowedSlippage, count])
 
   return useMemo(() => {
     return {

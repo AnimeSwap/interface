@@ -50,7 +50,7 @@ class ConnectionInstance {
     ConnectionInstance.sdk = new SDK(getRPCURL(connection, chainId), networkType)
   }
 
-  public static async syncAccountResources(account: string) {
+  public static async syncAccountResources(account: string, poolPair = false) {
     try {
       if (!account) return undefined
       const aptosClient = ConnectionInstance.getAptosClient()
@@ -69,8 +69,10 @@ class ConnectionInstance {
           if (coinType.startsWith(`${lpCoinNamespace}<`)) {
             const lpCoinType = coinType.substring(lpCoinNamespace.length + 1, coinType.length - 1)
             lpBalances[lpCoinType] = resource.data.coin.value
-            const [coinX, coinY] = lpCoinType.split(', ')
-            this.getPair(coinX, coinY)
+            if (poolPair) {
+              const [coinX, coinY] = lpCoinType.split(', ')
+              this.getPair(coinX, coinY)
+            }
           }
         }
       }
@@ -163,11 +165,11 @@ class ConnectionInstance {
       const aptosClient = ConnectionInstance.getAptosClient()
       const modules = sdk.networkOptions.modules
       const ledgerInfo = await sdk.resources.fetchLedgerInfo<AptosLedgerInfo>()
-      // APY code
+      // APR code
       const timestampNow = ledgerInfo.ledger_timestamp
       const currentLedgerVersion = ledgerInfo.ledger_version
       const oldestLedgerVersion = ledgerInfo.oldest_ledger_version
-      const queryDeltaVersion = Utils.d(2e6) // APY window
+      const queryDeltaVersion = Utils.d(1e6) // APR window
       const queryLedgerVersion = Utils.d(currentLedgerVersion).sub(queryDeltaVersion).gte(Utils.d(oldestLedgerVersion))
         ? Utils.d(currentLedgerVersion).sub(queryDeltaVersion)
         : Utils.d(oldestLedgerVersion)
@@ -233,21 +235,22 @@ class ConnectionInstance {
         }
       }
 
-      // write APY
+      // write APR
       for (const key of Object.keys(coinX2coinY2DecimalCurrent)) {
         const base = coinX2coinY2DecimalPast[key]
         if (base) {
-          pairs[key].APY = coinX2coinY2DecimalCurrent[key]
+          pairs[key].APR = coinX2coinY2DecimalCurrent[key]
             .sub(base)
             .div(base)
             .mul(Utils.YEAR_NS)
             .div(deltaTimestamp)
             .toNumber()
         } else {
-          pairs[key].APY = NaN
+          pairs[key].APR = NaN
         }
       }
       // const windowSeconds = deltaTimestamp.div(1e6).floor()
+      // console.log(deltaTimestamp.div(1e6).floor().toNumber())
       return pairs
     } catch (error) {
       return {}

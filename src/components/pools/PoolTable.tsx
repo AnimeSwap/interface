@@ -60,7 +60,7 @@ const SORT_FIELD = {
   feeTier: 'feeTier',
   volumeUSD: 'volumeUSD',
   tvlUSD: 'tvlUSD',
-  APY: 'APY',
+  APR: 'APR',
   volumeUSDWeek: 'volumeUSDWeek',
 }
 
@@ -94,7 +94,7 @@ const DataRow = ({ poolData, index }: { poolData: PoolData; index: number }) => 
           </RowFixed>
         </Label>
         <Label end={2} fontWeight={400}>
-          {poolData.APY > 0 ? (poolData.APY * 100).toFixed(2) + '%' : '-'}
+          {poolData.APR > 0 ? (poolData.APR * 100).toFixed(2) + '%' : '-'}
         </Label>
         <Label end={3} fontWeight={400}>
           {formatDollarAmount(poolData.tvlUSD)}
@@ -112,7 +112,7 @@ const DataRow = ({ poolData, index }: { poolData: PoolData; index: number }) => 
 
 export interface PoolData {
   pair: Pair
-  APY: number
+  APR: number
   tvlAPT: Decimal
   tvlUSD: number
   volumeUSD: number
@@ -184,8 +184,8 @@ export default function PoolTable({ poolDatas, maxItems = 10 }: { poolDatas: Poo
             <ClickableText color={theme.deprecated_text2} end={1}>
               Reserve
             </ClickableText>
-            <ClickableText color={theme.deprecated_text2} end={1} onClick={() => handleSort(SORT_FIELD.APY)}>
-              LP APY(48h) {arrow(SORT_FIELD.APY)}
+            <ClickableText color={theme.deprecated_text2} end={1} onClick={() => handleSort(SORT_FIELD.APR)}>
+              LP APR(48h) {arrow(SORT_FIELD.APR)}
             </ClickableText>
             <ClickableText color={theme.deprecated_text2} end={1} onClick={() => handleSort(SORT_FIELD.tvlUSD)}>
               TVL {arrow(SORT_FIELD.tvlUSD)}

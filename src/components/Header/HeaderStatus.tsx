@@ -1,11 +1,14 @@
 // eslint-disable-next-line no-restricted-imports
 import { Trans } from '@lingui/macro'
+import axios from 'axios'
+import { SupportedChainId } from 'constants/chains'
 import { darken } from 'polished'
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { AlertTriangle } from 'react-feather'
 import { useAppSelector } from 'state/hooks'
 import { useChainId } from 'state/user/hooks'
-import { useAccount, useWallet } from 'state/wallets/hooks'
+import { useAccount, useWallet, useWalletNetwork } from 'state/wallets/hooks'
+import { WalletType } from 'state/wallets/types'
 import styled, { css } from 'styled-components/macro'
 
 import { useToggleWalletModal } from '../../state/application/hooks'
@@ -114,8 +117,11 @@ function newTransactionsFirst(a: TransactionDetails, b: TransactionDetails) {
 function StatusInner() {
   const account = useAccount()
   const chainId = useChainId()
-
-  const error = useAppSelector((state) => state.connection.error[chainId])
+  const wallet = useWallet()
+  const walletNetwork = useWalletNetwork()
+  // const error = useAppSelector((state) => state.connection.error[chainId])
+  const [error, setError] = useState<string>('')
+  const [aptosPassport, setAptosPassport] = useState<string>('')
 
   const allTransactions = useAllTransactions()
 
@@ -123,6 +129,54 @@ function StatusInner() {
     const txs = Object.values(allTransactions)
     return txs.filter(isTransactionRecent).sort(newTransactionsFirst)
   }, [allTransactions])
+
+  useEffect(() => {
+    if ([WalletType.PETRA, WalletType.MARTIAN, WalletType.PONTEM].includes(wallet) && account) {
+      if (walletNetwork !== chainId) {
+        if (chainId === SupportedChainId.APTOS) {
+          setError('Mainnet')
+        } else if (chainId === SupportedChainId.APTOS_TESTNET) {
+          setError('Testnet')
+        } else if (chainId === SupportedChainId.APTOS_DEVNET) {
+          setError('Devnet')
+        } else {
+          setError('Mainnet')
+        }
+      } else {
+        setError('')
+      }
+    } else {
+      setError('')
+    }
+  }, [chainId, account, wallet, walletNetwork])
+
+  // AptosPassport
+  useEffect(() => {
+    const getAptosPassport = async () => {
+      try {
+        if (!account) return
+        let network = 'mainnet'
+        if (chainId === SupportedChainId.APTOS) {
+          network = 'mainnet'
+        } else if (chainId === SupportedChainId.APTOS_TESTNET) {
+          network = 'testnet'
+        } else if (chainId === SupportedChainId.APTOS_DEVNET) {
+          network = 'devnet'
+        }
+        const res = await axios.get(`https://aptpp.com/api/v1/${network}/name/${account}`, {
+          timeout: 5000,
+        })
+        if (res && res.data && res.data.name) {
+          setAptosPassport(res.data.name)
+        } else {
+          setAptosPassport('')
+        }
+      } catch (e) {
+        setAptosPassport('')
+      }
+    }
+    getAptosPassport()
+  }, [chainId, account])
 
   const pending = sortedRecentTransactions.filter((tx) => !tx.receipt).map((tx) => tx.hash)
 
@@ -135,9 +189,7 @@ function StatusInner() {
     return (
       <StatusError onClick={toggleWalletModal}>
         <NetworkIcon />
-        <Text>
-          <Trans>Error</Trans>
-        </Text>
+        <Text>{error}</Text>
       </StatusError>
     )
   } else if (account) {
@@ -151,7 +203,7 @@ function StatusInner() {
             <Loader stroke="white" />
           </RowBetween>
         ) : (
-          <Text>{shortenAddress(account)}</Text>
+          <Text>{aptosPassport ? aptosPassport : shortenAddress(account)}</Text>
         )}
       </StatusConnected>
     )

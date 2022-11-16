@@ -1,4 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit'
+import { SupportedChainId } from 'constants/chains'
 import { parsedQueryString } from 'hooks/useParsedQueryString'
 
 import { Field, replaceSwapState, selectCoin, switchCoins, typeInput } from './actions'
@@ -15,7 +16,7 @@ export interface SwapState {
   }
 }
 
-const initialState: SwapState = queryParametersToSwapState(parsedQueryString())
+const initialState: SwapState = queryParametersToSwapState(parsedQueryString(), SupportedChainId.APTOS)
 
 export default createReducer<SwapState>(initialState, (builder) =>
   builder

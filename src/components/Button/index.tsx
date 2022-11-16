@@ -187,6 +187,27 @@ export const ButtonYellow = styled(BaseButton)`
   }
 `
 
+export const ButtonGreen = styled(BaseButton)`
+  background-color: ${({ theme }) => theme.deprecated_green1};
+  color: white;
+  &:focus {
+    box-shadow: 0 0 0 1pt ${({ theme }) => darken(0.05, theme.deprecated_green1)};
+    background-color: ${({ theme }) => darken(0.05, theme.deprecated_green1)};
+  }
+  &:hover {
+    background-color: ${({ theme }) => darken(0.05, theme.deprecated_green1)};
+  }
+  &:active {
+    box-shadow: 0 0 0 1pt ${({ theme }) => darken(0.1, theme.deprecated_green1)};
+    background-color: ${({ theme }) => darken(0.1, theme.deprecated_green1)};
+  }
+  &:disabled {
+    background-color: ${({ theme }) => theme.deprecated_green1};
+    opacity: 50%;
+    cursor: auto;
+  }
+`
+
 export const ButtonEmpty = styled(BaseButton)`
   background-color: transparent;
   color: ${({ theme }) => theme.deprecated_primary1};

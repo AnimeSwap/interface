@@ -1,23 +1,31 @@
+import { Decimal, Utils } from '@animeswap.org/v1-sdk'
+import { StakedLPInfo, UserInfoReturn } from '@animeswap.org/v1-sdk/dist/tsc/modules/MasterChefModule'
 import { Trans } from '@lingui/macro'
-import { Pair, pairKey } from 'hooks/common/Pair'
+import FarmCard, { FarmCardProps } from 'components/PositionCard/farmCard'
+import { getChainInfoOrDefault } from 'constants/chainInfo'
+import { SupportedChainId } from 'constants/chains'
+import { useCoin } from 'hooks/common/Coin'
+import { Pair, pairKey, useNativePrice } from 'hooks/common/Pair'
 import { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Text } from 'rebass'
 import ConnectionInstance from 'state/connection/instance'
+import { useChainId } from 'state/user/hooks'
 import { useAccount, useAllLpBalance } from 'state/wallets/hooks'
 import styled, { ThemeContext } from 'styled-components/macro'
+import { isDevelopmentEnv } from 'utils/env'
 
 import { ButtonPrimary, ButtonSecondary } from '../../components/Button'
 import Card from '../../components/Card'
 import { AutoColumn } from '../../components/Column'
 import { CardBGImage, CardNoise, CardSection, DataCard } from '../../components/earn/styled'
 import FullPositionCard from '../../components/PositionCard'
-import { RowBetween, RowFixed } from '../../components/Row'
+import { AutoRow, RowBetween, RowFixed } from '../../components/Row'
 import { Dots } from '../../components/swap/styleds'
 import { ExternalLink, HideSmall, ThemedText } from '../../theme'
 
 const PageWrapper = styled(AutoColumn)`
-  max-width: 640px;
+  max-width: 740px;
   width: 100%;
 `
 
@@ -72,10 +80,16 @@ const EmptyProposals = styled.div`
 export default function Pool() {
   const theme = useContext(ThemeContext)
   const account = useAccount()
+  const chainId = useChainId()
+  const nativePrice = useNativePrice()
   const allLpBalances = useAllLpBalance()
 
   const [pairTasksLoading, setPairTasksLoading] = useState<boolean>(true)
   const [pairs, setPairs] = useState<Pair[]>([])
+
+  const showFarm = [SupportedChainId.APTOS_DEVNET, SupportedChainId.APTOS_TESTNET, SupportedChainId.APTOS].includes(
+    chainId
+  )
 
   const pairKeyNotZero: string[] = []
   for (const pairKey in allLpBalances) {
@@ -98,9 +112,111 @@ export default function Pool() {
     fetchPairTasks()
   }, [account, allLpBalances])
 
+  const { aniCoin, nativeCoin } = getChainInfoOrDefault(chainId)
+  const [aniPool, setAniPool] = useState<FarmCardProps>({})
+  const [aptAniPool, setAptAniPool] = useState<FarmCardProps>({})
+  const [aptAniLPAPR, setAptAniLPAPR] = useState<Decimal>(Utils.d(0))
+  const [count, setCount] = useState(0)
+
+  // Farm data interval
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCount((count) => count + 1)
+    }, 15000)
+    return () => clearInterval(interval)
+  }, [])
+
+  // Farm data
+  useEffect(() => {
+    const fetchStake = async () => {
+      if (!showFarm) return
+      let res = new Map()
+      try {
+        res = account ? await ConnectionInstance.getSDK().MasterChef.getUserInfoAll(account) : new Map()
+      } catch (e) {
+        console.error(e)
+      }
+      const res2 = await ConnectionInstance.getSDK().MasterChef.getFirstTwoPairStakedLPInfo()
+      setAniPool({
+        poolLP: res2[0]?.lpAmount,
+        poolCoinXAmount: res2[0]?.lpAmount,
+        // @ts-ignore
+        stakedLP: res.get(aniCoin?.address)?.amount,
+        stakeAPR: res2[0]?.apr,
+        // @ts-ignore
+        earnedANI: res.get(aniCoin?.address)?.pendingAni,
+      })
+      setAptAniPool({
+        poolLP: res2[1]?.lpAmount,
+        poolCoinXAmount: res2[1]?.coinX,
+        poolCoinYAmount: res2[1]?.coinY,
+        // @ts-ignore
+        stakedLP: res.get(
+          '0x796900ebe1a1a54ff9e932f19c548f5c1af5c6e7d34965857ac2f7b1d1ab2cbf::LPCoinV1::LPCoin<0x1::aptos_coin::AptosCoin, 0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI>'
+        )?.amount,
+        stakeAPR: res2[1]?.apr,
+        // @ts-ignore
+        earnedANI: res.get(
+          '0x796900ebe1a1a54ff9e932f19c548f5c1af5c6e7d34965857ac2f7b1d1ab2cbf::LPCoinV1::LPCoin<0x1::aptos_coin::AptosCoin, 0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI>'
+        )?.pendingAni,
+      })
+    }
+    fetchStake()
+  }, [chainId, account, allLpBalances, count])
+
+  // LP APR
+  useEffect(() => {
+    const fetchLPAPR = async () => {
+      const ret = await ConnectionInstance.getSDK().swap.getLPCoinAPY(
+        {
+          coinX: nativeCoin.address,
+          coinY: aniCoin.address,
+        },
+        Utils.d(1e6)
+      )
+      setAptAniLPAPR(Utils.d(ret?.apy))
+    }
+    fetchLPAPR()
+  }, [chainId])
+
   return (
     <>
       <PageWrapper>
+        {showFarm && (
+          <AutoColumn gap="lg" justify="center" style={{ marginBottom: '2rem' }}>
+            <AutoColumn gap="md" style={{ width: '100%' }}>
+              <TitleRow style={{ marginTop: '0.5rem' }} padding={'0'}>
+                <ThemedText.DeprecatedMediumHeader style={{ marginTop: '0rem', justifySelf: 'flex-start' }}>
+                  Stake and Farms
+                </ThemedText.DeprecatedMediumHeader>
+              </TitleRow>
+              <AutoRow gap="5px" justify="space-around">
+                <FarmCard
+                  coinX={aniCoin}
+                  poolLP={aniPool.poolLP}
+                  poolCoinXAmount={aniPool.poolCoinXAmount}
+                  stakedLP={aniPool.stakedLP}
+                  earnedANI={aniPool.earnedANI}
+                  stakeAPR={aniPool.stakeAPR}
+                  nativePrice={nativePrice}
+                ></FarmCard>
+                <FarmCard
+                  coinX={nativeCoin}
+                  coinY={aniCoin}
+                  poolLP={aptAniPool.poolLP}
+                  poolCoinXAmount={aptAniPool.poolCoinXAmount}
+                  poolCoinYAmount={aptAniPool.poolCoinYAmount}
+                  stakedLP={aptAniPool.stakedLP}
+                  earnedANI={aptAniPool.earnedANI}
+                  LPAPR={aptAniLPAPR}
+                  stakeAPR={aptAniPool.stakeAPR}
+                  nativePrice={nativePrice}
+                ></FarmCard>
+              </AutoRow>
+            </AutoColumn>
+          </AutoColumn>
+        )}
+
         <VoteCard>
           <CardBGImage />
           <CardNoise />
@@ -135,7 +251,7 @@ export default function Pool() {
         </VoteCard>
 
         <AutoColumn gap="lg" justify="center">
-          <AutoColumn gap="md" style={{ width: '100%' }}>
+          <AutoColumn gap="md" style={{ width: '100%', paddingBottom: '20px' }}>
             <TitleRow style={{ marginTop: '1rem' }} padding={'0'}>
               <HideSmall>
                 <ThemedText.DeprecatedMediumHeader style={{ marginTop: '0.5rem', justifySelf: 'flex-start' }}>
@@ -180,7 +296,12 @@ export default function Pool() {
                     </Trans>
                   </RowBetween>
                 </ButtonSecondary> */}
-                {pairs.map((pair) => pair && <FullPositionCard key={pairKey(pair.coinX, pair.coinY)} pair={pair} />)}
+                {pairs.map(
+                  (pair) =>
+                    pair && (
+                      <FullPositionCard key={pairKey(pair.coinX, pair.coinY)} pair={pair} nativePrice={nativePrice} />
+                    )
+                )}
               </>
             ) : (
               <EmptyProposals>

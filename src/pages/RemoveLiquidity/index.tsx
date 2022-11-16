@@ -4,7 +4,7 @@ import { SwitchLocaleLink } from 'components/SwitchLocaleLink'
 import { SupportedChainId } from 'constants/chains'
 import { BIG_INT_ZERO, BP, REFRESH_TIMEOUT } from 'constants/misc'
 import { amountPretty, CoinAmount, useCoin } from 'hooks/common/Coin'
-import { pairKey, usePair } from 'hooks/common/Pair'
+import { pairKey, useNativePrice, usePair } from 'hooks/common/Pair'
 import { ReactNode, useCallback, useContext, useMemo, useState } from 'react'
 import { ArrowDown, Plus } from 'react-feather'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -43,7 +43,7 @@ export enum Field {
 
 export default function RemoveLiquidity() {
   const { coinIdA, coinIdB } = useParams<{ coinIdA: string; coinIdB: string }>()
-  const chainId = useChainId()
+  // const chainId = useChainId()
   const coinA = useCoin(coinIdA)
   const coinB = useCoin(coinIdB)
   const account = useAccount()
@@ -56,6 +56,7 @@ export default function RemoveLiquidity() {
   const coinBReserve = Utils.d(pair?.coinYReserve).mul(lpPercentage).floor()
   const coinYdivXReserve = Utils.d(pair?.coinYReserve).div(Utils.d(pair?.coinXReserve))
   const price = coinYdivXReserve.mul(Utils.pow10((coinA?.decimals ?? 0) - (coinB?.decimals ?? 0)))
+  const nativePrice = useNativePrice()
 
   // useDerivedBurnInfo
   const [parsedAmounts, setParsedAmounts] = useState({
@@ -112,9 +113,9 @@ export default function RemoveLiquidity() {
       setAttemptingTxn(false)
       setTxHash(txid)
       setTimeout(() => {
-        ConnectionInstance.syncAccountResources(account)
+        ConnectionInstance.syncAccountResources(account, true)
         setTimeout(() => {
-          ConnectionInstance.syncAccountResources(account)
+          ConnectionInstance.syncAccountResources(account, true)
         }, REFRESH_TIMEOUT * 2)
       }, REFRESH_TIMEOUT)
     } catch (error) {
@@ -129,7 +130,7 @@ export default function RemoveLiquidity() {
       <AutoColumn gap={'md'} style={{ marginTop: '20px' }}>
         <RowBetween align="flex-end">
           <Text fontSize={24} fontWeight={500}>
-            {amountPretty(parsedAmounts[Field.COIN_A], 8)}
+            {amountPretty(parsedAmounts[Field.COIN_A], coinA?.decimals ?? 8)}
           </Text>
           <RowFixed gap="4px">
             <CoinLogo coin={coinA} size={'24px'} />
@@ -143,7 +144,7 @@ export default function RemoveLiquidity() {
         </RowFixed>
         <RowBetween align="flex-end">
           <Text fontSize={24} fontWeight={500}>
-            {amountPretty(parsedAmounts[Field.COIN_B], 8)}
+            {amountPretty(parsedAmounts[Field.COIN_B], coinB?.decimals ?? 8)}
           </Text>
           <RowFixed gap="4px">
             <CoinLogo coin={coinB} size={'24px'} />
@@ -209,7 +210,7 @@ export default function RemoveLiquidity() {
 
   const pendingText = (
     <>
-      Supplying {coinA_amount?.prettyWithSymbol()} and {coinB_amount?.prettyWithSymbol()}
+      Withdrawing {coinA_amount?.prettyWithSymbol()} and {coinB_amount?.prettyWithSymbol()}
     </>
   )
 
@@ -375,7 +376,7 @@ export default function RemoveLiquidity() {
       <SwitchLocaleLink />
 
       <AutoColumn style={{ minWidth: '20rem', width: '100%', maxWidth: '400px', marginTop: '1rem' }}>
-        <MinimalPositionCard pair={pair} />
+        <MinimalPositionCard pair={pair} nativePrice={nativePrice} />
       </AutoColumn>
     </>
   )
