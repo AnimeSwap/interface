@@ -75,7 +75,7 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
 
   const safeStakeAPR = stakeAPR?.toNumber() ?? 0
   // const safeStakeAPY = (1 + safeStakeAPR / 365) ** 365 - 1
-  const safeLPAPR = LPAPR?.toNumber() ?? 0
+  const safeLPAPR = LPAPR?.toNumber() > 0 ? LPAPR?.toNumber() : 0
   // const safeLPARPY = (1 + safeLPAPR / 365) ** 365 - 1
 
   useEffect(() => {

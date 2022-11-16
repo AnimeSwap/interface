@@ -87,9 +87,9 @@ export default function Pool() {
   const [pairTasksLoading, setPairTasksLoading] = useState<boolean>(true)
   const [pairs, setPairs] = useState<Pair[]>([])
 
-  // TODO[Azard]: remove isDevelopmentEnv
-  const showFarm =
-    [SupportedChainId.APTOS_DEVNET, SupportedChainId.APTOS_TESTNET].includes(chainId) && isDevelopmentEnv()
+  const showFarm = [SupportedChainId.APTOS_DEVNET, SupportedChainId.APTOS_TESTNET, SupportedChainId.APTOS].includes(
+    chainId
+  )
 
   const pairKeyNotZero: string[] = []
   for (const pairKey in allLpBalances) {
@@ -173,6 +173,8 @@ export default function Pool() {
         Utils.d(1e6)
       )
       setAptAniLPAPR(Utils.d(ret?.apy))
+      // console.log('Azard', ret.apy.toNumber())
+      // console.log('Azard', ret.windowSeconds.toNumber())
     }
     fetchLPAPR()
   }, [chainId])

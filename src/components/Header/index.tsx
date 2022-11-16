@@ -335,8 +335,7 @@ export default function Header() {
               <Discord width="28px" height="28px" fill="#EEE" style={{ paddingLeft: '4px' }}></Discord>
             </ANIbutton>
           )} */}
-          {/* {TODO[Azard]: remove isDevelopmentEnv} */}
-          {[SupportedChainId.APTOS_DEVNET, SupportedChainId.APTOS_TESTNET, SupportedChainId.APTOS].includes(
+          {/* {[SupportedChainId.APTOS_DEVNET, SupportedChainId.APTOS_TESTNET, SupportedChainId.APTOS].includes(
             chainId
           ) && (
             <ANIbutton
@@ -349,7 +348,7 @@ export default function Header() {
             >
               Claim
             </ANIbutton>
-          )}
+          )} */}
         </HeaderElement>
         <HeaderElement>
           <NetworkSelector />
