@@ -122,7 +122,7 @@ export default function Pool() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCount((count) => count + 1)
-    }, 12000)
+    }, 15000)
     return () => clearInterval(interval)
   }, [])
 
@@ -173,8 +173,6 @@ export default function Pool() {
         Utils.d(1e6)
       )
       setAptAniLPAPR(Utils.d(ret?.apy))
-      // console.log('Azard', ret.apy.toNumber())
-      // console.log('Azard', ret.windowSeconds.toNumber())
     }
     fetchLPAPR()
   }, [chainId])
