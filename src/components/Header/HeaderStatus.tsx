@@ -1,5 +1,6 @@
 // eslint-disable-next-line no-restricted-imports
 import { Trans } from '@lingui/macro'
+import axios from 'axios'
 import { SupportedChainId } from 'constants/chains'
 import { darken } from 'polished'
 import { useEffect, useMemo, useState } from 'react'
@@ -120,6 +121,7 @@ function StatusInner() {
   const walletNetwork = useWalletNetwork()
   // const error = useAppSelector((state) => state.connection.error[chainId])
   const [error, setError] = useState<string>('')
+  const [aptosPassport, setAptosPassport] = useState<string>('')
 
   const allTransactions = useAllTransactions()
 
@@ -148,6 +150,34 @@ function StatusInner() {
     }
   }, [chainId, account, wallet, walletNetwork])
 
+  // AptosPassport
+  useEffect(() => {
+    const getAptosPassport = async () => {
+      try {
+        if (!account) return
+        let network = 'mainnet'
+        if (chainId === SupportedChainId.APTOS) {
+          network = 'mainnet'
+        } else if (chainId === SupportedChainId.APTOS_TESTNET) {
+          network = 'testnet'
+        } else if (chainId === SupportedChainId.APTOS_DEVNET) {
+          network = 'devnet'
+        }
+        const res = await axios.get(`https://aptpp.com/api/v1/${network}/name/${account}`, {
+          timeout: 5000,
+        })
+        if (res && res.data && res.data.name) {
+          setAptosPassport(res.data.name)
+        } else {
+          setAptosPassport('')
+        }
+      } catch (e) {
+        setAptosPassport('')
+      }
+    }
+    getAptosPassport()
+  }, [chainId, account])
+
   const pending = sortedRecentTransactions.filter((tx) => !tx.receipt).map((tx) => tx.hash)
 
   const hasPendingTransactions = !!pending.length
@@ -173,7 +203,7 @@ function StatusInner() {
             <Loader stroke="white" />
           </RowBetween>
         ) : (
-          <Text>{shortenAddress(account)}</Text>
+          <Text>{aptosPassport ? aptosPassport : shortenAddress(account)}</Text>
         )}
       </StatusConnected>
     )
