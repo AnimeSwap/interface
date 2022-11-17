@@ -154,7 +154,7 @@ export default function Explore() {
                 marginLeft={'8px'}
                 style={{ marginTop: '0.5rem', justifySelf: 'flex-end' }}
                 onClick={() => {
-                  window.open('https://dexscreener.com/aptos/animeswap-1340', '_blank')
+                  window.open('https://dexscreener.com/aptos/animeswap', '_blank')
                 }}
               >
                 <Text fontWeight={500} fontSize={16}>
