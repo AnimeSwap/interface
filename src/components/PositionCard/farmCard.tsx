@@ -3,6 +3,7 @@ import { Trans } from '@lingui/macro'
 import QuestionHelper from 'components/QuestionHelper'
 import TransactionConfirmationModal from 'components/TransactionConfirmationModal'
 import { getChainInfoOrDefault } from 'constants/chainInfo'
+import { SupportedChainId } from 'constants/chains'
 import { REFRESH_TIMEOUT } from 'constants/misc'
 import { amountPretty, Coin, CoinAmount, useCoin } from 'hooks/common/Coin'
 import { pairKey, PairState, usePair } from 'hooks/common/Pair'
@@ -77,6 +78,7 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
   const safeLPAPR = LPAPR?.toNumber() > 0 ? LPAPR?.toNumber() : 0
   // const safeLPAPY = (1 + safeLPAPR / 365) ** 365 - 1
   const safeStakeAPY = (1 + (safeStakeAPR + safeLPAPR) / 365) ** 365 - 1
+  const showAPY = chainId === SupportedChainId.APTOS
 
   useEffect(() => {
     let usdAmount = Utils.d(0)
@@ -195,15 +197,17 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
                 />
               )}
             </RowFixed>
-            <RowFixed>
-              <ThemedText.DeprecatedMain fontSize={14}>APY</ThemedText.DeprecatedMain>
-              <Text fontSize={16} fontWeight={500} style={{ paddingLeft: '6px' }}>
-                {(safeStakeAPY * 100).toFixed(2)}%
-              </Text>
-              <QuestionHelper
-                text={`APY is based on your one-year income if Harvest and Compound are made once a day. Provided APY calculations depend on current APR rates.`}
-              />
-            </RowFixed>
+            {showAPY && (
+              <RowFixed>
+                <ThemedText.DeprecatedMain fontSize={14}>APY</ThemedText.DeprecatedMain>
+                <Text fontSize={16} fontWeight={500} style={{ paddingLeft: '6px' }}>
+                  {(safeStakeAPY * 100).toFixed(2)}%
+                </Text>
+                <QuestionHelper
+                  text={`APY is based on your one-year income if Harvest and Compound are made once a day. Provided APY calculations depend on current APR rates.`}
+                />
+              </RowFixed>
+            )}
           </FixedHeightRow>
           <FixedHeightRow>
             <ThemedText.DeprecatedMain fontSize={14}>TVL</ThemedText.DeprecatedMain>
