@@ -74,9 +74,9 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
   const nativeCoinYPair = usePair(nativeCoin.address, coinY?.address)
 
   const safeStakeAPR = stakeAPR?.toNumber() ?? 0
-  // const safeStakeAPY = (1 + safeStakeAPR / 365) ** 365 - 1
+  const safeStakeAPY = (1 + safeStakeAPR / 365) ** 365 - 1
   const safeLPAPR = LPAPR?.toNumber() > 0 ? LPAPR?.toNumber() : 0
-  // const safeLPARPY = (1 + safeLPAPR / 365) ** 365 - 1
+  const safeLPAPY = (1 + safeLPAPR / 365) ** 365 - 1
 
   useEffect(() => {
     let usdAmount = Utils.d(0)
@@ -183,20 +183,17 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
         <AutoColumn gap="16px">
           <FixedHeightRow>
             <RowFixed>
-              <ThemedText.DeprecatedMain fontSize={14}>APR</ThemedText.DeprecatedMain>
+              <ThemedText.DeprecatedMain fontSize={14}>APY</ThemedText.DeprecatedMain>
               <Text fontSize={16} fontWeight={500} style={{ paddingLeft: '6px' }}>
-                {((safeStakeAPR + safeLPAPR) * 100).toFixed(2)}%
+                {((safeStakeAPY + safeLPAPY) * 100).toFixed(2)}%
               </Text>
               {isFarm && (
                 <QuestionHelper
-                  text={
-                    isFarm
-                      ? `Liquidity providers ${(safeLPAPR * 100).toFixed(2)}% and the rewards in ANI ${(
-                          safeStakeAPR * 100
-                        ).toFixed(2)}%. `
-                      : ''
-                    // 'APY is based on your one-year income if Harvest and Compound are made once a day. Provided APY calculations depend on current APR rates.'
-                  }
+                  text={`Liquidity providers ${(safeLPAPY * 100).toFixed(2)}% and the rewards in ANI ${(
+                    safeStakeAPY * 100
+                  ).toFixed(
+                    2
+                  )}%. APY is based on your one-year income if Harvest and Compound are made once a day. Provided APY calculations depend on current APR rates.`}
                 />
               )}
             </RowFixed>
