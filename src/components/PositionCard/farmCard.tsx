@@ -1,5 +1,6 @@
 import { Decimal, Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
+import { LoadingRows } from 'components/Loader'
 import QuestionHelper from 'components/QuestionHelper'
 import TransactionConfirmationModal from 'components/TransactionConfirmationModal'
 import { getChainInfoOrDefault } from 'constants/chainInfo'
@@ -163,152 +164,167 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
   return (
     <StyledPositionCard bgColor={backgroundColor} maxWidth={'340px'} width={'100%'}>
       {/* <CardNoise /> */}
-      <AutoColumn gap="12px">
-        <FixedHeightRow style={{ marginBottom: '8px' }}>
-          {isFarm ? (
-            <AutoRow gap="8px" style={{ marginLeft: '4px' }}>
-              <DoubleCoinLogo coinX={coinX} coinY={coinY} size={30} margin={false} />
-              <Text fontWeight={500} fontSize={20}>
-                {`${coinX?.symbol}-${coinY?.symbol}`}
-              </Text>
-            </AutoRow>
-          ) : (
-            <AutoRow gap="8px" style={{ marginLeft: '0px' }}>
-              <CoinLogo coin={coinX} size={'30px'} />
-              <Text fontWeight={500} fontSize={20}>
-                Stake {coinX?.symbol}
-              </Text>
-            </AutoRow>
-          )}
-        </FixedHeightRow>
-
-        <AutoColumn gap="16px">
-          <FixedHeightRow>
-            <RowFixed>
-              <ThemedText.DeprecatedMain fontSize={14}>APR</ThemedText.DeprecatedMain>
-              <Text fontSize={16} fontWeight={500} style={{ paddingLeft: '6px' }}>
-                {((safeStakeAPR + safeLPAPR) * 100).toFixed(2)}%
-              </Text>
-              {isFarm && (
-                <QuestionHelper
-                  text={`Liquidity providers ${(safeLPAPR * 100).toFixed(2)}% and the rewards in ANI ${(
-                    safeStakeAPR * 100
-                  ).toFixed(2)}%`}
-                />
-              )}
-            </RowFixed>
-            {showAPY && (
-              <RowFixed>
-                <ThemedText.DeprecatedMain fontSize={14}>APY</ThemedText.DeprecatedMain>
-                <Text fontSize={16} fontWeight={500} style={{ paddingLeft: '6px' }}>
-                  {(safeStakeAPY * 100).toFixed(2)}%
+      {stakeAPR ? (
+        <AutoColumn gap="12px">
+          <FixedHeightRow style={{ marginBottom: '8px' }}>
+            {isFarm ? (
+              <AutoRow gap="8px" style={{ marginLeft: '4px' }}>
+                <DoubleCoinLogo coinX={coinX} coinY={coinY} size={30} margin={false} />
+                <Text fontWeight={500} fontSize={20}>
+                  {`${coinX?.symbol}-${coinY?.symbol}`}
                 </Text>
-                <QuestionHelper
-                  text={`APY is based on your one-year income if Harvest and Compound are made once a day. Provided APY calculations depend on current APR rates.`}
-                />
-              </RowFixed>
+              </AutoRow>
+            ) : (
+              <AutoRow gap="8px" style={{ marginLeft: '0px' }}>
+                <CoinLogo coin={coinX} size={'30px'} />
+                <Text fontWeight={500} fontSize={20}>
+                  Stake {coinX?.symbol}
+                </Text>
+              </AutoRow>
             )}
           </FixedHeightRow>
-          <FixedHeightRow>
-            <ThemedText.DeprecatedMain fontSize={14}>TVL</ThemedText.DeprecatedMain>
-            <Text fontSize={16} fontWeight={500} style={{ paddingLeft: '6px' }}>
-              {formatDollarAmount(tvlUSD)}
-            </Text>
-          </FixedHeightRow>
-          <FixedHeightRow>
-            <ThemedText.DeprecatedMain fontSize={16}>
-              Available {isFarm ? 'LP' : coinX?.symbol}
-            </ThemedText.DeprecatedMain>
-            <Column style={{ alignItems: 'flex-end' }}>
-              <Text fontSize={16} fontWeight={500}>
-                {isFarm ? amountPretty(lpBalance, 8, 6) : aniBalance?.pretty(6)}
-              </Text>
-              {availableUSD > 0 && (
-                <ThemedText.DeprecatedMain fontSize={10} style={{ paddingLeft: '6px' }}>
-                  {formatDollarAmount(availableUSD)}
-                </ThemedText.DeprecatedMain>
+
+          <AutoColumn gap="16px">
+            <FixedHeightRow>
+              <RowFixed>
+                <ThemedText.DeprecatedMain fontSize={14}>APR</ThemedText.DeprecatedMain>
+                <Text fontSize={16} fontWeight={500} style={{ paddingLeft: '6px' }}>
+                  {((safeStakeAPR + safeLPAPR) * 100).toFixed(2)}%
+                </Text>
+                {isFarm && (
+                  <QuestionHelper
+                    text={`Liquidity providers ${(safeLPAPR * 100).toFixed(2)}% and the rewards in ANI ${(
+                      safeStakeAPR * 100
+                    ).toFixed(2)}%`}
+                  />
+                )}
+              </RowFixed>
+              {showAPY && (
+                <RowFixed>
+                  <ThemedText.DeprecatedMain fontSize={14}>APY</ThemedText.DeprecatedMain>
+                  <Text fontSize={16} fontWeight={500} style={{ paddingLeft: '6px' }}>
+                    {(safeStakeAPY * 100).toFixed(2)}%
+                  </Text>
+                  <QuestionHelper
+                    text={`APY is based on your one-year income if Harvest and Compound are made once a day. Provided APY calculations depend on current APR rates.`}
+                  />
+                </RowFixed>
               )}
-            </Column>
-          </FixedHeightRow>
-          <FixedHeightRow>
-            <ThemedText.DeprecatedMain fontSize={16}>Staked {isFarm ? 'LP' : coinX?.symbol}</ThemedText.DeprecatedMain>
-            <Column style={{ alignItems: 'flex-end' }}>
-              <Text fontSize={16} fontWeight={500}>
-                {amountPretty(stakedLP, 8, 6)}
+            </FixedHeightRow>
+            <FixedHeightRow>
+              <ThemedText.DeprecatedMain fontSize={14}>TVL</ThemedText.DeprecatedMain>
+              <Text fontSize={16} fontWeight={500} style={{ paddingLeft: '6px' }}>
+                {formatDollarAmount(tvlUSD)}
               </Text>
-              {stakedUSD > 0 && (
-                <ThemedText.DeprecatedMain fontSize={10} style={{ paddingLeft: '6px' }}>
-                  {formatDollarAmount(stakedUSD)}
-                </ThemedText.DeprecatedMain>
-              )}
-            </Column>
-          </FixedHeightRow>
-          <FixedHeightRow>
-            <ThemedText.DeprecatedMain fontSize={16}>Earned ANI</ThemedText.DeprecatedMain>
-            <Column style={{ alignItems: 'flex-end' }}>
-              <Text fontSize={16} fontWeight={500}>
-                {amountPretty(earnedANI, 8, 6)}
-              </Text>
-              {earnedUSD > 0 && (
-                <ThemedText.DeprecatedMain fontSize={10} style={{ paddingLeft: '6px' }}>
-                  {formatDollarAmount(earnedUSD)}
-                </ThemedText.DeprecatedMain>
-              )}
-            </Column>
-          </FixedHeightRow>
-          <RowBetween marginTop="10px">
-            <ButtonPrimary
-              padding="8px"
-              $borderRadius="8px"
-              onClick={() => {
-                window.farmCardProps = farmCardProps
-                window.farmCardBalance = isFarm ? lpBalance : aniBalance.amount
-                window.farmCardAction = 'stake'
-                openStakeModal()
-              }}
-            >
-              Stake
-            </ButtonPrimary>
-            {stakedLP?.toNumber() > 0 && (
+            </FixedHeightRow>
+            <FixedHeightRow>
+              <ThemedText.DeprecatedMain fontSize={16}>
+                Available {isFarm ? 'LP' : coinX?.symbol}
+              </ThemedText.DeprecatedMain>
+              <Column style={{ alignItems: 'flex-end' }}>
+                <Text fontSize={16} fontWeight={500}>
+                  {isFarm ? amountPretty(lpBalance, 8, 6) : aniBalance?.pretty(6)}
+                </Text>
+                {availableUSD > 0 && (
+                  <ThemedText.DeprecatedMain fontSize={10} style={{ paddingLeft: '6px' }}>
+                    {formatDollarAmount(availableUSD)}
+                  </ThemedText.DeprecatedMain>
+                )}
+              </Column>
+            </FixedHeightRow>
+            <FixedHeightRow>
+              <ThemedText.DeprecatedMain fontSize={16}>
+                Staked {isFarm ? 'LP' : coinX?.symbol}
+              </ThemedText.DeprecatedMain>
+              <Column style={{ alignItems: 'flex-end' }}>
+                <Text fontSize={16} fontWeight={500}>
+                  {amountPretty(stakedLP, 8, 6)}
+                </Text>
+                {stakedUSD > 0 && (
+                  <ThemedText.DeprecatedMain fontSize={10} style={{ paddingLeft: '6px' }}>
+                    {formatDollarAmount(stakedUSD)}
+                  </ThemedText.DeprecatedMain>
+                )}
+              </Column>
+            </FixedHeightRow>
+            <FixedHeightRow>
+              <ThemedText.DeprecatedMain fontSize={16}>Earned ANI</ThemedText.DeprecatedMain>
+              <Column style={{ alignItems: 'flex-end' }}>
+                <Text fontSize={16} fontWeight={500}>
+                  {amountPretty(earnedANI, 8, 6)}
+                </Text>
+                {earnedUSD > 0 && (
+                  <ThemedText.DeprecatedMain fontSize={10} style={{ paddingLeft: '6px' }}>
+                    {formatDollarAmount(earnedUSD)}
+                  </ThemedText.DeprecatedMain>
+                )}
+              </Column>
+            </FixedHeightRow>
+            <RowBetween marginTop="10px">
               <ButtonPrimary
                 padding="8px"
-                margin="0 0 0 16px"
                 $borderRadius="8px"
                 onClick={() => {
                   window.farmCardProps = farmCardProps
-                  window.farmCardBalance = stakedLP
-                  window.farmCardAction = 'unstake'
+                  window.farmCardBalance = isFarm ? lpBalance : aniBalance.amount
+                  window.farmCardAction = 'stake'
                   openStakeModal()
                 }}
               >
-                Unstake
+                Stake
               </ButtonPrimary>
-            )}
-          </RowBetween>
-          <RowBetween marginTop="0px">
-            <ButtonSecondary
-              padding="8px"
-              $borderRadius="8px"
-              as={Link}
-              to={isFarm ? `/add/${coinX?.address}/${coinY?.address}` : '/'}
-            >
-              Get {isFarm ? 'LP' : 'ANI'}
-            </ButtonSecondary>
-            {stakedLP?.toNumber() > 0 && (
-              <ButtonGreen
+              {stakedLP?.toNumber() > 0 && (
+                <ButtonPrimary
+                  padding="8px"
+                  margin="0 0 0 16px"
+                  $borderRadius="8px"
+                  onClick={() => {
+                    window.farmCardProps = farmCardProps
+                    window.farmCardBalance = stakedLP
+                    window.farmCardAction = 'unstake'
+                    openStakeModal()
+                  }}
+                >
+                  Unstake
+                </ButtonPrimary>
+              )}
+            </RowBetween>
+            <RowBetween marginTop="0px">
+              <ButtonSecondary
                 padding="8px"
-                margin="0 0 0 16px"
                 $borderRadius="8px"
-                onClick={() => {
-                  onHarvest()
-                }}
+                as={Link}
+                to={isFarm ? `/add/${coinX?.address}/${coinY?.address}` : '/'}
               >
-                Harvest
-              </ButtonGreen>
-            )}
-          </RowBetween>
+                Get {isFarm ? 'LP' : 'ANI'}
+              </ButtonSecondary>
+              {stakedLP?.toNumber() > 0 && (
+                <ButtonGreen
+                  padding="8px"
+                  margin="0 0 0 16px"
+                  $borderRadius="8px"
+                  onClick={() => {
+                    onHarvest()
+                  }}
+                >
+                  Harvest
+                </ButtonGreen>
+              )}
+            </RowBetween>
+          </AutoColumn>
         </AutoColumn>
-      </AutoColumn>
+      ) : (
+        <LoadingRows>
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+        </LoadingRows>
+      )}
       <TransactionConfirmationModal
         isOpen={showConfirm}
         onDismiss={handleDismissConfirmation}
