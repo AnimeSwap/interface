@@ -54,6 +54,14 @@ export const APTOS_CoinInfo: { [address: string]: Coin } = {
     logoURL: ['https://coinlist.animeswap.org/icons/DittoStakedAptos.svg'],
     projectURL: 'https://www.dittofinance.io/',
   },
+  '0x84edd115c901709ef28f3cb66a82264ba91bfd24789500b6fd34ab9e8888e272::coin::DLC': {
+    address: '0x84edd115c901709ef28f3cb66a82264ba91bfd24789500b6fd34ab9e8888e272::coin::DLC',
+    decimals: 8,
+    symbol: 'DLC',
+    name: 'Doglaika Coin',
+    logoURL: ['https://coinlist.animeswap.org/icons/DLC.png'],
+    projectURL: 'https://doglaikacoin.xyz',
+  },
   '0xe9c192ff55cffab3963c695cff6dbf9dad6aff2bb5ac19a6415cad26a81860d9::mee_coin::MeeCoin': {
     address: '0xe9c192ff55cffab3963c695cff6dbf9dad6aff2bb5ac19a6415cad26a81860d9::mee_coin::MeeCoin',
     decimals: 6,
