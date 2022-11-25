@@ -54,6 +54,14 @@ export const APTOS_CoinInfo: { [address: string]: Coin } = {
     logoURL: ['https://coinlist.animeswap.org/icons/DittoStakedAptos.svg'],
     projectURL: 'https://www.dittofinance.io/',
   },
+  '0x777821c78442e17d82c3d7a371f42de7189e4248e529fe6eee6bca40ddbb::apcoin::ApCoin': {
+    address: '0x777821c78442e17d82c3d7a371f42de7189e4248e529fe6eee6bca40ddbb::apcoin::ApCoin',
+    decimals: 8,
+    symbol: 'APC',
+    name: 'Apass Coin',
+    logoURL: ['https://coinlist.animeswap.org/icons/APC.png'],
+    projectURL: 'https://aptpp.com/',
+  },
   '0x84edd115c901709ef28f3cb66a82264ba91bfd24789500b6fd34ab9e8888e272::coin::DLC': {
     address: '0x84edd115c901709ef28f3cb66a82264ba91bfd24789500b6fd34ab9e8888e272::coin::DLC',
     decimals: 8,
