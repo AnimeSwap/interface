@@ -190,7 +190,7 @@ export default function Pool() {
                   Stake and Farms
                 </ThemedText.DeprecatedMediumHeader>
               </TitleRow>
-              <AutoRow gap="5px" justify="space-around">
+              <AutoRow gap="8px" justify="space-around">
                 <FarmCard
                   type={FarmCardType.HOLDER}
                   coinX={aniCoin}

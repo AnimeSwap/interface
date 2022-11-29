@@ -99,7 +99,7 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
   const safeStakeAPY = (1 + (safeStakeAPR + safeLPAPR) / 365) ** 365 - 1
   const showAPR = type === FarmCardType.STAKE_ANI || type === FarmCardType.FARM_APT_ANI
   const showAPY =
-    chainId === SupportedChainId.APTOS && (type === FarmCardType.HOLDER || type === FarmCardType.FARM_APT_ANI)
+    type === FarmCardType.HOLDER || (chainId === SupportedChainId.APTOS && type === FarmCardType.FARM_APT_ANI)
 
   useEffect(() => {
     let usdAmount = Utils.d(0)
@@ -188,11 +188,15 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
         <AutoColumn gap="12px">
           <FixedHeightRow style={{ marginBottom: '8px' }}>
             {type === FarmCardType.HOLDER && (
-              <AutoRow gap="8px" style={{ marginLeft: '0px' }}>
+              <AutoRow gap="4px" style={{ marginLeft: '0px' }}>
                 <CoinLogo coin={coinX} size={'30px'} />
                 <Text fontWeight={500} fontSize={20}>
                   Holder Pool
                 </Text>
+                <QuestionHelper
+                  text={`Any ANI tokens you stake in this pool will be automatically harvested and compounded for you every hour.`}
+                />
+                <ThemedText.DeprecatedMain fontSize={14}>Auto-Compound</ThemedText.DeprecatedMain>
               </AutoRow>
             )}
             {type === FarmCardType.STAKE_ANI && (
@@ -236,18 +240,33 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
                   <Text fontSize={16} fontWeight={500} style={{ paddingLeft: '6px' }}>
                     {(safeStakeAPY * 100).toFixed(2)}%
                   </Text>
-                  <QuestionHelper
-                    text={`APY is based on your one-year income if Harvest and Compound are made once a day. Provided APY calculations depend on current APR rates.`}
-                  />
+                  {type === FarmCardType.HOLDER && (
+                    <QuestionHelper text={`Holder pool is compounded automatically, so we show APY.`} />
+                  )}
+                  {type === FarmCardType.FARM_APT_ANI && (
+                    <QuestionHelper
+                      text={`APY is based on your one-year income if Harvest and Compound are made once a day. Provided APY calculations depend on current APR rates.`}
+                    />
+                  )}
+                </RowFixed>
+              )}
+              {!isFarm && (
+                <RowFixed>
+                  <ThemedText.DeprecatedMain fontSize={14}>TVL</ThemedText.DeprecatedMain>
+                  <Text fontSize={16} fontWeight={500} style={{ paddingLeft: '6px' }}>
+                    {formatDollarAmount(tvlUSD)}
+                  </Text>
                 </RowFixed>
               )}
             </FixedHeightRow>
-            <FixedHeightRow>
-              <ThemedText.DeprecatedMain fontSize={14}>TVL</ThemedText.DeprecatedMain>
-              <Text fontSize={16} fontWeight={500} style={{ paddingLeft: '6px' }}>
-                {formatDollarAmount(tvlUSD)}
-              </Text>
-            </FixedHeightRow>
+            {isFarm && (
+              <FixedHeightRow>
+                <ThemedText.DeprecatedMain fontSize={14}>TVL</ThemedText.DeprecatedMain>
+                <Text fontSize={16} fontWeight={500} style={{ paddingLeft: '6px' }}>
+                  {formatDollarAmount(tvlUSD)}
+                </Text>
+              </FixedHeightRow>
+            )}
             <FixedHeightRow>
               <ThemedText.DeprecatedMain fontSize={16}>
                 Available {isFarm ? 'LP' : coinX?.symbol}
