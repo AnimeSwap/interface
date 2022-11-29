@@ -84,7 +84,7 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
   const [availableUSD, setAvailableUSD] = useState<number>(0)
   const [stakedUSD, setStakedUSD] = useState<number>(0)
   const [earnedUSD, setEarnedUSD] = useState<number>(0)
-  const [withdrawFeeFreeTimestampStr, setWithdrawFeeFreeTimestampStr] = useState<string>('')
+  const [withdrawFeeFreeTimestampStr, setWithdrawFeeFreeTimestampStr] = useState<string>('-')
 
   const openStakeModal = useToggleModal(ApplicationModal.STAKE)
   const chainId = useChainId()
@@ -172,7 +172,7 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
           const secondsStr = `${seconds.slice(-2)}s`
           setWithdrawFeeFreeTimestampStr(`${daysStr}${hoursStr}${minutesStr}${secondsStr}`)
         } else {
-          setWithdrawFeeFreeTimestampStr('')
+          setWithdrawFeeFreeTimestampStr('-')
         }
       }, 1000)
       return () => clearInterval(interval)
@@ -343,12 +343,12 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
                 )}
               </Column>
             </FixedHeightRow>
-            {type === FarmCardType.HOLDER && withdrawFeeFreeTimestampStr.length > 2 && (
+            {type === FarmCardType.HOLDER && (
               <FixedHeightRow>
                 <RowFixed>
                   <ThemedText.DeprecatedMain fontSize={14}>20% unstaking fee until</ThemedText.DeprecatedMain>
                   <QuestionHelper
-                    text={`Only applies within 30 days of staking. Unstaking after 30 days will not include a fee. Timer resets every time you stake new ANI in the pool.`}
+                    text={`Only applies within 30 days of staking. Unstaking after 30 days will not include a fee. Timer resets every time you stake and unstake new ANI in the pool.`}
                   />
                 </RowFixed>
                 <Column style={{ alignItems: 'flex-end' }}>
