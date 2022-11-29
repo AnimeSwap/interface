@@ -140,6 +140,7 @@ export default function Pool() {
           res = new Map()
         }
       } catch (e) {
+        res = new Map()
         console.log(e)
       }
       let res4
@@ -151,6 +152,7 @@ export default function Pool() {
           res4 = undefined
         }
       } catch (e) {
+        res4 = undefined
         console.log(e)
       }
       const taskListCommon = [
