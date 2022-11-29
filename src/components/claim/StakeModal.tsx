@@ -78,7 +78,10 @@ export default function StakeModal({ isOpen, onDismiss }: { isOpen: boolean; onD
         if (action === 'stake') {
           payload = ConnectionInstance.getSDK().Misc.autoAniDepositPayload(amount.toString())
         } else {
-          const withdrawShares = Utils.d(amount).mul(shares).div(balance).ceil()
+          let withdrawShares = Utils.d(amount).mul(shares).div(balance).ceil()
+          if (withdrawShares.gt(shares)) {
+            withdrawShares = Utils.d(shares)
+          }
           payload = ConnectionInstance.getSDK().Misc.autoAniWithdrawPayload(withdrawShares)
         }
       } else if (type === FarmCardType.STAKE_ANI) {
