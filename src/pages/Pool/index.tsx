@@ -189,7 +189,7 @@ export default function Pool() {
         // @ts-ignore
         poolCoinXAmount: res3?.amount,
         // @ts-ignore
-        stakedLP: res4?.lastUserActionAni,
+        stakedLP: res4?.amount,
         stakeAPR: res2[0]?.apr,
         // @ts-ignore
         earnedANI: Number.isNaN(res4?.amount - res4?.lastUserActionAni) ? 0 : res4?.amount - res4?.lastUserActionAni,
