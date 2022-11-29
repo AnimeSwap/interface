@@ -23,7 +23,7 @@ import { formatDollarAmount } from 'utils/formatDollarAmt'
 import { useColor } from '../../hooks/useColor'
 import { ThemedText } from '../../theme'
 import { ButtonGreen, ButtonPrimary, ButtonSecondary } from '../Button'
-import { GreyCard, LightCard } from '../Card'
+import { LightCard } from '../Card'
 import CoinLogo from '../CoinLogo'
 import Column, { AutoColumn } from '../Column'
 import DoubleCoinLogo from '../DoubleLogo'
@@ -42,7 +42,14 @@ const StyledPositionCard = styled(LightCard)<{ bgColor: any }>`
   overflow: hidden;
 `
 
+export enum FarmCardType {
+  HOLDER = 'HOLDER',
+  STAKE_ANI = 'STAKE_ANI',
+  FARM_APT_ANI = 'FARM_APT_ANI',
+}
+
 export interface FarmCardProps {
+  type?: FarmCardType
   coinX?: Coin
   coinY?: Coin
   poolLP?: Decimal
@@ -56,8 +63,19 @@ export interface FarmCardProps {
 }
 
 export default function FarmCard(farmCardProps: FarmCardProps) {
-  const { coinX, coinY, poolLP, poolCoinXAmount, poolCoinYAmount, stakedLP, earnedANI, LPAPR, stakeAPR, nativePrice } =
-    farmCardProps
+  const {
+    type,
+    coinX,
+    coinY,
+    poolLP,
+    poolCoinXAmount,
+    poolCoinYAmount,
+    stakedLP,
+    earnedANI,
+    LPAPR,
+    stakeAPR,
+    nativePrice,
+  } = farmCardProps
   const [tvlUSD, setTvlUSD] = useState<number>(0)
   const [availableUSD, setAvailableUSD] = useState<number>(0)
   const [stakedUSD, setStakedUSD] = useState<number>(0)
@@ -79,7 +97,9 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
   const safeLPAPR = LPAPR?.toNumber() > 0 ? LPAPR?.toNumber() : 0
   // const safeLPAPY = (1 + safeLPAPR / 365) ** 365 - 1
   const safeStakeAPY = (1 + (safeStakeAPR + safeLPAPR) / 365) ** 365 - 1
-  const showAPY = chainId === SupportedChainId.APTOS
+  const showAPR = type === FarmCardType.STAKE_ANI || type === FarmCardType.FARM_APT_ANI
+  const showAPY =
+    chainId === SupportedChainId.APTOS && (type === FarmCardType.HOLDER || type === FarmCardType.FARM_APT_ANI)
 
   useEffect(() => {
     let usdAmount = Utils.d(0)
@@ -167,14 +187,15 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
       {stakeAPR ? (
         <AutoColumn gap="12px">
           <FixedHeightRow style={{ marginBottom: '8px' }}>
-            {isFarm ? (
-              <AutoRow gap="8px" style={{ marginLeft: '4px' }}>
-                <DoubleCoinLogo coinX={coinX} coinY={coinY} size={30} margin={false} />
+            {type === FarmCardType.HOLDER && (
+              <AutoRow gap="8px" style={{ marginLeft: '0px' }}>
+                <CoinLogo coin={coinX} size={'30px'} />
                 <Text fontWeight={500} fontSize={20}>
-                  {`${coinX?.symbol}-${coinY?.symbol}`}
+                  Holder Pool
                 </Text>
               </AutoRow>
-            ) : (
+            )}
+            {type === FarmCardType.STAKE_ANI && (
               <AutoRow gap="8px" style={{ marginLeft: '0px' }}>
                 <CoinLogo coin={coinX} size={'30px'} />
                 <Text fontWeight={500} fontSize={20}>
@@ -182,23 +203,33 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
                 </Text>
               </AutoRow>
             )}
+            {type === FarmCardType.FARM_APT_ANI && (
+              <AutoRow gap="8px" style={{ marginLeft: '4px' }}>
+                <DoubleCoinLogo coinX={coinX} coinY={coinY} size={30} margin={false} />
+                <Text fontWeight={500} fontSize={20}>
+                  {`${coinX?.symbol}-${coinY?.symbol}`}
+                </Text>
+              </AutoRow>
+            )}
           </FixedHeightRow>
 
           <AutoColumn gap="16px">
             <FixedHeightRow>
-              <RowFixed>
-                <ThemedText.DeprecatedMain fontSize={14}>APR</ThemedText.DeprecatedMain>
-                <Text fontSize={16} fontWeight={500} style={{ paddingLeft: '6px' }}>
-                  {((safeStakeAPR + safeLPAPR) * 100).toFixed(2)}%
-                </Text>
-                {isFarm && (
-                  <QuestionHelper
-                    text={`Liquidity providers ${(safeLPAPR * 100).toFixed(2)}% and the rewards in ANI ${(
-                      safeStakeAPR * 100
-                    ).toFixed(2)}%`}
-                  />
-                )}
-              </RowFixed>
+              {showAPR && (
+                <RowFixed>
+                  <ThemedText.DeprecatedMain fontSize={14}>APR</ThemedText.DeprecatedMain>
+                  <Text fontSize={16} fontWeight={500} style={{ paddingLeft: '6px' }}>
+                    {((safeStakeAPR + safeLPAPR) * 100).toFixed(2)}%
+                  </Text>
+                  {isFarm && (
+                    <QuestionHelper
+                      text={`Liquidity providers ${(safeLPAPR * 100).toFixed(2)}% and the rewards in ANI ${(
+                        safeStakeAPR * 100
+                      ).toFixed(2)}%`}
+                    />
+                  )}
+                </RowFixed>
+              )}
               {showAPY && (
                 <RowFixed>
                   <ThemedText.DeprecatedMain fontSize={14}>APY</ThemedText.DeprecatedMain>

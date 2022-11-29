@@ -1,7 +1,7 @@
 import { Decimal, Utils } from '@animeswap.org/v1-sdk'
 import { StakedLPInfo, UserInfoReturn } from '@animeswap.org/v1-sdk/dist/tsc/modules/MasterChefModule'
 import { Trans } from '@lingui/macro'
-import FarmCard, { FarmCardProps } from 'components/PositionCard/farmCard'
+import FarmCard, { FarmCardProps, FarmCardType } from 'components/PositionCard/farmCard'
 import { getChainInfoOrDefault } from 'constants/chainInfo'
 import { SupportedChainId } from 'constants/chains'
 import { useCoin } from 'hooks/common/Coin'
@@ -192,6 +192,7 @@ export default function Pool() {
               </TitleRow>
               <AutoRow gap="5px" justify="space-around">
                 <FarmCard
+                  type={FarmCardType.HOLDER}
                   coinX={aniCoin}
                   poolLP={aniPool.poolLP}
                   poolCoinXAmount={aniPool.poolCoinXAmount}
@@ -201,6 +202,17 @@ export default function Pool() {
                   nativePrice={nativePrice}
                 ></FarmCard>
                 <FarmCard
+                  type={FarmCardType.STAKE_ANI}
+                  coinX={aniCoin}
+                  poolLP={aniPool.poolLP}
+                  poolCoinXAmount={aniPool.poolCoinXAmount}
+                  stakedLP={aniPool.stakedLP}
+                  earnedANI={aniPool.earnedANI}
+                  stakeAPR={aniPool.stakeAPR}
+                  nativePrice={nativePrice}
+                ></FarmCard>
+                <FarmCard
+                  type={FarmCardType.FARM_APT_ANI}
                   coinX={nativeCoin}
                   coinY={aniCoin}
                   poolLP={aptAniPool.poolLP}
