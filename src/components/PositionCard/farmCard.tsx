@@ -1,8 +1,10 @@
 import { Decimal, Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
+import { LoadingRows } from 'components/Loader'
 import QuestionHelper from 'components/QuestionHelper'
 import TransactionConfirmationModal from 'components/TransactionConfirmationModal'
 import { getChainInfoOrDefault } from 'constants/chainInfo'
+import { SupportedChainId } from 'constants/chains'
 import { REFRESH_TIMEOUT } from 'constants/misc'
 import { amountPretty, Coin, CoinAmount, useCoin } from 'hooks/common/Coin'
 import { pairKey, PairState, usePair } from 'hooks/common/Pair'
@@ -21,7 +23,7 @@ import { formatDollarAmount } from 'utils/formatDollarAmt'
 import { useColor } from '../../hooks/useColor'
 import { ThemedText } from '../../theme'
 import { ButtonGreen, ButtonPrimary, ButtonSecondary } from '../Button'
-import { GreyCard, LightCard } from '../Card'
+import { LightCard } from '../Card'
 import CoinLogo from '../CoinLogo'
 import Column, { AutoColumn } from '../Column'
 import DoubleCoinLogo from '../DoubleLogo'
@@ -40,7 +42,14 @@ const StyledPositionCard = styled(LightCard)<{ bgColor: any }>`
   overflow: hidden;
 `
 
+export enum FarmCardType {
+  HOLDER = 'HOLDER',
+  STAKE_ANI = 'STAKE_ANI',
+  FARM_APT_ANI = 'FARM_APT_ANI',
+}
+
 export interface FarmCardProps {
+  type?: FarmCardType
   coinX?: Coin
   coinY?: Coin
   poolLP?: Decimal
@@ -51,15 +60,31 @@ export interface FarmCardProps {
   LPAPR?: Decimal
   stakeAPR?: Decimal
   nativePrice?: Decimal
+  withdrawFeeFreeTimestamp?: number
+  shares?: number
 }
 
 export default function FarmCard(farmCardProps: FarmCardProps) {
-  const { coinX, coinY, poolLP, poolCoinXAmount, poolCoinYAmount, stakedLP, earnedANI, LPAPR, stakeAPR, nativePrice } =
-    farmCardProps
+  const {
+    type,
+    coinX,
+    coinY,
+    poolLP,
+    poolCoinXAmount,
+    poolCoinYAmount,
+    stakedLP,
+    earnedANI,
+    LPAPR,
+    stakeAPR,
+    nativePrice,
+    withdrawFeeFreeTimestamp,
+    shares,
+  } = farmCardProps
   const [tvlUSD, setTvlUSD] = useState<number>(0)
   const [availableUSD, setAvailableUSD] = useState<number>(0)
   const [stakedUSD, setStakedUSD] = useState<number>(0)
   const [earnedUSD, setEarnedUSD] = useState<number>(0)
+  const [withdrawFeeFreeTimestampStr, setWithdrawFeeFreeTimestampStr] = useState<string>('-')
 
   const openStakeModal = useToggleModal(ApplicationModal.STAKE)
   const chainId = useChainId()
@@ -74,9 +99,13 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
   const nativeCoinYPair = usePair(nativeCoin.address, coinY?.address)
 
   const safeStakeAPR = stakeAPR?.toNumber() ?? 0
-  // const safeStakeAPY = (1 + safeStakeAPR / 365) ** 365 - 1
   const safeLPAPR = LPAPR?.toNumber() > 0 ? LPAPR?.toNumber() : 0
-  // const safeLPARPY = (1 + safeLPAPR / 365) ** 365 - 1
+  // const safeLPAPY = (1 + safeLPAPR / 365) ** 365 - 1
+  const safeStakeAPY = (1 + (safeStakeAPR + safeLPAPR) / 365) ** 365 - 1
+  const showAPR = type === FarmCardType.STAKE_ANI || type === FarmCardType.FARM_APT_ANI
+  const showAPY =
+    type === FarmCardType.HOLDER || (chainId === SupportedChainId.APTOS && type === FarmCardType.FARM_APT_ANI)
+  const showHarvest = type === FarmCardType.STAKE_ANI || type === FarmCardType.FARM_APT_ANI
 
   useEffect(() => {
     let usdAmount = Utils.d(0)
@@ -128,6 +157,28 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
     setTxHash('')
   }, [txHash])
 
+  useEffect(() => {
+    if (type === FarmCardType.HOLDER && withdrawFeeFreeTimestamp) {
+      const interval = setInterval(() => {
+        const delta = (withdrawFeeFreeTimestamp - Date.now()) / 1000
+        if (delta > 0) {
+          const days = Math.floor(delta / 86400)
+          const daysStr = days > 0 ? `${days}d:` : ''
+          const hours = Math.floor((delta % 86400) / 3600)
+          const hoursStr = hours > 0 ? `${('0' + hours).slice(-2)}h:` : ''
+          const minutes = Math.floor((delta % 3600) / 60)
+          const minutesStr = minutes > 0 ? `${('0' + minutes).slice(-2)}m:` : ''
+          const seconds = '0' + Math.floor(delta % 60)
+          const secondsStr = `${seconds.slice(-2)}s`
+          setWithdrawFeeFreeTimestampStr(`${daysStr}${hoursStr}${minutesStr}${secondsStr}`)
+        } else {
+          setWithdrawFeeFreeTimestampStr('-')
+        }
+      }, 1000)
+      return () => clearInterval(interval)
+    }
+  }, [withdrawFeeFreeTimestamp])
+
   async function onHarvest() {
     try {
       const payload = isFarm
@@ -161,146 +212,218 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
   return (
     <StyledPositionCard bgColor={backgroundColor} maxWidth={'340px'} width={'100%'}>
       {/* <CardNoise /> */}
-      <AutoColumn gap="12px">
-        <FixedHeightRow style={{ marginBottom: '8px' }}>
-          {isFarm ? (
-            <AutoRow gap="8px" style={{ marginLeft: '4px' }}>
-              <DoubleCoinLogo coinX={coinX} coinY={coinY} size={30} margin={false} />
-              <Text fontWeight={500} fontSize={20}>
-                {`${coinX?.symbol}-${coinY?.symbol}`}
-              </Text>
-            </AutoRow>
-          ) : (
-            <AutoRow gap="8px" style={{ marginLeft: '0px' }}>
-              <CoinLogo coin={coinX} size={'30px'} />
-              <Text fontWeight={500} fontSize={20}>
-                Stake {coinX?.symbol}
-              </Text>
-            </AutoRow>
-          )}
-        </FixedHeightRow>
-
-        <AutoColumn gap="16px">
-          <FixedHeightRow>
-            <RowFixed>
-              <ThemedText.DeprecatedMain fontSize={14}>APR</ThemedText.DeprecatedMain>
-              <Text fontSize={16} fontWeight={500} style={{ paddingLeft: '6px' }}>
-                {((safeStakeAPR + safeLPAPR) * 100).toFixed(2)}%
-              </Text>
-              {isFarm && (
+      {stakeAPR ? (
+        <AutoColumn gap="12px">
+          <FixedHeightRow style={{ marginBottom: '8px' }}>
+            {type === FarmCardType.HOLDER && (
+              <AutoRow gap="4px" style={{ marginLeft: '0px' }}>
+                <CoinLogo coin={coinX} size={'30px'} />
+                <Text fontWeight={500} fontSize={20}>
+                  Holder Pool
+                </Text>
                 <QuestionHelper
-                  text={
-                    isFarm
-                      ? `Liquidity providers ${(safeLPAPR * 100).toFixed(2)}% and the rewards in ANI ${(
-                          safeStakeAPR * 100
-                        ).toFixed(2)}%. `
-                      : ''
-                    // 'APY is based on your one-year income if Harvest and Compound are made once a day. Provided APY calculations depend on current APR rates.'
-                  }
+                  text={`Any ANI tokens you stake in this pool will be automatically harvested and compounded for you after anyone stake or unstake.`}
                 />
-              )}
-            </RowFixed>
-            <RowFixed>
-              <ThemedText.DeprecatedMain fontSize={14}>TVL</ThemedText.DeprecatedMain>
-              <Text fontSize={16} fontWeight={500} style={{ paddingLeft: '6px' }}>
-                {formatDollarAmount(tvlUSD)}
-              </Text>
-            </RowFixed>
+                <ThemedText.DeprecatedMain fontSize={14}>Auto-Compound</ThemedText.DeprecatedMain>
+              </AutoRow>
+            )}
+            {type === FarmCardType.STAKE_ANI && (
+              <AutoRow gap="8px" style={{ marginLeft: '0px' }}>
+                <CoinLogo coin={coinX} size={'30px'} />
+                <Text fontWeight={500} fontSize={20}>
+                  Stake {coinX?.symbol}
+                </Text>
+              </AutoRow>
+            )}
+            {type === FarmCardType.FARM_APT_ANI && (
+              <AutoRow gap="8px" style={{ marginLeft: '4px' }}>
+                <DoubleCoinLogo coinX={coinX} coinY={coinY} size={30} margin={false} />
+                <Text fontWeight={500} fontSize={20}>
+                  {`${coinX?.symbol}-${coinY?.symbol}`}
+                </Text>
+              </AutoRow>
+            )}
           </FixedHeightRow>
-          <FixedHeightRow>
-            <ThemedText.DeprecatedMain fontSize={16}>
-              Available {isFarm ? 'LP' : coinX?.symbol}
-            </ThemedText.DeprecatedMain>
-            <Column style={{ alignItems: 'flex-end' }}>
-              <Text fontSize={16} fontWeight={500}>
-                {isFarm ? amountPretty(lpBalance, 8, 6) : aniBalance?.pretty(6)}
-              </Text>
-              {availableUSD > 0 && (
-                <ThemedText.DeprecatedMain fontSize={10} style={{ paddingLeft: '6px' }}>
-                  {formatDollarAmount(availableUSD)}
-                </ThemedText.DeprecatedMain>
+
+          <AutoColumn gap="16px">
+            <FixedHeightRow>
+              {showAPR && (
+                <RowFixed>
+                  <ThemedText.DeprecatedMain fontSize={14}>APR</ThemedText.DeprecatedMain>
+                  <Text fontSize={16} fontWeight={500} style={{ paddingLeft: '6px' }}>
+                    {((safeStakeAPR + safeLPAPR) * 100).toFixed(2)}%
+                  </Text>
+                  {isFarm && (
+                    <QuestionHelper
+                      text={`Liquidity providers ${(safeLPAPR * 100).toFixed(2)}% and the rewards in ANI ${(
+                        safeStakeAPR * 100
+                      ).toFixed(2)}%`}
+                    />
+                  )}
+                </RowFixed>
               )}
-            </Column>
-          </FixedHeightRow>
-          <FixedHeightRow>
-            <ThemedText.DeprecatedMain fontSize={16}>Staked {isFarm ? 'LP' : coinX?.symbol}</ThemedText.DeprecatedMain>
-            <Column style={{ alignItems: 'flex-end' }}>
-              <Text fontSize={16} fontWeight={500}>
-                {amountPretty(stakedLP, 8, 6)}
-              </Text>
-              {stakedUSD > 0 && (
-                <ThemedText.DeprecatedMain fontSize={10} style={{ paddingLeft: '6px' }}>
-                  {formatDollarAmount(stakedUSD)}
-                </ThemedText.DeprecatedMain>
+              {showAPY && (
+                <RowFixed>
+                  <ThemedText.DeprecatedMain fontSize={14}>APY</ThemedText.DeprecatedMain>
+                  <Text fontSize={16} fontWeight={500} style={{ paddingLeft: '6px' }}>
+                    {(safeStakeAPY * 100).toFixed(2)}%
+                  </Text>
+                  {type === FarmCardType.HOLDER && (
+                    <QuestionHelper text={`Holder pool is compounded automatically, so we show APY.`} />
+                  )}
+                  {type === FarmCardType.FARM_APT_ANI && (
+                    <QuestionHelper
+                      text={`APY is based on your one-year income if Harvest and Compound are made once a day. Provided APY calculations depend on current APR rates.`}
+                    />
+                  )}
+                </RowFixed>
               )}
-            </Column>
-          </FixedHeightRow>
-          <FixedHeightRow>
-            <ThemedText.DeprecatedMain fontSize={16}>Earned ANI</ThemedText.DeprecatedMain>
-            <Column style={{ alignItems: 'flex-end' }}>
-              <Text fontSize={16} fontWeight={500}>
-                {amountPretty(earnedANI, 8, 6)}
-              </Text>
-              {earnedUSD > 0 && (
-                <ThemedText.DeprecatedMain fontSize={10} style={{ paddingLeft: '6px' }}>
-                  {formatDollarAmount(earnedUSD)}
-                </ThemedText.DeprecatedMain>
+              {!isFarm && (
+                <RowFixed>
+                  <ThemedText.DeprecatedMain fontSize={14}>TVL</ThemedText.DeprecatedMain>
+                  <Text fontSize={16} fontWeight={500} style={{ paddingLeft: '6px' }}>
+                    {formatDollarAmount(tvlUSD)}
+                  </Text>
+                </RowFixed>
               )}
-            </Column>
-          </FixedHeightRow>
-          <RowBetween marginTop="10px">
-            <ButtonPrimary
-              padding="8px"
-              $borderRadius="8px"
-              onClick={() => {
-                window.farmCardProps = farmCardProps
-                window.farmCardBalance = isFarm ? lpBalance : aniBalance.amount
-                window.farmCardAction = 'stake'
-                openStakeModal()
-              }}
-            >
-              Stake
-            </ButtonPrimary>
-            {stakedLP?.toNumber() > 0 && (
+            </FixedHeightRow>
+            {isFarm && (
+              <FixedHeightRow>
+                <ThemedText.DeprecatedMain fontSize={14}>TVL</ThemedText.DeprecatedMain>
+                <Text fontSize={16} fontWeight={500} style={{ paddingLeft: '6px' }}>
+                  {formatDollarAmount(tvlUSD)}
+                </Text>
+              </FixedHeightRow>
+            )}
+            <FixedHeightRow>
+              <ThemedText.DeprecatedMain fontSize={16}>
+                Available {isFarm ? 'LP' : coinX?.symbol}
+              </ThemedText.DeprecatedMain>
+              <Column style={{ alignItems: 'flex-end' }}>
+                <Text fontSize={16} fontWeight={500}>
+                  {isFarm ? amountPretty(lpBalance, 8, 6) : aniBalance?.pretty(6)}
+                </Text>
+                {availableUSD > 0 && (
+                  <ThemedText.DeprecatedMain fontSize={10} style={{ paddingLeft: '6px' }}>
+                    {formatDollarAmount(availableUSD)}
+                  </ThemedText.DeprecatedMain>
+                )}
+              </Column>
+            </FixedHeightRow>
+            <FixedHeightRow>
+              <ThemedText.DeprecatedMain fontSize={16}>
+                Staked {isFarm ? 'LP' : coinX?.symbol}
+              </ThemedText.DeprecatedMain>
+              <Column style={{ alignItems: 'flex-end' }}>
+                <Text fontSize={16} fontWeight={500}>
+                  {amountPretty(stakedLP, 8, 6)}
+                </Text>
+                {stakedUSD > 0 && (
+                  <ThemedText.DeprecatedMain fontSize={10} style={{ paddingLeft: '6px' }}>
+                    {formatDollarAmount(stakedUSD)}
+                  </ThemedText.DeprecatedMain>
+                )}
+              </Column>
+            </FixedHeightRow>
+            <FixedHeightRow>
+              <RowFixed>
+                <ThemedText.DeprecatedMain fontSize={16}>Earned ANI</ThemedText.DeprecatedMain>
+                <QuestionHelper
+                  text={`Earned since your last action. Auto-Compound and update after anyone stake or unstake.`}
+                />
+              </RowFixed>
+              <Column style={{ alignItems: 'flex-end' }}>
+                <Text fontSize={16} fontWeight={500}>
+                  {amountPretty(earnedANI, 8, 6)}
+                </Text>
+                {earnedUSD > 0 && (
+                  <ThemedText.DeprecatedMain fontSize={10} style={{ paddingLeft: '6px' }}>
+                    {formatDollarAmount(earnedUSD)}
+                  </ThemedText.DeprecatedMain>
+                )}
+              </Column>
+            </FixedHeightRow>
+            {type === FarmCardType.HOLDER && (
+              <FixedHeightRow>
+                <RowFixed>
+                  <ThemedText.DeprecatedMain fontSize={14}>20% unstaking fee until</ThemedText.DeprecatedMain>
+                  <QuestionHelper
+                    text={`Only applies within 30 days of staking. Unstaking after 30 days will not include a fee. Timer resets every time you stake and unstake new ANI in the pool.`}
+                  />
+                </RowFixed>
+                <Column style={{ alignItems: 'flex-end' }}>
+                  <ThemedText.DeprecatedMain fontSize={14} fontWeight={500}>
+                    {withdrawFeeFreeTimestampStr}
+                  </ThemedText.DeprecatedMain>
+                </Column>
+              </FixedHeightRow>
+            )}
+            <RowBetween marginTop="10px">
               <ButtonPrimary
                 padding="8px"
-                margin="0 0 0 16px"
                 $borderRadius="8px"
                 onClick={() => {
                   window.farmCardProps = farmCardProps
-                  window.farmCardBalance = stakedLP
-                  window.farmCardAction = 'unstake'
+                  window.farmCardBalance = isFarm ? lpBalance : aniBalance.amount
+                  window.farmCardAction = 'stake'
                   openStakeModal()
                 }}
               >
-                Unstake
+                Stake
               </ButtonPrimary>
-            )}
-          </RowBetween>
-          <RowBetween marginTop="0px">
-            <ButtonSecondary
-              padding="8px"
-              $borderRadius="8px"
-              as={Link}
-              to={isFarm ? `/add/${coinX?.address}/${coinY?.address}` : '/'}
-            >
-              Get {isFarm ? 'LP' : 'ANI'}
-            </ButtonSecondary>
-            {stakedLP?.toNumber() > 0 && (
-              <ButtonGreen
+              {stakedLP?.toNumber() > 0 && (
+                <ButtonPrimary
+                  padding="8px"
+                  margin="0 0 0 16px"
+                  $borderRadius="8px"
+                  onClick={() => {
+                    window.farmCardProps = farmCardProps
+                    window.farmCardBalance = stakedLP
+                    window.farmCardAction = 'unstake'
+                    window.shares = shares
+                    openStakeModal()
+                  }}
+                >
+                  Unstake
+                </ButtonPrimary>
+              )}
+            </RowBetween>
+            <RowBetween marginTop="0px">
+              <ButtonSecondary
                 padding="8px"
-                margin="0 0 0 16px"
                 $borderRadius="8px"
-                onClick={() => {
-                  onHarvest()
-                }}
+                as={Link}
+                to={isFarm ? `/add/${coinX?.address}/${coinY?.address}` : '/'}
               >
-                Harvest
-              </ButtonGreen>
-            )}
-          </RowBetween>
+                Get {isFarm ? 'LP' : 'ANI'}
+              </ButtonSecondary>
+              {showHarvest && stakedLP?.toNumber() > 0 && (
+                <ButtonGreen
+                  padding="8px"
+                  margin="0 0 0 16px"
+                  $borderRadius="8px"
+                  onClick={() => {
+                    onHarvest()
+                  }}
+                >
+                  Harvest
+                </ButtonGreen>
+              )}
+            </RowBetween>
+          </AutoColumn>
         </AutoColumn>
-      </AutoColumn>
+      ) : (
+        <LoadingRows>
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+          <div />
+        </LoadingRows>
+      )}
       <TransactionConfirmationModal
         isOpen={showConfirm}
         onDismiss={handleDismissConfirmation}

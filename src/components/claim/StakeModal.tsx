@@ -1,7 +1,7 @@
 import { Decimal, Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
 import { Input } from '@rebass/forms'
-import { FarmCardProps } from 'components/PositionCard/farmCard'
+import { FarmCardProps, FarmCardType } from 'components/PositionCard/farmCard'
 import TransactionConfirmationModal, { ConfirmationModalContent } from 'components/TransactionConfirmationModal'
 import { SupportedChainId } from 'constants/chains'
 import { REFRESH_TIMEOUT } from 'constants/misc'
@@ -55,6 +55,8 @@ export default function StakeModal({ isOpen, onDismiss }: { isOpen: boolean; onD
   const farmCardProps: FarmCardProps = window.farmCardProps
   const balance: Decimal = window.farmCardBalance
   const action: string = window.farmCardAction
+  const shares: number = window.shares
+  const type = farmCardProps?.type
   const isFarm = farmCardProps?.coinY ? true : false
 
   const handleDismissConfirmation = useCallback(() => {
@@ -71,17 +73,30 @@ export default function StakeModal({ isOpen, onDismiss }: { isOpen: boolean; onD
 
   async function onConfirm() {
     try {
-      const payload = isFarm
-        ? ConnectionInstance.getSDK().MasterChef.stakeLPCoinPayload({
-            amount: amount.toString(),
-            coinType:
-              '0x796900ebe1a1a54ff9e932f19c548f5c1af5c6e7d34965857ac2f7b1d1ab2cbf::LPCoinV1::LPCoin<0x1::aptos_coin::AptosCoin,0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI>',
-            method: action === 'stake' ? 'deposit' : 'withdraw',
-          })
-        : ConnectionInstance.getSDK().MasterChef.stakeANIPayload({
-            amount: amount.toString(),
-            method: action === 'stake' ? 'enter_staking' : 'leave_staking',
-          })
+      let payload
+      if (type === FarmCardType.HOLDER) {
+        if (action === 'stake') {
+          payload = ConnectionInstance.getSDK().Misc.autoAniDepositPayload(amount.toString())
+        } else {
+          let withdrawShares = Utils.d(amount).mul(shares).div(balance).ceil()
+          if (withdrawShares.gt(shares)) {
+            withdrawShares = Utils.d(shares)
+          }
+          payload = ConnectionInstance.getSDK().Misc.autoAniWithdrawPayload(withdrawShares)
+        }
+      } else if (type === FarmCardType.STAKE_ANI) {
+        payload = ConnectionInstance.getSDK().MasterChef.stakeANIPayload({
+          amount: amount.toString(),
+          method: action === 'stake' ? 'enter_staking' : 'leave_staking',
+        })
+      } else if (type === FarmCardType.FARM_APT_ANI) {
+        ConnectionInstance.getSDK().MasterChef.stakeLPCoinPayload({
+          amount: amount.toString(),
+          coinType:
+            '0x796900ebe1a1a54ff9e932f19c548f5c1af5c6e7d34965857ac2f7b1d1ab2cbf::LPCoinV1::LPCoin<0x1::aptos_coin::AptosCoin,0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI>',
+          method: action === 'stake' ? 'deposit' : 'withdraw',
+        })
+      }
 
       setShowConfirm(true)
       setAttemptingTxn(true)

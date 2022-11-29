@@ -1,5 +1,5 @@
 import { Decimal, Utils } from '@animeswap.org/v1-sdk'
-import { ButtonPrimary } from 'components/Button'
+import { ButtonPrimary, ButtonSecondary } from 'components/Button'
 import PoolTable, { PoolData } from 'components/pools/PoolTable'
 import { getChainInfoOrDefault } from 'constants/chainInfo'
 import { BIG_INT_ZERO } from 'constants/misc'
@@ -12,7 +12,7 @@ import styled from 'styled-components/macro'
 import { formatDollarAmount } from 'utils/formatDollarAmt'
 
 import { AutoColumn } from '../../components/Column'
-import { RowBetween } from '../../components/Row'
+import { RowBetween, RowFixed } from '../../components/Row'
 import { ThemedText } from '../../theme'
 
 const ChartContainer = styled.div`
@@ -31,6 +31,11 @@ const TitleRow = styled(RowBetween)`
 `
 
 const ResponsiveButtonPrimary = styled(ButtonPrimary)`
+  width: fit-content;
+  border-radius: 12px;
+`
+
+const ResponsiveButtonSecondary = styled(ButtonSecondary)`
   width: fit-content;
   border-radius: 12px;
 `
@@ -132,6 +137,31 @@ export default function Explore() {
             <ThemedText.DeprecatedMediumHeader style={{ marginTop: '0.5rem', justifySelf: 'flex-start' }}>
               TVL: {formatDollarAmount(tvlUSD)}
             </ThemedText.DeprecatedMediumHeader>
+            <RowFixed>
+              <ResponsiveButtonSecondary
+                padding="6px 8px"
+                style={{ marginTop: '0.5rem', justifySelf: 'flex-end' }}
+                onClick={() => {
+                  window.open('https://coinmarketcap.com/exchanges/animeswap/', '_blank')
+                }}
+              >
+                <Text fontWeight={500} fontSize={16}>
+                  CoinMarketCap<sup>↗</sup>
+                </Text>
+              </ResponsiveButtonSecondary>
+              <ResponsiveButtonSecondary
+                padding="6px 8px"
+                marginLeft={'8px'}
+                style={{ marginTop: '0.5rem', justifySelf: 'flex-end' }}
+                onClick={() => {
+                  window.open('https://dexscreener.com/aptos/animeswap', '_blank')
+                }}
+              >
+                <Text fontWeight={500} fontSize={16}>
+                  DEXScreener<sup>↗</sup>
+                </Text>
+              </ResponsiveButtonSecondary>
+            </RowFixed>
             {!seeAll && (
               <ResponsiveButtonPrimary
                 padding="6px 8px"
