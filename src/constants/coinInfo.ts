@@ -62,6 +62,14 @@ export const APTOS_CoinInfo: { [address: string]: Coin } = {
     logoURL: ['https://coinlist.animeswap.org/icons/APC.png'],
     projectURL: 'https://aptpp.com/',
   },
+  '0xc81caa7cd37c4adf61764b3e47dfa8d9a94fbeb96ca9e5fbf88befde4cff3c12::Apsocoin::Apsocoin': {
+    address: '0xc81caa7cd37c4adf61764b3e47dfa8d9a94fbeb96ca9e5fbf88befde4cff3c12::Apsocoin::Apsocoin',
+    decimals: 6,
+    symbol: 'APSO',
+    name: 'Apso Coin',
+    logoURL: ['https://coinlist.animeswap.org/icons/APSO.png'],
+    projectURL: 'https://apsocoin.com/',
+  },
   '0x8b633e663f6c78177f4cfe5761395cf9f78fd18ab81d456ee58a5d03e9af93c1::proton_ba3::PROTON_49D': {
     address: '0x8b633e663f6c78177f4cfe5761395cf9f78fd18ab81d456ee58a5d03e9af93c1::proton_ba3::PROTON_49D',
     decimals: 6,
