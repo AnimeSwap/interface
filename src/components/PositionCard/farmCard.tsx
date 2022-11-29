@@ -162,10 +162,15 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
       const interval = setInterval(() => {
         const delta = (withdrawFeeFreeTimestamp - Date.now()) / 1000
         if (delta > 0) {
-          setWithdrawFeeFreeTimestampStr(
-            `${Math.floor(delta / 3600)}:${Math.floor((delta % 3600) / 60)}:${Math.floor(delta % 60)}`
-          )
-          // console.log(`${Math.floor(delta / 3600)}:${Math.floor((delta % 3600) / 60)}:${Math.floor(delta % 60)}`)
+          const days = Math.floor(delta / 86400)
+          const daysStr = days > 0 ? `${days}d:` : ''
+          const hours = Math.floor((delta % 86400) / 3600)
+          const hoursStr = hours > 0 ? `${('0' + hours).slice(-2)}h:` : ''
+          const minutes = Math.floor((delta % 3600) / 60)
+          const minutesStr = minutes > 0 ? `${('0' + minutes).slice(-2)}m:` : ''
+          const seconds = '0' + Math.floor(delta % 60)
+          const secondsStr = `${seconds.slice(-2)}s`
+          setWithdrawFeeFreeTimestampStr(`${daysStr}${hoursStr}${minutesStr}${secondsStr}`)
         } else {
           setWithdrawFeeFreeTimestampStr('')
         }
@@ -347,9 +352,9 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
                   />
                 </RowFixed>
                 <Column style={{ alignItems: 'flex-end' }}>
-                  <Text fontSize={16} fontWeight={500}>
+                  <ThemedText.DeprecatedMain fontSize={14} fontWeight={500}>
                     {withdrawFeeFreeTimestampStr}
-                  </Text>
+                  </ThemedText.DeprecatedMain>
                 </Column>
               </FixedHeightRow>
             )}
