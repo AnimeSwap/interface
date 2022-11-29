@@ -55,6 +55,7 @@ export default function StakeModal({ isOpen, onDismiss }: { isOpen: boolean; onD
   const farmCardProps: FarmCardProps = window.farmCardProps
   const balance: Decimal = window.farmCardBalance
   const action: string = window.farmCardAction
+  const shares: number = window.shares
   const type = farmCardProps?.type
   const isFarm = farmCardProps?.coinY ? true : false
 
@@ -74,7 +75,12 @@ export default function StakeModal({ isOpen, onDismiss }: { isOpen: boolean; onD
     try {
       let payload
       if (type === FarmCardType.HOLDER) {
-        payload = ConnectionInstance.getSDK().Misc.autoAniDepositPayload(amount.toString())
+        if (action === 'stake') {
+          payload = ConnectionInstance.getSDK().Misc.autoAniDepositPayload(amount.toString())
+        } else {
+          const withdrawShares = Utils.d(amount).mul(shares).div(balance).ceil()
+          payload = ConnectionInstance.getSDK().Misc.autoAniWithdrawPayload(withdrawShares)
+        }
       } else if (type === FarmCardType.STAKE_ANI) {
         payload = ConnectionInstance.getSDK().MasterChef.stakeANIPayload({
           amount: amount.toString(),

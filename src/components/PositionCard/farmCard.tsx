@@ -60,6 +60,8 @@ export interface FarmCardProps {
   LPAPR?: Decimal
   stakeAPR?: Decimal
   nativePrice?: Decimal
+  withdrawFeeFreeTimestamp?: number
+  shares?: number
 }
 
 export default function FarmCard(farmCardProps: FarmCardProps) {
@@ -75,11 +77,14 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
     LPAPR,
     stakeAPR,
     nativePrice,
+    withdrawFeeFreeTimestamp,
+    shares,
   } = farmCardProps
   const [tvlUSD, setTvlUSD] = useState<number>(0)
   const [availableUSD, setAvailableUSD] = useState<number>(0)
   const [stakedUSD, setStakedUSD] = useState<number>(0)
   const [earnedUSD, setEarnedUSD] = useState<number>(0)
+  const [withdrawFeeFreeTimestampStr, setWithdrawFeeFreeTimestampStr] = useState<string>('')
 
   const openStakeModal = useToggleModal(ApplicationModal.STAKE)
   const chainId = useChainId()
@@ -100,6 +105,7 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
   const showAPR = type === FarmCardType.STAKE_ANI || type === FarmCardType.FARM_APT_ANI
   const showAPY =
     type === FarmCardType.HOLDER || (chainId === SupportedChainId.APTOS && type === FarmCardType.FARM_APT_ANI)
+  const showHarvest = type === FarmCardType.STAKE_ANI || type === FarmCardType.FARM_APT_ANI
 
   useEffect(() => {
     let usdAmount = Utils.d(0)
@@ -151,6 +157,23 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
     setTxHash('')
   }, [txHash])
 
+  useEffect(() => {
+    if (type === FarmCardType.HOLDER && withdrawFeeFreeTimestamp) {
+      const interval = setInterval(() => {
+        const delta = (withdrawFeeFreeTimestamp - Date.now()) / 1000
+        if (delta > 0) {
+          setWithdrawFeeFreeTimestampStr(
+            `${Math.floor(delta / 3600)}:${Math.floor((delta % 3600) / 60)}:${Math.floor(delta % 60)}`
+          )
+          // console.log(`${Math.floor(delta / 3600)}:${Math.floor((delta % 3600) / 60)}:${Math.floor(delta % 60)}`)
+        } else {
+          setWithdrawFeeFreeTimestampStr('')
+        }
+      }, 1000)
+      return () => clearInterval(interval)
+    }
+  }, [withdrawFeeFreeTimestamp])
+
   async function onHarvest() {
     try {
       const payload = isFarm
@@ -194,7 +217,7 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
                   Holder Pool
                 </Text>
                 <QuestionHelper
-                  text={`Any ANI tokens you stake in this pool will be automatically harvested and compounded for you every hour.`}
+                  text={`Any ANI tokens you stake in this pool will be automatically harvested and compounded for you after anyone stake or unstake.`}
                 />
                 <ThemedText.DeprecatedMain fontSize={14}>Auto-Compound</ThemedText.DeprecatedMain>
               </AutoRow>
@@ -298,7 +321,12 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
               </Column>
             </FixedHeightRow>
             <FixedHeightRow>
-              <ThemedText.DeprecatedMain fontSize={16}>Earned ANI</ThemedText.DeprecatedMain>
+              <RowFixed>
+                <ThemedText.DeprecatedMain fontSize={16}>Earned ANI</ThemedText.DeprecatedMain>
+                <QuestionHelper
+                  text={`Earned since your last action. Auto-Compound and update after anyone stake or unstake.`}
+                />
+              </RowFixed>
               <Column style={{ alignItems: 'flex-end' }}>
                 <Text fontSize={16} fontWeight={500}>
                   {amountPretty(earnedANI, 8, 6)}
@@ -310,6 +338,21 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
                 )}
               </Column>
             </FixedHeightRow>
+            {type === FarmCardType.HOLDER && withdrawFeeFreeTimestampStr.length > 2 && (
+              <FixedHeightRow>
+                <RowFixed>
+                  <ThemedText.DeprecatedMain fontSize={14}>20% unstaking fee until</ThemedText.DeprecatedMain>
+                  <QuestionHelper
+                    text={`Only applies within 30 days of staking. Unstaking after 30 days will not include a fee. Timer resets every time you stake new ANI in the pool.`}
+                  />
+                </RowFixed>
+                <Column style={{ alignItems: 'flex-end' }}>
+                  <Text fontSize={16} fontWeight={500}>
+                    {withdrawFeeFreeTimestampStr}
+                  </Text>
+                </Column>
+              </FixedHeightRow>
+            )}
             <RowBetween marginTop="10px">
               <ButtonPrimary
                 padding="8px"
@@ -332,6 +375,7 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
                     window.farmCardProps = farmCardProps
                     window.farmCardBalance = stakedLP
                     window.farmCardAction = 'unstake'
+                    window.shares = shares
                     openStakeModal()
                   }}
                 >
@@ -348,7 +392,7 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
               >
                 Get {isFarm ? 'LP' : 'ANI'}
               </ButtonSecondary>
-              {stakedLP?.toNumber() > 0 && (
+              {showHarvest && stakedLP?.toNumber() > 0 && (
                 <ButtonGreen
                   padding="8px"
                   margin="0 0 0 16px"

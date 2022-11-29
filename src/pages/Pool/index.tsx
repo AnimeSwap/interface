@@ -116,13 +116,14 @@ export default function Pool() {
   const [aniPool, setAniPool] = useState<FarmCardProps>({})
   const [aptAniPool, setAptAniPool] = useState<FarmCardProps>({})
   const [aptAniLPAPR, setAptAniLPAPR] = useState<Decimal>(Utils.d(0))
+  const [holderPool, setHolderPool] = useState<FarmCardProps>({})
   const [count, setCount] = useState(0)
 
   // Farm data interval
   useEffect(() => {
     const interval = setInterval(() => {
       setCount((count) => count + 1)
-    }, 15000)
+    }, 30000)
     return () => clearInterval(interval)
   }, [])
 
@@ -131,12 +132,28 @@ export default function Pool() {
     const fetchStake = async () => {
       if (!showFarm) return
       let res = new Map()
+      let res4
       try {
-        res = account ? await ConnectionInstance.getSDK().MasterChef.getUserInfoAll(account) : new Map()
+        if (account) {
+          // @ts-ignore
+          const result = await Promise.all([
+            ConnectionInstance.getSDK().MasterChef.getUserInfoAll(account),
+            ConnectionInstance.getSDK().Misc.calculateAutoAniStakedAmount(account),
+          ])
+          res = result[0]
+          res4 = result[1]
+        } else {
+          res = new Map()
+          res4 = undefined
+        }
       } catch (e) {
         console.error(e)
       }
-      const res2 = await ConnectionInstance.getSDK().MasterChef.getFirstTwoPairStakedLPInfo()
+      const taskListCommon = [
+        ConnectionInstance.getSDK().MasterChef.getFirstTwoPairStakedLPInfo(),
+        ConnectionInstance.getSDK().Misc.calculateAutoAniInfo(),
+      ]
+      const [res2, res3] = await Promise.all(taskListCommon)
       setAniPool({
         poolLP: res2[0]?.lpAmount,
         poolCoinXAmount: res2[0]?.lpAmount,
@@ -159,6 +176,19 @@ export default function Pool() {
         earnedANI: res.get(
           '0x796900ebe1a1a54ff9e932f19c548f5c1af5c6e7d34965857ac2f7b1d1ab2cbf::LPCoinV1::LPCoin<0x1::aptos_coin::AptosCoin, 0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI>'
         )?.pendingAni,
+      })
+      setHolderPool({
+        // @ts-ignore
+        poolLP: res3?.amount,
+        // @ts-ignore
+        poolCoinXAmount: res3?.amount,
+        // @ts-ignore
+        stakedLP: res4?.lastUserActionAni,
+        stakeAPR: res2[0]?.apr,
+        // @ts-ignore
+        earnedANI: Number.isNaN(res4?.amount - res4?.lastUserActionAni) ? 0 : res4?.amount - res4?.lastUserActionAni,
+        withdrawFeeFreeTimestamp: Utils.d(res4?.withdrawFeeFreeTimestamp).mul(1e3).toNumber(),
+        shares: Utils.d(res4?.shares).toNumber(),
       })
     }
     fetchStake()
@@ -194,12 +224,14 @@ export default function Pool() {
                 <FarmCard
                   type={FarmCardType.HOLDER}
                   coinX={aniCoin}
-                  poolLP={aniPool.poolLP}
-                  poolCoinXAmount={aniPool.poolCoinXAmount}
-                  stakedLP={aniPool.stakedLP}
-                  earnedANI={aniPool.earnedANI}
-                  stakeAPR={aniPool.stakeAPR}
+                  poolLP={holderPool.poolLP}
+                  poolCoinXAmount={holderPool.poolCoinXAmount}
+                  stakedLP={holderPool.stakedLP}
+                  earnedANI={holderPool.earnedANI}
+                  stakeAPR={holderPool.stakeAPR}
                   nativePrice={nativePrice}
+                  withdrawFeeFreeTimestamp={holderPool.withdrawFeeFreeTimestamp}
+                  shares={holderPool.shares}
                 ></FarmCard>
                 <FarmCard
                   type={FarmCardType.STAKE_ANI}

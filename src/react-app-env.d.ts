@@ -14,4 +14,5 @@ interface Window {
   farmCardProps?: any
   farmCardBalance?: any
   farmCardAction?: any
+  shares?: number
 }
