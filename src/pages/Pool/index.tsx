@@ -132,22 +132,26 @@ export default function Pool() {
     const fetchStake = async () => {
       if (!showFarm) return
       let res = new Map()
+      try {
+        if (account) {
+          // @ts-ignore
+          res = await ConnectionInstance.getSDK().MasterChef.getUserInfoAll(account)
+        } else {
+          res = new Map()
+        }
+      } catch (e) {
+        console.log(e)
+      }
       let res4
       try {
         if (account) {
           // @ts-ignore
-          const result = await Promise.all([
-            ConnectionInstance.getSDK().MasterChef.getUserInfoAll(account),
-            ConnectionInstance.getSDK().Misc.calculateAutoAniStakedAmount(account),
-          ])
-          res = result[0]
-          res4 = result[1]
+          res4 = await ConnectionInstance.getSDK().Misc.calculateAutoAniStakedAmount(account)
         } else {
-          res = new Map()
           res4 = undefined
         }
       } catch (e) {
-        console.error(e)
+        console.log(e)
       }
       const taskListCommon = [
         ConnectionInstance.getSDK().MasterChef.getFirstTwoPairStakedLPInfo(),
