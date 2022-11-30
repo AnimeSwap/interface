@@ -348,7 +348,7 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
                 <RowFixed>
                   <ThemedText.DeprecatedMain fontSize={14}>20% unstaking fee until</ThemedText.DeprecatedMain>
                   <QuestionHelper
-                    text={`Only applies within 30 days of staking. Unstaking after 30 days will not include a fee. Timer resets every time you stake and unstake new ANI in the pool.`}
+                    text={`Only applies within 30 days of staking. Unstaking after 30 days will not include a fee. Timer resets every time you stake or unstake new ANI in the pool.`}
                   />
                 </RowFixed>
                 <Column style={{ alignItems: 'flex-end' }}>
