@@ -62,6 +62,14 @@ export const APTOS_CoinInfo: { [address: string]: Coin } = {
     logoURL: ['https://coinlist.animeswap.org/icons/APC.png'],
     projectURL: 'https://aptpp.com/',
   },
+  '0x7c0322595a73b3fc53bb166f5783470afeb1ed9f46d1176db62139991505dc61::abel_coin::AbelCoin': {
+    address: '0x7c0322595a73b3fc53bb166f5783470afeb1ed9f46d1176db62139991505dc61::abel_coin::AbelCoin',
+    decimals: 8,
+    symbol: 'ABEL',
+    name: 'Abel Coin',
+    logoURL: ['https://coinlist.animeswap.org/icons/ABEL.svg'],
+    projectURL: 'https://www.abelfinance.xyz/',
+  },
   '0xc81caa7cd37c4adf61764b3e47dfa8d9a94fbeb96ca9e5fbf88befde4cff3c12::Apsocoin::Apsocoin': {
     address: '0xc81caa7cd37c4adf61764b3e47dfa8d9a94fbeb96ca9e5fbf88befde4cff3c12::Apsocoin::Apsocoin',
     decimals: 6,
