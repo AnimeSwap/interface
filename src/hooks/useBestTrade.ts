@@ -58,28 +58,38 @@ export function useBestTrade(
       setTradeState(TradeState.LOADING)
       const fromCoin = inputCoin.address
       const toCoin = outputCoin.address
+      // const tradeList =
+      //   tradeType === TradeType.EXACT_INPUT
+      //     ? await ConnectionInstance.getSDK().route.getRouteSwapExactCoinForCoin({
+      //         fromCoin,
+      //         toCoin,
+      //         amount,
+      //       })
+      //     : await ConnectionInstance.getSDK().route.getRouteSwapCoinForExactCoin({
+      //         fromCoin,
+      //         toCoin,
+      //         amount,
+      //       })
+      const allRoutes = await ConnectionInstance.getSDK().routeV2.getAllRoutes(fromCoin, toCoin)
+      const candidateRouteList = ConnectionInstance.getSDK().routeV2.getCandidateRoutes(allRoutes)
+      const allCandidateRouteResources = await ConnectionInstance.getSDK().routeV2.getAllCandidateRouteResources(
+        candidateRouteList
+      )
       const tradeList =
         tradeType === TradeType.EXACT_INPUT
-          ? await ConnectionInstance.getSDK().route.getRouteSwapExactCoinForCoin({
+          ? ConnectionInstance.getSDK().routeV2.bestTradeExactIn(
+              candidateRouteList,
+              allCandidateRouteResources,
+              fromCoin,
+              amount
+            )
+          : ConnectionInstance.getSDK().routeV2.bestTradeExactOut(
+              candidateRouteList,
+              allCandidateRouteResources,
               fromCoin,
               toCoin,
-              amount,
-            })
-          : await ConnectionInstance.getSDK().route.getRouteSwapCoinForExactCoin({
-              fromCoin,
-              toCoin,
-              amount,
-            })
-      // const allRoutes = await ConnectionInstance.getSDK().routeV2.getAllRoutes(inputCoin.address, outputCoin.address)
-      // const candidateRouteList = ConnectionInstance.getSDK().routeV2.getCandidateRoutes(allRoutes)
-      // const allCandidateRouteResources = await ConnectionInstance.getSDK().routeV2.getAllCandidateRouteResources(candidateRouteList)
-      // const bestTrades = ConnectionInstance.getSDK().routeV2.bestTradeExactOut(
-      //   candidateRouteList,
-      //   allCandidateRouteResources,
-      //   inputCoin.address,
-      //   outputCoin.address,
-      //   amount,
-      // )
+              amount
+            )
       if (tradeList.length === 0) {
         setTradeState(TradeState.INVALID)
         return
