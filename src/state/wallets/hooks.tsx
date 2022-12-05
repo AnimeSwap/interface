@@ -70,19 +70,23 @@ export async function AutoConnectWallets() {
     case WalletType.RISE:
       if (await AutoConnectRise()) return
       break
-    case WalletType.BITKEEP:
-      if (await AutoConnectBitkeep()) return
-      break
     case WalletType.PONTEM:
       if (await AutoConnectPontem()) return
       break
+    case WalletType.BITKEEP:
+      if (await AutoConnectBitkeep()) return
+      break
+    case WalletType.TRUSTWALLET:
+      if (await AutoConnectTrustWallet()) return
+      break
   }
   // auto connect wallet in order
+  if (await AutoConnectBitkeep()) return
+  if (await AutoConnectTrustWallet()) return
   if (await AutoConnectMartian()) return
   if (await AutoConnectPetra()) return
   // if (await AutoConnectFewcha()) return
   if (await AutoConnectRise()) return
-  if (await AutoConnectBitkeep()) return
   if (await AutoConnectPontem()) return
 }
 
@@ -296,6 +300,33 @@ export async function AutoConnectBitkeep() {
   return false
 }
 
+export async function ConnectTrustWallet() {
+  try {
+    const res = await window.trustwallet.aptos.connect()
+    store.dispatch(setSelectedWallet({ wallet: WalletType.TRUSTWALLET }))
+    store.dispatch(setAccount({ account: res.address }))
+    console.log('TrustWallet connect success')
+    return true
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export async function AutoConnectTrustWallet() {
+  if (!(window.trustwallet && window.trustwallet?.aptos)) {
+    return false
+  }
+  try {
+    if (await ConnectTrustWallet()) {
+      console.log('TrustWallet auto connected')
+      return true
+    }
+  } catch (error) {
+    console.error(error)
+  }
+  return false
+}
+
 export const ResetConnection = () => {
   store.dispatch(setSelectedWallet({ wallet: WalletType.PETRA }))
   store.dispatch(setAccount({ account: undefined }))
@@ -340,6 +371,10 @@ export const SignAndSubmitTransaction = async (transaction: any) => {
       const bitkeepTx = await window.bitkeep.aptos.signAndSubmitTransaction(payload)
       console.log('BitKeep tx', bitkeepTx)
       return bitkeepTx.hash
+    case WalletType.TRUSTWALLET:
+      const trustwallet = await window.trustwallet.aptos.signAndSubmitTransaction(payload)
+      console.log('TrustWallet tx', trustwallet)
+      return trustwallet.hash
     default:
       break
   }

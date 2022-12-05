@@ -11,6 +11,7 @@ interface Window {
   pontem?: any
   rise?: any
   bitkeep?: any
+  trustwallet?: any
   farmCardProps?: any
   farmCardBalance?: any
   farmCardAction?: any

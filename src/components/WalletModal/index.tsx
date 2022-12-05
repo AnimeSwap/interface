@@ -20,6 +20,7 @@ import MartianOption from './MartianOption'
 import PetraOption from './PetraOption'
 import PontemOption from './PontemOption'
 import RiseOption from './RiseOption'
+import TrustWalletOption from './TrustWalletOption'
 
 const CloseIcon = styled.div`
   position: absolute;
@@ -198,6 +199,7 @@ export default function WalletModal({
                 {/* <FewchaOption /> */}
                 <RiseOption />
                 <BitkeepOption />
+                <TrustWalletOption />
                 <PontemOption />
               </OptionGrid>
             )}
