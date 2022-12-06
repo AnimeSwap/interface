@@ -31,6 +31,16 @@ export class BestTrade {
   priceImpact: Decimal
 }
 
+const cacheGetAllRoutes: {
+  allRoute: any
+  fromCoin: any
+  toCoin: any
+} = {
+  allRoute: undefined,
+  fromCoin: undefined,
+  toCoin: undefined,
+}
+
 export function useBestTrade(
   tradeType: TradeType,
   amount: Decimal,
@@ -58,6 +68,7 @@ export function useBestTrade(
       setTradeState(TradeState.LOADING)
       const fromCoin = inputCoin.address
       const toCoin = outputCoin.address
+      // route v1
       // const tradeList =
       //   tradeType === TradeType.EXACT_INPUT
       //     ? await ConnectionInstance.getSDK().route.getRouteSwapExactCoinForCoin({
@@ -70,8 +81,16 @@ export function useBestTrade(
       //         toCoin,
       //         amount,
       //       })
-      const allRoutes = await ConnectionInstance.getSDK().routeV2.getAllRoutes(fromCoin, toCoin)
-      const candidateRouteList = ConnectionInstance.getSDK().routeV2.getCandidateRoutes(allRoutes)
+      if (
+        cacheGetAllRoutes.fromCoin !== fromCoin ||
+        cacheGetAllRoutes.toCoin !== toCoin ||
+        !cacheGetAllRoutes.allRoute
+      ) {
+        cacheGetAllRoutes.fromCoin = fromCoin
+        cacheGetAllRoutes.toCoin = toCoin
+        cacheGetAllRoutes.allRoute = await ConnectionInstance.getSDK().routeV2.getAllRoutes(fromCoin, toCoin)
+      }
+      const candidateRouteList = ConnectionInstance.getSDK().routeV2.getCandidateRoutes(cacheGetAllRoutes.allRoute)
       const allCandidateRouteResources = await ConnectionInstance.getSDK().routeV2.getAllCandidateRouteResources(
         candidateRouteList
       )
