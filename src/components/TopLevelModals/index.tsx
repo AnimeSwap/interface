@@ -1,6 +1,6 @@
 import AddressClaimModal from 'components/claim/AddressClaimModal'
-import ANIAirdropClaimModal from 'components/claim/ANIAirdropClaimModal'
-import BindDiscordModal from 'components/claim/BindDiscordModal'
+// import ANIAirdropClaimModal from 'components/claim/ANIAirdropClaimModal'
+// import BindDiscordModal from 'components/claim/BindDiscordModal'
 import StakeModal from 'components/claim/StakeModal'
 import { useModalIsOpen, useToggleModal } from 'state/application/hooks'
 import { ApplicationModal } from 'state/application/reducer'
@@ -20,7 +20,7 @@ export default function TopLevelModals() {
     <>
       <AddressClaimModal isOpen={addressClaimOpen} onDismiss={addressClaimToggle} />
       {/* <BindDiscordModal isOpen={bindDiscordOpen} onDismiss={bindDiscordToggle} /> */}
-      <ANIAirdropClaimModal isOpen={airdropClaimOpen} onDismiss={airdropClaimToggle} />
+      {/* <ANIAirdropClaimModal isOpen={airdropClaimOpen} onDismiss={airdropClaimToggle} /> */}
       <StakeModal isOpen={stakeOpen} onDismiss={stakeToggle} />
     </>
   )

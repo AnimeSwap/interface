@@ -62,6 +62,15 @@ export const APTOS_CoinInfo: { [address: string]: Coin } = {
     logoURL: ['https://coinlist.animeswap.org/icons/APC.png'],
     projectURL: 'https://aptpp.com/',
   },
+  '0xd11107bdf0d6d7040c6c0bfbdecb6545191fdf13e8d8d259952f53e1713f61b5::ditto_discount_coin::DittoDiscountCoin': {
+    address:
+      '0xd11107bdf0d6d7040c6c0bfbdecb6545191fdf13e8d8d259952f53e1713f61b5::ditto_discount_coin::DittoDiscountCoin',
+    decimals: 8,
+    symbol: 'DTO',
+    name: 'Ditto Discount Token',
+    logoURL: ['https://coinlist.animeswap.org/icons/DTO.svg'],
+    projectURL: 'https://www.dittofinance.io/',
+  },
   '0x7c0322595a73b3fc53bb166f5783470afeb1ed9f46d1176db62139991505dc61::abel_coin::AbelCoin': {
     address: '0x7c0322595a73b3fc53bb166f5783470afeb1ed9f46d1176db62139991505dc61::abel_coin::AbelCoin',
     decimals: 8,
