@@ -328,7 +328,7 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
             <FixedHeightRow>
               <RowFixed>
                 <ThemedText.DeprecatedMain fontSize={16}>Earned ANI</ThemedText.DeprecatedMain>
-                <QuestionHelper text={`Earned since your last action.`} />
+                <QuestionHelper text={`Earned since your last action. Staked ANI include Earned ANI.`} />
               </RowFixed>
               <Column style={{ alignItems: 'flex-end' }}>
                 <Text fontSize={16} fontWeight={500}>
