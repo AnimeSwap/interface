@@ -329,7 +329,7 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
               <RowFixed>
                 <ThemedText.DeprecatedMain fontSize={16}>Earned ANI</ThemedText.DeprecatedMain>
                 <QuestionHelper
-                  text={`Earned since your last action. Auto-Compound and update after anyone stake or unstake.`}
+                  text={`Earned since your last action.`}
                 />
               </RowFixed>
               <Column style={{ alignItems: 'flex-end' }}>
