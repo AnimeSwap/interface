@@ -96,8 +96,14 @@ export default function StakeModal({ isOpen, onDismiss }: { isOpen: boolean; onD
             '0x796900ebe1a1a54ff9e932f19c548f5c1af5c6e7d34965857ac2f7b1d1ab2cbf::LPCoinV1::LPCoin<0x1::aptos_coin::AptosCoin,0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI>',
           method: action === 'stake' ? 'deposit' : 'withdraw',
         })
+      } else if (type === FarmCardType.FARM_APT_zUSDC) {
+        payload = ConnectionInstance.getSDK().MasterChef.stakeLPCoinPayload({
+          amount: amount.toString(),
+          coinType:
+            '0x796900ebe1a1a54ff9e932f19c548f5c1af5c6e7d34965857ac2f7b1d1ab2cbf::LPCoinV1::LPCoin<0x1::aptos_coin::AptosCoin,0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::USDC>',
+          method: action === 'stake' ? 'deposit' : 'withdraw',
+        })
       }
-
       setShowConfirm(true)
       setAttemptingTxn(true)
       const txid = await SignAndSubmitTransaction(payload)

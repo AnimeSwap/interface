@@ -7,7 +7,7 @@ import { getChainInfoOrDefault } from 'constants/chainInfo'
 import { SupportedChainId } from 'constants/chains'
 import { REFRESH_TIMEOUT } from 'constants/misc'
 import { amountPretty, Coin, CoinAmount, useCoin } from 'hooks/common/Coin'
-import { pairKey, PairState, usePair } from 'hooks/common/Pair'
+import { pairKey, PairState, useAniPrice, usePair } from 'hooks/common/Pair'
 import { transparentize } from 'polished'
 import { useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
@@ -46,6 +46,7 @@ export enum FarmCardType {
   HOLDER = 'HOLDER',
   STAKE_ANI = 'STAKE_ANI',
   FARM_APT_ANI = 'FARM_APT_ANI',
+  FARM_APT_zUSDC = 'FARM_APT_zUSDC',
 }
 
 export interface FarmCardProps {
@@ -91,6 +92,7 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
   const account = useAccount()
   const { nativeCoin, stableCoin } = getChainInfoOrDefault(chainId)
   const backgroundColor = useColor()
+  const aniPrice = useAniPrice()
   const isFarm = coinY ? true : false
   const aniBalance = useCoinAmount(coinX?.address)
   const lpBalanceString = useLpBalance(pairKey(coinX?.address, coinY?.address))
@@ -102,10 +104,14 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
   const safeLPAPR = LPAPR?.toNumber() > 0 ? LPAPR?.toNumber() : 0
   // const safeLPAPY = (1 + safeLPAPR / 365) ** 365 - 1
   const safeStakeAPY = (1 + (safeStakeAPR + safeLPAPR) / 365) ** 365 - 1
-  const showAPR = type === FarmCardType.STAKE_ANI || type === FarmCardType.FARM_APT_ANI
+  const showAPR =
+    type === FarmCardType.STAKE_ANI || type === FarmCardType.FARM_APT_ANI || type === FarmCardType.FARM_APT_zUSDC
   const showAPY =
-    type === FarmCardType.HOLDER || (chainId === SupportedChainId.APTOS && type === FarmCardType.FARM_APT_ANI)
-  const showHarvest = type === FarmCardType.STAKE_ANI || type === FarmCardType.FARM_APT_ANI
+    type === FarmCardType.HOLDER ||
+    (chainId === SupportedChainId.APTOS && type === FarmCardType.FARM_APT_ANI) ||
+    (chainId === SupportedChainId.APTOS && type === FarmCardType.FARM_APT_zUSDC)
+  const showHarvest =
+    type === FarmCardType.STAKE_ANI || type === FarmCardType.FARM_APT_ANI || type === FarmCardType.FARM_APT_zUSDC
 
   useEffect(() => {
     let usdAmount = Utils.d(0)
@@ -132,6 +138,7 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
         .mul(nativePrice)
         .mul(isFarm ? 2 : 1)
     }
+    // TVL USD
     const usdNumber = usdAmount.div(Utils.pow10(stableCoin.decimals)).toNumber()
     setTvlUSD(usdNumber)
     if (isFarm) {
@@ -140,9 +147,11 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
       setAvailableUSD(Utils.d(aniBalance.amount).div(Utils.d(poolLP)).mul(usdNumber).toNumber())
     }
     setStakedUSD(Utils.d(stakedLP).div(Utils.d(poolLP)).mul(usdNumber).toNumber())
-    if (isFarm) {
+    if (type === FarmCardType.FARM_APT_ANI) {
       setEarnedUSD(Utils.d(earnedANI).div(Utils.d(poolCoinYAmount)).div(2).mul(usdNumber).toNumber())
-    } else {
+    } else if (type === FarmCardType.FARM_APT_zUSDC) {
+      setEarnedUSD(Utils.d(earnedANI).mul(aniPrice).mul(1e-6).toNumber())
+    } else if (type === FarmCardType.STAKE_ANI) {
       setEarnedUSD(Utils.d(earnedANI).div(Utils.d(poolLP)).mul(usdNumber).toNumber())
     }
   }, [coinX, coinY, poolCoinXAmount, poolCoinYAmount, poolLP, stakedLP, earnedANI, nativePrice])
@@ -181,17 +190,25 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
 
   async function onHarvest() {
     try {
-      const payload = isFarm
-        ? ConnectionInstance.getSDK().MasterChef.stakeLPCoinPayload({
-            amount: '0',
-            coinType:
-              '0x796900ebe1a1a54ff9e932f19c548f5c1af5c6e7d34965857ac2f7b1d1ab2cbf::LPCoinV1::LPCoin<0x1::aptos_coin::AptosCoin,0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI>',
-            method: 'deposit',
-          })
-        : ConnectionInstance.getSDK().MasterChef.stakeANIPayload({
-            amount: '0',
-            method: 'enter_staking',
-          })
+      const payload =
+        type === FarmCardType.FARM_APT_ANI
+          ? ConnectionInstance.getSDK().MasterChef.stakeLPCoinPayload({
+              amount: '0',
+              coinType:
+                '0x796900ebe1a1a54ff9e932f19c548f5c1af5c6e7d34965857ac2f7b1d1ab2cbf::LPCoinV1::LPCoin<0x1::aptos_coin::AptosCoin,0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI>',
+              method: 'deposit',
+            })
+          : type === FarmCardType.FARM_APT_zUSDC
+          ? ConnectionInstance.getSDK().MasterChef.stakeLPCoinPayload({
+              amount: '0',
+              coinType:
+                '0x796900ebe1a1a54ff9e932f19c548f5c1af5c6e7d34965857ac2f7b1d1ab2cbf::LPCoinV1::LPCoin<0x1::aptos_coin::AptosCoin,0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::USDC>',
+              method: 'deposit',
+            })
+          : ConnectionInstance.getSDK().MasterChef.stakeANIPayload({
+              amount: '0',
+              method: 'enter_staking',
+            })
       setShowConfirm(true)
       setAttemptingTxn(true)
       const txid = await SignAndSubmitTransaction(payload)
@@ -236,6 +253,14 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
               </AutoRow>
             )}
             {type === FarmCardType.FARM_APT_ANI && (
+              <AutoRow gap="8px" style={{ marginLeft: '4px' }}>
+                <DoubleCoinLogo coinX={coinX} coinY={coinY} size={30} margin={false} />
+                <Text fontWeight={500} fontSize={20}>
+                  {`${coinX?.symbol}-${coinY?.symbol}`}
+                </Text>
+              </AutoRow>
+            )}
+            {type === FarmCardType.FARM_APT_zUSDC && (
               <AutoRow gap="8px" style={{ marginLeft: '4px' }}>
                 <DoubleCoinLogo coinX={coinX} coinY={coinY} size={30} margin={false} />
                 <Text fontWeight={500} fontSize={20}>

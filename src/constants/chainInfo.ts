@@ -15,6 +15,7 @@ interface BaseChainInfo {
   readonly aniCoin?: Coin
   readonly defaultBuyCoin?: Coin
   readonly stableCoin: Coin
+  readonly zUSDC?: Coin
   readonly color?: string
   readonly backgroundColor?: string
 }
@@ -32,6 +33,7 @@ const CHAIN_INFO: ChainInfoMap = {
     defaultBuyCoin:
       APTOS_CoinInfo['0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI'],
     stableCoin: APTOS_CoinInfo['0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::USDC'],
+    zUSDC: APTOS_CoinInfo['0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::USDC'],
   },
   [SupportedChainId.APTOS_TESTNET]: {
     bridge: 'https://dev-cbridge-v2.netlify.app/5/12360002/USDC',

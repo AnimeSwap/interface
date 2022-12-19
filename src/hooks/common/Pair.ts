@@ -50,3 +50,16 @@ export function useNativePrice() {
     return Utils.d(0)
   }
 }
+
+export function useAniPrice() {
+  // rely on Header/index ConnectionInstance.getPair(aniCoin.address, stableCoin.address)
+  const chainId = useChainId()
+  const nativePrice = useNativePrice()
+  const { nativeCoin, aniCoin } = getChainInfoOrDefault(chainId)
+  const pair = usePair(nativeCoin.address, aniCoin.address)
+  if (pair[0] === PairState.EXISTS) {
+    return Utils.d(pair[1].coinXReserve).div(Utils.d(pair[1].coinYReserve)).mul(nativePrice)
+  } else {
+    return Utils.d(0)
+  }
+}
