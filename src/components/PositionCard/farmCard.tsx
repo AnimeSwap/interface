@@ -63,6 +63,8 @@ export interface FarmCardProps {
   nativePrice?: Decimal
   withdrawFeeFreeTimestamp?: number
   shares?: number
+  hasRegisteredANI?: boolean
+  onRegisterANI?: any
 }
 
 export default function FarmCard(farmCardProps: FarmCardProps) {
@@ -80,6 +82,8 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
     nativePrice,
     withdrawFeeFreeTimestamp,
     shares,
+    hasRegisteredANI,
+    onRegisterANI,
   } = farmCardProps
   const [tvlUSD, setTvlUSD] = useState<number>(0)
   const [availableUSD, setAvailableUSD] = useState<number>(0)
@@ -112,6 +116,7 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
     (chainId === SupportedChainId.APTOS && type === FarmCardType.FARM_APT_zUSDC)
   const showHarvest =
     type === FarmCardType.STAKE_ANI || type === FarmCardType.FARM_APT_ANI || type === FarmCardType.FARM_APT_zUSDC
+  const showRegisterANI = hasRegisteredANI === false && isFarm
 
   useEffect(() => {
     let usdAmount = Utils.d(0)
@@ -382,19 +387,21 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
               </FixedHeightRow>
             )}
             <RowBetween marginTop="10px">
-              <ButtonPrimary
-                padding="8px"
-                $borderRadius="8px"
-                onClick={() => {
-                  window.farmCardProps = farmCardProps
-                  window.farmCardBalance = isFarm ? lpBalance : aniBalance.amount
-                  window.farmCardAction = 'stake'
-                  openStakeModal()
-                }}
-              >
-                Stake
-              </ButtonPrimary>
-              {stakedLP?.toNumber() > 0 && (
+              {(!isFarm || !showRegisterANI) && (
+                <ButtonPrimary
+                  padding="8px"
+                  $borderRadius="8px"
+                  onClick={() => {
+                    window.farmCardProps = farmCardProps
+                    window.farmCardBalance = isFarm ? lpBalance : aniBalance.amount
+                    window.farmCardAction = 'stake'
+                    openStakeModal()
+                  }}
+                >
+                  Stake
+                </ButtonPrimary>
+              )}
+              {stakedLP?.toNumber() > 0 && !showRegisterANI && (
                 <ButtonPrimary
                   padding="8px"
                   margin="0 0 0 16px"
@@ -410,6 +417,18 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
                   Unstake
                 </ButtonPrimary>
               )}
+              {showRegisterANI && (
+                <ButtonGreen
+                  padding="8px"
+                  margin="0 0 0 0px"
+                  $borderRadius="8px"
+                  onClick={() => {
+                    onRegisterANI()
+                  }}
+                >
+                  Register ANI
+                </ButtonGreen>
+              )}
             </RowBetween>
             <RowBetween marginTop="0px">
               <ButtonSecondary
@@ -420,7 +439,7 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
               >
                 Get {isFarm ? 'LP' : 'ANI'}
               </ButtonSecondary>
-              {showHarvest && stakedLP?.toNumber() > 0 && (
+              {showHarvest && !showRegisterANI && stakedLP?.toNumber() > 0 && (
                 <ButtonGreen
                   padding="8px"
                   margin="0 0 0 16px"

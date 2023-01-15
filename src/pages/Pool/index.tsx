@@ -4,6 +4,7 @@ import { Trans } from '@lingui/macro'
 import FarmCard, { FarmCardProps, FarmCardType } from 'components/PositionCard/farmCard'
 import { getChainInfoOrDefault } from 'constants/chainInfo'
 import { SupportedChainId } from 'constants/chains'
+import { REFRESH_TIMEOUT } from 'constants/misc'
 import { useCoin } from 'hooks/common/Coin'
 import { Pair, pairKey, useNativePrice } from 'hooks/common/Pair'
 import { useContext, useEffect, useState } from 'react'
@@ -11,7 +12,7 @@ import { Link } from 'react-router-dom'
 import { Text } from 'rebass'
 import ConnectionInstance from 'state/connection/instance'
 import { useChainId } from 'state/user/hooks'
-import { useAccount, useAllLpBalance } from 'state/wallets/hooks'
+import { SignAndSubmitTransaction, useAccount, useAllLpBalance } from 'state/wallets/hooks'
 import styled, { ThemeContext } from 'styled-components/macro'
 import { isDevelopmentEnv } from 'utils/env'
 
@@ -97,6 +98,8 @@ export default function Pool() {
       pairKeyNotZero.push(pairKey)
     }
   }
+
+  // your LP
   useEffect(() => {
     const fetchPairTasks = async () => {
       const pairTasksPromise: Promise<Pair>[] = []
@@ -119,6 +122,7 @@ export default function Pool() {
   const [aptZUSDCPool, setAptZUSDCPool] = useState<FarmCardProps>({})
   const [aptZUSDCLPAPR, setAptZUSDCLPAPR] = useState<Decimal>(Utils.d(0))
   const [holderPool, setHolderPool] = useState<FarmCardProps>({})
+  const [hasRegisteredANI, setHasRegisteredANI] = useState<boolean>(true)
   const [count, setCount] = useState(0)
 
   // Farm data interval
@@ -245,6 +249,27 @@ export default function Pool() {
     fetchLPAPR()
   }, [chainId])
 
+  async function checkRegisteredANI() {
+    const registeredANI = await ConnectionInstance.getSDK().MasterChef.checkRegisteredANI(account)
+    setHasRegisteredANI(registeredANI)
+  }
+
+  // check ANI register
+  useEffect(() => {
+    checkRegisteredANI()
+  }, [chainId, account])
+
+  async function onRegisterANI() {
+    const payload = ConnectionInstance.getSDK().MasterChef.registerANIPayload()
+    await SignAndSubmitTransaction(payload)
+    setTimeout(() => {
+      checkRegisteredANI()
+      setTimeout(() => {
+        checkRegisteredANI()
+      }, REFRESH_TIMEOUT * 2)
+    }, REFRESH_TIMEOUT)
+  }
+
   return (
     <>
       <PageWrapper>
@@ -291,6 +316,8 @@ export default function Pool() {
                   LPAPR={aptAniLPAPR}
                   stakeAPR={aptAniPool.stakeAPR}
                   nativePrice={nativePrice}
+                  hasRegisteredANI={hasRegisteredANI}
+                  onRegisterANI={onRegisterANI}
                 ></FarmCard>
                 {chainId === SupportedChainId.APTOS && (
                   <FarmCard
@@ -305,6 +332,8 @@ export default function Pool() {
                     LPAPR={aptZUSDCLPAPR}
                     stakeAPR={aptZUSDCPool.stakeAPR}
                     nativePrice={nativePrice}
+                    hasRegisteredANI={hasRegisteredANI}
+                    onRegisterANI={onRegisterANI}
                   ></FarmCard>
                 )}
               </AutoRow>
