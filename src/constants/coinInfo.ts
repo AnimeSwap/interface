@@ -62,6 +62,14 @@ export const APTOS_CoinInfo: { [address: string]: Coin } = {
     logoURL: ['https://coinlist.animeswap.org/icons/APC.png'],
     projectURL: 'https://aptpp.com/',
   },
+  '0xd1fe830dd863890ead995cbed2e1584da1558df1de184f31c8d0adf95fe19bc::proton_d69::PROTON_75C': {
+    address: '0xd1fe830dd863890ead995cbed2e1584da1558df1de184f31c8d0adf95fe19bc::proton_d69::PROTON_75C',
+    decimals: 6,
+    symbol: 'BOFA',
+    name: 'Bofa Chiku',
+    logoURL: ['https://coinlist.animeswap.org/icons/BOFA.png'],
+    projectURL: 'https://bofachiku.com/',
+  },
   '0x7bdeaba6f037caf06bb5b2d57df9ee03a07e2a9df45b338ef3deb44d16c01d10::spring_coin::Spring_Coin': {
     address: '0x7bdeaba6f037caf06bb5b2d57df9ee03a07e2a9df45b338ef3deb44d16c01d10::spring_coin::Spring_Coin',
     decimals: 9,
