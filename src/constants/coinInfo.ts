@@ -140,7 +140,7 @@ export const APTOS_CoinInfo: { [address: string]: Coin } = {
     decimals: 8,
     symbol: 'DLC',
     name: 'Doglaika Coin',
-    logoURL: ['https://coinlist.animeswap.org/icons/DLC.png'],
+    logoURL: ['https://coinlist.animeswap.org/icons/DLC.svg'],
     projectURL: 'https://doglaikacoin.xyz',
   },
   '0xe9c192ff55cffab3963c695cff6dbf9dad6aff2bb5ac19a6415cad26a81860d9::mee_coin::MeeCoin': {
