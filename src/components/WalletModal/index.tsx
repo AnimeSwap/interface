@@ -196,10 +196,10 @@ export default function WalletModal({
               <OptionGrid data-testid="option-grid">
                 <MartianOption />
                 <PetraOption />
+                <TrustWalletOption />
                 {/* <FewchaOption /> */}
                 <RiseOption />
                 <BitkeepOption />
-                <TrustWalletOption />
                 <PontemOption />
               </OptionGrid>
             )}
