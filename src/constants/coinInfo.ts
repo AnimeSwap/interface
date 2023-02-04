@@ -62,6 +62,22 @@ export const APTOS_CoinInfo: { [address: string]: Coin } = {
     logoURL: ['https://coinlist.animeswap.org/icons/APC.png'],
     projectURL: 'https://aptpp.com/',
   },
+  '0x5a1e84cdd217034d764abb91bf20aa0536c5a8c900831a37b393fe3af98c3f55::thepeoplecoin::The_People': {
+    address: '0x5a1e84cdd217034d764abb91bf20aa0536c5a8c900831a37b393fe3af98c3f55::thepeoplecoin::The_People',
+    decimals: 6,
+    symbol: 'People',
+    name: 'The People',
+    logoURL: ['https://coinlist.animeswap.org/icons/People.png'],
+    projectURL: 'https://thepeopleapt.xyz/',
+  },
+  '0x5c738a5dfa343bee927c39ebe85b0ceb95fdb5ee5b323c95559614f5a77c47cf::AptSwap::AptSwapGovernance': {
+    address: '0x5c738a5dfa343bee927c39ebe85b0ceb95fdb5ee5b323c95559614f5a77c47cf::AptSwap::AptSwapGovernance',
+    decimals: 8,
+    symbol: 'APTSWAP',
+    name: 'AptSwap Governance Token',
+    logoURL: ['https://coinlist.animeswap.org/icons/AptSwap.svg'],
+    projectURL: 'http://aptswap.io',
+  },
   '0xd1fe830dd863890ead995cbed2e1584da1558df1de184f31c8d0adf95fe19bc::proton_d69::PROTON_75C': {
     address: '0xd1fe830dd863890ead995cbed2e1584da1558df1de184f31c8d0adf95fe19bc::proton_d69::PROTON_75C',
     decimals: 6,
