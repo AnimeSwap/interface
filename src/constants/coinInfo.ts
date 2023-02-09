@@ -62,6 +62,14 @@ export const APTOS_CoinInfo: { [address: string]: Coin } = {
     logoURL: ['https://coinlist.animeswap.org/icons/APC.png'],
     projectURL: 'https://aptpp.com/',
   },
+  '0x27fafcc4e39daac97556af8a803dbb52bcb03f0821898dc845ac54225b9793eb::move_coin::MoveCoin': {
+    address: '0x27fafcc4e39daac97556af8a803dbb52bcb03f0821898dc845ac54225b9793eb::move_coin::MoveCoin',
+    decimals: 8,
+    symbol: 'MOVE',
+    name: 'BlueMove',
+    logoURL: ['https://coinlist.animeswap.org/icons/MOVE.svg'],
+    projectURL: 'https://bluemove.net/',
+  },
   '0x5a1e84cdd217034d764abb91bf20aa0536c5a8c900831a37b393fe3af98c3f55::thepeoplecoin::The_People': {
     address: '0x5a1e84cdd217034d764abb91bf20aa0536c5a8c900831a37b393fe3af98c3f55::thepeoplecoin::The_People',
     decimals: 6,
