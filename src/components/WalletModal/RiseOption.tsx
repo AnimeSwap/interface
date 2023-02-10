@@ -20,6 +20,7 @@ export default function RiseOption() {
       {...BASE_PROPS}
       isActive={isActive}
       isInstall={isInstall}
+      popular={true}
       onClick={async () => {
         if ('rise' in window) {
           await ConnectRise()

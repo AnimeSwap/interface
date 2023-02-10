@@ -194,11 +194,11 @@ export default function WalletModal({
           <AutoColumn gap="16px">
             {walletView !== WALLET_VIEWS.PENDING && (
               <OptionGrid data-testid="option-grid">
+                <RiseOption />
                 <MartianOption />
                 <PetraOption />
                 <TrustWalletOption />
                 {/* <FewchaOption /> */}
-                <RiseOption />
                 <BitkeepOption />
                 <PontemOption />
               </OptionGrid>
