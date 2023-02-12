@@ -17,6 +17,14 @@ export const APTOS_CoinInfo: { [address: string]: Coin } = {
     logoURL: ['https://coinlist.animeswap.org/icons/ANI.png'],
     projectURL: 'http://animeswap.org/',
   },
+  '0x777821c78442e17d82c3d7a371f42de7189e4248e529fe6eee6bca40ddbb::apcoin::ApCoin': {
+    address: '0x777821c78442e17d82c3d7a371f42de7189e4248e529fe6eee6bca40ddbb::apcoin::ApCoin',
+    decimals: 8,
+    symbol: 'APC',
+    name: 'Apass Coin',
+    logoURL: ['https://coinlist.animeswap.org/icons/APC.png'],
+    projectURL: 'https://aptpp.com/',
+  },
   '0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::USDC': {
     address: '0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::USDC',
     decimals: 6,
@@ -30,13 +38,6 @@ export const APTOS_CoinInfo: { [address: string]: Coin } = {
     symbol: 'whUSDC',
     name: 'Wormhole USD Coin',
     logoURL: ['https://coinlist.animeswap.org/icons/USDC.webp'],
-  },
-  '0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::WETH': {
-    address: '0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::WETH',
-    decimals: 6,
-    symbol: 'zWETH',
-    name: 'LayerZero Wrapped Ethereum',
-    logoURL: ['https://coinlist.animeswap.org/icons/WETH.png'],
   },
   '0x84d7aeef42d38a5ffc3ccef853e1b82e4958659d16a7de736a29c55fbbeb0114::staked_aptos_coin::StakedAptosCoin': {
     address: '0x84d7aeef42d38a5ffc3ccef853e1b82e4958659d16a7de736a29c55fbbeb0114::staked_aptos_coin::StakedAptosCoin',
@@ -53,14 +54,6 @@ export const APTOS_CoinInfo: { [address: string]: Coin } = {
     name: 'Ditto Staked Aptos',
     logoURL: ['https://coinlist.animeswap.org/icons/DittoStakedAptos.svg'],
     projectURL: 'https://www.dittofinance.io/',
-  },
-  '0x777821c78442e17d82c3d7a371f42de7189e4248e529fe6eee6bca40ddbb::apcoin::ApCoin': {
-    address: '0x777821c78442e17d82c3d7a371f42de7189e4248e529fe6eee6bca40ddbb::apcoin::ApCoin',
-    decimals: 8,
-    symbol: 'APC',
-    name: 'Apass Coin',
-    logoURL: ['https://coinlist.animeswap.org/icons/APC.png'],
-    projectURL: 'https://aptpp.com/',
   },
   '0x27fafcc4e39daac97556af8a803dbb52bcb03f0821898dc845ac54225b9793eb::move_coin::MoveCoin': {
     address: '0x27fafcc4e39daac97556af8a803dbb52bcb03f0821898dc845ac54225b9793eb::move_coin::MoveCoin',
@@ -204,6 +197,13 @@ export const APTOS_CoinInfo: { [address: string]: Coin } = {
     symbol: 'zUSDT',
     name: 'LayerZero Tether USD',
     logoURL: ['https://coinlist.animeswap.org/icons/USDT.webp'],
+  },
+  '0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::WETH': {
+    address: '0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::WETH',
+    decimals: 6,
+    symbol: 'zWETH',
+    name: 'LayerZero Wrapped Ethereum',
+    logoURL: ['https://coinlist.animeswap.org/icons/WETH.png'],
   },
   '0x8d87a65ba30e09357fa2edea2c80dbac296e5dec2b18287113500b902942929d::celer_coin_manager::BnbCoin': {
     address: '0x8d87a65ba30e09357fa2edea2c80dbac296e5dec2b18287113500b902942929d::celer_coin_manager::BnbCoin',
