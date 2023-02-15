@@ -72,6 +72,7 @@ if (!isProductionEnv()) {
     [SupportedChainId.APTOS]: APTOS_CoinInfo,
     [SupportedChainId.APTOS_TESTNET]: APTOS_TESTNET_CoinInfo,
     [SupportedChainId.APTOS_DEVNET]: APTOS_DEVNET_CoinInfo,
+    //TODO[Azard] Sui coin info
   }
   initialState.tempCoins = {
     [SupportedChainId.APTOS]: {},

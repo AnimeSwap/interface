@@ -12,6 +12,9 @@ const connectionURLMap = {
     [SupportedChainId.APTOS_TESTNET]: `https://testnet.aptoslabs.com`,
     // [SupportedChainId.APTOS_TESTNET]: `https://aptos-testnet.nodereal.io/v1/7ca94432049e401aa362258b5083d1ef`,
     [SupportedChainId.APTOS_DEVNET]: `https://fullnode.devnet.aptoslabs.com`,
+    [SupportedChainId.SUI]: `https://fullnode.mainnet.sui.io`,
+    [SupportedChainId.SUI_TESTNET]: `https://fullnode.testnet.sui.io`,
+    [SupportedChainId.SUI_DEVNET]: `https://fullnode.devnet.sui.io`,
   },
 }
 
@@ -34,6 +37,9 @@ export const initialState: ConnectionState = {
     [SupportedChainId.APTOS]: undefined,
     [SupportedChainId.APTOS_TESTNET]: undefined,
     [SupportedChainId.APTOS_DEVNET]: undefined,
+    [SupportedChainId.SUI]: undefined,
+    [SupportedChainId.SUI_TESTNET]: undefined,
+    [SupportedChainId.SUI_DEVNET]: undefined,
   },
 }
 

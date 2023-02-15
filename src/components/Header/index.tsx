@@ -2,7 +2,7 @@ import { Trans } from '@lingui/macro'
 import useScrollPosition from '@react-hook/window-scroll'
 import { ReactComponent as Discord } from 'assets/discord.svg'
 import { getChainInfoOrDefault } from 'constants/chainInfo'
-import { SupportedChainId } from 'constants/chains'
+import { isAptosChain, isSuiChain, SupportedChainId } from 'constants/chains'
 import { darken } from 'polished'
 import { useEffect } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
@@ -11,7 +11,7 @@ import { useToggleModal } from 'state/application/hooks'
 import { ApplicationModal } from 'state/application/reducer'
 import ConnectionInstance from 'state/connection/instance'
 import { useChainId } from 'state/user/hooks'
-import { AutoConnectWallets, useAccount, useCoinAmount } from 'state/wallets/hooks'
+import { AutoConnectAptosWallets, AutoConnectSuiWallets, useAccount, useCoinAmount } from 'state/wallets/hooks'
 import styled from 'styled-components/macro'
 import { ExternalLink } from 'theme'
 import { isDevelopmentEnv } from 'utils/env'
@@ -232,16 +232,24 @@ export default function Header() {
 
   // wallet
   useEffect(() => {
-    AutoConnectWallets()
+    if (isAptosChain(chainId)) {
+      AutoConnectAptosWallets()
+    } else if (isSuiChain(chainId)) {
+      AutoConnectSuiWallets()
+    }
   }, [])
 
   useEffect(() => {
-    if (chainId) {
-      ConnectionInstance.getPair(nativeCoin.address, stableCoin.address)
-      ConnectionInstance.getPair(nativeCoin.address, aniCoin.address)
-    }
-    if (account) {
-      ConnectionInstance.syncAccountResources(account, false)
+    if (isAptosChain(chainId)) {
+      if (chainId) {
+        ConnectionInstance.getPair(nativeCoin.address, stableCoin.address)
+        ConnectionInstance.getPair(nativeCoin.address, aniCoin.address)
+      }
+      if (account) {
+        ConnectionInstance.syncAccountResources(account, false)
+      }
+    } else if (isSuiChain(chainId)) {
+      // TODO[Azard]
     }
   }, [account, chainId])
 

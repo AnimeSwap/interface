@@ -1,4 +1,5 @@
 import aptosLogo from 'assets/aptos_logo.svg'
+import suiLogo from 'assets/sui_logo.svg'
 import { Coin } from 'hooks/common/Coin'
 
 import { SupportedChainId } from './chains'
@@ -54,6 +55,45 @@ const CHAIN_INFO: ChainInfoMap = {
     explorer: 'https://explorer.aptoslabs.com/?network=devnet',
     label: 'AptosDev',
     logoUrl: aptosLogo,
+    nativeCoin: APTOS_DEVNET_CoinInfo['0x1::aptos_coin::AptosCoin'],
+    aniCoin:
+      APTOS_DEVNET_CoinInfo['0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI'],
+    defaultBuyCoin:
+      APTOS_DEVNET_CoinInfo['0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI'],
+    stableCoin:
+      APTOS_DEVNET_CoinInfo['0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::TestCoinsV1::USDT'],
+  },
+  [SupportedChainId.SUI]: {
+    docs: 'https://sui.io/',
+    explorer: 'https://explorer.sui.io/?network=devnet',
+    label: 'Sui',
+    logoUrl: suiLogo,
+    nativeCoin: APTOS_DEVNET_CoinInfo['0x1::aptos_coin::AptosCoin'],
+    aniCoin:
+      APTOS_DEVNET_CoinInfo['0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI'],
+    defaultBuyCoin:
+      APTOS_DEVNET_CoinInfo['0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI'],
+    stableCoin:
+      APTOS_DEVNET_CoinInfo['0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::TestCoinsV1::USDT'],
+  },
+  [SupportedChainId.SUI_TESTNET]: {
+    docs: 'https://sui.io/',
+    explorer: 'https://explorer.sui.io/?network=devnet',
+    label: 'SuiTest',
+    logoUrl: suiLogo,
+    nativeCoin: APTOS_DEVNET_CoinInfo['0x1::aptos_coin::AptosCoin'],
+    aniCoin:
+      APTOS_DEVNET_CoinInfo['0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI'],
+    defaultBuyCoin:
+      APTOS_DEVNET_CoinInfo['0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI'],
+    stableCoin:
+      APTOS_DEVNET_CoinInfo['0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::TestCoinsV1::USDT'],
+  },
+  [SupportedChainId.SUI_DEVNET]: {
+    docs: 'https://sui.io/',
+    explorer: 'https://explorer.sui.io/?network=devnet',
+    label: 'SuiDev',
+    logoUrl: suiLogo,
     nativeCoin: APTOS_DEVNET_CoinInfo['0x1::aptos_coin::AptosCoin'],
     aniCoin:
       APTOS_DEVNET_CoinInfo['0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI'],

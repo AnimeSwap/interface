@@ -277,6 +277,7 @@ const NETWORK_SELECTOR_CHAINS = [SupportedChainId.APTOS]
 NETWORK_SELECTOR_CHAINS.push(SupportedChainId.APTOS_TESTNET)
 if (isDevelopmentEnv()) {
   NETWORK_SELECTOR_CHAINS.push(SupportedChainId.APTOS_DEVNET)
+  NETWORK_SELECTOR_CHAINS.push(SupportedChainId.SUI_DEVNET)
 }
 
 export default function NetworkSelector() {

@@ -54,7 +54,7 @@ export function useConnectedWallets(): [Wallet[], (wallet: Wallet) => void] {
   return [connectedWallets, addWallet]
 }
 
-export async function AutoConnectWallets() {
+export async function AutoConnectAptosWallets() {
   // first use previous wallet
   const prevWallet = store.getState().wallets.selectedWallet
   switch (prevWallet) {
@@ -378,4 +378,9 @@ export const SignAndSubmitTransaction = async (transaction: any) => {
     default:
       break
   }
+}
+
+export async function AutoConnectSuiWallets() {
+  // TODO[Azard]
+  console.log('TODO: Auto connect Sui wallets')
 }
