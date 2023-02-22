@@ -424,34 +424,34 @@ export const APTOS_DEVNET_CoinInfo: { [address: string]: Coin } = {
 }
 
 export const SUI_CoinInfo: { [address: string]: Coin } = {
-  '0x1::aptos_coin::AptosCoin': {
-    address: '0x1::aptos_coin::AptosCoin',
+  '0x2::sui::SUI': {
+    address: '0x2::sui::SUI',
     decimals: 8,
-    symbol: 'APT',
-    name: 'Aptos',
-    logoURL: ['https://coinlist.animeswap.org/icons/APT.svg'],
-    projectURL: 'https://aptoslabs.com/',
+    symbol: 'SUI',
+    name: 'SUI',
+    logoURL: ['https://coinlist.animeswap.org/icons/SUI.svg'],
+    projectURL: 'https://sui.io/',
   },
 }
 
 export const SUI_TESTNET_CoinInfo: { [address: string]: Coin } = {
-  '0x1::aptos_coin::AptosCoin': {
-    address: '0x1::aptos_coin::AptosCoin',
+  '0x2::sui::SUI': {
+    address: '0x2::sui::SUI',
     decimals: 8,
-    symbol: 'APT',
-    name: 'Aptos',
-    logoURL: ['https://coinlist.animeswap.org/icons/APT.svg'],
-    projectURL: 'https://aptoslabs.com/',
+    symbol: 'SUI',
+    name: 'SUI',
+    logoURL: ['https://coinlist.animeswap.org/icons/SUI.svg'],
+    projectURL: 'https://sui.io/',
   },
 }
 
 export const SUI_DEVNET_CoinInfo: { [address: string]: Coin } = {
-  '0x1::aptos_coin::AptosCoin': {
-    address: '0x1::aptos_coin::AptosCoin',
+  '0x2::sui::SUI': {
+    address: '0x2::sui::SUI',
     decimals: 8,
-    symbol: 'APT',
-    name: 'Aptos',
-    logoURL: ['https://coinlist.animeswap.org/icons/APT.svg'],
-    projectURL: 'https://aptoslabs.com/',
+    symbol: 'SUI',
+    name: 'SUI',
+    logoURL: ['https://coinlist.animeswap.org/icons/SUI.svg'],
+    projectURL: 'https://sui.io/',
   },
 }
