@@ -381,6 +381,54 @@ export const SignAndSubmitTransaction = async (transaction: any) => {
 }
 
 export async function AutoConnectSuiWallets() {
-  // TODO[Azard]
+  // TODO[Azard] Auto connect Sui wallets
   console.log('TODO: Auto connect Sui wallets')
+}
+
+export async function ConnectSuiMartian() {
+  try {
+    const res = await window.martian.sui.connect()
+    store.dispatch(setSelectedWallet({ wallet: WalletType.MARTIAN }))
+    store.dispatch(setAccount({ account: res.address }))
+    console.log('Martian wallet connect success')
+    const network = await window.martian.sui.network()
+    store.dispatch(setWalletChain({ chainId: SuiMartianNetworkToChainId(network) }))
+    window.martian.onNetworkChange((network) => {
+      if (store.getState().wallets.selectedWallet === WalletType.MARTIAN) {
+        store.dispatch(setWalletChain({ chainId: SuiMartianNetworkToChainId(network) }))
+      }
+    })
+
+    return true
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+function SuiMartianNetworkToChainId(network: string) {
+  switch (network) {
+    case 'Mainnet':
+      return SupportedChainId.SUI
+    case 'Testnet':
+      return SupportedChainId.SUI_TESTNET
+    case 'Devnet':
+      return SupportedChainId.SUI_DEVNET
+    default:
+      return SupportedChainId.SUI
+  }
+}
+
+export async function AutoConnectSuiMartian() {
+  if (!('martian' in window)) {
+    return false
+  }
+  try {
+    if (await ConnectSuiMartian()) {
+      console.log('Martian auto connected')
+      return true
+    }
+  } catch (error) {
+    console.error(error)
+  }
+  return false
 }
