@@ -1,6 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { SupportedChainId } from 'constants/chains'
-import { APTOS_CoinInfo, APTOS_DEVNET_CoinInfo, APTOS_TESTNET_CoinInfo } from 'constants/coinInfo'
+import {
+  APTOS_CoinInfo,
+  APTOS_DEVNET_CoinInfo,
+  APTOS_TESTNET_CoinInfo,
+  SUI_CoinInfo,
+  SUI_DEVNET_CoinInfo,
+  SUI_TESTNET_CoinInfo,
+} from 'constants/coinInfo'
 import { SupportedLocale } from 'constants/locales'
 import { Coin } from 'hooks/common/Coin'
 import { Pair, pairKey } from 'hooks/common/Pair'
@@ -56,12 +63,15 @@ export const initialState: UserState = {
   userDeadline: DEFAULT_DEADLINE_FROM_NOW,
   coins: {
     [SupportedChainId.APTOS]: APTOS_CoinInfo,
+    [SupportedChainId.SUI]: SUI_CoinInfo,
   },
   tempCoins: {
     [SupportedChainId.APTOS]: {},
+    [SupportedChainId.SUI]: {},
   },
   pairs: {
     [SupportedChainId.APTOS]: {},
+    [SupportedChainId.SUI]: {},
   },
   showSwapDropdownDetails: false,
 }
@@ -72,17 +82,25 @@ if (!isProductionEnv()) {
     [SupportedChainId.APTOS]: APTOS_CoinInfo,
     [SupportedChainId.APTOS_TESTNET]: APTOS_TESTNET_CoinInfo,
     [SupportedChainId.APTOS_DEVNET]: APTOS_DEVNET_CoinInfo,
-    //TODO[Azard] Sui coin info
+    [SupportedChainId.SUI]: SUI_CoinInfo,
+    [SupportedChainId.SUI_TESTNET]: SUI_TESTNET_CoinInfo,
+    [SupportedChainId.SUI_DEVNET]: SUI_DEVNET_CoinInfo,
   }
   initialState.tempCoins = {
     [SupportedChainId.APTOS]: {},
     [SupportedChainId.APTOS_TESTNET]: {},
     [SupportedChainId.APTOS_DEVNET]: {},
+    [SupportedChainId.SUI]: {},
+    [SupportedChainId.SUI_TESTNET]: {},
+    [SupportedChainId.SUI_DEVNET]: {},
   }
   initialState.pairs = {
     [SupportedChainId.APTOS]: {},
     [SupportedChainId.APTOS_TESTNET]: {},
     [SupportedChainId.APTOS_DEVNET]: {},
+    [SupportedChainId.SUI]: {},
+    [SupportedChainId.SUI_TESTNET]: {},
+    [SupportedChainId.SUI_DEVNET]: {},
   }
 }
 
@@ -170,9 +188,15 @@ const userSlice = createSlice({
           ...state.coins[SupportedChainId.APTOS],
           ...APTOS_CoinInfo,
         },
+        [SupportedChainId.SUI]: {
+          ...SUI_CoinInfo,
+          ...state.coins[SupportedChainId.SUI],
+          ...SUI_CoinInfo,
+        },
       }
       state.tempCoins = {
         [SupportedChainId.APTOS]: {},
+        [SupportedChainId.SUI]: {},
       }
       if (!isProductionEnv()) {
         state.coins = {
@@ -191,19 +215,40 @@ const userSlice = createSlice({
             ...state.coins[SupportedChainId.APTOS_DEVNET],
             ...APTOS_DEVNET_CoinInfo,
           },
+          [SupportedChainId.SUI]: {
+            ...SUI_CoinInfo,
+            ...state.coins[SupportedChainId.SUI],
+            ...SUI_CoinInfo,
+          },
+          [SupportedChainId.SUI_TESTNET]: {
+            ...SUI_TESTNET_CoinInfo,
+            ...state.coins[SupportedChainId.SUI_TESTNET],
+            ...SUI_TESTNET_CoinInfo,
+          },
+          [SupportedChainId.SUI_DEVNET]: {
+            ...SUI_DEVNET_CoinInfo,
+            ...state.coins[SupportedChainId.SUI_DEVNET],
+            ...SUI_DEVNET_CoinInfo,
+          },
         }
         state.tempCoins = {
           [SupportedChainId.APTOS]: {},
           [SupportedChainId.APTOS_TESTNET]: {},
           [SupportedChainId.APTOS_DEVNET]: {},
+          [SupportedChainId.SUI]: {},
+          [SupportedChainId.SUI_TESTNET]: {},
+          [SupportedChainId.SUI_DEVNET]: {},
         }
       }
 
       // init local pair
       state.pairs[SupportedChainId.APTOS] = state.pairs[SupportedChainId.APTOS] || {}
+      state.pairs[SupportedChainId.SUI] = state.pairs[SupportedChainId.SUI] || {}
       if (!isProductionEnv()) {
         state.pairs[SupportedChainId.APTOS_TESTNET] = state.pairs[SupportedChainId.APTOS_TESTNET] || {}
         state.pairs[SupportedChainId.APTOS_DEVNET] = state.pairs[SupportedChainId.APTOS_DEVNET] || {}
+        state.pairs[SupportedChainId.SUI_TESTNET] = state.pairs[SupportedChainId.SUI_TESTNET] || {}
+        state.pairs[SupportedChainId.SUI_DEVNET] = state.pairs[SupportedChainId.SUI_DEVNET] || {}
       }
 
       // slippage isnt being tracked in local storage, reset to default
