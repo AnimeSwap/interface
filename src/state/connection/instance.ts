@@ -9,6 +9,7 @@ import SDK, {
   SwapPoolResource,
   Utils,
 } from '@animeswap.org/v1-sdk'
+import { Connection, JsonRpcProvider } from '@mysten/sui.js'
 import { AptosClient } from 'aptos'
 import { CHAIN_IDS_TO_SDK_NETWORK, SupportedChainId } from 'constants/chains'
 import { Pair } from 'hooks/common/Pair'
@@ -21,6 +22,7 @@ import { ConnectionType, getRPCURL } from './reducer'
 class ConnectionInstance {
   private static aptosClient: AptosClient
   private static sdk: SDK
+  private static suiClient: Connection
 
   public static getAptosClient(): AptosClient {
     if (!ConnectionInstance.aptosClient) {
@@ -299,6 +301,22 @@ class ConnectionInstance {
     } catch (error) {
       console.error('addCoin', error)
     }
+  }
+
+  public static getSuiClient(): Connection {
+    if (!ConnectionInstance.suiClient) {
+      const state = store.getState()
+      ConnectionInstance.suiClient = new Connection({
+        fullnode: getRPCURL(state.connection.currentConnection, state.user.chainId),
+      })
+    }
+    return ConnectionInstance.suiClient
+  }
+
+  public static renewSuiClient(connection: ConnectionType, chainId: SupportedChainId) {
+    ConnectionInstance.suiClient = new Connection({
+      fullnode: getRPCURL(connection, chainId),
+    })
   }
 }
 

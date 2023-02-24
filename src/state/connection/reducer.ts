@@ -2,11 +2,11 @@ import { createSlice } from '@reduxjs/toolkit'
 import { SupportedChainId } from 'constants/chains'
 
 export enum ConnectionType {
-  APTOSLAB,
+  DEFAULT,
 }
 
 const connectionURLMap = {
-  [ConnectionType.APTOSLAB]: {
+  [ConnectionType.DEFAULT]: {
     [SupportedChainId.APTOS]: `https://fullnode.mainnet.aptoslabs.com`,
     // [SupportedChainId.APTOS]: `https://aptos-mainnet.nodereal.io/v1/0b8627f45c4544efaa2b71672a21d1c7`,
     [SupportedChainId.APTOS_TESTNET]: `https://testnet.aptoslabs.com`,
@@ -32,7 +32,7 @@ export interface ConnectionState {
 }
 
 export const initialState: ConnectionState = {
-  currentConnection: ConnectionType.APTOSLAB,
+  currentConnection: ConnectionType.DEFAULT,
   error: {
     [SupportedChainId.APTOS]: undefined,
     [SupportedChainId.APTOS_TESTNET]: undefined,
