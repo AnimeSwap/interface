@@ -3,6 +3,7 @@ import useScrollPosition from '@react-hook/window-scroll'
 import { ReactComponent as Discord } from 'assets/discord.svg'
 import { getChainInfoOrDefault } from 'constants/chainInfo'
 import { isAptosChain, isSuiChain, SupportedChainId } from 'constants/chains'
+import useParsedQueryString from 'hooks/useParsedQueryString'
 import { darken } from 'polished'
 import { useEffect } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
@@ -21,7 +22,7 @@ import { ButtonPrimary } from '../Button'
 import Menu from '../Menu'
 import Row from '../Row'
 import HeaderStatus from './HeaderStatus'
-import NetworkSelector from './NetworkSelector'
+import NetworkSelector, { getParsedChainId } from './NetworkSelector'
 
 const HeaderFrame = styled.div<{ showBackground: boolean }>`
   display: grid;
@@ -229,12 +230,17 @@ export default function Header() {
   const chainId = useChainId()
   const { nativeCoin, stableCoin, aniCoin } = getChainInfoOrDefault(chainId)
   const nativeCoinAmount = useCoinAmount(nativeCoin.address)
+  const parsedQs = useParsedQueryString()
+  const urlChainId = getParsedChainId(parsedQs)
 
   // wallet
   useEffect(() => {
-    if (isAptosChain(chainId)) {
+    const connectChain = urlChainId ?? chainId
+    if (isAptosChain(connectChain)) {
+      console.log('Azard', connectChain)
       AutoConnectAptosWallets()
-    } else if (isSuiChain(chainId)) {
+    } else if (isSuiChain(connectChain)) {
+      console.log('Azard', connectChain)
       AutoConnectSuiWallets()
     }
   }, [])

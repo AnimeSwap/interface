@@ -255,7 +255,7 @@ function Row({
   return rowContent
 }
 
-const getParsedChainId = (parsedQs?: ParsedQs) => {
+export const getParsedChainId = (parsedQs?: ParsedQs) => {
   const chain = parsedQs?.chain
   if (!chain || typeof chain !== 'string') return
 

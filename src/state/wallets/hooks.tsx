@@ -381,8 +381,15 @@ export const SignAndSubmitTransaction = async (transaction: any) => {
 }
 
 export async function AutoConnectSuiWallets() {
-  // TODO[Azard] Auto connect Sui wallets
-  console.log('TODO: Auto connect Sui wallets')
+  // first use previous wallet
+  const prevWallet = store.getState().wallets.selectedWallet
+  switch (prevWallet) {
+    case WalletType.MARTIAN:
+      if (await AutoConnectSuiMartian()) return
+      break
+  }
+  // auto connect wallet in order
+  if (await AutoConnectSuiMartian()) return
 }
 
 export async function ConnectSuiMartian() {
@@ -390,7 +397,7 @@ export async function ConnectSuiMartian() {
     const res = await window.martian.sui.connect()
     store.dispatch(setSelectedWallet({ wallet: WalletType.MARTIAN }))
     store.dispatch(setAccount({ account: res.address }))
-    console.log('Martian wallet connect success')
+    console.log('Martian Sui wallet connect success')
     const network = await window.martian.sui.network()
     store.dispatch(setWalletChain({ chainId: SuiMartianNetworkToChainId(network) }))
     window.martian.onNetworkChange((network) => {
