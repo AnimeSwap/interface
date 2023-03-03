@@ -451,6 +451,22 @@ export const SUI_TESTNET_CoinInfo: { [address: string]: Coin } = {
     logoURL: ['https://coinlist.animeswap.org/icons/SUI.svg'],
     projectURL: 'https://sui.io/',
   },
+  '0x9ee13d8b9ae824c041c89c2559f793e783341e07::testcoin1::TESTCOIN1': {
+    address: '0x9ee13d8b9ae824c041c89c2559f793e783341e07::testcoin1::TESTCOIN1',
+    decimals: 8,
+    symbol: 'USDC',
+    name: 'USDC',
+    logoURL: ['https://coinlist.animeswap.org/icons/USDC.webp'],
+    projectURL: 'https://sui.io/',
+  },
+  '0x9ee13d8b9ae824c041c89c2559f793e783341e07::testcoin2::TESTCOIN2': {
+    address: '0x9ee13d8b9ae824c041c89c2559f793e783341e07::testcoin2::TESTCOIN2',
+    decimals: 8,
+    symbol: 'USDT',
+    name: 'USDT',
+    logoURL: ['https://coinlist.animeswap.org/icons/USDT.webp'],
+    projectURL: 'https://sui.io/',
+  },
 }
 
 export const SUI_DEVNET_CoinInfo: { [address: string]: Coin } = {
@@ -460,6 +476,22 @@ export const SUI_DEVNET_CoinInfo: { [address: string]: Coin } = {
     symbol: 'SUI',
     name: 'SUI',
     logoURL: ['https://coinlist.animeswap.org/icons/SUI.svg'],
+    projectURL: 'https://sui.io/',
+  },
+  '0xcd7ed7db61e179da12c09f538ad4ea9c80003572::testcoin1::TESTCOIN1': {
+    address: '0xcd7ed7db61e179da12c09f538ad4ea9c80003572::testcoin1::TESTCOIN1',
+    decimals: 8,
+    symbol: 'USDC',
+    name: 'USDC',
+    logoURL: ['https://coinlist.animeswap.org/icons/USDC.webp'],
+    projectURL: 'https://sui.io/',
+  },
+  '0xcd7ed7db61e179da12c09f538ad4ea9c80003572::testcoin2::TESTCOIN2': {
+    address: '0xcd7ed7db61e179da12c09f538ad4ea9c80003572::testcoin2::TESTCOIN2',
+    decimals: 8,
+    symbol: 'USDT',
+    name: 'USDT',
+    logoURL: ['https://coinlist.animeswap.org/icons/USDT.webp'],
     projectURL: 'https://sui.io/',
   },
 }
