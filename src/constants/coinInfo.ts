@@ -55,6 +55,14 @@ export const APTOS_CoinInfo: { [address: string]: Coin } = {
     logoURL: ['https://coinlist.animeswap.org/icons/DittoStakedAptos.svg'],
     projectURL: 'https://www.dittofinance.io/',
   },
+  '0x25a64579760a4c64be0d692327786a6375ec80740152851490cfd0b53604cf95::coin::ETERN': {
+    address: '0x25a64579760a4c64be0d692327786a6375ec80740152851490cfd0b53604cf95::coin::ETERN',
+    decimals: 8,
+    symbol: 'ETERN',
+    name: 'Eternal Token',
+    logoURL: ['https://coinlist.animeswap.org/icons/ETERN.svg'],
+    projectURL: 'https://eternalfinance.io',
+  },
   '0x27fafcc4e39daac97556af8a803dbb52bcb03f0821898dc845ac54225b9793eb::move_coin::MoveCoin': {
     address: '0x27fafcc4e39daac97556af8a803dbb52bcb03f0821898dc845ac54225b9793eb::move_coin::MoveCoin',
     decimals: 8,
