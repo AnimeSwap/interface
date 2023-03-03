@@ -332,9 +332,11 @@ export default function NetworkSelector() {
             return
           } else {
             switchChain(connection, targetChain)
+            navigate({ search: replaceURLParam(search, 'chain', getChainNameFromId(targetChain)) }, { replace: true })
           }
         } else {
           switchChain(connection, targetChain)
+          navigate({ search: replaceURLParam(search, 'chain', getChainNameFromId(targetChain)) }, { replace: true })
         }
       } catch (error) {
         console.error('Failed to switch networks', error)
