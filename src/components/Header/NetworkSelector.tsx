@@ -361,13 +361,13 @@ export default function NetworkSelector() {
   }, [chainId, urlChainId, replaceURLChainParam])
 
   // If the chain changed but the query param is stale, update to the current chain
-  useEffect(() => {
-    const chainChanged = chainId !== previousChainId
-    const chainQueryStale = urlChainId !== chainId
-    if (chainChanged && chainQueryStale) {
-      replaceURLChainParam()
-    }
-  }, [chainId, previousChainId, replaceURLChainParam, urlChainId])
+  // useEffect(() => {
+  //   const chainChanged = chainId !== previousChainId
+  //   const chainQueryStale = urlChainId !== chainId
+  //   if (chainChanged && chainQueryStale) {
+  //     replaceURLChainParam()
+  //   }
+  // }, [chainId, previousChainId, replaceURLChainParam, urlChainId])
 
   // If the query param changed, and the chain didn't change, then activate the new chain
   useEffect(() => {
