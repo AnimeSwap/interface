@@ -320,7 +320,14 @@ export default function NetworkSelector() {
 
         if (isProductionEnv()) {
           // link to staging website
-          if ([SupportedChainId.APTOS_DEVNET, SupportedChainId.APTOS_TESTNET].includes(targetChain)) {
+          if (
+            [
+              SupportedChainId.APTOS_DEVNET,
+              SupportedChainId.APTOS_TESTNET,
+              SupportedChainId.SUI_DEVNET,
+              SupportedChainId.SUI_TESTNET,
+            ].includes(targetChain)
+          ) {
             window.open('https://staging.animeswap.org')
             return
           } else {
@@ -331,7 +338,6 @@ export default function NetworkSelector() {
         }
       } catch (error) {
         console.error('Failed to switch networks', error)
-
         dispatch(updateConnectionError({ chainId: targetChain, error: error.message }))
         dispatch(addPopup({ content: { failedSwitchNetwork: targetChain }, key: `failed-network-switch` }))
 

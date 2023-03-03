@@ -250,6 +250,7 @@ export default function Header() {
       }
     } else if (isSuiChain(chainId)) {
       // TODO[Azard] sync Sui chain
+      // console.log('TODO[Azard] sync Sui chain')
       if (account) {
         //
       }
