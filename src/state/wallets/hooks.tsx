@@ -431,7 +431,7 @@ export async function AutoConnectSuiMartian() {
   }
   try {
     if (await ConnectSuiMartian()) {
-      console.log('Martian auto connected')
+      console.log('Martian Sui auto connected')
       return true
     }
   } catch (error) {

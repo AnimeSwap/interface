@@ -318,6 +318,29 @@ class ConnectionInstance {
       fullnode: getRPCURL(connection, chainId),
     })
   }
+
+  public static getSuiSDK() {
+    //
+  }
+
+  public static renewSuiSDK() {
+    //
+  }
+
+  public static async syncSuiAccountResources(account: string) {
+    try {
+      if (!account) return undefined
+      const coinBalances = {}
+      const lpBalances = {}
+      store.dispatch(resetCoinBalances({ coinBalances }))
+      store.dispatch(resetLpBalances({ lpBalances }))
+      return undefined
+    } catch (error) {
+      store.dispatch(resetCoinBalances({ coinBalances: {} }))
+      store.dispatch(resetLpBalances({ lpBalances: {} }))
+      return undefined
+    }
+  }
 }
 
 export default ConnectionInstance

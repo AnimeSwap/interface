@@ -44,13 +44,13 @@ export default function AddressClaimModal({ isOpen, onDismiss }: { isOpen: boole
   const [sinceUSDT, setSinceUSDT] = useState<Date>(new Date(0))
   const [timeNow, setTimeNow] = useState(Date.now())
 
-  useEffect(() => {
-    if ([SupportedChainId.APTOS_TESTNET].includes(chainId)) {
-      setInterval(() => {
-        setTimeNow(Date.now())
-      }, 1e3)
-    }
-  }, [])
+  // useEffect(() => {
+  //   if ([SupportedChainId.APTOS_TESTNET].includes(chainId)) {
+  //     setInterval(() => {
+  //       setTimeNow(Date.now())
+  //     }, 1e3)
+  //   }
+  // }, [])
   const formatTime = (time: number) => {
     const totalSeconds = Math.floor(time / 1e3)
     if (totalSeconds <= 0) return ''
@@ -129,12 +129,12 @@ export default function AddressClaimModal({ isOpen, onDismiss }: { isOpen: boole
     }
   }
 
-  useEffect(() => {
-    if ([SupportedChainId.APTOS_TESTNET].includes(chainId)) {
-      updateSinceTimeBTC()
-      updateSinceTimeUSDT()
-    }
-  }, [account, chainId])
+  // useEffect(() => {
+  //   if ([SupportedChainId.APTOS_TESTNET].includes(chainId)) {
+  //     updateSinceTimeBTC()
+  //     updateSinceTimeUSDT()
+  //   }
+  // }, [account, chainId])
 
   function wrappedOnDismiss() {
     setAttempting(false)
