@@ -24,7 +24,7 @@ import { ConnectionType, getRPCURL } from './reducer'
 class ConnectionInstance {
   private static aptosClient: AptosClient
   private static sdk: SDK
-  private static suiClient: Connection
+  private static suiClient: JsonRpcProvider
   private static suiSDK: SuiSDK
 
   public static getAptosClient(): AptosClient {
@@ -318,20 +318,22 @@ class ConnectionInstance {
     }
   }
 
-  public static getSuiClient(): Connection {
+  public static getSuiClient(): JsonRpcProvider {
     if (!ConnectionInstance.suiClient) {
       const state = store.getState()
-      ConnectionInstance.suiClient = new Connection({
+      const suiConnection = new Connection({
         fullnode: getRPCURL(state.connection.currentConnection, state.user.chainId),
       })
+      ConnectionInstance.suiClient = new JsonRpcProvider(suiConnection)
     }
     return ConnectionInstance.suiClient
   }
 
   public static renewSuiClient(connection: ConnectionType, chainId: SupportedChainId) {
-    ConnectionInstance.suiClient = new Connection({
+    const suiConnection = new Connection({
       fullnode: getRPCURL(connection, chainId),
     })
+    ConnectionInstance.suiClient = new JsonRpcProvider(suiConnection)
   }
 
   public static getSuiSDK() {
@@ -352,8 +354,15 @@ class ConnectionInstance {
     console.log('syncSuiAccountResources')
     try {
       if (!account) return undefined
+      const suiClient = ConnectionInstance.getSuiClient()
+      const res = await suiClient.getAllBalances(account)
       const coinBalances = {}
       const lpBalances = {}
+      console.log(res)
+      for (const resource of res) {
+        const type = resource.coinType
+        coinBalances[type] = resource.totalBalance
+      }
       store.dispatch(resetCoinBalances({ coinBalances }))
       store.dispatch(resetLpBalances({ lpBalances }))
       return undefined
