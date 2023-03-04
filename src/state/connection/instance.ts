@@ -351,17 +351,16 @@ class ConnectionInstance {
   }
 
   public static async syncSuiAccountResources(account: string, chainId: SupportedChainId, poolPair = false) {
-    console.log('syncSuiAccountResources')
     try {
       if (!account) return undefined
       const suiClient = ConnectionInstance.getSuiClient()
       const res = await suiClient.getAllBalances(account)
       const coinBalances = {}
       const lpBalances = {}
-      console.log(res)
       for (const resource of res) {
         const type = resource.coinType
         coinBalances[type] = resource.totalBalance
+        // TODO[Azard]: sync LP balance
       }
       store.dispatch(resetCoinBalances({ coinBalances }))
       store.dispatch(resetLpBalances({ lpBalances }))
