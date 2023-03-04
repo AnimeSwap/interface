@@ -11,7 +11,7 @@ import SDK, {
 } from '@animeswap.org/v1-sdk'
 import { Connection, JsonRpcProvider } from '@mysten/sui.js'
 import { AptosClient } from 'aptos'
-import { CHAIN_IDS_TO_SDK_NETWORK, SupportedChainId } from 'constants/chains'
+import { CHAIN_IDS_TO_SDK_NETWORK, isSuiChain, SupportedChainId } from 'constants/chains'
 import { Pair } from 'hooks/common/Pair'
 import store from 'state'
 import { addCoin, addTempCoin, setAllPairs, updatePair } from 'state/user/reducer'
@@ -53,9 +53,11 @@ class ConnectionInstance {
   }
 
   public static async syncAccountResources(account: string, chainId: SupportedChainId, poolPair = false) {
+    if (isSuiChain(chainId)) {
+      return this.syncSuiAccountResources(account, chainId, poolPair)
+    }
     try {
       if (!account) return undefined
-
       const aptosClient = ConnectionInstance.getAptosClient()
       const res: AptosResource<any>[] = await aptosClient.getAccountResources(account)
       const coinStore = this.getSDK().networkOptions.modules.CoinStore
@@ -328,7 +330,7 @@ class ConnectionInstance {
     //
   }
 
-  public static async syncSuiAccountResources(account: string) {
+  public static async syncSuiAccountResources(account: string, chainId: SupportedChainId, poolPair = false) {
     try {
       if (!account) return undefined
       const coinBalances = {}
