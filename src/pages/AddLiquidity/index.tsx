@@ -112,9 +112,9 @@ export default function AddLiquidity() {
       setAttemptingTxn(false)
       setTxHash(txid)
       setTimeout(() => {
-        ConnectionInstance.syncAccountResources(account, true)
+        ConnectionInstance.syncAccountResources(account, chainId, true)
         setTimeout(() => {
-          ConnectionInstance.syncAccountResources(account, true)
+          ConnectionInstance.syncAccountResources(account, chainId, true)
         }, REFRESH_TIMEOUT * 2)
       }, REFRESH_TIMEOUT)
     } catch (error) {

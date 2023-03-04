@@ -52,9 +52,10 @@ class ConnectionInstance {
     ConnectionInstance.sdk = new SDK(getRPCURL(connection, chainId), networkType)
   }
 
-  public static async syncAccountResources(account: string, poolPair = false) {
+  public static async syncAccountResources(account: string, chainId: SupportedChainId, poolPair = false) {
     try {
       if (!account) return undefined
+
       const aptosClient = ConnectionInstance.getAptosClient()
       const res: AptosResource<any>[] = await aptosClient.getAccountResources(account)
       const coinStore = this.getSDK().networkOptions.modules.CoinStore

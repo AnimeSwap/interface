@@ -110,9 +110,9 @@ export default function StakeModal({ isOpen, onDismiss }: { isOpen: boolean; onD
       setAttemptingTxn(false)
       setTxHash(txid)
       setTimeout(() => {
-        ConnectionInstance.syncAccountResources(account, false)
+        ConnectionInstance.syncAccountResources(account, chainId, false)
         setTimeout(() => {
-          ConnectionInstance.syncAccountResources(account, false)
+          ConnectionInstance.syncAccountResources(account, chainId, false)
         }, REFRESH_TIMEOUT * 2)
       }, REFRESH_TIMEOUT)
     } catch (e) {

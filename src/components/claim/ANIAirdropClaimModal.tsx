@@ -69,10 +69,10 @@ export default function ANIAirdropClaimModal({ isOpen, onDismiss }: { isOpen: bo
       // setSuccessAni(ani)
       setTimeout(() => {
         // updateAni()
-        ConnectionInstance.syncAccountResources(account, false)
+        ConnectionInstance.syncAccountResources(account, chainId, false)
         setTimeout(() => {
           // updateAni()
-          ConnectionInstance.syncAccountResources(account, false)
+          ConnectionInstance.syncAccountResources(account, chainId, false)
         }, REFRESH_TIMEOUT * 2)
       }, REFRESH_TIMEOUT)
     } catch (e) {

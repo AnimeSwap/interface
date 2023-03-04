@@ -127,9 +127,6 @@ function StatusInner() {
 
   const allTransactions = useAllTransactions()
 
-  const parsedQs = useParsedQueryString()
-  const urlChainId = getParsedChainId(parsedQs)
-
   const sortedRecentTransactions = useMemo(() => {
     const txs = Object.values(allTransactions)
     return txs.filter(isTransactionRecent).sort(newTransactionsFirst)
@@ -180,8 +177,7 @@ function StatusInner() {
         setAptosPassport('')
       }
     }
-    const connectChain = urlChainId ?? chainId
-    if (isAptosChain(connectChain)) {
+    if (isAptosChain(chainId)) {
       getAptosPassport()
     }
   }, [chainId, account])

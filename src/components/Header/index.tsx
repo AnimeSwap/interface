@@ -228,38 +228,35 @@ const ANIbutton = styled(ButtonPrimary)`
 export default function Header() {
   const account = useAccount()
   const chainId = useChainId()
-  const parsedQs = useParsedQueryString()
-  const urlChainId = getParsedChainId(parsedQs)
-  const connectChain = urlChainId ?? chainId
-  const { nativeCoin, stableCoin, aniCoin } = getChainInfoOrDefault(connectChain)
+  const { nativeCoin, stableCoin, aniCoin } = getChainInfoOrDefault(chainId)
   const nativeCoinAmount = useCoinAmount(nativeCoin.address)
 
   // wallet
   useEffect(() => {
-    if (isAptosChain(connectChain)) {
+    if (isAptosChain(chainId)) {
       AutoConnectAptosWallets()
-    } else if (isSuiChain(connectChain)) {
+    } else if (isSuiChain(chainId)) {
       AutoConnectSuiWallets()
     }
-  }, [connectChain])
+  }, [chainId])
 
   useEffect(() => {
-    if (isAptosChain(connectChain)) {
-      if (connectChain) {
+    if (isAptosChain(chainId)) {
+      if (chainId) {
         ConnectionInstance.getPair(nativeCoin.address, stableCoin.address)
         ConnectionInstance.getPair(nativeCoin.address, aniCoin.address)
       }
       if (account) {
-        ConnectionInstance.syncAccountResources(account, false)
+        ConnectionInstance.syncAccountResources(account, chainId, false)
       }
-    } else if (isSuiChain(connectChain)) {
+    } else if (isSuiChain(chainId)) {
       // TODO[Azard] sync Sui chain
       console.log('TODO[Azard] sync Sui chain')
       if (account) {
         //
       }
     }
-  }, [account, connectChain])
+  }, [account, chainId])
 
   const scrollY = useScrollPosition()
   const { pathname } = useLocation()
