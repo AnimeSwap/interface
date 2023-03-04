@@ -1,3 +1,4 @@
+import { NetworkType as SuiNetworkType } from '@animeswap.org/sui-v1-sdk'
 import { NetworkType } from '@animeswap.org/v1-sdk'
 
 export enum SupportedChainId {
@@ -22,6 +23,12 @@ export const CHAIN_IDS_TO_SDK_NETWORK = {
   [SupportedChainId.APTOS]: NetworkType.Mainnet,
   [SupportedChainId.APTOS_TESTNET]: NetworkType.Testnet,
   [SupportedChainId.APTOS_DEVNET]: NetworkType.Devnet,
+}
+
+export const SUI_CHAIN_IDS_TO_SDK_NETWORK = {
+  [SupportedChainId.SUI]: SuiNetworkType.Testnet,
+  [SupportedChainId.SUI_TESTNET]: SuiNetworkType.Testnet,
+  [SupportedChainId.SUI_DEVNET]: SuiNetworkType.Devnet,
 }
 
 export function isSupportedChain(chainId: number | undefined): chainId is SupportedChainId {

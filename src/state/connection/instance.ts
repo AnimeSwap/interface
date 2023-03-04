@@ -1,3 +1,4 @@
+import SuiSDK, { NetworkType as SuiNetworkType } from '@animeswap.org/sui-v1-sdk'
 import SDK, {
   AptosCoinInfoResource,
   AptosCoinStoreResource,
@@ -12,7 +13,7 @@ import SDK, {
 import { Connection, JsonRpcProvider } from '@mysten/sui.js'
 import { AptosClient } from 'aptos'
 import { CHAIN_INFO } from 'constants/chainInfo'
-import { CHAIN_IDS_TO_SDK_NETWORK, isSuiChain, SupportedChainId } from 'constants/chains'
+import { CHAIN_IDS_TO_SDK_NETWORK, isSuiChain, SUI_CHAIN_IDS_TO_SDK_NETWORK, SupportedChainId } from 'constants/chains'
 import { Pair } from 'hooks/common/Pair'
 import store from 'state'
 import { addCoin, addTempCoin, setAllPairs, updatePair } from 'state/user/reducer'
@@ -24,6 +25,7 @@ class ConnectionInstance {
   private static aptosClient: AptosClient
   private static sdk: SDK
   private static suiClient: Connection
+  private static suiSDK: SuiSDK
 
   public static getAptosClient(): AptosClient {
     if (!ConnectionInstance.aptosClient) {
@@ -333,11 +335,17 @@ class ConnectionInstance {
   }
 
   public static getSuiSDK() {
-    //
+    if (!ConnectionInstance.suiSDK) {
+      const state = store.getState()
+      const networkType: SuiNetworkType = SUI_CHAIN_IDS_TO_SDK_NETWORK[state.user.chainId]
+      ConnectionInstance.suiSDK = new SuiSDK(networkType)
+    }
+    return ConnectionInstance.suiSDK
   }
 
-  public static renewSuiSDK() {
-    //
+  public static renewSuiSDK(connection: ConnectionType, chainId: SupportedChainId) {
+    const networkType: SuiNetworkType = SUI_CHAIN_IDS_TO_SDK_NETWORK[chainId]
+    ConnectionInstance.suiSDK = new SuiSDK(networkType)
   }
 
   public static async syncSuiAccountResources(account: string, chainId: SupportedChainId, poolPair = false) {
