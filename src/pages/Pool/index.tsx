@@ -166,8 +166,6 @@ export default function Pool() {
         ConnectionInstance.getSDK().Misc.calculateAutoAniInfo(),
       ]
       const [res2, res3] = await Promise.all(taskListCommon)
-      // console.log('Azard res', res)
-      // console.log('Azard res2', res2)
       setAniPool({
         poolLP: res2[0]?.lpAmount,
         poolCoinXAmount: res2[0]?.lpAmount,

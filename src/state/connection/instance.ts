@@ -331,6 +331,7 @@ class ConnectionInstance {
   }
 
   public static async syncSuiAccountResources(account: string, chainId: SupportedChainId, poolPair = false) {
+    console.log('syncSuiAccountResources')
     try {
       if (!account) return undefined
       const coinBalances = {}

@@ -1,5 +1,6 @@
 import { Decimal, Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
+import { getParsedChainId } from 'components/Header/NetworkSelector'
 import { getChainInfoOrDefault } from 'constants/chainInfo'
 import { SupportedChainId } from 'constants/chains'
 import { BestTrade, TradeType, useBestTrade } from 'hooks/useBestTrade'
@@ -75,6 +76,7 @@ export function useDerivedSwapInfo(): {
   allowedSlippage: number
 } {
   const account = useAccount()
+  const chainId = useChainId()
   const {
     independentField,
     typedValue,
