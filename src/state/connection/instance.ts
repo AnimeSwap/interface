@@ -11,6 +11,7 @@ import SDK, {
 } from '@animeswap.org/v1-sdk'
 import { Connection, JsonRpcProvider } from '@mysten/sui.js'
 import { AptosClient } from 'aptos'
+import { CHAIN_INFO } from 'constants/chainInfo'
 import { CHAIN_IDS_TO_SDK_NETWORK, isSuiChain, SupportedChainId } from 'constants/chains'
 import { Pair } from 'hooks/common/Pair'
 import store from 'state'
@@ -262,8 +263,17 @@ class ConnectionInstance {
     }
   }
 
-  public static async addCoin(address: string) {
+  public static async addCoin(address: string, chainId: SupportedChainId) {
     try {
+      // sidecase: bypass default coin when SUI
+      if (isSuiChain(chainId)) {
+        if (
+          CHAIN_INFO[SupportedChainId.APTOS].nativeCoin.address === address ||
+          CHAIN_INFO[SupportedChainId.APTOS].defaultBuyCoin.address === address
+        ) {
+          return
+        }
+      }
       const splits = address.split('::')
       const account = splits[0]
       const coin: AptosCoinInfoResource = await this.getAccountResource(account, `0x1::coin::CoinInfo<${address}>`)
