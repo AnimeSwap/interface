@@ -480,7 +480,7 @@ export const SUI_TESTNET_CoinInfo: { [address: string]: Coin } = {
 export const SUI_DEVNET_CoinInfo: { [address: string]: Coin } = {
   '0x2::sui::SUI': {
     address: '0x2::sui::SUI',
-    decimals: 8,
+    decimals: 9,
     symbol: 'SUI',
     name: 'SUI',
     logoURL: ['https://coinlist.animeswap.org/icons/SUI.svg'],
