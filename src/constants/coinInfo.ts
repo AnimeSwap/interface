@@ -55,6 +55,14 @@ export const APTOS_CoinInfo: { [address: string]: Coin } = {
     logoURL: ['https://coinlist.animeswap.org/icons/DittoStakedAptos.svg'],
     projectURL: 'https://www.dittofinance.io/',
   },
+  '0x27975005fd8b836a905dc7f81c51f89e76091a4d0c4d694265f6eae0c05cb400::proton_a5d::PROTON_E54': {
+    address: '0x27975005fd8b836a905dc7f81c51f89e76091a4d0c4d694265f6eae0c05cb400::proton_a5d::PROTON_E54',
+    decimals: 6,
+    symbol: 'ALI',
+    name: 'Eternal Token',
+    logoURL: ['https://coinlist.animeswap.org/icons/ALI.svg'],
+    projectURL: 'https://twitter.com/AlpacaINU',
+  },
   '0x25a64579760a4c64be0d692327786a6375ec80740152851490cfd0b53604cf95::coin::ETERN': {
     address: '0x25a64579760a4c64be0d692327786a6375ec80740152851490cfd0b53604cf95::coin::ETERN',
     decimals: 8,
