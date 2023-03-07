@@ -135,11 +135,11 @@ export default function Swap() {
             })
       const txid = await SignAndSubmitTransaction(payload)
       setTimeout(() => {
-        ConnectionInstance.getCoinBalance(account, tradeToConfirm.inputCoin.address)
-        ConnectionInstance.getCoinBalance(account, tradeToConfirm.outputCoin.address)
+        ConnectionInstance.getCoinBalance(chainId, account, tradeToConfirm.inputCoin.address)
+        ConnectionInstance.getCoinBalance(chainId, account, tradeToConfirm.outputCoin.address)
         setTimeout(() => {
-          ConnectionInstance.getCoinBalance(account, tradeToConfirm.inputCoin.address)
-          ConnectionInstance.getCoinBalance(account, tradeToConfirm.outputCoin.address)
+          ConnectionInstance.getCoinBalance(chainId, account, tradeToConfirm.inputCoin.address)
+          ConnectionInstance.getCoinBalance(chainId, account, tradeToConfirm.outputCoin.address)
         }, REFRESH_TIMEOUT * 2)
       }, REFRESH_TIMEOUT)
       console.log('txid', txid)
@@ -195,14 +195,14 @@ export default function Swap() {
       onCoinSelection(Field.INPUT, inputCoin)
       // update coin balance
       if (account && inputCoin) {
-        ConnectionInstance.getCoinBalance(account, inputCoin.address)
+        ConnectionInstance.getCoinBalance(chainId, account, inputCoin.address)
       }
     },
     [onCoinSelection, account]
   )
 
   const handleMaxInput = useCallback(() => {
-    const gasReserve = inputCoin.symbol === 'APT' ? GAS_RESERVE : BIG_INT_ZERO
+    const gasReserve = inputCoin.symbol === 'APT' || inputCoin.symbol === 'SUI' ? GAS_RESERVE : BIG_INT_ZERO
     inputCoinBalance &&
       onUserInput(
         Field.INPUT,
@@ -218,7 +218,7 @@ export default function Swap() {
       onCoinSelection(Field.OUTPUT, outputCurrency)
       // update coin balance
       if (account && outputCurrency) {
-        ConnectionInstance.getCoinBalance(account, outputCurrency.address)
+        ConnectionInstance.getCoinBalance(chainId, account, outputCurrency.address)
       }
     },
     [onCoinSelection, account]

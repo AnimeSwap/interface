@@ -108,7 +108,10 @@ class ConnectionInstance {
     }
   }
 
-  public static async getCoinBalance(account: string, type: string) {
+  public static async getCoinBalance(chainId: SupportedChainId, account: string, type: string) {
+    if (isSuiChain(chainId)) {
+      return this.getSuiCoinBalance(chainId, account, type)
+    }
     try {
       if (!account || !type) {
         return undefined
@@ -257,8 +260,6 @@ class ConnectionInstance {
           pairs[key].APR = NaN
         }
       }
-      // const windowSeconds = deltaTimestamp.div(1e6).floor()
-      // console.log(deltaTimestamp.div(1e6).floor().toNumber())
       return pairs
     } catch (error) {
       return {}
@@ -368,6 +369,23 @@ class ConnectionInstance {
     } catch (error) {
       store.dispatch(resetCoinBalances({ coinBalances: {} }))
       store.dispatch(resetLpBalances({ lpBalances: {} }))
+      return undefined
+    }
+  }
+
+  public static async getSuiCoinBalance(chainId: SupportedChainId, account: string, type: string) {
+    try {
+      if (!account || !type) {
+        return undefined
+      }
+      console.log(`getSuiCoinBalance ${account} ${type}`)
+      const suiClient = ConnectionInstance.getSuiClient()
+      const res = await suiClient.getBalance(account, type)
+      console.log(`getSuiCoinBalance return`, res)
+      const amount = res.totalBalance
+      store.dispatch(setCoinBalances({ coinBalances: { [type]: amount.toString() } }))
+      return amount
+    } catch (error) {
       return undefined
     }
   }
