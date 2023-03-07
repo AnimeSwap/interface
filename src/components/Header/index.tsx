@@ -248,7 +248,6 @@ export default function Header() {
         ConnectionInstance.syncAccountResources(account, chainId, false)
       }
     } else if (isSuiChain(chainId)) {
-      // TODO[Azard] sync Sui chain
       if (account) {
         ConnectionInstance.syncAccountResources(account, chainId, false)
       }
