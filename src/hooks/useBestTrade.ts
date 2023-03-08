@@ -1,7 +1,9 @@
 import { Decimal, Route, Utils } from '@animeswap.org/v1-sdk'
+import { isAptosChain, isSuiChain, SupportedChainId } from 'constants/chains'
 import { BP } from 'constants/misc'
 import { useEffect, useMemo, useState } from 'react'
 import ConnectionInstance from 'state/connection/instance'
+import { useChainId } from 'state/user/hooks'
 
 import { Coin, CoinAmount } from './common/Coin'
 
@@ -37,12 +39,14 @@ const cacheGetAllRoutes: {
   toCoin: any
   bestTrade0: Route.Trade
   bestTrade1: Route.Trade
+  chainId: SupportedChainId
 } = {
   allRoute: undefined,
   fromCoin: undefined,
   toCoin: undefined,
   bestTrade0: undefined,
   bestTrade1: undefined,
+  chainId: undefined,
 }
 
 export function useBestTrade(
@@ -55,6 +59,7 @@ export function useBestTrade(
   bestTrade: BestTrade
   tradeState: TradeState
 } {
+  const chainId = useChainId()
   const [bestTrade, setBestTrade] = useState<BestTrade>(null)
   const [tradeState, setTradeState] = useState<TradeState>(TradeState.LOADING)
   const [count, setCount] = useState(0)
@@ -88,10 +93,12 @@ export function useBestTrade(
       if (
         cacheGetAllRoutes.fromCoin !== fromCoin ||
         cacheGetAllRoutes.toCoin !== toCoin ||
-        !cacheGetAllRoutes.allRoute
+        !cacheGetAllRoutes.allRoute ||
+        cacheGetAllRoutes.chainId !== chainId
       ) {
         cacheGetAllRoutes.fromCoin = fromCoin
         cacheGetAllRoutes.toCoin = toCoin
+        cacheGetAllRoutes.chainId = chainId
         cacheGetAllRoutes.allRoute = await ConnectionInstance.getSDK().routeV2.getAllRoutes(fromCoin, toCoin)
       }
       const candidateRouteList = ConnectionInstance.getSDK().routeV2.getCandidateRoutes(
@@ -160,8 +167,99 @@ export function useBestTrade(
       bestTrade.priceImpact = sdkTrade.priceImpact
       setBestTrade(bestTrade)
     }
+    const suiFetchRoute = async () => {
+      if (!amount || !inputCoin || !outputCoin || amount.eq(0)) return
+      setTradeState(TradeState.LOADING)
+      const fromCoin = inputCoin.address
+      const toCoin = outputCoin.address
+      if (
+        cacheGetAllRoutes.fromCoin !== fromCoin ||
+        cacheGetAllRoutes.toCoin !== toCoin ||
+        !cacheGetAllRoutes.allRoute ||
+        cacheGetAllRoutes.chainId !== chainId
+      ) {
+        cacheGetAllRoutes.fromCoin = fromCoin
+        cacheGetAllRoutes.toCoin = toCoin
+        cacheGetAllRoutes.chainId = chainId
+        cacheGetAllRoutes.allRoute = await ConnectionInstance.getSuiSDK().route.getAllRoutes(fromCoin, toCoin)
+      }
+      const candidateRouteList = ConnectionInstance.getSuiSDK().route.getCandidateRoutes(
+        cacheGetAllRoutes.allRoute,
+        cacheGetAllRoutes.bestTrade0 ?? undefined,
+        cacheGetAllRoutes.bestTrade1 ?? undefined
+      )
+      console.log('candidateRouteList', fromCoin, toCoin, cacheGetAllRoutes.allRoute)
+      const allCandidateRouteResources = await ConnectionInstance.getSuiSDK().route.getAllCandidateRouteResources(
+        candidateRouteList
+      )
+      const tradeList =
+        tradeType === TradeType.EXACT_INPUT
+          ? ConnectionInstance.getSuiSDK().route.bestTradeExactIn(
+              candidateRouteList,
+              allCandidateRouteResources,
+              fromCoin,
+              amount
+            )
+          : ConnectionInstance.getSuiSDK().route.bestTradeExactOut(
+              candidateRouteList,
+              allCandidateRouteResources,
+              fromCoin,
+              toCoin,
+              amount
+            )
+      console.log('tradeList', tradeType, candidateRouteList, tradeList)
+      if (tradeList.length === 0) {
+        setTradeState(TradeState.INVALID)
+        return
+      }
+      cacheGetAllRoutes.bestTrade0 = tradeList[0]
+      if (tradeList.length > 1) {
+        cacheGetAllRoutes.bestTrade1 = tradeList[1]
+      }
+      setTradeState(TradeState.VALID)
+      const sdkTrade = tradeList[0]
+      const bestTrade = new BestTrade()
+      bestTrade.sdkTrade = sdkTrade
+      bestTrade.tradeType = tradeType
+      bestTrade.inputCoin = inputCoin
+      bestTrade.outputCoin = outputCoin
+      bestTrade.route = sdkTrade.coinTypeList
+      bestTrade.inputAmount = new CoinAmount(inputCoin, sdkTrade.amountList[0])
+      bestTrade.outputAmount = new CoinAmount(outputCoin, sdkTrade.amountList[sdkTrade.amountList.length - 1])
+      const payload =
+        tradeType === TradeType.EXACT_INPUT
+          ? await ConnectionInstance.getSuiSDK().route.swapExactCoinForCoinPayload({
+              address: '0xaf402dc326884964c6fad2a08086195089efa9d8',
+              trade: sdkTrade,
+              slippage: BP.mul(allowedSlippage),
+            })
+          : await ConnectionInstance.getSuiSDK().route.swapCoinForExactCoinPayload({
+              address: '0xaf402dc326884964c6fad2a08086195089efa9d8',
+              trade: sdkTrade,
+              slippage: BP.mul(allowedSlippage),
+            })
+      bestTrade.maximumAmountIn =
+        tradeType === TradeType.EXACT_INPUT
+          ? bestTrade.inputAmount
+          : new CoinAmount(inputCoin, Utils.d(payload.arguments[3].toString()))
+
+      bestTrade.miniumAmountOut =
+        tradeType === TradeType.EXACT_OUTPUT
+          ? bestTrade.outputAmount
+          : new CoinAmount(outputCoin, Utils.d(payload.arguments[3].toString()))
+      bestTrade.price = bestTrade.inputAmount.amount
+        .div(Utils.pow10(inputCoin?.decimals))
+        .div(bestTrade.outputAmount.amount.div(Utils.pow10(outputCoin?.decimals)))
+      bestTrade.priceImpact = sdkTrade.priceImpact
+      setBestTrade(bestTrade)
+    }
+
     // execution
-    fetchRoute()
+    if (isAptosChain(chainId)) {
+      fetchRoute()
+    } else if (isSuiChain(chainId)) {
+      suiFetchRoute()
+    }
   }, [tradeType, amount, inputCoin, outputCoin, allowedSlippage, count])
 
   return useMemo(() => {
