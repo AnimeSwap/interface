@@ -63,7 +63,7 @@ export default function ANIAirdropClaimModal({ isOpen, onDismiss }: { isOpen: bo
     try {
       const payload = ConnectionInstance.getSDK().Misc.claimAirdropPayload()
       setAttempting(true)
-      const txid = await SignAndSubmitTransaction(payload)
+      const txid = await SignAndSubmitTransaction(chainId, payload)
       setAttempting(false)
       setHash(txid)
       // setSuccessAni(ani)

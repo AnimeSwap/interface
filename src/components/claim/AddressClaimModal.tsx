@@ -72,7 +72,7 @@ export default function AddressClaimModal({ isOpen, onDismiss }: { isOpen: boole
       type_arguments: ['0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::TestCoinsV1::BTC'],
       arguments: ['0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c'],
     }
-    await SignAndSubmitTransaction(transaction)
+    await SignAndSubmitTransaction(chainId, transaction)
     setTimeout(() => {
       updateSinceTimeBTC()
       ConnectionInstance.getCoinBalance(
@@ -105,7 +105,7 @@ export default function AddressClaimModal({ isOpen, onDismiss }: { isOpen: boole
       type_arguments: ['0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::TestCoinsV1::USDT'],
       arguments: ['0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c'],
     }
-    await SignAndSubmitTransaction(transaction)
+    await SignAndSubmitTransaction(chainId, transaction)
     setTimeout(() => {
       updateSinceTimeUSDT()
       ConnectionInstance.getCoinBalance(

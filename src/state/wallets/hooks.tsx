@@ -1,5 +1,5 @@
 import { Utils } from '@animeswap.org/v1-sdk'
-import { SupportedChainId } from 'constants/chains'
+import { isSuiChain, SupportedChainId } from 'constants/chains'
 import { Coin, CoinAmount, useCoin } from 'hooks/common/Coin'
 import { useCallback } from 'react'
 import store from 'state'
@@ -332,7 +332,10 @@ export const ResetConnection = () => {
   store.dispatch(setAccount({ account: undefined }))
 }
 
-export const SignAndSubmitTransaction = async (transaction: any) => {
+export const SignAndSubmitTransaction = async (chainId: SupportedChainId, transaction: any) => {
+  if (isSuiChain(chainId)) {
+    return await SignAndSubmitSuiTransaction(chainId, transaction)
+  }
   const payload = Object.assign({}, transaction)
   switch (store.getState().wallets.selectedWallet) {
     case WalletType.PETRA:
@@ -438,4 +441,20 @@ export async function AutoConnectSuiMartian() {
     console.error(error)
   }
   return false
+}
+
+export const SignAndSubmitSuiTransaction = async (chainId: SupportedChainId, transaction: any) => {
+  const payload = Object.assign({}, transaction)
+  switch (store.getState().wallets.selectedWallet) {
+    case WalletType.MARTIAN:
+      const martianRes = await window.martian.sui.connect()
+      // const sender = martianRes.address
+      console.log('Martian tx', payload)
+      // const martianTx = await window.martian.sui.generateTransaction(payload)
+      const martianTxHash = await window.martian.sui.signAndExecuteTransaction(payload, 'WaitForLocalExecution')
+      console.log(martianTxHash)
+      return martianTxHash
+    default:
+      break
+  }
 }

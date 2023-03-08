@@ -259,7 +259,7 @@ export default function Pool() {
 
   async function onRegisterANI() {
     const payload = ConnectionInstance.getSDK().MasterChef.registerANIPayload()
-    await SignAndSubmitTransaction(payload)
+    await SignAndSubmitTransaction(chainId, payload)
     setTimeout(() => {
       checkRegisteredANI()
       setTimeout(() => {

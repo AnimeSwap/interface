@@ -106,7 +106,7 @@ export default function StakeModal({ isOpen, onDismiss }: { isOpen: boolean; onD
       }
       setShowConfirm(true)
       setAttemptingTxn(true)
-      const txid = await SignAndSubmitTransaction(payload)
+      const txid = await SignAndSubmitTransaction(chainId, payload)
       setAttemptingTxn(false)
       setTxHash(txid)
       setTimeout(() => {

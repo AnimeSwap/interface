@@ -133,7 +133,7 @@ export default function Swap() {
               trade: tradeToConfirm.sdkTrade,
               slippage: BP.mul(allowedSlippage),
             })
-      const txid = await SignAndSubmitTransaction(payload)
+      const txid = await SignAndSubmitTransaction(chainId, payload)
       setTimeout(() => {
         ConnectionInstance.getCoinBalance(chainId, account, tradeToConfirm.inputCoin.address)
         ConnectionInstance.getCoinBalance(chainId, account, tradeToConfirm.outputCoin.address)

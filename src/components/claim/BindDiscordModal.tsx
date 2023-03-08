@@ -6,7 +6,7 @@ import { REFRESH_TIMEOUT } from 'constants/misc'
 import { useEffect, useState } from 'react'
 import ConnectionInstance from 'state/connection/instance'
 import { useChainId } from 'state/user/hooks'
-import { SignAndSubmitTransaction, useAccount } from 'state/wallets/hooks'
+import { useAccount } from 'state/wallets/hooks'
 import styled from 'styled-components/macro'
 import { shortenAddress } from 'utils'
 

@@ -108,7 +108,7 @@ export default function AddLiquidity() {
         slippage: BP.mul(allowedSlippage),
       })
       setAttemptingTxn(true)
-      const txid = await SignAndSubmitTransaction(payload)
+      const txid = await SignAndSubmitTransaction(chainId, payload)
       setAttemptingTxn(false)
       setTxHash(txid)
       setTimeout(() => {
