@@ -188,7 +188,7 @@ export function useBestTrade(
         cacheGetAllRoutes.bestTrade0 ?? undefined,
         cacheGetAllRoutes.bestTrade1 ?? undefined
       )
-      console.log('candidateRouteList', fromCoin, toCoin, cacheGetAllRoutes.allRoute)
+      // console.log('candidateRouteList', fromCoin, toCoin, cacheGetAllRoutes.allRoute)
       const allCandidateRouteResources = await ConnectionInstance.getSuiSDK().route.getAllCandidateRouteResources(
         candidateRouteList
       )
@@ -207,7 +207,7 @@ export function useBestTrade(
               toCoin,
               amount
             )
-      console.log('tradeList', tradeType, candidateRouteList, tradeList)
+      // console.log('tradeList', tradeType, candidateRouteList, tradeList)
       if (tradeList.length === 0) {
         setTradeState(TradeState.INVALID)
         return

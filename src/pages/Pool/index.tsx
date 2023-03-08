@@ -3,7 +3,7 @@ import { StakedLPInfo, UserInfoReturn } from '@animeswap.org/v1-sdk/dist/tsc/mod
 import { Trans } from '@lingui/macro'
 import FarmCard, { FarmCardProps, FarmCardType } from 'components/PositionCard/farmCard'
 import { getChainInfoOrDefault } from 'constants/chainInfo'
-import { SupportedChainId } from 'constants/chains'
+import { isSuiChain, SupportedChainId } from 'constants/chains'
 import { REFRESH_TIMEOUT } from 'constants/misc'
 import { useCoin } from 'hooks/common/Coin'
 import { Pair, pairKey, useNativePrice } from 'hooks/common/Pair'
@@ -266,6 +266,16 @@ export default function Pool() {
         checkRegisteredANI()
       }, REFRESH_TIMEOUT * 2)
     }, REFRESH_TIMEOUT)
+  }
+
+  if (isSuiChain(chainId)) {
+    return (
+      <>
+        <PageWrapper>
+          <center>Sui Pool Coming Soon...</center>
+        </PageWrapper>
+      </>
+    )
   }
 
   return (
