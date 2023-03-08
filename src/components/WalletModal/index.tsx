@@ -21,6 +21,7 @@ import MartianOption from './MartianOption'
 import PetraOption from './PetraOption'
 import PontemOption from './PontemOption'
 import RiseOption from './RiseOption'
+import SuiWalletOption from './SuiWalletOption'
 import TrustWalletOption from './TrustWalletOption'
 
 const CloseIcon = styled.div`
@@ -213,6 +214,7 @@ export default function WalletModal({
             <AutoColumn gap="16px">
               {walletView !== WALLET_VIEWS.PENDING && (
                 <OptionGrid data-testid="option-grid">
+                  <SuiWalletOption />
                   <MartianOption />
                 </OptionGrid>
               )}

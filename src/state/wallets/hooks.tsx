@@ -387,11 +387,15 @@ export async function AutoConnectSuiWallets() {
   // first use previous wallet
   const prevWallet = store.getState().wallets.selectedWallet
   switch (prevWallet) {
+    case WalletType.SUIWALLET:
+      if (await AutoConnectSuiWallet()) return
+      break
     case WalletType.MARTIAN:
       if (await AutoConnectSuiMartian()) return
       break
   }
   // auto connect wallet in order
+  if (await AutoConnectSuiWallet()) return
   if (await AutoConnectSuiMartian()) return
 }
 
@@ -443,6 +447,34 @@ export async function AutoConnectSuiMartian() {
   return false
 }
 
+export async function ConnectSuiWallet() {
+  try {
+    const res = await window.suiWallet.requestPermissions()
+    store.dispatch(setSelectedWallet({ wallet: WalletType.SUIWALLET }))
+    const accounts = await window.suiWallet.getAccounts()
+    store.dispatch(setAccount({ account: accounts[0] }))
+    console.log('Sui wallet connect success')
+    return true
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export async function AutoConnectSuiWallet() {
+  if (!('suiWallet' in window)) {
+    return false
+  }
+  try {
+    if (await ConnectSuiWallet()) {
+      console.log('SuiWallet auto connected')
+      return true
+    }
+  } catch (error) {
+    console.error(error)
+  }
+  return false
+}
+
 export const SignAndSubmitSuiTransaction = async (chainId: SupportedChainId, transaction: any) => {
   const payload = Object.assign({}, transaction)
   switch (store.getState().wallets.selectedWallet) {
@@ -454,6 +486,10 @@ export const SignAndSubmitSuiTransaction = async (chainId: SupportedChainId, tra
       const martianTxHash = await window.martian.sui.signAndExecuteTransaction(payload, 'WaitForLocalExecution')
       console.log(martianTxHash)
       return martianTxHash
+    case WalletType.SUIWALLET:
+      const suiWalletTxHash = await window.suiWallet.signAndExecuteTransaction(payload)
+      console.log(suiWalletTxHash)
+      return suiWalletTxHash
     default:
       break
   }
