@@ -255,7 +255,7 @@ function Row({
   return rowContent
 }
 
-const getParsedChainId = (parsedQs?: ParsedQs) => {
+export const getParsedChainId = (parsedQs?: ParsedQs) => {
   const chain = parsedQs?.chain
   if (!chain || typeof chain !== 'string') return
 
@@ -277,6 +277,10 @@ const NETWORK_SELECTOR_CHAINS = [SupportedChainId.APTOS]
 NETWORK_SELECTOR_CHAINS.push(SupportedChainId.APTOS_TESTNET)
 if (isDevelopmentEnv()) {
   NETWORK_SELECTOR_CHAINS.push(SupportedChainId.APTOS_DEVNET)
+}
+NETWORK_SELECTOR_CHAINS.push(SupportedChainId.SUI_DEVNET)
+if (isDevelopmentEnv()) {
+  NETWORK_SELECTOR_CHAINS.push(SupportedChainId.SUI_TESTNET)
 }
 
 export default function NetworkSelector() {
@@ -318,18 +322,28 @@ export default function NetworkSelector() {
 
         if (isProductionEnv()) {
           // link to staging website
-          if ([SupportedChainId.APTOS_DEVNET, SupportedChainId.APTOS_TESTNET].includes(targetChain)) {
-            window.open('https://staging.animeswap.org')
+          if (targetChain === SupportedChainId.APTOS_DEVNET) {
+            window.open('https://staging.animeswap.org/#/swap?chain=aptos_devnet')
+            return
+          } else if (targetChain === SupportedChainId.APTOS_TESTNET) {
+            window.open('https://staging.animeswap.org/#/swap?chain=aptos_testnet')
+            return
+          } else if (targetChain === SupportedChainId.SUI_DEVNET) {
+            window.open('https://staging.animeswap.org/#/swap?chain=sui_devnet')
+            return
+          } else if (targetChain === SupportedChainId.SUI_TESTNET) {
+            window.open('https://staging.animeswap.org/#/swap?chain=sui_testnet')
             return
           } else {
             switchChain(connection, targetChain)
+            navigate({ search: replaceURLParam(search, 'chain', getChainNameFromId(targetChain)) }, { replace: true })
           }
         } else {
           switchChain(connection, targetChain)
+          navigate({ search: replaceURLParam(search, 'chain', getChainNameFromId(targetChain)) }, { replace: true })
         }
       } catch (error) {
         console.error('Failed to switch networks', error)
-
         dispatch(updateConnectionError({ chainId: targetChain, error: error.message }))
         dispatch(addPopup({ content: { failedSwitchNetwork: targetChain }, key: `failed-network-switch` }))
 
@@ -353,13 +367,13 @@ export default function NetworkSelector() {
   }, [chainId, urlChainId, replaceURLChainParam])
 
   // If the chain changed but the query param is stale, update to the current chain
-  useEffect(() => {
-    const chainChanged = chainId !== previousChainId
-    const chainQueryStale = urlChainId !== chainId
-    if (chainChanged && chainQueryStale) {
-      replaceURLChainParam()
-    }
-  }, [chainId, previousChainId, replaceURLChainParam, urlChainId])
+  // useEffect(() => {
+  //   const chainChanged = chainId !== previousChainId
+  //   const chainQueryStale = urlChainId !== chainId
+  //   if (chainChanged && chainQueryStale) {
+  //     replaceURLChainParam()
+  //   }
+  // }, [chainId, previousChainId, replaceURLChainParam, urlChainId])
 
   // If the query param changed, and the chain didn't change, then activate the new chain
   useEffect(() => {

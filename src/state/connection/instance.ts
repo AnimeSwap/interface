@@ -1,3 +1,4 @@
+import SuiSDK, { NetworkType as SuiNetworkType } from '@animeswap.org/sui-v1-sdk'
 import SDK, {
   AptosCoinInfoResource,
   AptosCoinStoreResource,
@@ -9,8 +10,10 @@ import SDK, {
   SwapPoolResource,
   Utils,
 } from '@animeswap.org/v1-sdk'
+import { Connection, JsonRpcProvider } from '@mysten/sui.js'
 import { AptosClient } from 'aptos'
-import { CHAIN_IDS_TO_SDK_NETWORK, SupportedChainId } from 'constants/chains'
+import { CHAIN_INFO } from 'constants/chainInfo'
+import { CHAIN_IDS_TO_SDK_NETWORK, isSuiChain, SUI_CHAIN_IDS_TO_SDK_NETWORK, SupportedChainId } from 'constants/chains'
 import { Pair } from 'hooks/common/Pair'
 import store from 'state'
 import { addCoin, addTempCoin, setAllPairs, updatePair } from 'state/user/reducer'
@@ -21,6 +24,8 @@ import { ConnectionType, getRPCURL } from './reducer'
 class ConnectionInstance {
   private static aptosClient: AptosClient
   private static sdk: SDK
+  private static suiClient: JsonRpcProvider
+  private static suiSDK: SuiSDK
 
   public static getAptosClient(): AptosClient {
     if (!ConnectionInstance.aptosClient) {
@@ -50,7 +55,10 @@ class ConnectionInstance {
     ConnectionInstance.sdk = new SDK(getRPCURL(connection, chainId), networkType)
   }
 
-  public static async syncAccountResources(account: string, poolPair = false) {
+  public static async syncAccountResources(account: string, chainId: SupportedChainId, poolPair = false) {
+    if (isSuiChain(chainId)) {
+      return this.syncSuiAccountResources(account, chainId, poolPair)
+    }
     try {
       if (!account) return undefined
       const aptosClient = ConnectionInstance.getAptosClient()
@@ -100,7 +108,10 @@ class ConnectionInstance {
     }
   }
 
-  public static async getCoinBalance(account: string, type: string) {
+  public static async getCoinBalance(chainId: SupportedChainId, account: string, type: string) {
+    if (isSuiChain(chainId)) {
+      return this.getSuiCoinBalance(chainId, account, type)
+    }
     try {
       if (!account || !type) {
         return undefined
@@ -249,16 +260,23 @@ class ConnectionInstance {
           pairs[key].APR = NaN
         }
       }
-      // const windowSeconds = deltaTimestamp.div(1e6).floor()
-      // console.log(deltaTimestamp.div(1e6).floor().toNumber())
       return pairs
     } catch (error) {
       return {}
     }
   }
 
-  public static async addCoin(address: string) {
+  public static async addCoin(address: string, chainId: SupportedChainId) {
     try {
+      // sidecase: bypass default coin when SUI
+      if (isSuiChain(chainId)) {
+        if (
+          CHAIN_INFO[SupportedChainId.APTOS].nativeCoin.address === address ||
+          CHAIN_INFO[SupportedChainId.APTOS].defaultBuyCoin.address === address
+        ) {
+          return
+        }
+      }
       const splits = address.split('::')
       const account = splits[0]
       const coin: AptosCoinInfoResource = await this.getAccountResource(account, `0x1::coin::CoinInfo<${address}>`)
@@ -298,6 +316,77 @@ class ConnectionInstance {
       }
     } catch (error) {
       console.error('addCoin', error)
+    }
+  }
+
+  public static getSuiClient(): JsonRpcProvider {
+    if (!ConnectionInstance.suiClient) {
+      const state = store.getState()
+      const suiConnection = new Connection({
+        fullnode: getRPCURL(state.connection.currentConnection, state.user.chainId),
+      })
+      ConnectionInstance.suiClient = new JsonRpcProvider(suiConnection)
+    }
+    return ConnectionInstance.suiClient
+  }
+
+  public static renewSuiClient(connection: ConnectionType, chainId: SupportedChainId) {
+    const suiConnection = new Connection({
+      fullnode: getRPCURL(connection, chainId),
+    })
+    ConnectionInstance.suiClient = new JsonRpcProvider(suiConnection)
+  }
+
+  public static getSuiSDK() {
+    if (!ConnectionInstance.suiSDK) {
+      const state = store.getState()
+      const networkType: SuiNetworkType = SUI_CHAIN_IDS_TO_SDK_NETWORK[state.user.chainId]
+      ConnectionInstance.suiSDK = new SuiSDK(networkType)
+    }
+    return ConnectionInstance.suiSDK
+  }
+
+  public static renewSuiSDK(connection: ConnectionType, chainId: SupportedChainId) {
+    const networkType: SuiNetworkType = SUI_CHAIN_IDS_TO_SDK_NETWORK[chainId]
+    ConnectionInstance.suiSDK = new SuiSDK(networkType)
+  }
+
+  public static async syncSuiAccountResources(account: string, chainId: SupportedChainId, poolPair = false) {
+    try {
+      if (!account) return undefined
+      const suiClient = ConnectionInstance.getSuiClient()
+      const res = await suiClient.getAllBalances(account)
+      const coinBalances = {}
+      const lpBalances = {}
+      for (const resource of res) {
+        const type = resource.coinType
+        coinBalances[type] = resource.totalBalance
+        // TODO[Azard]: sync LP balance
+      }
+      store.dispatch(resetCoinBalances({ coinBalances }))
+      store.dispatch(resetLpBalances({ lpBalances }))
+      return undefined
+    } catch (error) {
+      store.dispatch(resetCoinBalances({ coinBalances: {} }))
+      store.dispatch(resetLpBalances({ lpBalances: {} }))
+      return undefined
+    }
+  }
+
+  public static async getSuiCoinBalance(chainId: SupportedChainId, account: string, type: string) {
+    try {
+      if (!account || !type) {
+        return undefined
+      }
+      console.log(`getSuiCoinBalance ${account} ${type}`)
+      const suiClient = ConnectionInstance.getSuiClient()
+      const res = await suiClient.getBalance(account, type)
+      console.log(`getSuiCoinBalance return`, res)
+      const amount = res.totalBalance
+      store.dispatch(setCoinBalances({ coinBalances: { [type]: amount.toString() } }))
+      return amount
+    } catch (error) {
+      return undefined
     }
   }
 }

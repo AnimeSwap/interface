@@ -17,6 +17,14 @@ export const APTOS_CoinInfo: { [address: string]: Coin } = {
     logoURL: ['https://coinlist.animeswap.org/icons/ANI.png'],
     projectURL: 'http://animeswap.org/',
   },
+  '0x777821c78442e17d82c3d7a371f42de7189e4248e529fe6eee6bca40ddbb::apcoin::ApCoin': {
+    address: '0x777821c78442e17d82c3d7a371f42de7189e4248e529fe6eee6bca40ddbb::apcoin::ApCoin',
+    decimals: 8,
+    symbol: 'APC',
+    name: 'Apass Coin',
+    logoURL: ['https://coinlist.animeswap.org/icons/APC.png'],
+    projectURL: 'https://aptpp.com/',
+  },
   '0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::USDC': {
     address: '0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::USDC',
     decimals: 6,
@@ -30,13 +38,6 @@ export const APTOS_CoinInfo: { [address: string]: Coin } = {
     symbol: 'whUSDC',
     name: 'Wormhole USD Coin',
     logoURL: ['https://coinlist.animeswap.org/icons/USDC.webp'],
-  },
-  '0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::WETH': {
-    address: '0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::WETH',
-    decimals: 6,
-    symbol: 'zWETH',
-    name: 'LayerZero Wrapped Ethereum',
-    logoURL: ['https://coinlist.animeswap.org/icons/WETH.png'],
   },
   '0x84d7aeef42d38a5ffc3ccef853e1b82e4958659d16a7de736a29c55fbbeb0114::staked_aptos_coin::StakedAptosCoin': {
     address: '0x84d7aeef42d38a5ffc3ccef853e1b82e4958659d16a7de736a29c55fbbeb0114::staked_aptos_coin::StakedAptosCoin',
@@ -54,13 +55,45 @@ export const APTOS_CoinInfo: { [address: string]: Coin } = {
     logoURL: ['https://coinlist.animeswap.org/icons/DittoStakedAptos.svg'],
     projectURL: 'https://www.dittofinance.io/',
   },
-  '0x777821c78442e17d82c3d7a371f42de7189e4248e529fe6eee6bca40ddbb::apcoin::ApCoin': {
-    address: '0x777821c78442e17d82c3d7a371f42de7189e4248e529fe6eee6bca40ddbb::apcoin::ApCoin',
+  '0x27975005fd8b836a905dc7f81c51f89e76091a4d0c4d694265f6eae0c05cb400::proton_a5d::PROTON_E54': {
+    address: '0x27975005fd8b836a905dc7f81c51f89e76091a4d0c4d694265f6eae0c05cb400::proton_a5d::PROTON_E54',
+    decimals: 6,
+    symbol: 'ALI',
+    name: 'Eternal Token',
+    logoURL: ['https://coinlist.animeswap.org/icons/ALI.svg'],
+    projectURL: 'https://twitter.com/AlpacaINU',
+  },
+  '0x25a64579760a4c64be0d692327786a6375ec80740152851490cfd0b53604cf95::coin::ETERN': {
+    address: '0x25a64579760a4c64be0d692327786a6375ec80740152851490cfd0b53604cf95::coin::ETERN',
     decimals: 8,
-    symbol: 'APC',
-    name: 'Apass Coin',
-    logoURL: ['https://coinlist.animeswap.org/icons/APC.png'],
-    projectURL: 'https://aptpp.com/',
+    symbol: 'ETERN',
+    name: 'Eternal Token',
+    logoURL: ['https://coinlist.animeswap.org/icons/ETERN.svg'],
+    projectURL: 'https://eternalfinance.io',
+  },
+  '0x27fafcc4e39daac97556af8a803dbb52bcb03f0821898dc845ac54225b9793eb::move_coin::MoveCoin': {
+    address: '0x27fafcc4e39daac97556af8a803dbb52bcb03f0821898dc845ac54225b9793eb::move_coin::MoveCoin',
+    decimals: 8,
+    symbol: 'MOVE',
+    name: 'BlueMove',
+    logoURL: ['https://coinlist.animeswap.org/icons/MOVE.svg'],
+    projectURL: 'https://bluemove.net/',
+  },
+  '0x5a1e84cdd217034d764abb91bf20aa0536c5a8c900831a37b393fe3af98c3f55::thepeoplecoin::The_People': {
+    address: '0x5a1e84cdd217034d764abb91bf20aa0536c5a8c900831a37b393fe3af98c3f55::thepeoplecoin::The_People',
+    decimals: 6,
+    symbol: 'People',
+    name: 'The People',
+    logoURL: ['https://coinlist.animeswap.org/icons/People.png'],
+    projectURL: 'https://thepeopleapt.xyz/',
+  },
+  '0x5c738a5dfa343bee927c39ebe85b0ceb95fdb5ee5b323c95559614f5a77c47cf::AptSwap::AptSwapGovernance': {
+    address: '0x5c738a5dfa343bee927c39ebe85b0ceb95fdb5ee5b323c95559614f5a77c47cf::AptSwap::AptSwapGovernance',
+    decimals: 8,
+    symbol: 'APTSWAP',
+    name: 'AptSwap Governance Token',
+    logoURL: ['https://coinlist.animeswap.org/icons/AptSwap.svg'],
+    projectURL: 'http://aptswap.io',
   },
   '0xd1fe830dd863890ead995cbed2e1584da1558df1de184f31c8d0adf95fe19bc::proton_d69::PROTON_75C': {
     address: '0xd1fe830dd863890ead995cbed2e1584da1558df1de184f31c8d0adf95fe19bc::proton_d69::PROTON_75C',
@@ -180,6 +213,13 @@ export const APTOS_CoinInfo: { [address: string]: Coin } = {
     symbol: 'zUSDT',
     name: 'LayerZero Tether USD',
     logoURL: ['https://coinlist.animeswap.org/icons/USDT.webp'],
+  },
+  '0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::WETH': {
+    address: '0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::WETH',
+    decimals: 6,
+    symbol: 'zWETH',
+    name: 'LayerZero Wrapped Ethereum',
+    logoURL: ['https://coinlist.animeswap.org/icons/WETH.png'],
   },
   '0x8d87a65ba30e09357fa2edea2c80dbac296e5dec2b18287113500b902942929d::celer_coin_manager::BnbCoin': {
     address: '0x8d87a65ba30e09357fa2edea2c80dbac296e5dec2b18287113500b902942929d::celer_coin_manager::BnbCoin',
@@ -396,5 +436,70 @@ export const APTOS_DEVNET_CoinInfo: { [address: string]: Coin } = {
     symbol: 'ceWETH',
     name: 'Celer Wrapped Ethereum',
     logoURL: ['https://coinlist.animeswap.org/icons/WETH.png'],
+  },
+}
+
+export const SUI_CoinInfo: { [address: string]: Coin } = {
+  '0x2::sui::SUI': {
+    address: '0x2::sui::SUI',
+    decimals: 8,
+    symbol: 'SUI',
+    name: 'SUI',
+    logoURL: ['https://coinlist.animeswap.org/icons/SUI.svg'],
+    projectURL: 'https://sui.io/',
+  },
+}
+
+export const SUI_TESTNET_CoinInfo: { [address: string]: Coin } = {
+  '0x2::sui::SUI': {
+    address: '0x2::sui::SUI',
+    decimals: 8,
+    symbol: 'SUI',
+    name: 'SUI',
+    logoURL: ['https://coinlist.animeswap.org/icons/SUI.svg'],
+    projectURL: 'https://sui.io/',
+  },
+  '0x9ee13d8b9ae824c041c89c2559f793e783341e07::testcoin1::TESTCOIN1': {
+    address: '0x9ee13d8b9ae824c041c89c2559f793e783341e07::testcoin1::TESTCOIN1',
+    decimals: 8,
+    symbol: 'USDC',
+    name: 'USDC',
+    logoURL: ['https://coinlist.animeswap.org/icons/USDC.webp'],
+    projectURL: 'https://sui.io/',
+  },
+  '0x9ee13d8b9ae824c041c89c2559f793e783341e07::testcoin2::TESTCOIN2': {
+    address: '0x9ee13d8b9ae824c041c89c2559f793e783341e07::testcoin2::TESTCOIN2',
+    decimals: 8,
+    symbol: 'USDT',
+    name: 'USDT',
+    logoURL: ['https://coinlist.animeswap.org/icons/USDT.webp'],
+    projectURL: 'https://sui.io/',
+  },
+}
+
+export const SUI_DEVNET_CoinInfo: { [address: string]: Coin } = {
+  '0x2::sui::SUI': {
+    address: '0x2::sui::SUI',
+    decimals: 9,
+    symbol: 'SUI',
+    name: 'SUI',
+    logoURL: ['https://coinlist.animeswap.org/icons/SUI.svg'],
+    projectURL: 'https://sui.io/',
+  },
+  '0xe78079ed76ee7b0c1726b33f7630e4fcd1475e8e::testcoin1::TESTCOIN1': {
+    address: '0xe78079ed76ee7b0c1726b33f7630e4fcd1475e8e::testcoin1::TESTCOIN1',
+    decimals: 8,
+    symbol: 'USDC',
+    name: 'USDC',
+    logoURL: ['https://coinlist.animeswap.org/icons/USDC.webp'],
+    projectURL: 'https://sui.io/',
+  },
+  '0xe78079ed76ee7b0c1726b33f7630e4fcd1475e8e::testcoin2::TESTCOIN2': {
+    address: '0xe78079ed76ee7b0c1726b33f7630e4fcd1475e8e::testcoin2::TESTCOIN2',
+    decimals: 8,
+    symbol: 'USDT',
+    name: 'USDT',
+    logoURL: ['https://coinlist.animeswap.org/icons/USDT.webp'],
+    projectURL: 'https://sui.io/',
   },
 }

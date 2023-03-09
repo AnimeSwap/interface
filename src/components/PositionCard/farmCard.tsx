@@ -216,13 +216,13 @@ export default function FarmCard(farmCardProps: FarmCardProps) {
             })
       setShowConfirm(true)
       setAttemptingTxn(true)
-      const txid = await SignAndSubmitTransaction(payload)
+      const txid = await SignAndSubmitTransaction(chainId, payload)
       setAttemptingTxn(false)
       setTxHash(txid)
       setTimeout(() => {
-        ConnectionInstance.syncAccountResources(account, false)
+        ConnectionInstance.syncAccountResources(account, chainId, false)
         setTimeout(() => {
-          ConnectionInstance.syncAccountResources(account, false)
+          ConnectionInstance.syncAccountResources(account, chainId, false)
         }, REFRESH_TIMEOUT * 2)
       }, REFRESH_TIMEOUT)
     } catch (e) {

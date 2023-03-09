@@ -2,6 +2,7 @@ import { Decimal, Utils } from '@animeswap.org/v1-sdk'
 import { ButtonPrimary, ButtonSecondary } from 'components/Button'
 import PoolTable, { PoolData } from 'components/pools/PoolTable'
 import { getChainInfoOrDefault } from 'constants/chainInfo'
+import { isSuiChain } from 'constants/chains'
 import { BIG_INT_ZERO } from 'constants/misc'
 import { Pair, pairKey } from 'hooks/common/Pair'
 import { useEffect, useState } from 'react'
@@ -125,6 +126,16 @@ export default function Explore() {
     }
     preparePoolData()
   }, [])
+
+  if (isSuiChain(chainId)) {
+    return (
+      <>
+        <ChartContainer>
+          <center>Sui Chart Coming Soon...</center>
+        </ChartContainer>
+      </>
+    )
+  }
 
   return (
     <ChartContainer>

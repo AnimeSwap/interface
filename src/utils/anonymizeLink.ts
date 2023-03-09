@@ -1,5 +1,6 @@
 const EXPLORER_HOSTNAMES: { [hostname: string]: true } = {
   'explorer.aptoslabs.com': true,
+  'explorer.sui.io': true,
 }
 
 /**

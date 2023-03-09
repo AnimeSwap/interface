@@ -43,7 +43,7 @@ export enum Field {
 
 export default function RemoveLiquidity() {
   const { coinIdA, coinIdB } = useParams<{ coinIdA: string; coinIdB: string }>()
-  // const chainId = useChainId()
+  const chainId = useChainId()
   const coinA = useCoin(coinIdA)
   const coinB = useCoin(coinIdB)
   const account = useAccount()
@@ -109,13 +109,13 @@ export default function RemoveLiquidity() {
         slippage: BP.mul(allowedSlippage),
       })
       setAttemptingTxn(true)
-      const txid = await SignAndSubmitTransaction(payload)
+      const txid = await SignAndSubmitTransaction(chainId, payload)
       setAttemptingTxn(false)
       setTxHash(txid)
       setTimeout(() => {
-        ConnectionInstance.syncAccountResources(account, true)
+        ConnectionInstance.syncAccountResources(account, chainId, true)
         setTimeout(() => {
-          ConnectionInstance.syncAccountResources(account, true)
+          ConnectionInstance.syncAccountResources(account, chainId, true)
         }, REFRESH_TIMEOUT * 2)
       }, REFRESH_TIMEOUT)
     } catch (error) {

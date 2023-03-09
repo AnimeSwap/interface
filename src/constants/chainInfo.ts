@@ -1,8 +1,16 @@
 import aptosLogo from 'assets/aptos_logo.svg'
+import suiLogo from 'assets/sui_logo.svg'
 import { Coin } from 'hooks/common/Coin'
 
 import { SupportedChainId } from './chains'
-import { APTOS_CoinInfo, APTOS_DEVNET_CoinInfo, APTOS_TESTNET_CoinInfo } from './coinInfo'
+import {
+  APTOS_CoinInfo,
+  APTOS_DEVNET_CoinInfo,
+  APTOS_TESTNET_CoinInfo,
+  SUI_CoinInfo,
+  SUI_DEVNET_CoinInfo,
+  SUI_TESTNET_CoinInfo,
+} from './coinInfo'
 
 interface BaseChainInfo {
   readonly docs: string
@@ -22,7 +30,7 @@ interface BaseChainInfo {
 
 export type ChainInfoMap = { readonly [chainId: number]: BaseChainInfo }
 
-const CHAIN_INFO: ChainInfoMap = {
+export const CHAIN_INFO: ChainInfoMap = {
   [SupportedChainId.APTOS]: {
     docs: 'https://aptoslabs.com/',
     explorer: 'https://explorer.aptoslabs.com/?network=mainnet',
@@ -61,6 +69,39 @@ const CHAIN_INFO: ChainInfoMap = {
       APTOS_DEVNET_CoinInfo['0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI'],
     stableCoin:
       APTOS_DEVNET_CoinInfo['0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::TestCoinsV1::USDT'],
+  },
+  [SupportedChainId.SUI]: {
+    docs: 'https://sui.io/',
+    explorer: 'https://explorer.sui.io/?network=mainnet',
+    label: 'Sui',
+    logoUrl: suiLogo,
+    nativeCoin: SUI_CoinInfo['0x2::sui::SUI'],
+    aniCoin: SUI_CoinInfo['0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI'],
+    defaultBuyCoin: SUI_CoinInfo['0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI'],
+    stableCoin: SUI_CoinInfo['0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::TestCoinsV1::USDT'],
+  },
+  [SupportedChainId.SUI_TESTNET]: {
+    docs: 'https://sui.io/',
+    explorer: 'https://explorer.sui.io/?network=testnet',
+    label: 'SuiTest',
+    logoUrl: suiLogo,
+    nativeCoin: SUI_TESTNET_CoinInfo['0x2::sui::SUI'],
+    aniCoin: SUI_TESTNET_CoinInfo['0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI'],
+    defaultBuyCoin:
+      SUI_TESTNET_CoinInfo['0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI'],
+    stableCoin:
+      SUI_TESTNET_CoinInfo['0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::TestCoinsV1::USDT'],
+  },
+  [SupportedChainId.SUI_DEVNET]: {
+    docs: 'https://sui.io/',
+    explorer: 'https://explorer.sui.io/?network=devnet',
+    label: 'SuiDev',
+    logoUrl: suiLogo,
+    nativeCoin: SUI_DEVNET_CoinInfo['0x2::sui::SUI'],
+    aniCoin: SUI_DEVNET_CoinInfo['0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI'],
+    defaultBuyCoin:
+      SUI_DEVNET_CoinInfo['0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI'],
+    stableCoin: SUI_DEVNET_CoinInfo['0xe78079ed76ee7b0c1726b33f7630e4fcd1475e8e::testcoin1::TESTCOIN1'],
   },
 }
 

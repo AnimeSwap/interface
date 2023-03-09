@@ -1,3 +1,4 @@
+import { GreyBadge } from 'components/Card'
 import React from 'react'
 import styled from 'styled-components/macro'
 
@@ -115,6 +116,7 @@ export default function Option({
   isActive = false,
   isInstall = false,
   id,
+  popular = false,
 }: {
   link?: string | null
   clickable?: boolean
@@ -127,6 +129,7 @@ export default function Option({
   isActive?: boolean
   isInstall?: boolean
   id: string
+  popular?: boolean
 }) {
   const content = (
     <OptionCardClickable
@@ -154,6 +157,11 @@ export default function Option({
             ''
           )}
           {header}
+          {popular && (
+            <GreyBadge ml="10px" fontSize="14px">
+              popular
+            </GreyBadge>
+          )}
         </HeaderText>
         {subheader && <SubHeader>{subheader}</SubHeader>}
       </OptionCardLeft>

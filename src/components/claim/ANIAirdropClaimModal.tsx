@@ -63,16 +63,16 @@ export default function ANIAirdropClaimModal({ isOpen, onDismiss }: { isOpen: bo
     try {
       const payload = ConnectionInstance.getSDK().Misc.claimAirdropPayload()
       setAttempting(true)
-      const txid = await SignAndSubmitTransaction(payload)
+      const txid = await SignAndSubmitTransaction(chainId, payload)
       setAttempting(false)
       setHash(txid)
       // setSuccessAni(ani)
       setTimeout(() => {
         // updateAni()
-        ConnectionInstance.syncAccountResources(account, false)
+        ConnectionInstance.syncAccountResources(account, chainId, false)
         setTimeout(() => {
           // updateAni()
-          ConnectionInstance.syncAccountResources(account, false)
+          ConnectionInstance.syncAccountResources(account, chainId, false)
         }, REFRESH_TIMEOUT * 2)
       }, REFRESH_TIMEOUT)
     } catch (e) {

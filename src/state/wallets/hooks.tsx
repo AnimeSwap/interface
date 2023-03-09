@@ -1,5 +1,5 @@
 import { Utils } from '@animeswap.org/v1-sdk'
-import { SupportedChainId } from 'constants/chains'
+import { isSuiChain, SupportedChainId } from 'constants/chains'
 import { Coin, CoinAmount, useCoin } from 'hooks/common/Coin'
 import { useCallback } from 'react'
 import store from 'state'
@@ -54,7 +54,7 @@ export function useConnectedWallets(): [Wallet[], (wallet: Wallet) => void] {
   return [connectedWallets, addWallet]
 }
 
-export async function AutoConnectWallets() {
+export async function AutoConnectAptosWallets() {
   // first use previous wallet
   const prevWallet = store.getState().wallets.selectedWallet
   switch (prevWallet) {
@@ -332,7 +332,10 @@ export const ResetConnection = () => {
   store.dispatch(setAccount({ account: undefined }))
 }
 
-export const SignAndSubmitTransaction = async (transaction: any) => {
+export const SignAndSubmitTransaction = async (chainId: SupportedChainId, transaction: any) => {
+  if (isSuiChain(chainId)) {
+    return await SignAndSubmitSuiTransaction(chainId, transaction)
+  }
   const payload = Object.assign({}, transaction)
   switch (store.getState().wallets.selectedWallet) {
     case WalletType.PETRA:
@@ -375,6 +378,121 @@ export const SignAndSubmitTransaction = async (transaction: any) => {
       const trustwallet = await window.trustwallet.aptos.signAndSubmitTransaction(payload)
       console.log('TrustWallet tx', trustwallet)
       return trustwallet.hash
+    default:
+      break
+  }
+}
+
+export async function AutoConnectSuiWallets() {
+  // first use previous wallet
+  const prevWallet = store.getState().wallets.selectedWallet
+  switch (prevWallet) {
+    case WalletType.SUIWALLET:
+      if (await AutoConnectSuiWallet()) return
+      break
+    case WalletType.MARTIAN:
+      if (await AutoConnectSuiMartian()) return
+      break
+  }
+  // auto connect wallet in order
+  if (await AutoConnectSuiWallet()) return
+  if (await AutoConnectSuiMartian()) return
+}
+
+export async function ConnectSuiMartian() {
+  try {
+    const res = await window.martian.sui.connect()
+    store.dispatch(setSelectedWallet({ wallet: WalletType.MARTIAN }))
+    store.dispatch(setAccount({ account: res.address }))
+    console.log('Martian Sui wallet connect success')
+    const network = await window.martian.sui.network()
+    store.dispatch(setWalletChain({ chainId: SuiMartianNetworkToChainId(network) }))
+    window.martian.onNetworkChange((network) => {
+      if (store.getState().wallets.selectedWallet === WalletType.MARTIAN) {
+        store.dispatch(setWalletChain({ chainId: SuiMartianNetworkToChainId(network) }))
+      }
+    })
+
+    return true
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+function SuiMartianNetworkToChainId(network: string) {
+  switch (network) {
+    case 'Mainnet':
+      return SupportedChainId.SUI
+    case 'Testnet':
+      return SupportedChainId.SUI_TESTNET
+    case 'Devnet':
+      return SupportedChainId.SUI_DEVNET
+    default:
+      return SupportedChainId.SUI
+  }
+}
+
+export async function AutoConnectSuiMartian() {
+  if (!('martian' in window)) {
+    return false
+  }
+  try {
+    if (await ConnectSuiMartian()) {
+      console.log('Martian Sui auto connected')
+      return true
+    }
+  } catch (error) {
+    console.error(error)
+  }
+  return false
+}
+
+export async function ConnectSuiWallet() {
+  try {
+    const res = await window.suiWallet.requestPermissions()
+    store.dispatch(setSelectedWallet({ wallet: WalletType.SUIWALLET }))
+    const accounts = await window.suiWallet.getAccounts()
+    store.dispatch(setAccount({ account: accounts[0] }))
+    console.log('Sui wallet connect success')
+    return true
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export async function AutoConnectSuiWallet() {
+  if (!('suiWallet' in window)) {
+    return false
+  }
+  try {
+    if (await ConnectSuiWallet()) {
+      console.log('SuiWallet auto connected')
+      return true
+    }
+  } catch (error) {
+    console.error(error)
+  }
+  return false
+}
+
+export const SignAndSubmitSuiTransaction = async (chainId: SupportedChainId, transaction: any) => {
+  const payload = {
+    kind: 'moveCall',
+    data: transaction,
+  }
+  switch (store.getState().wallets.selectedWallet) {
+    case WalletType.MARTIAN:
+      const martianRes = await window.martian.sui.connect()
+      // const sender = martianRes.address
+      console.log('Martian tx', payload)
+      // const martianTx = await window.martian.sui.generateTransaction(payload)
+      const martianTxHash = await window.martian.sui.signAndExecuteTransaction(payload, 'WaitForLocalExecution')
+      console.log(martianTxHash)
+      return martianTxHash?.certificate?.transactionDigest
+    case WalletType.SUIWALLET:
+      const suiWalletTxHash = await window.suiWallet.signAndExecuteTransaction(payload)
+      console.log(suiWalletTxHash)
+      return suiWalletTxHash?.certificate?.transactionDigest
     default:
       break
   }

@@ -11,6 +11,7 @@ export enum WalletType {
   RISE = 'RISE',
   BITKEEP = 'BITKEEP',
   TRUSTWALLET = 'TRUSTWALLET',
+  SUIWALLET = 'SUIWALLET',
 }
 
 export function getWalletName(walletType: WalletType) {
@@ -29,5 +30,7 @@ export function getWalletName(walletType: WalletType) {
       return 'BitKeep'
     case WalletType.TRUSTWALLET:
       return 'Trust Wallet'
+    case WalletType.SUIWALLET:
+      return 'Sui Wallet'
   }
 }

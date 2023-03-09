@@ -117,7 +117,7 @@ export function CoinSearch({
     const addressCoin = allCoins[debouncedQuery]
     if (!addressCoin) {
       // Azard: add custom coin
-      ConnectionInstance.addCoin(debouncedQuery)
+      ConnectionInstance.addCoin(debouncedQuery, chainId)
     }
   }
 

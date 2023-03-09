@@ -1,7 +1,9 @@
+import { getParsedChainId } from 'components/Header/NetworkSelector'
 import { getChainInfoOrDefault } from 'constants/chainInfo'
 import { SupportedChainId } from 'constants/chains'
 import { SupportedLocale } from 'constants/locales'
 import { Coin } from 'hooks/common/Coin'
+import useParsedQueryString from 'hooks/useParsedQueryString'
 import { useCallback, useMemo } from 'react'
 import { shallowEqual } from 'react-redux'
 import { useAppDispatch, useAppSelector } from 'state/hooks'
@@ -9,7 +11,12 @@ import { useAppDispatch, useAppSelector } from 'state/hooks'
 import { updateUserDarkMode, updateUserDeadline, updateUserLocale, updateUserSlippageTolerance } from './reducer'
 
 export function useChainId(): SupportedChainId {
-  return useAppSelector((state) => state.user.chainId)
+  const parsedQs = useParsedQueryString()
+  const urlChainId = getParsedChainId(parsedQs)
+  return useAppSelector((state) => {
+    const connectChain = urlChainId ?? state.user.chainId
+    return connectChain
+  })
 }
 
 export function useNativeCoin(): Coin {

@@ -44,13 +44,13 @@ export default function AddressClaimModal({ isOpen, onDismiss }: { isOpen: boole
   const [sinceUSDT, setSinceUSDT] = useState<Date>(new Date(0))
   const [timeNow, setTimeNow] = useState(Date.now())
 
-  useEffect(() => {
-    if ([SupportedChainId.APTOS_TESTNET].includes(chainId)) {
-      setInterval(() => {
-        setTimeNow(Date.now())
-      }, 1e3)
-    }
-  }, [])
+  // useEffect(() => {
+  //   if ([SupportedChainId.APTOS_TESTNET].includes(chainId)) {
+  //     setInterval(() => {
+  //       setTimeNow(Date.now())
+  //     }, 1e3)
+  //   }
+  // }, [])
   const formatTime = (time: number) => {
     const totalSeconds = Math.floor(time / 1e3)
     if (totalSeconds <= 0) return ''
@@ -72,10 +72,11 @@ export default function AddressClaimModal({ isOpen, onDismiss }: { isOpen: boole
       type_arguments: ['0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::TestCoinsV1::BTC'],
       arguments: ['0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c'],
     }
-    await SignAndSubmitTransaction(transaction)
+    await SignAndSubmitTransaction(chainId, transaction)
     setTimeout(() => {
       updateSinceTimeBTC()
       ConnectionInstance.getCoinBalance(
+        chainId,
         account,
         '0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::TestCoinsV1::BTC'
       )
@@ -104,10 +105,11 @@ export default function AddressClaimModal({ isOpen, onDismiss }: { isOpen: boole
       type_arguments: ['0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::TestCoinsV1::USDT'],
       arguments: ['0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c'],
     }
-    await SignAndSubmitTransaction(transaction)
+    await SignAndSubmitTransaction(chainId, transaction)
     setTimeout(() => {
       updateSinceTimeUSDT()
       ConnectionInstance.getCoinBalance(
+        chainId,
         account,
         '0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::TestCoinsV1::USDT'
       )
@@ -129,12 +131,12 @@ export default function AddressClaimModal({ isOpen, onDismiss }: { isOpen: boole
     }
   }
 
-  useEffect(() => {
-    if ([SupportedChainId.APTOS_TESTNET].includes(chainId)) {
-      updateSinceTimeBTC()
-      updateSinceTimeUSDT()
-    }
-  }, [account, chainId])
+  // useEffect(() => {
+  //   if ([SupportedChainId.APTOS_TESTNET].includes(chainId)) {
+  //     updateSinceTimeBTC()
+  //     updateSinceTimeUSDT()
+  //   }
+  // }, [account, chainId])
 
   function wrappedOnDismiss() {
     setAttempting(false)

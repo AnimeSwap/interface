@@ -3,7 +3,7 @@ import { Trans } from '@lingui/macro'
 // import PriceImpactWarning from 'components/swap/PriceImpactWarning'
 import SwapDetailsDropdown from 'components/swap/SwapDetailsDropdown'
 import { MouseoverTooltip } from 'components/Tooltip'
-import { isSupportedChain, SupportedChainId } from 'constants/chains'
+import { isAptosChain, isSuiChain, isSupportedChain, SupportedChainId } from 'constants/chains'
 import { BIG_INT_ZERO, BP, GAS_RESERVE, REFRESH_TIMEOUT } from 'constants/misc'
 import { Coin } from 'hooks/common/Coin'
 import { BestTrade, TradeState, TradeType } from 'hooks/useBestTrade'
@@ -123,23 +123,39 @@ export default function Swap() {
 
   const swapCallback = async () => {
     try {
-      const payload =
-        tradeToConfirm.tradeType === TradeType.EXACT_INPUT
-          ? ConnectionInstance.getSDK().route.swapExactCoinForCoinPayload({
-              trade: tradeToConfirm.sdkTrade,
-              slippage: BP.mul(allowedSlippage),
-            })
-          : ConnectionInstance.getSDK().route.swapCoinForExactCoinPayload({
-              trade: tradeToConfirm.sdkTrade,
-              slippage: BP.mul(allowedSlippage),
-            })
-      const txid = await SignAndSubmitTransaction(payload)
+      let payload = {}
+      if (isAptosChain(chainId)) {
+        payload =
+          tradeToConfirm.tradeType === TradeType.EXACT_INPUT
+            ? ConnectionInstance.getSDK().route.swapExactCoinForCoinPayload({
+                trade: tradeToConfirm.sdkTrade,
+                slippage: BP.mul(allowedSlippage),
+              })
+            : ConnectionInstance.getSDK().route.swapCoinForExactCoinPayload({
+                trade: tradeToConfirm.sdkTrade,
+                slippage: BP.mul(allowedSlippage),
+              })
+      } else if (isSuiChain(chainId)) {
+        payload =
+          tradeToConfirm.tradeType === TradeType.EXACT_INPUT
+            ? await ConnectionInstance.getSuiSDK().route.swapExactCoinForCoinPayload({
+                address: account,
+                trade: tradeToConfirm.sdkTrade,
+                slippage: BP.mul(allowedSlippage),
+              })
+            : await ConnectionInstance.getSuiSDK().route.swapCoinForExactCoinPayload({
+                address: account,
+                trade: tradeToConfirm.sdkTrade,
+                slippage: BP.mul(allowedSlippage),
+              })
+      }
+      const txid = await SignAndSubmitTransaction(chainId, payload)
       setTimeout(() => {
-        ConnectionInstance.getCoinBalance(account, tradeToConfirm.inputCoin.address)
-        ConnectionInstance.getCoinBalance(account, tradeToConfirm.outputCoin.address)
+        ConnectionInstance.getCoinBalance(chainId, account, tradeToConfirm.inputCoin.address)
+        ConnectionInstance.getCoinBalance(chainId, account, tradeToConfirm.outputCoin.address)
         setTimeout(() => {
-          ConnectionInstance.getCoinBalance(account, tradeToConfirm.inputCoin.address)
-          ConnectionInstance.getCoinBalance(account, tradeToConfirm.outputCoin.address)
+          ConnectionInstance.getCoinBalance(chainId, account, tradeToConfirm.inputCoin.address)
+          ConnectionInstance.getCoinBalance(chainId, account, tradeToConfirm.outputCoin.address)
         }, REFRESH_TIMEOUT * 2)
       }, REFRESH_TIMEOUT)
       console.log('txid', txid)
@@ -195,14 +211,14 @@ export default function Swap() {
       onCoinSelection(Field.INPUT, inputCoin)
       // update coin balance
       if (account && inputCoin) {
-        ConnectionInstance.getCoinBalance(account, inputCoin.address)
+        ConnectionInstance.getCoinBalance(chainId, account, inputCoin.address)
       }
     },
     [onCoinSelection, account]
   )
 
   const handleMaxInput = useCallback(() => {
-    const gasReserve = inputCoin.symbol === 'APT' ? GAS_RESERVE : BIG_INT_ZERO
+    const gasReserve = inputCoin.symbol === 'APT' || inputCoin.symbol === 'SUI' ? GAS_RESERVE : BIG_INT_ZERO
     inputCoinBalance &&
       onUserInput(
         Field.INPUT,
@@ -218,7 +234,7 @@ export default function Swap() {
       onCoinSelection(Field.OUTPUT, outputCurrency)
       // update coin balance
       if (account && outputCurrency) {
-        ConnectionInstance.getCoinBalance(account, outputCurrency.address)
+        ConnectionInstance.getCoinBalance(chainId, account, outputCurrency.address)
       }
     },
     [onCoinSelection, account]

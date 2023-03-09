@@ -12,6 +12,7 @@ interface Window {
   rise?: any
   bitkeep?: any
   trustwallet?: any
+  suiWallet?: any
   farmCardProps?: any
   farmCardBalance?: any
   farmCardAction?: any

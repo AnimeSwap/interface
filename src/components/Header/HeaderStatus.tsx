@@ -1,7 +1,8 @@
 // eslint-disable-next-line no-restricted-imports
 import { Trans } from '@lingui/macro'
 import axios from 'axios'
-import { SupportedChainId } from 'constants/chains'
+import { isAptosChain, SupportedChainId } from 'constants/chains'
+import useParsedQueryString from 'hooks/useParsedQueryString'
 import { darken } from 'polished'
 import { useEffect, useMemo, useState } from 'react'
 import { AlertTriangle } from 'react-feather'
@@ -19,6 +20,7 @@ import { ButtonSecondary } from '../Button'
 import Loader from '../Loader'
 import { RowBetween } from '../Row'
 import WalletModal from '../WalletModal'
+import { getParsedChainId } from './NetworkSelector'
 
 const StatusGeneric = styled(ButtonSecondary)`
   ${({ theme }) => theme.flexRowNoWrap}
@@ -175,7 +177,9 @@ function StatusInner() {
         setAptosPassport('')
       }
     }
-    getAptosPassport()
+    if (isAptosChain(chainId)) {
+      getAptosPassport()
+    }
   }, [chainId, account])
 
   const pending = sortedRecentTransactions.filter((tx) => !tx.receipt).map((tx) => tx.hash)

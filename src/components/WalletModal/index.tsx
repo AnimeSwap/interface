@@ -1,5 +1,6 @@
 import { Trans } from '@lingui/macro'
 import { AutoColumn } from 'components/Column'
+import { isAptosChain, isSuiChain } from 'constants/chains'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { ArrowLeft } from 'react-feather'
 import { ConnectionType } from 'state/connection/reducer'
@@ -20,6 +21,7 @@ import MartianOption from './MartianOption'
 import PetraOption from './PetraOption'
 import PontemOption from './PontemOption'
 import RiseOption from './RiseOption'
+import SuiWalletOption from './SuiWalletOption'
 import TrustWalletOption from './TrustWalletOption'
 
 const CloseIcon = styled.div`
@@ -190,21 +192,35 @@ export default function WalletModal({
           <CloseColor />
         </CloseIcon>
         {headerRow}
-        <ContentWrapper>
-          <AutoColumn gap="16px">
-            {walletView !== WALLET_VIEWS.PENDING && (
-              <OptionGrid data-testid="option-grid">
-                <MartianOption />
-                <PetraOption />
-                <TrustWalletOption />
-                {/* <FewchaOption /> */}
-                <RiseOption />
-                <BitkeepOption />
-                <PontemOption />
-              </OptionGrid>
-            )}
-          </AutoColumn>
-        </ContentWrapper>
+        {isAptosChain(chainId) && (
+          <ContentWrapper>
+            <AutoColumn gap="16px">
+              {walletView !== WALLET_VIEWS.PENDING && (
+                <OptionGrid data-testid="option-grid">
+                  <RiseOption />
+                  <MartianOption />
+                  <PetraOption />
+                  <TrustWalletOption />
+                  {/* <FewchaOption /> */}
+                  <BitkeepOption />
+                  <PontemOption />
+                </OptionGrid>
+              )}
+            </AutoColumn>
+          </ContentWrapper>
+        )}
+        {isSuiChain(chainId) && (
+          <ContentWrapper>
+            <AutoColumn gap="16px">
+              {walletView !== WALLET_VIEWS.PENDING && (
+                <OptionGrid data-testid="option-grid">
+                  <SuiWalletOption />
+                  <MartianOption />
+                </OptionGrid>
+              )}
+            </AutoColumn>
+          </ContentWrapper>
+        )}
       </UpperSection>
     )
   }

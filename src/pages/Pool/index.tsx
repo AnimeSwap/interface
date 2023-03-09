@@ -3,7 +3,7 @@ import { StakedLPInfo, UserInfoReturn } from '@animeswap.org/v1-sdk/dist/tsc/mod
 import { Trans } from '@lingui/macro'
 import FarmCard, { FarmCardProps, FarmCardType } from 'components/PositionCard/farmCard'
 import { getChainInfoOrDefault } from 'constants/chainInfo'
-import { SupportedChainId } from 'constants/chains'
+import { isSuiChain, SupportedChainId } from 'constants/chains'
 import { REFRESH_TIMEOUT } from 'constants/misc'
 import { useCoin } from 'hooks/common/Coin'
 import { Pair, pairKey, useNativePrice } from 'hooks/common/Pair'
@@ -166,8 +166,6 @@ export default function Pool() {
         ConnectionInstance.getSDK().Misc.calculateAutoAniInfo(),
       ]
       const [res2, res3] = await Promise.all(taskListCommon)
-      // console.log('Azard res', res)
-      // console.log('Azard res2', res2)
       setAniPool({
         poolLP: res2[0]?.lpAmount,
         poolCoinXAmount: res2[0]?.lpAmount,
@@ -261,13 +259,23 @@ export default function Pool() {
 
   async function onRegisterANI() {
     const payload = ConnectionInstance.getSDK().MasterChef.registerANIPayload()
-    await SignAndSubmitTransaction(payload)
+    await SignAndSubmitTransaction(chainId, payload)
     setTimeout(() => {
       checkRegisteredANI()
       setTimeout(() => {
         checkRegisteredANI()
       }, REFRESH_TIMEOUT * 2)
     }, REFRESH_TIMEOUT)
+  }
+
+  if (isSuiChain(chainId)) {
+    return (
+      <>
+        <PageWrapper>
+          <center>Sui Pool Coming Soon...</center>
+        </PageWrapper>
+      </>
+    )
   }
 
   return (

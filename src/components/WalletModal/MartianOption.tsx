@@ -1,5 +1,7 @@
 import MARTIAN_ICON_URL from 'assets/martian.png'
-import { ConnectMartian, useAccount, useWallet } from 'state/wallets/hooks'
+import { isSuiChain } from 'constants/chains'
+import { useChainId } from 'state/user/hooks'
+import { ConnectMartian, ConnectSuiMartian, useAccount, useWallet } from 'state/wallets/hooks'
 import { getWalletName, WalletType } from 'state/wallets/types'
 
 import Option from './Option'
@@ -13,6 +15,7 @@ const BASE_PROPS = {
 export default function MartianOption() {
   const account = useAccount()
   const walletType = useWallet()
+  const chainId = useChainId()
   const isActive = walletType === WalletType.MARTIAN && account !== undefined
   const isInstall = 'martian' in window
   return (
@@ -22,7 +25,11 @@ export default function MartianOption() {
       isInstall={isInstall}
       onClick={async () => {
         if ('martian' in window) {
-          await ConnectMartian()
+          if (isSuiChain(chainId)) {
+            await ConnectSuiMartian()
+          } else {
+            await ConnectMartian()
+          }
         } else {
           window.open('https://www.martianwallet.xyz/', '_blank')
         }
