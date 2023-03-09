@@ -476,7 +476,10 @@ export async function AutoConnectSuiWallet() {
 }
 
 export const SignAndSubmitSuiTransaction = async (chainId: SupportedChainId, transaction: any) => {
-  const payload = Object.assign({}, transaction)
+  const payload = {
+    kind: 'moveCall',
+    data: transaction,
+  }
   switch (store.getState().wallets.selectedWallet) {
     case WalletType.MARTIAN:
       const martianRes = await window.martian.sui.connect()
@@ -485,11 +488,11 @@ export const SignAndSubmitSuiTransaction = async (chainId: SupportedChainId, tra
       // const martianTx = await window.martian.sui.generateTransaction(payload)
       const martianTxHash = await window.martian.sui.signAndExecuteTransaction(payload, 'WaitForLocalExecution')
       console.log(martianTxHash)
-      return martianTxHash
+      return martianTxHash?.certificate?.transactionDigest
     case WalletType.SUIWALLET:
       const suiWalletTxHash = await window.suiWallet.signAndExecuteTransaction(payload)
       console.log(suiWalletTxHash)
-      return suiWalletTxHash
+      return suiWalletTxHash?.certificate?.transactionDigest
     default:
       break
   }
