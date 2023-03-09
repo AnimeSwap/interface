@@ -322,15 +322,17 @@ export default function NetworkSelector() {
 
         if (isProductionEnv()) {
           // link to staging website
-          if (
-            [
-              SupportedChainId.APTOS_DEVNET,
-              SupportedChainId.APTOS_TESTNET,
-              SupportedChainId.SUI_DEVNET,
-              SupportedChainId.SUI_TESTNET,
-            ].includes(targetChain)
-          ) {
-            window.open('https://staging.animeswap.org')
+          if (targetChain === SupportedChainId.APTOS_DEVNET) {
+            window.open('https://staging.animeswap.org/#/swap?chain=aptos_devnet')
+            return
+          } else if (targetChain === SupportedChainId.APTOS_TESTNET) {
+            window.open('https://staging.animeswap.org/#/swap?chain=aptos_testnet')
+            return
+          } else if (targetChain === SupportedChainId.SUI_DEVNET) {
+            window.open('https://staging.animeswap.org/#/swap?chain=sui_devnet')
+            return
+          } else if (targetChain === SupportedChainId.SUI_TESTNET) {
+            window.open('https://staging.animeswap.org/#/swap?chain=sui_testnet')
             return
           } else {
             switchChain(connection, targetChain)
