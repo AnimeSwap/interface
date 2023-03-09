@@ -4,6 +4,7 @@ import { BP } from 'constants/misc'
 import { useEffect, useMemo, useState } from 'react'
 import ConnectionInstance from 'state/connection/instance'
 import { useChainId } from 'state/user/hooks'
+import { useAccount } from 'state/wallets/hooks'
 
 import { Coin, CoinAmount } from './common/Coin'
 
@@ -60,6 +61,7 @@ export function useBestTrade(
   tradeState: TradeState
 } {
   const chainId = useChainId()
+  const account = useAccount()
   const [bestTrade, setBestTrade] = useState<BestTrade>(null)
   const [tradeState, setTradeState] = useState<TradeState>(TradeState.LOADING)
   const [count, setCount] = useState(0)
@@ -229,12 +231,12 @@ export function useBestTrade(
       const payload =
         tradeType === TradeType.EXACT_INPUT
           ? await ConnectionInstance.getSuiSDK().route.swapExactCoinForCoinPayload({
-              address: '0xaf402dc326884964c6fad2a08086195089efa9d8',
+              address: account,
               trade: sdkTrade,
               slippage: BP.mul(allowedSlippage),
             })
           : await ConnectionInstance.getSuiSDK().route.swapCoinForExactCoinPayload({
-              address: '0xaf402dc326884964c6fad2a08086195089efa9d8',
+              address: account,
               trade: sdkTrade,
               slippage: BP.mul(allowedSlippage),
             })

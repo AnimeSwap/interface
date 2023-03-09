@@ -3,7 +3,7 @@ import { Trans } from '@lingui/macro'
 // import PriceImpactWarning from 'components/swap/PriceImpactWarning'
 import SwapDetailsDropdown from 'components/swap/SwapDetailsDropdown'
 import { MouseoverTooltip } from 'components/Tooltip'
-import { isSupportedChain, SupportedChainId } from 'constants/chains'
+import { isAptosChain, isSuiChain, isSupportedChain, SupportedChainId } from 'constants/chains'
 import { BIG_INT_ZERO, BP, GAS_RESERVE, REFRESH_TIMEOUT } from 'constants/misc'
 import { Coin } from 'hooks/common/Coin'
 import { BestTrade, TradeState, TradeType } from 'hooks/useBestTrade'
@@ -123,16 +123,32 @@ export default function Swap() {
 
   const swapCallback = async () => {
     try {
-      const payload =
-        tradeToConfirm.tradeType === TradeType.EXACT_INPUT
-          ? ConnectionInstance.getSDK().route.swapExactCoinForCoinPayload({
-              trade: tradeToConfirm.sdkTrade,
-              slippage: BP.mul(allowedSlippage),
-            })
-          : ConnectionInstance.getSDK().route.swapCoinForExactCoinPayload({
-              trade: tradeToConfirm.sdkTrade,
-              slippage: BP.mul(allowedSlippage),
-            })
+      let payload = {}
+      if (isAptosChain(chainId)) {
+        payload =
+          tradeToConfirm.tradeType === TradeType.EXACT_INPUT
+            ? ConnectionInstance.getSDK().route.swapExactCoinForCoinPayload({
+                trade: tradeToConfirm.sdkTrade,
+                slippage: BP.mul(allowedSlippage),
+              })
+            : ConnectionInstance.getSDK().route.swapCoinForExactCoinPayload({
+                trade: tradeToConfirm.sdkTrade,
+                slippage: BP.mul(allowedSlippage),
+              })
+      } else if (isSuiChain(chainId)) {
+        payload =
+          tradeToConfirm.tradeType === TradeType.EXACT_INPUT
+            ? await ConnectionInstance.getSuiSDK().route.swapExactCoinForCoinPayload({
+                address: account,
+                trade: tradeToConfirm.sdkTrade,
+                slippage: BP.mul(allowedSlippage),
+              })
+            : await ConnectionInstance.getSuiSDK().route.swapCoinForExactCoinPayload({
+                address: account,
+                trade: tradeToConfirm.sdkTrade,
+                slippage: BP.mul(allowedSlippage),
+              })
+      }
       const txid = await SignAndSubmitTransaction(chainId, payload)
       setTimeout(() => {
         ConnectionInstance.getCoinBalance(chainId, account, tradeToConfirm.inputCoin.address)
