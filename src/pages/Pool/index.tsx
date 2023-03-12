@@ -237,7 +237,7 @@ export default function Pool() {
         const ret = await ConnectionInstance.getSDK().swap.getLPCoinAPY(
           {
             coinX: nativeCoin.address,
-            coinY: zUSDC.address,
+            coinY: zUSDC?.address,
           },
           Utils.d(1e6)
         )
