@@ -377,10 +377,19 @@ class ConnectionInstance {
       const res = await suiClient.getAllBalances(account)
       const coinBalances = {}
       const lpBalances = {}
+      console.log('Azard', res)
       for (const resource of res) {
         const type = resource.coinType
         coinBalances[type] = resource.totalBalance
-        // TODO[Azard]: sync LP balance
+        // LP balance filter
+        if (type.includes('animeswap::LPCoin<')) {
+          const parts = type.split('animeswap::LPCoin<')
+          const [coinX, coinY] = parts[1].substring(0, parts[1].length - 1).split(', ')
+          lpBalances[`${coinX}, ${coinY}`] = resource.totalBalance
+          if (poolPair) {
+            this.getPair(chainId, coinX, coinY)
+          }
+        }
       }
       store.dispatch(resetCoinBalances({ coinBalances }))
       store.dispatch(resetLpBalances({ lpBalances }))
