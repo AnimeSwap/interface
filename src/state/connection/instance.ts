@@ -271,17 +271,31 @@ class ConnectionInstance {
 
   public static async addCoin(address: string, chainId: SupportedChainId) {
     try {
+      if (address === 'undefined' || address === undefined) return
       // sidecase: bypass default coin when SUI
-      // TODO[Azard]: Sui add coin
       if (isSuiChain(chainId)) {
-        return
-        // if (
-        //   CHAIN_INFO[SupportedChainId.APTOS].nativeCoin.address === address ||
-        //   CHAIN_INFO[SupportedChainId.APTOS].defaultBuyCoin.address === address
-        // ) {
-        //   return
-        // }
+        if (
+          CHAIN_INFO[SupportedChainId.APTOS].nativeCoin.address === address ||
+          CHAIN_INFO[SupportedChainId.APTOS].defaultBuyCoin.address === address
+        ) {
+          return
+        }
+        console.log(address)
+        const coin = await this.getSuiClient().getCoinMetadata(address)
+        if (coin) {
+          store.dispatch(
+            addCoin({
+              coin: {
+                address,
+                decimals: coin.decimals,
+                symbol: coin.symbol,
+                name: coin.name,
+              },
+            })
+          )
+        }
       }
+      // Aptos add coin
       const splits = address.split('::')
       const account = splits[0]
       const coin: AptosCoinInfoResource = await this.getAccountResource(account, `0x1::coin::CoinInfo<${address}>`)
