@@ -218,7 +218,6 @@ export function useBestTrade(
       if (tradeList.length > 1) {
         cacheGetAllRoutes.bestTrade1 = tradeList[1]
       }
-      setTradeState(TradeState.VALID)
       const sdkTrade = tradeList[0]
       const bestTrade = new BestTrade()
       bestTrade.sdkTrade = sdkTrade
@@ -240,6 +239,7 @@ export function useBestTrade(
               trade: sdkTrade,
               slippage: BP.mul(allowedSlippage),
             })
+      setTradeState(TradeState.VALID)
       bestTrade.maximumAmountIn =
         tradeType === TradeType.EXACT_INPUT
           ? bestTrade.inputAmount

@@ -2,7 +2,7 @@ import { Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
 import { MinimalPositionCard } from 'components/PositionCard'
 import { SwitchLocaleLink } from 'components/SwitchLocaleLink'
-import { SupportedChainId } from 'constants/chains'
+import { isSuiChain, SupportedChainId } from 'constants/chains'
 import { BIG_INT_ZERO, BP, GAS_RESERVE, REFRESH_TIMEOUT } from 'constants/misc'
 import { amountPretty, Coin, CoinAmount, useCoin } from 'hooks/common/Coin'
 import { pairKey, PairState, useNativePrice } from 'hooks/common/Pair'
@@ -11,7 +11,7 @@ import { Plus } from 'react-feather'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { Text } from 'rebass'
 import ConnectionInstance from 'state/connection/instance'
-import { SignAndSubmitTransaction, useAccount, useLpBalance } from 'state/wallets/hooks'
+import { SignAndSubmitSuiTransaction, SignAndSubmitTransaction, useAccount, useLpBalance } from 'state/wallets/hooks'
 import { ThemeContext } from 'styled-components/macro'
 
 import { ButtonError, ButtonLight, ButtonPrimary } from '../../components/Button'
@@ -99,6 +99,9 @@ export default function AddLiquidity() {
     : undefined
 
   async function onAdd() {
+    if (isSuiChain(chainId)) {
+      return onSuiAdd()
+    }
     try {
       const payload = ConnectionInstance.getSDK().swap.addLiquidityPayload({
         coinX: revert ? coinB.address : coinA.address,
@@ -120,6 +123,33 @@ export default function AddLiquidity() {
     } catch (error) {
       setAttemptingTxn(false)
       console.error('onAdd', error)
+      throw error
+    }
+  }
+
+  async function onSuiAdd() {
+    try {
+      setAttemptingTxn(true)
+      const payload = await ConnectionInstance.getSuiSDK().swap.addLiquidityPayload({
+        address: account,
+        coinX: revert ? coinB.address : coinA.address,
+        coinY: revert ? coinA.address : coinB.address,
+        amountX: revert ? parsedAmounts[Field.COIN_B] : parsedAmounts[Field.COIN_A],
+        amountY: revert ? parsedAmounts[Field.COIN_A] : parsedAmounts[Field.COIN_B],
+        slippage: BP.mul(allowedSlippage),
+      })
+      const txid = await SignAndSubmitSuiTransaction(chainId, payload)
+      setAttemptingTxn(false)
+      setTxHash(txid)
+      setTimeout(() => {
+        ConnectionInstance.syncSuiAccountResources(account, chainId, true)
+        setTimeout(() => {
+          ConnectionInstance.syncSuiAccountResources(account, chainId, true)
+        }, REFRESH_TIMEOUT * 2)
+      }, REFRESH_TIMEOUT)
+    } catch (error) {
+      setAttemptingTxn(false)
+      console.error('onSuiAdd', error)
       throw error
     }
   }
