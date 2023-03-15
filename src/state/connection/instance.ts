@@ -79,7 +79,7 @@ class ConnectionInstance {
             lpBalances[lpCoinType] = resource.data.coin.value
             if (poolPair) {
               const [coinX, coinY] = lpCoinType.split(', ')
-              this.getPair(coinX, coinY)
+              this.getPair(chainId, coinX, coinY)
             }
           }
         }
@@ -132,7 +132,10 @@ class ConnectionInstance {
   }
 
   // sync from pool pair
-  public static async getPair(coinX: string, coinY: string): Promise<Pair> {
+  public static async getPair(chainId: SupportedChainId, coinX: string, coinY: string): Promise<Pair> {
+    if (isSuiChain(chainId)) {
+      return this.getSuiPair(chainId, coinX, coinY)
+    }
     try {
       if (!coinX || !coinY) return undefined
       const modules = this.getSDK().networkOptions.modules
@@ -269,13 +272,15 @@ class ConnectionInstance {
   public static async addCoin(address: string, chainId: SupportedChainId) {
     try {
       // sidecase: bypass default coin when SUI
+      // TODO[Azard]: Sui add coin
       if (isSuiChain(chainId)) {
-        if (
-          CHAIN_INFO[SupportedChainId.APTOS].nativeCoin.address === address ||
-          CHAIN_INFO[SupportedChainId.APTOS].defaultBuyCoin.address === address
-        ) {
-          return
-        }
+        return
+        // if (
+        //   CHAIN_INFO[SupportedChainId.APTOS].nativeCoin.address === address ||
+        //   CHAIN_INFO[SupportedChainId.APTOS].defaultBuyCoin.address === address
+        // ) {
+        //   return
+        // }
       }
       const splits = address.split('::')
       const account = splits[0]
@@ -386,6 +391,25 @@ class ConnectionInstance {
       store.dispatch(setCoinBalances({ coinBalances: { [type]: amount.toString() } }))
       return amount
     } catch (error) {
+      return undefined
+    }
+  }
+
+  public static async getSuiPair(chainId: SupportedChainId, coinX: string, coinY: string): Promise<Pair> {
+    try {
+      if (!coinX || !coinY) return undefined
+      const res = await this.getSuiSDK().swap.getLiquidityPool(coinX, coinY)
+      const pair: Pair = {
+        coinX,
+        coinY,
+        lpTotal: res.lp_supply.fields.value,
+        coinXReserve: res.coin_x_reserve,
+        coinYReserve: res.coin_y_reserve,
+      }
+      store.dispatch(updatePair({ pair }))
+      return pair
+    } catch (error) {
+      store.dispatch(updatePair({ pair: undefined }))
       return undefined
     }
   }

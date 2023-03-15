@@ -40,7 +40,7 @@ export function usePair(coinA: string, coinB: string): [PairState, Pair | null |
 }
 
 export function useNativePrice() {
-  // rely on Header/index ConnectionInstance.getPair(nativeCoin.address, stableCoin.address)
+  // rely on Header/index ConnectionInstance.getPair(chainId, nativeCoin.address, stableCoin.address)
   const chainId = useChainId()
   const { nativeCoin, stableCoin } = getChainInfoOrDefault(chainId)
   const pair = usePair(nativeCoin.address, stableCoin.address)
@@ -52,7 +52,7 @@ export function useNativePrice() {
 }
 
 export function useAniPrice() {
-  // rely on Header/index ConnectionInstance.getPair(aniCoin.address, stableCoin.address)
+  // rely on Header/index ConnectionInstance.getPair(chainId, aniCoin.address, stableCoin.address)
   const chainId = useChainId()
   const nativePrice = useNativePrice()
   const { nativeCoin, aniCoin } = getChainInfoOrDefault(chainId)

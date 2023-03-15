@@ -104,7 +104,7 @@ export default function Pool() {
       for (const pairKey of pairKeyNotZero) {
         const [coinX, coinY] = pairKey.split(', ')
         if (!coinX || !coinY) continue
-        pairTasksPromise.push(ConnectionInstance.getPair(coinX, coinY))
+        pairTasksPromise.push(ConnectionInstance.getPair(chainId, coinX, coinY))
       }
       const pairResults = await Promise.all(pairTasksPromise)
       setPairTasksLoading(false)

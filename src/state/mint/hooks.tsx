@@ -5,6 +5,7 @@ import { Pair, PairState, usePair } from 'hooks/common/Pair'
 import { ReactNode, useCallback, useMemo } from 'react'
 import ConnectionInstance from 'state/connection/instance'
 import { useAppDispatch, useAppSelector } from 'state/hooks'
+import { useChainId } from 'state/user/hooks'
 import { useAccount, useCoinBalance } from 'state/wallets/hooks'
 import { tryParseCoinAmount } from 'utils/tryParseCoinAmount'
 
@@ -59,6 +60,7 @@ export function useDerivedMintInfo(
   error?: ReactNode
 } {
   const account = useAccount()
+  const chainId = useChainId()
 
   const { independentField, typedValue, otherTypedValue } = useMintState()
 
@@ -67,9 +69,9 @@ export function useDerivedMintInfo(
   const coins: { [field in Field]?: Coin } = useMemo(() => {
     if (coinA && coinB) {
       if (revert) {
-        ConnectionInstance.getPair(coinB.address, coinA.address)
+        ConnectionInstance.getPair(chainId, coinB.address, coinA.address)
       } else {
-        ConnectionInstance.getPair(coinA.address, coinB.address)
+        ConnectionInstance.getPair(chainId, coinA.address, coinB.address)
       }
     }
     return {

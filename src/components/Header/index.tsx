@@ -242,8 +242,8 @@ export default function Header() {
 
   useEffect(() => {
     if (isAptosChain(chainId)) {
-      ConnectionInstance.getPair(nativeCoin.address, stableCoin.address)
-      ConnectionInstance.getPair(nativeCoin.address, aniCoin.address)
+      ConnectionInstance.getPair(chainId, nativeCoin.address, stableCoin.address)
+      ConnectionInstance.getPair(chainId, nativeCoin.address, aniCoin.address)
       if (account) {
         ConnectionInstance.syncAccountResources(account, chainId, false)
       }
