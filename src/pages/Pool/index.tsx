@@ -3,7 +3,7 @@ import { StakedLPInfo, UserInfoReturn } from '@animeswap.org/v1-sdk/dist/tsc/mod
 import { Trans } from '@lingui/macro'
 import FarmCard, { FarmCardProps, FarmCardType } from 'components/PositionCard/farmCard'
 import { getChainInfoOrDefault } from 'constants/chainInfo'
-import { isSuiChain, SupportedChainId } from 'constants/chains'
+import { isAptosChain, isSuiChain, SupportedChainId } from 'constants/chains'
 import { REFRESH_TIMEOUT } from 'constants/misc'
 import { useCoin } from 'hooks/common/Coin'
 import { Pair, pairKey, useNativePrice } from 'hooks/common/Pair'
@@ -127,6 +127,7 @@ export default function Pool() {
 
   // Farm data interval
   useEffect(() => {
+    if (!isAptosChain(chainId)) return
     const interval = setInterval(() => {
       setCount((count) => count + 1)
     }, 30000)
@@ -135,6 +136,7 @@ export default function Pool() {
 
   // Farm data
   useEffect(() => {
+    if (!isAptosChain(chainId)) return
     const fetchStake = async () => {
       if (!showFarm) return
       let res = new Map()
@@ -224,11 +226,12 @@ export default function Pool() {
 
   // LP APR
   useEffect(() => {
+    if (!isAptosChain(chainId)) return
     const fetchLPAPR = async () => {
       const ret = await ConnectionInstance.getSDK().swap.getLPCoinAPY(
         {
-          coinX: nativeCoin.address,
-          coinY: aniCoin.address,
+          coinX: nativeCoin?.address,
+          coinY: aniCoin?.address,
         },
         Utils.d(1e6)
       )
@@ -236,7 +239,7 @@ export default function Pool() {
       if (chainId === SupportedChainId.APTOS) {
         const ret = await ConnectionInstance.getSDK().swap.getLPCoinAPY(
           {
-            coinX: nativeCoin.address,
+            coinX: nativeCoin?.address,
             coinY: zUSDC?.address,
           },
           Utils.d(1e6)
@@ -254,6 +257,7 @@ export default function Pool() {
 
   // check ANI register
   useEffect(() => {
+    if (!isAptosChain(chainId)) return
     checkRegisteredANI()
   }, [chainId, account])
 
