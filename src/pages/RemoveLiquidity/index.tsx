@@ -1,7 +1,7 @@
 import { Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
 import { SwitchLocaleLink } from 'components/SwitchLocaleLink'
-import { SupportedChainId } from 'constants/chains'
+import { isSuiChain, SupportedChainId } from 'constants/chains'
 import { BIG_INT_ZERO, BP, REFRESH_TIMEOUT } from 'constants/misc'
 import { amountPretty, CoinAmount, useCoin } from 'hooks/common/Coin'
 import { pairKey, useNativePrice, usePair } from 'hooks/common/Pair'
@@ -10,7 +10,7 @@ import { ArrowDown, Plus } from 'react-feather'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Text } from 'rebass'
 import ConnectionInstance from 'state/connection/instance'
-import { SignAndSubmitTransaction, useAccount, useLpBalance } from 'state/wallets/hooks'
+import { SignAndSubmitSuiTransaction, SignAndSubmitTransaction, useAccount, useLpBalance } from 'state/wallets/hooks'
 import { ThemeContext } from 'styled-components/macro'
 
 import { ButtonConfirmed, ButtonError, ButtonLight, ButtonPrimary } from '../../components/Button'
@@ -99,6 +99,9 @@ export default function RemoveLiquidity() {
   const allowedSlippage = useUserSlippageTolerance()
 
   async function onRemove() {
+    if (isSuiChain(chainId)) {
+      return onSuiRemove()
+    }
     try {
       const payload = ConnectionInstance.getSDK().swap.removeLiquidityPayload({
         coinX: coinA.address,
@@ -120,7 +123,35 @@ export default function RemoveLiquidity() {
       }, REFRESH_TIMEOUT)
     } catch (error) {
       setAttemptingTxn(false)
-      console.error('onAdd', error)
+      console.error('onRemove', error)
+      throw error
+    }
+  }
+
+  async function onSuiRemove() {
+    try {
+      setAttemptingTxn(true)
+      const payload = await ConnectionInstance.getSuiSDK().swap.removeLiquidityPayload({
+        address: account,
+        coinX: coinA.address,
+        coinY: coinB.address,
+        amount: parsedAmounts[Field.LIQUIDITY],
+        amountXDesired: parsedAmounts[Field.COIN_A],
+        amountYDesired: parsedAmounts[Field.COIN_B],
+        slippage: BP.mul(allowedSlippage),
+      })
+      const txid = await SignAndSubmitSuiTransaction(chainId, payload)
+      setAttemptingTxn(false)
+      setTxHash(txid)
+      setTimeout(() => {
+        ConnectionInstance.syncSuiAccountResources(account, chainId, true)
+        setTimeout(() => {
+          ConnectionInstance.syncSuiAccountResources(account, chainId, true)
+        }, REFRESH_TIMEOUT * 2)
+      }, REFRESH_TIMEOUT)
+    } catch (error) {
+      setAttemptingTxn(false)
+      console.error('onSuiRemove', error)
       throw error
     }
   }
