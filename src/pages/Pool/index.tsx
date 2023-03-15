@@ -88,9 +88,7 @@ export default function Pool() {
   const [pairTasksLoading, setPairTasksLoading] = useState<boolean>(true)
   const [pairs, setPairs] = useState<Pair[]>([])
 
-  const showFarm = [SupportedChainId.APTOS_DEVNET, SupportedChainId.APTOS_TESTNET, SupportedChainId.APTOS].includes(
-    chainId
-  )
+  const showFarm = isAptosChain(chainId)
 
   const pairKeyNotZero: string[] = []
   for (const pairKey in allLpBalances) {
@@ -270,16 +268,6 @@ export default function Pool() {
         checkRegisteredANI()
       }, REFRESH_TIMEOUT * 2)
     }, REFRESH_TIMEOUT)
-  }
-
-  if (isSuiChain(chainId)) {
-    return (
-      <>
-        <PageWrapper>
-          <center>Sui Pool Coming Soon...</center>
-        </PageWrapper>
-      </>
-    )
   }
 
   return (
