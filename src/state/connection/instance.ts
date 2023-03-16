@@ -377,7 +377,6 @@ class ConnectionInstance {
       const res = await suiClient.getAllBalances(account)
       const coinBalances = {}
       const lpBalances = {}
-      console.log('Azard', res)
       for (const resource of res) {
         const type = resource.coinType
         coinBalances[type] = resource.totalBalance
