@@ -153,6 +153,17 @@ export default function Explore() {
                 padding="6px 8px"
                 style={{ marginTop: '0.5rem', justifySelf: 'flex-end' }}
                 onClick={() => {
+                  window.open('https://www.coingecko.com/en/exchanges/animeswap', '_blank')
+                }}
+              >
+                <Text fontWeight={500} fontSize={16}>
+                  CoinGecko<sup>↗</sup>
+                </Text>
+              </ResponsiveButtonSecondary>
+              <ResponsiveButtonSecondary
+                padding="6px 8px"
+                style={{ marginTop: '0.5rem', justifySelf: 'flex-end' }}
+                onClick={() => {
                   window.open('https://coinmarketcap.com/exchanges/animeswap/', '_blank')
                 }}
               >
