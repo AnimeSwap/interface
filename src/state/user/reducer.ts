@@ -63,15 +63,27 @@ export const initialState: UserState = {
   userDeadline: DEFAULT_DEADLINE_FROM_NOW,
   coins: {
     [SupportedChainId.APTOS]: APTOS_CoinInfo,
+    [SupportedChainId.APTOS_TESTNET]: APTOS_TESTNET_CoinInfo,
+    [SupportedChainId.APTOS_DEVNET]: APTOS_DEVNET_CoinInfo,
     [SupportedChainId.SUI]: SUI_CoinInfo,
+    [SupportedChainId.SUI_TESTNET]: SUI_TESTNET_CoinInfo,
+    [SupportedChainId.SUI_DEVNET]: SUI_DEVNET_CoinInfo,
   },
   tempCoins: {
     [SupportedChainId.APTOS]: {},
+    [SupportedChainId.APTOS_TESTNET]: {},
+    [SupportedChainId.APTOS_DEVNET]: {},
     [SupportedChainId.SUI]: {},
+    [SupportedChainId.SUI_TESTNET]: {},
+    [SupportedChainId.SUI_DEVNET]: {},
   },
   pairs: {
     [SupportedChainId.APTOS]: {},
+    [SupportedChainId.APTOS_TESTNET]: {},
+    [SupportedChainId.APTOS_DEVNET]: {},
     [SupportedChainId.SUI]: {},
+    [SupportedChainId.SUI_TESTNET]: {},
+    [SupportedChainId.SUI_DEVNET]: {},
   },
   showSwapDropdownDetails: false,
 }
