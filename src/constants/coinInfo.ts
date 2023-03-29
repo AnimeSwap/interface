@@ -486,16 +486,16 @@ export const SUI_DEVNET_CoinInfo: { [address: string]: Coin } = {
     logoURL: ['https://coinlist.animeswap.org/icons/SUI.svg'],
     projectURL: 'https://sui.io/',
   },
-  '0xe78079ed76ee7b0c1726b33f7630e4fcd1475e8e::testcoin1::TESTCOIN1': {
-    address: '0xe78079ed76ee7b0c1726b33f7630e4fcd1475e8e::testcoin1::TESTCOIN1',
+  '0x1495bf38cc489bb78e4fc4de6ad5d57954b66b5a260f84e9bf6bcd5d0514c8db::usdc::USDC': {
+    address: '0x1495bf38cc489bb78e4fc4de6ad5d57954b66b5a260f84e9bf6bcd5d0514c8db::usdc::USDC',
     decimals: 8,
     symbol: 'USDC',
     name: 'USDC',
     logoURL: ['https://coinlist.animeswap.org/icons/USDC.webp'],
     projectURL: 'https://sui.io/',
   },
-  '0xe78079ed76ee7b0c1726b33f7630e4fcd1475e8e::testcoin2::TESTCOIN2': {
-    address: '0xe78079ed76ee7b0c1726b33f7630e4fcd1475e8e::testcoin2::TESTCOIN2',
+  '0x1495bf38cc489bb78e4fc4de6ad5d57954b66b5a260f84e9bf6bcd5d0514c8db::usdt::USDT': {
+    address: '0x1495bf38cc489bb78e4fc4de6ad5d57954b66b5a260f84e9bf6bcd5d0514c8db::usdt::USDT',
     decimals: 8,
     symbol: 'USDT',
     name: 'USDT',

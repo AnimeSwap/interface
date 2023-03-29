@@ -101,7 +101,7 @@ export const CHAIN_INFO: ChainInfoMap = {
     aniCoin: SUI_DEVNET_CoinInfo['0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI'],
     defaultBuyCoin:
       SUI_DEVNET_CoinInfo['0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI'],
-    stableCoin: SUI_DEVNET_CoinInfo['0xe78079ed76ee7b0c1726b33f7630e4fcd1475e8e::testcoin1::TESTCOIN1'],
+    stableCoin: SUI_DEVNET_CoinInfo['0x1495bf38cc489bb78e4fc4de6ad5d57954b66b5a260f84e9bf6bcd5d0514c8db::usdt::USDT'],
   },
 }
 

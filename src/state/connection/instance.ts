@@ -281,7 +281,7 @@ class ConnectionInstance {
           return
         }
         console.log(address)
-        const coin = await this.getSuiClient().getCoinMetadata(address)
+        const coin = await this.getSuiClient().getCoinMetadata({ coinType: address })
         if (coin) {
           store.dispatch(
             addCoin({
@@ -374,7 +374,7 @@ class ConnectionInstance {
     try {
       if (!account) return undefined
       const suiClient = ConnectionInstance.getSuiClient()
-      const res = await suiClient.getAllBalances(account)
+      const res = await suiClient.getAllBalances({ owner: account })
       const coinBalances = {}
       const lpBalances = {}
       for (const resource of res) {
@@ -407,7 +407,7 @@ class ConnectionInstance {
       }
       console.log(`getSuiCoinBalance ${account} ${type}`)
       const suiClient = ConnectionInstance.getSuiClient()
-      const res = await suiClient.getBalance(account, type)
+      const res = await suiClient.getBalance({ owner: account, coinType: type })
       console.log(`getSuiCoinBalance return`, res)
       const amount = res.totalBalance
       store.dispatch(setCoinBalances({ coinBalances: { [type]: amount.toString() } }))

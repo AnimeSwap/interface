@@ -486,7 +486,7 @@ export const SignAndSubmitSuiTransaction = async (chainId: SupportedChainId, tra
       // const sender = martianRes.address
       console.log('Martian tx', payload)
       // const martianTx = await window.martian.sui.generateTransaction(payload)
-      const martianTxHash = await window.martian.sui.signAndExecuteTransaction(payload, 'WaitForLocalExecution')
+      const martianTxHash = await window.martian.sui.signAndExecuteTransactionBlock(payload, 'WaitForLocalExecution')
       console.log(martianTxHash)
       return martianTxHash?.certificate?.transactionDigest
     case WalletType.SUIWALLET:
