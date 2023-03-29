@@ -1,4 +1,5 @@
 import { Utils } from '@animeswap.org/v1-sdk'
+import { TransactionBlock } from '@mysten/sui.js'
 import { isSuiChain, SupportedChainId } from 'constants/chains'
 import { Coin, CoinAmount, useCoin } from 'hooks/common/Coin'
 import { useCallback } from 'react'
@@ -476,21 +477,22 @@ export async function AutoConnectSuiWallet() {
 }
 
 export const SignAndSubmitSuiTransaction = async (chainId: SupportedChainId, transaction: any) => {
-  const payload = {
-    kind: 'moveCall',
-    data: transaction,
-  }
+  const transactionBlock: TransactionBlock = transaction[0]
   switch (store.getState().wallets.selectedWallet) {
     case WalletType.MARTIAN:
       const martianRes = await window.martian.sui.connect()
       // const sender = martianRes.address
-      console.log('Martian tx', payload)
+      console.log('Martian tx', transactionBlock)
       // const martianTx = await window.martian.sui.generateTransaction(payload)
-      const martianTxHash = await window.martian.sui.signAndExecuteTransactionBlock(payload, 'WaitForLocalExecution')
+      const martianTxHash = await window.martian.sui.signAndExecuteTransactionBlock({
+        transactionBlock,
+      })
       console.log(martianTxHash)
       return martianTxHash?.certificate?.transactionDigest
     case WalletType.SUIWALLET:
-      const suiWalletTxHash = await window.suiWallet.signAndExecuteTransaction(payload)
+      const suiWalletTxHash = await window.suiWallet.signAndExecuteTransactionBlock({
+        transactionBlock,
+      })
       console.log(suiWalletTxHash)
       return suiWalletTxHash?.certificate?.transactionDigest
     default:

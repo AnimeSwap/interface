@@ -227,7 +227,7 @@ export function useBestTrade(
       bestTrade.route = sdkTrade.coinTypeList
       bestTrade.inputAmount = new CoinAmount(inputCoin, sdkTrade.amountList[0])
       bestTrade.outputAmount = new CoinAmount(outputCoin, sdkTrade.amountList[sdkTrade.amountList.length - 1])
-      const payload =
+      const [payload, rawPayload] =
         tradeType === TradeType.EXACT_INPUT
           ? await ConnectionInstance.getSuiSDK().route.swapExactCoinForCoinPayload({
               address: account,
@@ -243,12 +243,12 @@ export function useBestTrade(
       bestTrade.maximumAmountIn =
         tradeType === TradeType.EXACT_INPUT
           ? bestTrade.inputAmount
-          : new CoinAmount(inputCoin, Utils.d(payload.arguments[3].toString()))
+          : new CoinAmount(inputCoin, Utils.d(rawPayload.arguments[3].toString()))
 
       bestTrade.miniumAmountOut =
         tradeType === TradeType.EXACT_OUTPUT
           ? bestTrade.outputAmount
-          : new CoinAmount(outputCoin, Utils.d(payload.arguments[3].toString()))
+          : new CoinAmount(outputCoin, Utils.d(rawPayload.arguments[3].toString()))
       bestTrade.price = bestTrade.inputAmount.amount
         .div(Utils.pow10(inputCoin?.decimals))
         .div(bestTrade.outputAmount.amount.div(Utils.pow10(outputCoin?.decimals)))
