@@ -478,7 +478,7 @@ export async function AutoConnectSuiWallet() {
 }
 
 export const SignAndSubmitSuiTransaction = async (chainId: SupportedChainId, transaction: any) => {
-  const transactionBlock: TransactionBlock = transaction[0]
+  const transactionBlock: TransactionBlock = transaction?.length === undefined ? transaction : transaction[0]
   switch (store.getState().wallets.selectedWallet) {
     case WalletType.MARTIAN:
       const martianRes = await window.martian.sui.connect(['viewAccount', 'suggestTransactions'])

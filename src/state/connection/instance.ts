@@ -88,6 +88,7 @@ class ConnectionInstance {
       store.dispatch(resetLpBalances({ lpBalances }))
       return res
     } catch (error) {
+      console.error(error)
       store.dispatch(resetCoinBalances({ coinBalances: {} }))
       store.dispatch(resetLpBalances({ lpBalances: {} }))
       return undefined
@@ -167,6 +168,7 @@ class ConnectionInstance {
       store.dispatch(updatePair({ pair }))
       return pair
     } catch (error) {
+      console.error(error)
       store.dispatch(updatePair({ pair: undefined }))
       return undefined
     }
@@ -431,6 +433,7 @@ class ConnectionInstance {
       store.dispatch(updatePair({ pair }))
       return pair
     } catch (error) {
+      console.error(error)
       store.dispatch(updatePair({ pair: undefined }))
       return undefined
     }
