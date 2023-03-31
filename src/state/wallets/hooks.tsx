@@ -427,6 +427,7 @@ function SuiMartianNetworkToChainId(network: string) {
     case 'Testnet':
       return SupportedChainId.SUI_TESTNET
     case 'Devnet':
+    case 'Custom':
       return SupportedChainId.SUI_DEVNET
     default:
       return SupportedChainId.SUI
@@ -491,7 +492,7 @@ export const SignAndSubmitSuiTransaction = async (chainId: SupportedChainId, tra
         },
       })
       console.log(martianTxHash)
-      return martianTxHash?.certificate?.transactionDigest
+      return martianTxHash?.digest
     case WalletType.SUIWALLET:
       const suiWalletTxHash = await window.suiWallet.signAndExecuteTransactionBlock({
         transactionBlock,
