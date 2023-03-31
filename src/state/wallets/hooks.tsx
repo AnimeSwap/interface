@@ -480,12 +480,15 @@ export const SignAndSubmitSuiTransaction = async (chainId: SupportedChainId, tra
   const transactionBlock: TransactionBlock = transaction[0]
   switch (store.getState().wallets.selectedWallet) {
     case WalletType.MARTIAN:
-      const martianRes = await window.martian.sui.connect()
+      const martianRes = await window.martian.sui.connect(['viewAccount', 'suggestTransactions'])
       // const sender = martianRes.address
       console.log('Martian tx', transactionBlock)
       // const martianTx = await window.martian.sui.generateTransaction(payload)
       const martianTxHash = await window.martian.sui.signAndExecuteTransactionBlock({
-        transactionBlock,
+        transactionBlockSerialized: transactionBlock.serialize(),
+        options: {
+          showEffects: true,
+        },
       })
       console.log(martianTxHash)
       return martianTxHash?.certificate?.transactionDigest
