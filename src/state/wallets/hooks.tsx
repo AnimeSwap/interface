@@ -388,15 +388,15 @@ export async function AutoConnectSuiWallets() {
   // first use previous wallet
   const prevWallet = store.getState().wallets.selectedWallet
   switch (prevWallet) {
-    case WalletType.SUIWALLET:
-      if (await AutoConnectSuiWallet()) return
-      break
+    // case WalletType.SUIWALLET:
+    //   if (await AutoConnectSuiWallet()) return
+    //   break
     case WalletType.MARTIAN:
       if (await AutoConnectSuiMartian()) return
       break
   }
   // auto connect wallet in order
-  if (await AutoConnectSuiWallet()) return
+  // if (await AutoConnectSuiWallet()) return
   if (await AutoConnectSuiMartian()) return
 }
 

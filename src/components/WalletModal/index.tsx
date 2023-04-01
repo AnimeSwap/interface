@@ -214,7 +214,7 @@ export default function WalletModal({
             <AutoColumn gap="16px">
               {walletView !== WALLET_VIEWS.PENDING && (
                 <OptionGrid data-testid="option-grid">
-                  <SuiWalletOption />
+                  {/* <SuiWalletOption /> */}
                   <MartianOption />
                 </OptionGrid>
               )}
