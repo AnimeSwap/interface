@@ -90,30 +90,6 @@ export const initialState: UserState = {
 
 if (!isProductionEnv()) {
   initialState.chainId = SupportedChainId.APTOS_TESTNET
-  initialState.coins = {
-    [SupportedChainId.APTOS]: APTOS_CoinInfo,
-    [SupportedChainId.APTOS_TESTNET]: APTOS_TESTNET_CoinInfo,
-    [SupportedChainId.APTOS_DEVNET]: APTOS_DEVNET_CoinInfo,
-    [SupportedChainId.SUI]: SUI_CoinInfo,
-    [SupportedChainId.SUI_TESTNET]: SUI_TESTNET_CoinInfo,
-    [SupportedChainId.SUI_DEVNET]: SUI_DEVNET_CoinInfo,
-  }
-  initialState.tempCoins = {
-    [SupportedChainId.APTOS]: {},
-    [SupportedChainId.APTOS_TESTNET]: {},
-    [SupportedChainId.APTOS_DEVNET]: {},
-    [SupportedChainId.SUI]: {},
-    [SupportedChainId.SUI_TESTNET]: {},
-    [SupportedChainId.SUI_DEVNET]: {},
-  }
-  initialState.pairs = {
-    [SupportedChainId.APTOS]: {},
-    [SupportedChainId.APTOS_TESTNET]: {},
-    [SupportedChainId.APTOS_DEVNET]: {},
-    [SupportedChainId.SUI]: {},
-    [SupportedChainId.SUI_TESTNET]: {},
-    [SupportedChainId.SUI_DEVNET]: {},
-  }
 }
 
 const userSlice = createSlice({
@@ -200,57 +176,39 @@ const userSlice = createSlice({
           ...state.coins[SupportedChainId.APTOS],
           ...APTOS_CoinInfo,
         },
+        [SupportedChainId.APTOS_TESTNET]: {
+          ...APTOS_TESTNET_CoinInfo,
+          ...state.coins[SupportedChainId.APTOS_TESTNET],
+          ...APTOS_TESTNET_CoinInfo,
+        },
+        [SupportedChainId.APTOS_DEVNET]: {
+          ...APTOS_DEVNET_CoinInfo,
+          ...state.coins[SupportedChainId.APTOS_DEVNET],
+          ...APTOS_DEVNET_CoinInfo,
+        },
         [SupportedChainId.SUI]: {
           ...SUI_CoinInfo,
           ...state.coins[SupportedChainId.SUI],
           ...SUI_CoinInfo,
         },
+        [SupportedChainId.SUI_TESTNET]: {
+          ...SUI_TESTNET_CoinInfo,
+          ...state.coins[SupportedChainId.SUI_TESTNET],
+          ...SUI_TESTNET_CoinInfo,
+        },
+        [SupportedChainId.SUI_DEVNET]: {
+          ...SUI_DEVNET_CoinInfo,
+          ...state.coins[SupportedChainId.SUI_DEVNET],
+          ...SUI_DEVNET_CoinInfo,
+        },
       }
       state.tempCoins = {
         [SupportedChainId.APTOS]: {},
+        [SupportedChainId.APTOS_TESTNET]: {},
+        [SupportedChainId.APTOS_DEVNET]: {},
         [SupportedChainId.SUI]: {},
-      }
-      if (!isProductionEnv()) {
-        state.coins = {
-          [SupportedChainId.APTOS]: {
-            ...APTOS_CoinInfo,
-            ...state.coins[SupportedChainId.APTOS],
-            ...APTOS_CoinInfo,
-          },
-          [SupportedChainId.APTOS_TESTNET]: {
-            ...APTOS_TESTNET_CoinInfo,
-            ...state.coins[SupportedChainId.APTOS_TESTNET],
-            ...APTOS_TESTNET_CoinInfo,
-          },
-          [SupportedChainId.APTOS_DEVNET]: {
-            ...APTOS_DEVNET_CoinInfo,
-            ...state.coins[SupportedChainId.APTOS_DEVNET],
-            ...APTOS_DEVNET_CoinInfo,
-          },
-          [SupportedChainId.SUI]: {
-            ...SUI_CoinInfo,
-            ...state.coins[SupportedChainId.SUI],
-            ...SUI_CoinInfo,
-          },
-          [SupportedChainId.SUI_TESTNET]: {
-            ...SUI_TESTNET_CoinInfo,
-            ...state.coins[SupportedChainId.SUI_TESTNET],
-            ...SUI_TESTNET_CoinInfo,
-          },
-          [SupportedChainId.SUI_DEVNET]: {
-            ...SUI_DEVNET_CoinInfo,
-            ...state.coins[SupportedChainId.SUI_DEVNET],
-            ...SUI_DEVNET_CoinInfo,
-          },
-        }
-        state.tempCoins = {
-          [SupportedChainId.APTOS]: {},
-          [SupportedChainId.APTOS_TESTNET]: {},
-          [SupportedChainId.APTOS_DEVNET]: {},
-          [SupportedChainId.SUI]: {},
-          [SupportedChainId.SUI_TESTNET]: {},
-          [SupportedChainId.SUI_DEVNET]: {},
-        }
+        [SupportedChainId.SUI_TESTNET]: {},
+        [SupportedChainId.SUI_DEVNET]: {},
       }
 
       // init local pair

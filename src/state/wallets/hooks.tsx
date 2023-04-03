@@ -421,7 +421,6 @@ export async function ConnectSuiMartian() {
 }
 
 function SuiMartianNetworkToChainId(network: string) {
-  console.log('Azard', network)
   switch (network) {
     case 'Mainnet':
       return SupportedChainId.SUI

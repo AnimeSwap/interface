@@ -1,3 +1,4 @@
+import { useWalletKit } from '@mysten/wallet-kit'
 import SUIWALLET_ICON_URL from 'assets/sui_logo.svg'
 import { ConnectSuiWallet, useAccount, useWallet } from 'state/wallets/hooks'
 import { getWalletName, WalletType } from 'state/wallets/types'
@@ -13,6 +14,7 @@ const BASE_PROPS = {
 export default function TrustWalletOption() {
   const account = useAccount()
   const walletType = useWallet()
+  const { connect, signAndExecuteTransactionBlock } = useWalletKit()
   const isActive = walletType === WalletType.SUIWALLET && account !== undefined
   const isInstall = window.suiWallet
   return (
@@ -21,6 +23,7 @@ export default function TrustWalletOption() {
       isActive={isActive}
       isInstall={isInstall}
       onClick={async () => {
+        const res = await connect('')
         if ('suiWallet' in window && window.suiWallet) {
           await ConnectSuiWallet()
         } else {
