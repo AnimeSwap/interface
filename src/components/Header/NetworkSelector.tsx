@@ -279,9 +279,7 @@ if (isDevelopmentEnv()) {
   NETWORK_SELECTOR_CHAINS.push(SupportedChainId.APTOS_DEVNET)
 }
 NETWORK_SELECTOR_CHAINS.push(SupportedChainId.SUI_DEVNET)
-if (isDevelopmentEnv()) {
-  NETWORK_SELECTOR_CHAINS.push(SupportedChainId.SUI_TESTNET)
-}
+NETWORK_SELECTOR_CHAINS.push(SupportedChainId.SUI_TESTNET)
 
 export default function NetworkSelector() {
   const dispatch = useAppDispatch()
