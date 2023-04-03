@@ -1,4 +1,4 @@
-import { SupportedChainId } from 'constants/chains'
+import { isAptosChain, isSuiChain, SupportedChainId } from 'constants/chains'
 import { useMemo } from 'react'
 import store from 'state'
 import { useAppSelector } from 'state/hooks'
@@ -26,7 +26,13 @@ export function switchChain(connection: ConnectionType, chainId: SupportedChainI
   if (!connectionURL) {
     throw new Error(`Chain ${chainId} not supported for connection (${connection})`)
   }
-  ConnectionInstance.renewAptosClient(connection, chainId)
-  ConnectionInstance.renewSDK(connection, chainId)
+  if (isAptosChain(chainId)) {
+    ConnectionInstance.renewAptosClient(connection, chainId)
+    ConnectionInstance.renewSDK(connection, chainId)
+  }
+  if (isSuiChain(chainId)) {
+    ConnectionInstance.renewSuiClient(connection, chainId)
+    ConnectionInstance.renewSuiSDK(connection, chainId)
+  }
   store.dispatch(updateChainId({ chainId }))
 }
