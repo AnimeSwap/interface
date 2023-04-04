@@ -406,7 +406,13 @@ export async function ConnectSuiMartian() {
     store.dispatch(setSelectedWallet({ wallet: WalletType.MARTIAN }))
     store.dispatch(setAccount({ account: res.address }))
     console.log('Martian Sui wallet connect success')
-    const network = await window.martian.sui.network()
+    let network = 'Testnet'
+    try {
+      // temp fix
+      network = await window.martian.sui.network()
+    } catch (e) {
+      //
+    }
     store.dispatch(setWalletChain({ chainId: SuiMartianNetworkToChainId(network) }))
     window.martian.sui.onNetworkChange((network) => {
       if (store.getState().wallets.selectedWallet === WalletType.MARTIAN) {
