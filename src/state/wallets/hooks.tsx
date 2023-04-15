@@ -427,13 +427,14 @@ export async function ConnectSuiMartian() {
 }
 
 function SuiMartianNetworkToChainId(network: string) {
+  console.log('Azard', network)
   switch (network) {
-    case 'Mainnet':
+    case 'sui:mainnet':
       return SupportedChainId.SUI
-    case 'Testnet':
+    case 'sui:testnet':
+    case 'sui:custom':
       return SupportedChainId.SUI_TESTNET
-    case 'Devnet':
-    case 'Custom':
+    case 'sui:devnet':
       return SupportedChainId.SUI_DEVNET
     default:
       return SupportedChainId.SUI

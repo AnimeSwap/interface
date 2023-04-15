@@ -278,7 +278,7 @@ NETWORK_SELECTOR_CHAINS.push(SupportedChainId.APTOS_TESTNET)
 if (isDevelopmentEnv()) {
   NETWORK_SELECTOR_CHAINS.push(SupportedChainId.APTOS_DEVNET)
 }
-NETWORK_SELECTOR_CHAINS.push(SupportedChainId.SUI_DEVNET)
+// NETWORK_SELECTOR_CHAINS.push(SupportedChainId.SUI_DEVNET)
 NETWORK_SELECTOR_CHAINS.push(SupportedChainId.SUI_TESTNET)
 
 export default function NetworkSelector() {
