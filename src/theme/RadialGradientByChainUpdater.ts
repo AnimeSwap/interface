@@ -1,3 +1,4 @@
+import { isSuiChain, SupportedChainId } from 'constants/chains'
 import { useEffect } from 'react'
 import { useChainId, useDarkModeManager } from 'state/user/hooks'
 const initialStyles = {
@@ -30,8 +31,17 @@ export default function RadialGradientByChainUpdater(): null {
     if (!backgroundRadialGradientElement) {
       return
     }
-    setBackground(initialStyles)
-    backgroundRadialGradientElement.style.background = ''
+    if (isSuiChain(chainId)) {
+      setBackground(backgroundResetStyles)
+      const suiLightGradient =
+        'radial-gradient(100% 100% at 50% 0%, rgba(205, 232, 251, 0.7) 0%, rgba(252, 243, 249, 0.6536) 49.48%, rgba(255, 255, 255, 0) 100%), #FFFFFF'
+      const suiDarkGradient =
+        'radial-gradient(100% 100% at 50% 0%, rgba(10, 41, 75, 0.7) 0%, rgba(34, 30, 48, 0.6536) 49.48%, rgba(31, 33, 40, 0) 100%), #0D0E0E'
+      backgroundRadialGradientElement.style.background = darkMode ? suiDarkGradient : suiLightGradient
+    } else {
+      setBackground(initialStyles)
+      backgroundRadialGradientElement.style.background = ''
+    }
   }, [darkMode, chainId])
   return null
 }
