@@ -150,6 +150,9 @@ export async function ConnectMartian() {
         store.dispatch(setWalletChain({ chainId: MartianNetworkToChainId(network) }))
       }
     })
+    window.martian.onAccountChange((address) => {
+      store.dispatch(setAccount({ account: address }))
+    })
 
     return true
   } catch (error) {
@@ -406,7 +409,7 @@ export async function ConnectSuiMartian() {
     store.dispatch(setSelectedWallet({ wallet: WalletType.MARTIAN }))
     store.dispatch(setAccount({ account: res.address }))
     console.log('Martian Sui wallet connect success')
-    let network = 'Testnet'
+    let network = 'sui:testnet'
     try {
       // temp fix
       network = await window.martian.sui.network()
@@ -419,6 +422,9 @@ export async function ConnectSuiMartian() {
         store.dispatch(setWalletChain({ chainId: SuiMartianNetworkToChainId(network) }))
       }
     })
+    window.martian.sui.onAccountChange((address) => {
+      store.dispatch(setAccount({ account: address }))
+    })
 
     return true
   } catch (error) {
@@ -427,7 +433,6 @@ export async function ConnectSuiMartian() {
 }
 
 function SuiMartianNetworkToChainId(network: string) {
-  console.log('Azard', network)
   switch (network) {
     case 'sui:mainnet':
       return SupportedChainId.SUI
