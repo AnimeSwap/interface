@@ -1,5 +1,6 @@
 import { Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
+import { useWalletKit } from '@mysten/wallet-kit'
 import { SwitchLocaleLink } from 'components/SwitchLocaleLink'
 import { isSuiChain, SupportedChainId } from 'constants/chains'
 import { BIG_INT_ZERO, BP, REFRESH_TIMEOUT } from 'constants/misc'
@@ -44,6 +45,7 @@ export enum Field {
 export default function RemoveLiquidity() {
   const { coinIdA, coinIdB } = useParams<{ coinIdA: string; coinIdB: string }>()
   const chainId = useChainId()
+  const { signAndExecuteTransactionBlock } = useWalletKit()
   const coinA = useCoin(coinIdA)
   const coinB = useCoin(coinIdB)
   const account = useAccount()
@@ -140,7 +142,7 @@ export default function RemoveLiquidity() {
         amountYDesired: parsedAmounts[Field.COIN_B],
         slippage: BP.mul(allowedSlippage),
       })
-      const txid = await SignAndSubmitSuiTransaction(chainId, payload)
+      const txid = await SignAndSubmitSuiTransaction(chainId, payload, signAndExecuteTransactionBlock)
       setAttemptingTxn(false)
       setTxHash(txid)
       setTimeout(() => {

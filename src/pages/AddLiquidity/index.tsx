@@ -1,5 +1,6 @@
 import { Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
+import { useWalletKit } from '@mysten/wallet-kit'
 import { MinimalPositionCard } from 'components/PositionCard'
 import { SwitchLocaleLink } from 'components/SwitchLocaleLink'
 import { isSuiChain, SupportedChainId } from 'constants/chains'
@@ -38,6 +39,7 @@ export default function AddLiquidity() {
   const navigate = useNavigate()
   const chainId = useChainId()
   const account = useAccount()
+  const { signAndExecuteTransactionBlock } = useWalletKit()
   const nativeCoin = useNativeCoin()
   const nativePrice = useNativePrice()
   const { coinIdA, coinIdB } = useParams<{ coinIdA?: string; coinIdB?: string }>()
@@ -138,7 +140,7 @@ export default function AddLiquidity() {
         amountY: revert ? parsedAmounts[Field.COIN_A] : parsedAmounts[Field.COIN_B],
         slippage: BP.mul(allowedSlippage),
       })
-      const txid = await SignAndSubmitSuiTransaction(chainId, payload)
+      const txid = await SignAndSubmitSuiTransaction(chainId, payload, signAndExecuteTransactionBlock)
       setAttemptingTxn(false)
       setTxHash(txid)
       setTimeout(() => {

@@ -236,7 +236,7 @@ export default function Header() {
     if (isAptosChain(chainId)) {
       AutoConnectAptosWallets()
     } else if (isSuiChain(chainId)) {
-      AutoConnectSuiWallets()
+      // AutoConnectSuiWallets()
     }
   }, [chainId])
 

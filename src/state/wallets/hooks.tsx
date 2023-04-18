@@ -1,5 +1,6 @@
 import { Utils } from '@animeswap.org/v1-sdk'
 import { TransactionBlock } from '@mysten/sui.js'
+import { useWalletKit } from '@mysten/wallet-kit'
 import { isSuiChain, SupportedChainId } from 'constants/chains'
 import { Coin, CoinAmount, useCoin } from 'hooks/common/Coin'
 import { useCallback } from 'react'
@@ -462,11 +463,12 @@ export async function AutoConnectSuiMartian() {
 }
 
 export async function ConnectSuiWallet() {
+  const { connect } = useWalletKit()
+  const { currentAccount } = useWalletKit()
   try {
-    const res = await window.suiWallet.requestPermissions()
+    await connect('Sui Wallet')
     store.dispatch(setSelectedWallet({ wallet: WalletType.SUIWALLET }))
-    const accounts = await window.suiWallet.getAccounts()
-    store.dispatch(setAccount({ account: accounts[0] }))
+    store.dispatch(setAccount({ account: currentAccount.address }))
     console.log('Sui wallet connect success')
     return true
   } catch (error) {
@@ -475,9 +477,9 @@ export async function ConnectSuiWallet() {
 }
 
 export async function AutoConnectSuiWallet() {
-  if (!('suiWallet' in window)) {
-    return false
-  }
+  // if (!('suiWallet' in window)) {
+  //   return false
+  // }
   try {
     if (await ConnectSuiWallet()) {
       console.log('SuiWallet auto connected')
@@ -489,7 +491,11 @@ export async function AutoConnectSuiWallet() {
   return false
 }
 
-export const SignAndSubmitSuiTransaction = async (chainId: SupportedChainId, transaction: any) => {
+export const SignAndSubmitSuiTransaction = async (
+  chainId: SupportedChainId,
+  transaction: any,
+  signAndExecuteTransactionBlock?: any
+) => {
   const transactionBlock: TransactionBlock = transaction?.length === undefined ? transaction : transaction[0]
   switch (store.getState().wallets.selectedWallet) {
     case WalletType.MARTIAN:
@@ -506,11 +512,9 @@ export const SignAndSubmitSuiTransaction = async (chainId: SupportedChainId, tra
       console.log(martianTxHash)
       return martianTxHash?.digest
     case WalletType.SUIWALLET:
-      const suiWalletTxHash = await window.suiWallet.signAndExecuteTransactionBlock({
-        transactionBlock,
-      })
+      const suiWalletTxHash = await signAndExecuteTransactionBlock({ transactionBlock })
       console.log(suiWalletTxHash)
-      return suiWalletTxHash?.certificate?.transactionDigest
+      return suiWalletTxHash?.digest?.toString()
     default:
       break
   }

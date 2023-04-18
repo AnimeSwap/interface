@@ -1,5 +1,6 @@
 import { Decimal, Utils } from '@animeswap.org/v1-sdk'
 import { Trans } from '@lingui/macro'
+import { useWalletKit } from '@mysten/wallet-kit'
 // import PriceImpactWarning from 'components/swap/PriceImpactWarning'
 import SwapDetailsDropdown from 'components/swap/SwapDetailsDropdown'
 import { MouseoverTooltip } from 'components/Tooltip'
@@ -12,7 +13,7 @@ import { ArrowDown, HelpCircle } from 'react-feather'
 import { Text } from 'rebass'
 import { useToggleWalletModal } from 'state/application/hooks'
 import ConnectionInstance from 'state/connection/instance'
-import { SignAndSubmitTransaction, useAccount } from 'state/wallets/hooks'
+import { SignAndSubmitSuiTransaction, SignAndSubmitTransaction, useAccount } from 'state/wallets/hooks'
 import styled, { DefaultTheme, ThemeContext } from 'styled-components/macro'
 
 import { ButtonConfirmed, ButtonError, ButtonLight, ButtonPrimary } from '../../components/Button'
@@ -39,6 +40,7 @@ import AppBody from '../AppBody'
 export default function Swap() {
   const account = useAccount()
   const chainId = useChainId()
+  const { signAndExecuteTransactionBlock } = useWalletKit()
   const loadedUrlParams = useDefaultsFromURLSearch()
   const theme = useContext(ThemeContext as Context<DefaultTheme>)
 
@@ -124,6 +126,7 @@ export default function Swap() {
   const swapCallback = async () => {
     try {
       let payload = {}
+      let txid = ''
       if (isAptosChain(chainId)) {
         payload =
           tradeToConfirm.tradeType === TradeType.EXACT_INPUT
@@ -135,6 +138,7 @@ export default function Swap() {
                 trade: tradeToConfirm.sdkTrade,
                 slippage: BP.mul(allowedSlippage),
               })
+        txid = await SignAndSubmitTransaction(chainId, payload)
       } else if (isSuiChain(chainId)) {
         payload =
           tradeToConfirm.tradeType === TradeType.EXACT_INPUT
@@ -148,8 +152,8 @@ export default function Swap() {
                 trade: tradeToConfirm.sdkTrade,
                 slippage: BP.mul(allowedSlippage),
               })
+        txid = await SignAndSubmitSuiTransaction(chainId, payload, signAndExecuteTransactionBlock)
       }
-      const txid = await SignAndSubmitTransaction(chainId, payload)
       setTimeout(() => {
         ConnectionInstance.getCoinBalance(chainId, account, tradeToConfirm.inputCoin.address)
         ConnectionInstance.getCoinBalance(chainId, account, tradeToConfirm.outputCoin.address)
