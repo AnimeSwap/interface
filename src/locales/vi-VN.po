@@ -757,8 +757,8 @@ msgid "Estimated network fee"
 msgstr "Phí mạng ước tính"
 
 #: src/components/Header/NetworkSelector.tsx
-msgid "Aptos Explorer"
-msgstr "Aptos Explorer"
+msgid "Explorer"
+msgstr "Explorer"
 
 #: src/components/vote/ExecuteModal.tsx
 #: src/pages/Vote/VotePage.tsx
@@ -1203,8 +1203,8 @@ msgid "Optimism is in Beta and may experience downtime. Optimism expects planned
 msgstr "Tính năng lạc quan đang ở giai đoạn Beta và có thể gặp phải thời gian chết. Lạc quan mong đợi thời gian ngừng hoạt động theo kế hoạch để nâng cấp mạng trong tương lai gần. Trong thời gian ngừng hoạt động, vị trí của bạn sẽ không kiếm được phí và bạn sẽ không thể xóa thanh khoản. <0>Đọc thêm.</0>"
 
 #: src/components/Header/NetworkSelector.tsx
-msgid "Optimistic Aptos Explorer"
-msgstr "Aptos Explorer lạc quan"
+msgid "Optimistic Explorer"
+msgstr "Explorer lạc quan"
 
 #: src/components/Badge/RangeBadge.tsx
 msgid "Out of range"
@@ -1988,8 +1988,8 @@ msgid "View list"
 msgstr "Danh sách xem"
 
 #: src/pages/CreateProposal/ProposalSubmissionModal.tsx
-msgid "View on Aptos Explorer"
-msgstr "Xem trên Aptos Explorer"
+msgid "View on Explorer"
+msgstr "Xem trên Explorer"
 
 #: src/components/AccountDetails/index.tsx
 #: src/components/AccountDetails/index.tsx

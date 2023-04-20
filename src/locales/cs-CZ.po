@@ -757,8 +757,8 @@ msgid "Estimated network fee"
 msgstr "Odhadovaný poplatek za síť"
 
 #: src/components/Header/NetworkSelector.tsx
-msgid "Aptos Explorer"
-msgstr "Aptos Explorer"
+msgid "Explorer"
+msgstr "Explorer"
 
 #: src/components/vote/ExecuteModal.tsx
 #: src/pages/Vote/VotePage.tsx
@@ -1203,8 +1203,8 @@ msgid "Optimism is in Beta and may experience downtime. Optimism expects planned
 msgstr "Optimismus je v beta verzi a může dojít k výpadkům. Optimism očekává, že plánované odstávky upgradují síť v blízké budoucnosti. Během výpadku nebude vaše pozice vydělávat poplatky a nebudete moci odstranit likviditu. <0>Přečtěte si více.</0>"
 
 #: src/components/Header/NetworkSelector.tsx
-msgid "Optimistic Aptos Explorer"
-msgstr "Optimistický Aptos Explorer"
+msgid "Optimistic Explorer"
+msgstr "Optimistický Explorer"
 
 #: src/components/Badge/RangeBadge.tsx
 msgid "Out of range"
@@ -1988,8 +1988,8 @@ msgid "View list"
 msgstr "Zobrazit seznam"
 
 #: src/pages/CreateProposal/ProposalSubmissionModal.tsx
-msgid "View on Aptos Explorer"
-msgstr "Pohled na Aptos Explorer"
+msgid "View on Explorer"
+msgstr "Pohled na Explorer"
 
 #: src/components/AccountDetails/index.tsx
 #: src/components/AccountDetails/index.tsx

@@ -757,8 +757,8 @@ msgid "Estimated network fee"
 msgstr "Perkiraan biaya jaringan"
 
 #: src/components/Header/NetworkSelector.tsx
-msgid "Aptos Explorer"
-msgstr "Aptos Explorer"
+msgid "Explorer"
+msgstr "Explorer"
 
 #: src/components/vote/ExecuteModal.tsx
 #: src/pages/Vote/VotePage.tsx
@@ -1203,8 +1203,8 @@ msgid "Optimism is in Beta and may experience downtime. Optimism expects planned
 msgstr "Optimisme dalam Beta dan mungkin mengalami downtime. Optimisme mengharapkan downtime yang direncanakan untuk meningkatkan jaringan dalam waktu dekat. Selama waktu henti, posisi Anda tidak akan mendapatkan biaya dan Anda tidak akan dapat menghapus likuiditas. <0>Baca lebih lanjut.</0>"
 
 #: src/components/Header/NetworkSelector.tsx
-msgid "Optimistic Aptos Explorer"
-msgstr "Optimis Aptos Explorer"
+msgid "Optimistic Explorer"
+msgstr "Optimis Explorer"
 
 #: src/components/Badge/RangeBadge.tsx
 msgid "Out of range"
@@ -1988,8 +1988,8 @@ msgid "View list"
 msgstr "Lihat daftar"
 
 #: src/pages/CreateProposal/ProposalSubmissionModal.tsx
-msgid "View on Aptos Explorer"
-msgstr "Lihat di Aptos Explorer"
+msgid "View on Explorer"
+msgstr "Lihat di Explorer"
 
 #: src/components/AccountDetails/index.tsx
 #: src/components/AccountDetails/index.tsx

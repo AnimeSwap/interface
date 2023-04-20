@@ -757,8 +757,8 @@ msgid "Estimated network fee"
 msgstr "Arvioitu verkkomaksu"
 
 #: src/components/Header/NetworkSelector.tsx
-msgid "Aptos Explorer"
-msgstr "Aptos Explorer"
+msgid "Explorer"
+msgstr "Explorer"
 
 #: src/components/vote/ExecuteModal.tsx
 #: src/pages/Vote/VotePage.tsx
@@ -1203,7 +1203,7 @@ msgid "Optimism is in Beta and may experience downtime. Optimism expects planned
 msgstr "Optimismi on beta-vaiheessa ja saattaa kokea seisokkeja. Optimismi odottaa suunniteltujen seisokkien päivittävän verkkoa lähitulevaisuudessa. Seisokkien aikana asemasi ei ansaitse maksuja etkä pysty poistamaan likviditeettiä. <0>Lue lisää.</0>"
 
 #: src/components/Header/NetworkSelector.tsx
-msgid "Optimistic Aptos Explorer"
+msgid "Optimistic Explorer"
 msgstr "Optimistinen eetteriskannaus"
 
 #: src/components/Badge/RangeBadge.tsx
@@ -1988,8 +1988,8 @@ msgid "View list"
 msgstr "Näytä luettelo"
 
 #: src/pages/CreateProposal/ProposalSubmissionModal.tsx
-msgid "View on Aptos Explorer"
-msgstr "Näkymä Aptos Explorerissa"
+msgid "View on Explorer"
+msgstr "Näkymä Explorerissa"
 
 #: src/components/AccountDetails/index.tsx
 #: src/components/AccountDetails/index.tsx

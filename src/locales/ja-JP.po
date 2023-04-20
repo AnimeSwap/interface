@@ -757,8 +757,8 @@ msgid "Estimated network fee"
 msgstr "推定ネットワーク料金"
 
 #: src/components/Header/NetworkSelector.tsx
-msgid "Aptos Explorer"
-msgstr "Aptos Explorer"
+msgid "Explorer"
+msgstr "Explorer"
 
 #: src/components/vote/ExecuteModal.tsx
 #: src/pages/Vote/VotePage.tsx
@@ -1203,8 +1203,8 @@ msgid "Optimism is in Beta and may experience downtime. Optimism expects planned
 msgstr "Optimism はベータ版であり、ダウンタイムが発生する可能性があります。 Optimismは、近い将来、ネットワークをアップグレードするために計画されたダウンタイムを予想しています。ダウンタイム中、あなたのポジションは手数料を獲得せず、流動性を取り除くことができなくなります。 <0>続きを読む。</0>"
 
 #: src/components/Header/NetworkSelector.tsx
-msgid "Optimistic Aptos Explorer"
-msgstr "Optimistic Aptos Explorer"
+msgid "Optimistic Explorer"
+msgstr "Optimistic Explorer"
 
 #: src/components/Badge/RangeBadge.tsx
 msgid "Out of range"
@@ -1988,8 +1988,8 @@ msgid "View list"
 msgstr "リストを表示"
 
 #: src/pages/CreateProposal/ProposalSubmissionModal.tsx
-msgid "View on Aptos Explorer"
-msgstr "Aptos Explorerで見る"
+msgid "View on Explorer"
+msgstr "Explorerで見る"
 
 #: src/components/AccountDetails/index.tsx
 #: src/components/AccountDetails/index.tsx

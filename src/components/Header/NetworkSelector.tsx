@@ -187,10 +187,10 @@ const BridgeLabel = ({ chainId }: { chainId: SupportedChainId }) => {
 }
 const ExplorerLabel = ({ chainId }: { chainId: SupportedChainId }) => {
   switch (chainId) {
-    case SupportedChainId.APTOS:
-    case SupportedChainId.APTOS_DEVNET:
-    case SupportedChainId.APTOS_TESTNET:
-      return <Trans>Aptos Explorer</Trans>
+    // case SupportedChainId.APTOS:
+    // case SupportedChainId.APTOS_DEVNET:
+    // case SupportedChainId.APTOS_TESTNET:
+    //   return <Trans>Explorer</Trans>
     default:
       return <Trans>Explorer</Trans>
   }

@@ -757,8 +757,8 @@ msgid "Estimated network fee"
 msgstr "Becsült hálózati díj"
 
 #: src/components/Header/NetworkSelector.tsx
-msgid "Aptos Explorer"
-msgstr "Aptos Explorer"
+msgid "Explorer"
+msgstr "Explorer"
 
 #: src/components/vote/ExecuteModal.tsx
 #: src/pages/Vote/VotePage.tsx
@@ -1204,8 +1204,8 @@ msgid "Optimism is in Beta and may experience downtime. Optimism expects planned
 msgstr "Az optimizmus béta állapotban van, és leállások is előfordulhatnak. Az Optimism arra számít, hogy a tervezett leállások a közeljövőben frissítik a hálózatot. Az állásidő alatt pozíciója nem fog díjat fizetni, és nem tudja eltávolítani a likviditást. <0>Olvass tovább.</0>"
 
 #: src/components/Header/NetworkSelector.tsx
-msgid "Optimistic Aptos Explorer"
-msgstr "Optimista Aptos Explorer"
+msgid "Optimistic Explorer"
+msgstr "Optimista Explorer"
 
 #: src/components/Badge/RangeBadge.tsx
 msgid "Out of range"
@@ -1989,8 +1989,8 @@ msgid "View list"
 msgstr "Lista megtekintése"
 
 #: src/pages/CreateProposal/ProposalSubmissionModal.tsx
-msgid "View on Aptos Explorer"
-msgstr "Nézd meg az Aptos Explorer webhelyen"
+msgid "View on Explorer"
+msgstr "Nézd meg az Explorer webhelyen"
 
 #: src/components/AccountDetails/index.tsx
 #: src/components/AccountDetails/index.tsx

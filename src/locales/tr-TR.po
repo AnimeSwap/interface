@@ -757,7 +757,7 @@ msgid "Estimated network fee"
 msgstr "Tahmini ağ ücreti"
 
 #: src/components/Header/NetworkSelector.tsx
-msgid "Aptos Explorer"
+msgid "Explorer"
 msgstr "eter tarama"
 
 #: src/components/vote/ExecuteModal.tsx
@@ -1203,8 +1203,8 @@ msgid "Optimism is in Beta and may experience downtime. Optimism expects planned
 msgstr "İyimserlik Beta'dadır ve aksama süresi yaşayabilir. İyimserlik, yakın gelecekte ağı yükseltmek için planlı kapalı kalma süresi beklemektedir. Duruş süresi boyunca, pozisyonunuz ücret kazanmaz ve likiditeyi kaldıramazsınız. <0>Devamını okuyun.</0>"
 
 #: src/components/Header/NetworkSelector.tsx
-msgid "Optimistic Aptos Explorer"
-msgstr "İyimser Aptos Explorer"
+msgid "Optimistic Explorer"
+msgstr "İyimser Explorer"
 
 #: src/components/Badge/RangeBadge.tsx
 msgid "Out of range"
@@ -1988,8 +1988,8 @@ msgid "View list"
 msgstr "Listeyi görüntüle"
 
 #: src/pages/CreateProposal/ProposalSubmissionModal.tsx
-msgid "View on Aptos Explorer"
-msgstr "Aptos Explorer üzerinde görüntüle"
+msgid "View on Explorer"
+msgstr "Explorer üzerinde görüntüle"
 
 #: src/components/AccountDetails/index.tsx
 #: src/components/AccountDetails/index.tsx

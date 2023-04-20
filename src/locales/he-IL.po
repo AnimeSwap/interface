@@ -757,8 +757,8 @@ msgid "Estimated network fee"
 msgstr "עמלת רשת משוערת"
 
 #: src/components/Header/NetworkSelector.tsx
-msgid "Aptos Explorer"
-msgstr "Aptos Explorer"
+msgid "Explorer"
+msgstr "Explorer"
 
 #: src/components/vote/ExecuteModal.tsx
 #: src/pages/Vote/VotePage.tsx
@@ -1203,7 +1203,7 @@ msgid "Optimism is in Beta and may experience downtime. Optimism expects planned
 msgstr "האופטימיות נמצאת בגרסת בטא ועשויה לחוות זמן השבתה. אופטימיות צופה זמן השבתה מתוכנן כדי לשדרג את הרשת בעתיד הקרוב. בזמן השבתה, העמדה שלך לא תזכה בעמלות ולא תוכל להסיר נזילות. <0>קרא עוד.</0>"
 
 #: src/components/Header/NetworkSelector.tsx
-msgid "Optimistic Aptos Explorer"
+msgid "Optimistic Explorer"
 msgstr "את'רקאן אופטימי"
 
 #: src/components/Badge/RangeBadge.tsx
@@ -1988,7 +1988,7 @@ msgid "View list"
 msgstr "רשימת צפייה"
 
 #: src/pages/CreateProposal/ProposalSubmissionModal.tsx
-msgid "View on Aptos Explorer"
+msgid "View on Explorer"
 msgstr "מבט על אתרסקאן"
 
 #: src/components/AccountDetails/index.tsx

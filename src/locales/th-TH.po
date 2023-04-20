@@ -757,7 +757,7 @@ msgid "Estimated network fee"
 msgstr "ค่าธรรมเนียมเครือข่ายโดยประมาณ"
 
 #: src/components/Header/NetworkSelector.tsx
-msgid "Aptos Explorer"
+msgid "Explorer"
 msgstr "อีเธอร์สแกน"
 
 #: src/components/vote/ExecuteModal.tsx
@@ -1203,8 +1203,8 @@ msgid "Optimism is in Beta and may experience downtime. Optimism expects planned
 msgstr "การมองในแง่ดีอยู่ในช่วงเบต้าและอาจประสบปัญหาการหยุดทำงาน การมองในแง่ดีคาดว่าการหยุดทำงานตามแผนจะอัพเกรดเครือข่ายในอนาคตอันใกล้ ในช่วงหยุดทำงาน โพซิชั่นของคุณจะไม่ได้รับค่าธรรมเนียมและคุณจะไม่สามารถลบสภาพคล่องได้ <0>อ่านเพิ่มเติม.</0>"
 
 #: src/components/Header/NetworkSelector.tsx
-msgid "Optimistic Aptos Explorer"
-msgstr "มองโลกในแง่ดี Aptos Explorer"
+msgid "Optimistic Explorer"
+msgstr "มองโลกในแง่ดี Explorer"
 
 #: src/components/Badge/RangeBadge.tsx
 msgid "Out of range"
@@ -1988,8 +1988,8 @@ msgid "View list"
 msgstr "ดูรายการ"
 
 #: src/pages/CreateProposal/ProposalSubmissionModal.tsx
-msgid "View on Aptos Explorer"
-msgstr "ดูบน Aptos Explorer"
+msgid "View on Explorer"
+msgstr "ดูบน Explorer"
 
 #: src/components/AccountDetails/index.tsx
 #: src/components/AccountDetails/index.tsx

@@ -757,7 +757,7 @@ msgid "Estimated network fee"
 msgstr "رسوم الشبكة المقدرة"
 
 #: src/components/Header/NetworkSelector.tsx
-msgid "Aptos Explorer"
+msgid "Explorer"
 msgstr "إثيرسكان"
 
 #: src/components/vote/ExecuteModal.tsx
@@ -1203,8 +1203,8 @@ msgid "Optimism is in Beta and may experience downtime. Optimism expects planned
 msgstr "التفاؤل في مرحلة تجريبية وقد يواجه فترة توقف. يتوقع التفاؤل توقفًا مخططًا له لترقية الشبكة في المستقبل القريب. خلال فترة التوقف ، لن يربح مركزك رسومًا ولن تتمكن من إزالة السيولة. <0>اقرأ المزيد.</0>"
 
 #: src/components/Header/NetworkSelector.tsx
-msgid "Optimistic Aptos Explorer"
-msgstr "متفائل Aptos Explorer"
+msgid "Optimistic Explorer"
+msgstr "متفائل Explorer"
 
 #: src/components/Badge/RangeBadge.tsx
 msgid "Out of range"
@@ -1988,8 +1988,8 @@ msgid "View list"
 msgstr "عرض القائمة"
 
 #: src/pages/CreateProposal/ProposalSubmissionModal.tsx
-msgid "View on Aptos Explorer"
-msgstr "عرض على Aptos Explorer"
+msgid "View on Explorer"
+msgstr "عرض على Explorer"
 
 #: src/components/AccountDetails/index.tsx
 #: src/components/AccountDetails/index.tsx

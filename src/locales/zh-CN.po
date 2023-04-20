@@ -38,7 +38,7 @@ msgstr "(${0})"
 
 #: src/components/AddressInputPanel/index.tsx
 msgid "(View on Explorer)"
-msgstr "(在Aptos资源浏览器上查看)"
+msgstr "(在资源浏览器上查看)"
 
 #: src/components/AccountDetails/index.tsx
 msgid "(clear all)"
@@ -757,8 +757,8 @@ msgid "Estimated network fee"
 msgstr "预估网络费用"
 
 #: src/components/Header/NetworkSelector.tsx
-msgid "Aptos Explorer"
-msgstr "Aptos Explorer"
+msgid "Explorer"
+msgstr "Explorer"
 
 #: src/components/vote/ExecuteModal.tsx
 #: src/pages/Vote/VotePage.tsx
@@ -1203,8 +1203,8 @@ msgid "Optimism is in Beta and may experience downtime. Optimism expects planned
 msgstr "Optimism 处于 Beta 阶段，可能会遇到停机问题。Optimism 计划近期内会停机升级网络。在停机期间，您的仓位不会赚取手续费，也将无法移除流动性。<0>阅读更多。</0>"
 
 #: src/components/Header/NetworkSelector.tsx
-msgid "Optimistic Aptos Explorer"
-msgstr "Optimistic Aptos Explorer"
+msgid "Optimistic Explorer"
+msgstr "Optimistic Explorer"
 
 #: src/components/Badge/RangeBadge.tsx
 msgid "Out of range"
@@ -1988,15 +1988,15 @@ msgid "View list"
 msgstr "查看代币列表"
 
 #: src/pages/CreateProposal/ProposalSubmissionModal.tsx
-msgid "View on Aptos Explorer"
-msgstr "在 Aptos Explorer 上查看"
+msgid "View on Explorer"
+msgstr "在 Explorer 上查看"
 
 #: src/components/AccountDetails/index.tsx
 #: src/components/AccountDetails/index.tsx
 #: src/components/TransactionConfirmationModal/index.tsx
 #: src/components/TransactionConfirmationModal/index.tsx
 msgid "View on Explorer"
-msgstr "在Aptos资源浏览器上查看"
+msgstr "在资源浏览器上查看"
 
 #: src/components/ModalViews/index.tsx
 #: src/components/claim/AddressClaimModal.tsx
@@ -2005,7 +2005,7 @@ msgstr "在Aptos资源浏览器上查看"
 #: src/components/vote/QueueModal.tsx
 #: src/components/vote/VoteModal.tsx
 msgid "View transaction on Explorer"
-msgstr "在Aptos资源浏览器上查看交易"
+msgstr "在资源浏览器上查看交易"
 
 #: src/components/Header/index.tsx
 msgid "Vote"

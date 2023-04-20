@@ -757,8 +757,8 @@ msgid "Estimated network fee"
 msgstr "Εκτιμώμενο τέλος δικτύου"
 
 #: src/components/Header/NetworkSelector.tsx
-msgid "Aptos Explorer"
-msgstr "Aptos Explorer"
+msgid "Explorer"
+msgstr "Explorer"
 
 #: src/components/vote/ExecuteModal.tsx
 #: src/pages/Vote/VotePage.tsx
@@ -1203,7 +1203,7 @@ msgid "Optimism is in Beta and may experience downtime. Optimism expects planned
 msgstr "Η αισιοδοξία βρίσκεται σε Beta και μπορεί να αντιμετωπίσει διακοπές λειτουργίας. Ο Optimism αναμένει ότι οι προγραμματισμένες διακοπές λειτουργίας θα αναβαθμίσουν το δίκτυο στο εγγύς μέλλον. Κατά τη διάρκεια της διακοπής λειτουργίας, η θέση σας δεν θα κερδίζει χρεώσεις και δεν θα μπορείτε να αφαιρέσετε ρευστότητα. <0>Διαβάστε περισσότερα.</0>"
 
 #: src/components/Header/NetworkSelector.tsx
-msgid "Optimistic Aptos Explorer"
+msgid "Optimistic Explorer"
 msgstr "Αισιόδοξη Aptoscan"
 
 #: src/components/Badge/RangeBadge.tsx
@@ -1988,7 +1988,7 @@ msgid "View list"
 msgstr "Προβολή λίστας"
 
 #: src/pages/CreateProposal/ProposalSubmissionModal.tsx
-msgid "View on Aptos Explorer"
+msgid "View on Explorer"
 msgstr "Θέα στο Aptoscan"
 
 #: src/components/AccountDetails/index.tsx

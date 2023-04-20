@@ -757,8 +757,8 @@ msgid "Estimated network fee"
 msgstr "Kadirio la ada ya mtandao"
 
 #: src/components/Header/NetworkSelector.tsx
-msgid "Aptos Explorer"
-msgstr "Aptos Explorer"
+msgid "Explorer"
+msgstr "Explorer"
 
 #: src/components/vote/ExecuteModal.tsx
 #: src/pages/Vote/VotePage.tsx
@@ -1203,8 +1203,8 @@ msgid "Optimism is in Beta and may experience downtime. Optimism expects planned
 msgstr "Matumaini iko kwenye Beta na inaweza kukumbwa na wakati wa kutokuwepo. Matumaini yanatarajia muda wa chini uliopangwa ili kuboresha mtandao katika siku za usoni. Wakati wa mapumziko, nafasi yako haitapata ada na hutaweza kuondoa ukwasi. <0>Soma zaidi.</0>"
 
 #: src/components/Header/NetworkSelector.tsx
-msgid "Optimistic Aptos Explorer"
-msgstr "Matarajio ya Aptos Explorer"
+msgid "Optimistic Explorer"
+msgstr "Matarajio ya Explorer"
 
 #: src/components/Badge/RangeBadge.tsx
 msgid "Out of range"
@@ -1988,8 +1988,8 @@ msgid "View list"
 msgstr "Angalia orodha"
 
 #: src/pages/CreateProposal/ProposalSubmissionModal.tsx
-msgid "View on Aptos Explorer"
-msgstr "Angalia kwenye Aptos Explorer"
+msgid "View on Explorer"
+msgstr "Angalia kwenye Explorer"
 
 #: src/components/AccountDetails/index.tsx
 #: src/components/AccountDetails/index.tsx

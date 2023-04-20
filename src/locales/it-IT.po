@@ -757,8 +757,8 @@ msgid "Estimated network fee"
 msgstr "Costo di rete stimato"
 
 #: src/components/Header/NetworkSelector.tsx
-msgid "Aptos Explorer"
-msgstr "Aptos Explorer"
+msgid "Explorer"
+msgstr "Explorer"
 
 #: src/components/vote/ExecuteModal.tsx
 #: src/pages/Vote/VotePage.tsx
@@ -1203,8 +1203,8 @@ msgid "Optimism is in Beta and may experience downtime. Optimism expects planned
 msgstr "L'ottimismo è in beta e potrebbe verificarsi tempi di inattività. L'ottimismo prevede tempi di inattività pianificati per aggiornare la rete nel prossimo futuro. Durante i tempi di inattività, la tua posizione non guadagnerà commissioni e non sarai in grado di rimuovere la liquidità. <0>Leggi di più.</0>"
 
 #: src/components/Header/NetworkSelector.tsx
-msgid "Optimistic Aptos Explorer"
-msgstr "Aptos Explorer ottimista"
+msgid "Optimistic Explorer"
+msgstr "Explorer ottimista"
 
 #: src/components/Badge/RangeBadge.tsx
 msgid "Out of range"
@@ -1988,8 +1988,8 @@ msgid "View list"
 msgstr "Visualizza elenco"
 
 #: src/pages/CreateProposal/ProposalSubmissionModal.tsx
-msgid "View on Aptos Explorer"
-msgstr "Visualizza su Aptos Explorer"
+msgid "View on Explorer"
+msgstr "Visualizza su Explorer"
 
 #: src/components/AccountDetails/index.tsx
 #: src/components/AccountDetails/index.tsx

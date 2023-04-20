@@ -757,7 +757,7 @@ msgid "Estimated network fee"
 msgstr "Процењена мрежна накнада"
 
 #: src/components/Header/NetworkSelector.tsx
-msgid "Aptos Explorer"
+msgid "Explorer"
 msgstr "Етхерсцан"
 
 #: src/components/vote/ExecuteModal.tsx
@@ -1203,7 +1203,7 @@ msgid "Optimism is in Beta and may experience downtime. Optimism expects planned
 msgstr "Оптимизам је у бета верзији и може доћи до застоја. Оптимизам очекује да планирано време застоја надогради мрежу у блиској будућности. Током застоја, ваша позиција неће зарадити накнаде и нећете моћи да уклоните ликвидност. <0>Прочитајте више.</0>"
 
 #: src/components/Header/NetworkSelector.tsx
-msgid "Optimistic Aptos Explorer"
+msgid "Optimistic Explorer"
 msgstr "Оптимистични Етхерсцан"
 
 #: src/components/Badge/RangeBadge.tsx
@@ -1988,7 +1988,7 @@ msgid "View list"
 msgstr "Погледајте листу"
 
 #: src/pages/CreateProposal/ProposalSubmissionModal.tsx
-msgid "View on Aptos Explorer"
+msgid "View on Explorer"
 msgstr "Поглед на Етхерсцан-у"
 
 #: src/components/AccountDetails/index.tsx
