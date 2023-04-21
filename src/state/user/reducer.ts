@@ -193,13 +193,13 @@ const userSlice = createSlice({
         },
         [SupportedChainId.SUI_TESTNET]: {
           ...SUI_TESTNET_CoinInfo,
-          // ...state.coins[SupportedChainId.SUI_TESTNET],
-          // ...SUI_TESTNET_CoinInfo,
+          ...state.coins[SupportedChainId.SUI_TESTNET],
+          ...SUI_TESTNET_CoinInfo,
         },
         [SupportedChainId.SUI_DEVNET]: {
           ...SUI_DEVNET_CoinInfo,
-          // ...state.coins[SupportedChainId.SUI_DEVNET],
-          // ...SUI_DEVNET_CoinInfo,
+          ...state.coins[SupportedChainId.SUI_DEVNET],
+          ...SUI_DEVNET_CoinInfo,
         },
       }
       state.tempCoins = {
