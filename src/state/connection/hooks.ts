@@ -35,6 +35,5 @@ export function switchChain(connection: ConnectionType, chainId: SupportedChainI
     ConnectionInstance.renewSuiClient(connection, chainId)
     ConnectionInstance.renewSuiSDK(connection, chainId)
   }
-  store.dispatch(setAccount({ account: '' }))
   store.dispatch(updateChainId({ chainId }))
 }
