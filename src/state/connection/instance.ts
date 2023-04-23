@@ -283,18 +283,39 @@ class ConnectionInstance {
           return
         }
         console.log(address)
-        const coin = await this.getSuiClient().getCoinMetadata({ coinType: address })
-        if (coin) {
-          store.dispatch(
-            addCoin({
-              coin: {
-                address,
-                decimals: coin.decimals,
-                symbol: coin.symbol,
-                name: coin.name,
-              },
-            })
-          )
+        try {
+          const coin = await this.getSuiClient().getCoinMetadata({ coinType: address })
+          console.log('Azard2', coin)
+          if (coin) {
+            store.dispatch(
+              addCoin({
+                coin: {
+                  address,
+                  decimals: coin.decimals,
+                  symbol: coin.symbol,
+                  name: coin.name,
+                },
+              })
+            )
+          }
+        } catch (error) {
+          console.error(error)
+          const splits = address.split('::')
+          const objectId = splits[0]
+          const tokenName = splits.length > 2 ? splits[2] : splits[1]
+          const res = await this.getSuiClient().getObject({ id: objectId })
+          if (res) {
+            store.dispatch(
+              addCoin({
+                coin: {
+                  address,
+                  decimals: 1,
+                  symbol: tokenName,
+                  name: tokenName,
+                },
+              })
+            )
+          }
         }
       }
       // Aptos add coin
