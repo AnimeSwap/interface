@@ -113,7 +113,8 @@ const DataRow = ({ poolData, index }: { poolData: PoolData; index: number }) => 
 export interface PoolData {
   pair: Pair
   APR: number
-  tvlAPT: Decimal
+  tvlAPT?: Decimal
+  tvlSUI?: Decimal
   tvlUSD: number
   volumeUSD: number
   volumeUSDWeek: number

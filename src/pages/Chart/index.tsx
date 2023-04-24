@@ -2,7 +2,7 @@ import { Decimal, Utils } from '@animeswap.org/v1-sdk'
 import { ButtonPrimary, ButtonSecondary } from 'components/Button'
 import PoolTable, { PoolData } from 'components/pools/PoolTable'
 import { getChainInfoOrDefault } from 'constants/chainInfo'
-import { isSuiChain } from 'constants/chains'
+import { isAptosChain, isSuiChain } from 'constants/chains'
 import { BIG_INT_ZERO } from 'constants/misc'
 import { Pair, pairKey } from 'hooks/common/Pair'
 import { useEffect, useState } from 'react'
@@ -124,16 +124,133 @@ export default function Explore() {
       setPoolDatas(tempPoolData)
       setTvlUSD(totalTvlUSD.div(Utils.pow10(stableCoin.decimals)).toNumber())
     }
-    preparePoolData()
+    if (isAptosChain(chainId)) {
+      preparePoolData()
+    }
+
+    const suiPreparePoolDate = async () => {
+      const pairs = await ConnectionInstance.getSuiAllPair()
+      const USD_per_SUI = queryPrice(pairs, nativeCoin.address, stableCoin.address)
+      const tempPoolData: PoolData[] = []
+      let totalTvlUSD = BIG_INT_ZERO
+      for (const pair of Object.values(pairs)) {
+        let tvlSUI = BIG_INT_ZERO
+        let tvlUSD = BIG_INT_ZERO
+        tvlSUI = queryToUnitCoin(
+          pairs,
+          pair.coinX,
+          pair.coinXReserve,
+          pair.coinY,
+          pair.coinYReserve,
+          nativeCoin.address
+        )
+        if (tvlSUI.gt(0)) {
+          tvlUSD = tvlSUI.mul(USD_per_SUI)
+        } else {
+          tvlUSD = queryToUnitCoin(
+            pairs,
+            pair.coinX,
+            pair.coinXReserve,
+            pair.coinY,
+            pair.coinYReserve,
+            stableCoin.address
+          )
+          tvlSUI = tvlUSD.div(USD_per_SUI)
+        }
+        totalTvlUSD = totalTvlUSD.add(tvlUSD)
+        tempPoolData.push({
+          pair,
+          APR: Number.isNaN(pair.APR) ? 0 : pair.APR,
+          tvlSUI,
+          tvlUSD: tvlUSD.div(Utils.pow10(stableCoin.decimals)).toNumber(),
+          volumeUSD: 0,
+          volumeUSDWeek: 0,
+        })
+      }
+      setPoolDatas(tempPoolData)
+      setTvlUSD(totalTvlUSD.div(Utils.pow10(stableCoin.decimals)).toNumber())
+    }
+    if (isSuiChain(chainId)) {
+      suiPreparePoolDate()
+    }
   }, [])
+
+  // if (isSuiChain(chainId)) {
+  //   return (
+  //     <>
+  //       <ChartContainer>
+  //         <center>Sui Chart Coming Soon...</center>
+  //       </ChartContainer>
+  //     </>
+  //   )
+  // }
 
   if (isSuiChain(chainId)) {
     return (
-      <>
-        <ChartContainer>
-          <center>Sui Chart Coming Soon...</center>
-        </ChartContainer>
-      </>
+      <ChartContainer>
+        <AutoColumn gap="lg" justify="center">
+          <AutoColumn gap="md" style={{ width: '100%' }}>
+            <TitleRow style={{ marginTop: '1rem' }} padding={'0'}>
+              <ThemedText.DeprecatedMediumHeader style={{ marginTop: '0.5rem', justifySelf: 'flex-start' }}>
+                All Pools
+              </ThemedText.DeprecatedMediumHeader>
+              <ThemedText.DeprecatedMediumHeader style={{ marginTop: '0.5rem', justifySelf: 'flex-start' }}>
+                TVL: {formatDollarAmount(tvlUSD)}
+              </ThemedText.DeprecatedMediumHeader>
+              <RowFixed>
+                <ResponsiveButtonSecondary
+                  padding="6px 8px"
+                  style={{ marginTop: '0.5rem', justifySelf: 'flex-end' }}
+                  onClick={() => {
+                    window.open('https://www.coingecko.com/en/exchanges/animeswap', '_blank')
+                  }}
+                >
+                  <Text fontWeight={500} fontSize={16}>
+                    CoinGecko<sup>↗</sup>
+                  </Text>
+                </ResponsiveButtonSecondary>
+                <ResponsiveButtonSecondary
+                  padding="6px 8px"
+                  style={{ marginTop: '0.5rem', justifySelf: 'flex-end' }}
+                  onClick={() => {
+                    window.open('https://coinmarketcap.com/exchanges/animeswap/', '_blank')
+                  }}
+                >
+                  <Text fontWeight={500} fontSize={16}>
+                    CoinMarketCap<sup>↗</sup>
+                  </Text>
+                </ResponsiveButtonSecondary>
+                <ResponsiveButtonSecondary
+                  padding="6px 8px"
+                  marginLeft={'8px'}
+                  style={{ marginTop: '0.5rem', justifySelf: 'flex-end' }}
+                  onClick={() => {
+                    window.open('https://dexscreener.com/aptos/animeswap', '_blank')
+                  }}
+                >
+                  <Text fontWeight={500} fontSize={16}>
+                    DEXScreener<sup>↗</sup>
+                  </Text>
+                </ResponsiveButtonSecondary>
+              </RowFixed>
+              {!seeAll && (
+                <ResponsiveButtonPrimary
+                  padding="6px 8px"
+                  style={{ marginTop: '0.5rem', justifySelf: 'flex-end' }}
+                  onClick={() => {
+                    setSeeAll(true)
+                  }}
+                >
+                  <Text fontWeight={500} fontSize={16}>
+                    See All
+                  </Text>
+                </ResponsiveButtonPrimary>
+              )}
+            </TitleRow>
+            <PoolTable poolDatas={poolDatas} maxItems={seeAll ? 200 : 10} />
+          </AutoColumn>
+        </AutoColumn>
+      </ChartContainer>
     )
   }
 

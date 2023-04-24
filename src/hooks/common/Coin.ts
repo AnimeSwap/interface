@@ -75,7 +75,7 @@ export function useTempCoin(address?: string | null): Coin | null | undefined {
   return useAppSelector((state) => {
     const coin = state.user.coins[chainId][address] || state.user.tempCoins[chainId][address]
     if (address && !coin) {
-      ConnectionInstance.addTempCoin(address)
+      ConnectionInstance.addTempCoin(address, chainId)
     }
     return coin
   })

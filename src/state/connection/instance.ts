@@ -285,7 +285,6 @@ class ConnectionInstance {
         console.log(address)
         try {
           const coin = await this.getSuiClient().getCoinMetadata({ coinType: address })
-          console.log('Azard2', coin)
           if (coin) {
             store.dispatch(
               addCoin({
@@ -339,8 +338,53 @@ class ConnectionInstance {
     }
   }
 
-  public static async addTempCoin(address: string) {
+  public static async addTempCoin(address: string, chainId: SupportedChainId) {
     try {
+      if (address === 'undefined' || address === undefined) return
+      // sidecase: bypass default coin when SUI
+      if (isSuiChain(chainId)) {
+        if (
+          CHAIN_INFO[SupportedChainId.APTOS].nativeCoin.address === address ||
+          CHAIN_INFO[SupportedChainId.APTOS].defaultBuyCoin.address === address
+        ) {
+          return
+        }
+        console.log(address)
+        try {
+          const coin = await this.getSuiClient().getCoinMetadata({ coinType: address })
+          if (coin) {
+            store.dispatch(
+              addTempCoin({
+                tempCoin: {
+                  address,
+                  decimals: coin.decimals,
+                  symbol: coin.symbol,
+                  name: coin.name,
+                },
+              })
+            )
+          }
+        } catch (error) {
+          console.error(error)
+          const splits = address.split('::')
+          const objectId = splits[0]
+          const tokenName = splits.length > 2 ? splits[2] : splits[1]
+          const res = await this.getSuiClient().getObject({ id: objectId })
+          if (res) {
+            store.dispatch(
+              addTempCoin({
+                tempCoin: {
+                  address,
+                  decimals: 1,
+                  symbol: tokenName,
+                  name: tokenName,
+                },
+              })
+            )
+          }
+        }
+      }
+      // Aptos add coin
       const splits = address.split('::')
       const account = splits[0]
       const coin: AptosCoinInfoResource = await this.getAccountResource(account, `0x1::coin::CoinInfo<${address}>`)
@@ -357,7 +401,7 @@ class ConnectionInstance {
         )
       }
     } catch (error) {
-      console.error('addCoin', error)
+      console.error('addTempCoin', error)
     }
   }
 
@@ -457,6 +501,30 @@ class ConnectionInstance {
       console.error(error)
       store.dispatch(updatePair({ pair: undefined }))
       return undefined
+    }
+  }
+
+  public static async getSuiAllPair(): Promise<{ [pairKey: string]: Pair }> {
+    try {
+      const pairs: { [pairKey: string]: Pair } = {}
+      const poolResources = await ConnectionInstance.getSuiSDK().swap.getAllLPCoinResourcesWithAdmin()
+      // parse coinX, coinY, LP, reserve
+      for (const resource of poolResources) {
+        if (resource.coinX === '0x0000000000000000000000000000000000000000000000000000000000000002::sui::SUI') {
+          resource.coinX = '0x2::sui::SUI'
+        }
+        const pairKey = `${resource.coinX}, ${resource.coinY}`
+        pairs[pairKey] = {
+          coinX: resource.coinX,
+          coinY: resource.coinY,
+          lpTotal: '0',
+          coinXReserve: resource.coinXReserve,
+          coinYReserve: resource.coinYReserve,
+        }
+      }
+      return pairs
+    } catch (error) {
+      return {}
     }
   }
 }
