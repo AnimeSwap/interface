@@ -247,7 +247,7 @@ export default function Explore() {
                 </ResponsiveButtonPrimary>
               )}
             </TitleRow>
-            <PoolTable poolDatas={poolDatas} maxItems={seeAll ? 200 : 10} />
+            <PoolTable poolDatas={poolDatas} maxItems={seeAll ? 200 : 10} showAPR={false} />
           </AutoColumn>
         </AutoColumn>
       </ChartContainer>

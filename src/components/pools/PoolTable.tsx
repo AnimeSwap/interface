@@ -64,7 +64,7 @@ const SORT_FIELD = {
   volumeUSDWeek: 'volumeUSDWeek',
 }
 
-const DataRow = ({ poolData, index }: { poolData: PoolData; index: number }) => {
+const DataRow = ({ poolData, index, showAPR }: { poolData: PoolData; index: number; showAPR: boolean }) => {
   const coinX = useTempCoin(poolData.pair.coinX)
   const coinY = useTempCoin(poolData.pair.coinY)
   const coinXAmount = new CoinAmount(coinX, Utils.d(poolData.pair.coinXReserve))
@@ -93,9 +93,11 @@ const DataRow = ({ poolData, index }: { poolData: PoolData; index: number }) => 
             </Column>
           </RowFixed>
         </Label>
-        <Label end={2} fontWeight={400}>
-          {poolData.APR > 0 ? (poolData.APR * 100).toFixed(2) + '%' : '-'}
-        </Label>
+        {showAPR && (
+          <Label end={2} fontWeight={400}>
+            {poolData.APR > 0 ? (poolData.APR * 100).toFixed(2) + '%' : '-'}
+          </Label>
+        )}
         <Label end={3} fontWeight={400}>
           {formatDollarAmount(poolData.tvlUSD)}
         </Label>
@@ -120,7 +122,15 @@ export interface PoolData {
   volumeUSDWeek: number
 }
 
-export default function PoolTable({ poolDatas, maxItems = 10 }: { poolDatas: PoolData[]; maxItems?: number }) {
+export default function PoolTable({
+  poolDatas,
+  maxItems = 10,
+  showAPR = true,
+}: {
+  poolDatas: PoolData[]
+  maxItems?: number
+  showAPR?: boolean
+}) {
   // theming
   const theme = useTheme()
 
@@ -185,9 +195,11 @@ export default function PoolTable({ poolDatas, maxItems = 10 }: { poolDatas: Poo
             <ClickableText color={theme.deprecated_text2} end={1}>
               Reserve
             </ClickableText>
-            <ClickableText color={theme.deprecated_text2} end={1} onClick={() => handleSort(SORT_FIELD.APR)}>
-              LP APR(48h) {arrow(SORT_FIELD.APR)}
-            </ClickableText>
+            {showAPR && (
+              <ClickableText color={theme.deprecated_text2} end={1} onClick={() => handleSort(SORT_FIELD.APR)}>
+                LP APR(48h) {arrow(SORT_FIELD.APR)}
+              </ClickableText>
+            )}
             <ClickableText color={theme.deprecated_text2} end={1} onClick={() => handleSort(SORT_FIELD.tvlUSD)}>
               TVL {arrow(SORT_FIELD.tvlUSD)}
             </ClickableText>
@@ -203,7 +215,7 @@ export default function PoolTable({ poolDatas, maxItems = 10 }: { poolDatas: Poo
             if (poolData) {
               return (
                 <React.Fragment key={i}>
-                  <DataRow index={(page - 1) * maxItems + i} poolData={poolData} />
+                  <DataRow index={(page - 1) * maxItems + i} poolData={poolData} showAPR={showAPR} />
                   <Break />
                 </React.Fragment>
               )
