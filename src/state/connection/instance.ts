@@ -302,25 +302,42 @@ class ConnectionInstance {
                 },
               })
             )
+          } else {
+            const splits = address.split('::')
+            const objectId = splits[0]
+            const tokenName = splits.length > 2 ? splits[2] : splits[1]
+            const res = await this.getSuiClient().getObject({ id: objectId })
+            if (res) {
+              store.dispatch(
+                addTempCoin({
+                  tempCoin: {
+                    address,
+                    decimals: 1,
+                    symbol: tokenName,
+                    name: tokenName,
+                  },
+                })
+              )
+            }
           }
         } catch (error) {
-          console.error(error)
+          console.log(error)
           const splits = address.split('::')
           const objectId = splits[0]
           const tokenName = splits.length > 2 ? splits[2] : splits[1]
-          const res = await this.getSuiClient().getObject({ id: objectId })
-          if (res) {
-            store.dispatch(
-              addCoin({
-                coin: {
-                  address,
-                  decimals: 1,
-                  symbol: tokenName,
-                  name: tokenName,
-                },
-              })
-            )
-          }
+          // const res = await this.getSuiClient().getObject({ id: objectId })
+          // if (res) {
+          store.dispatch(
+            addCoin({
+              coin: {
+                address,
+                decimals: 1,
+                symbol: tokenName,
+                name: tokenName,
+              },
+            })
+          )
+          // }
         }
       }
       if (isAptosChain(chainId)) {
@@ -360,6 +377,7 @@ class ConnectionInstance {
         console.log(address)
         try {
           const coin = await this.getSuiClient().getCoinMetadata({ coinType: address })
+          console.log('Azard coin', coin)
           if (coin) {
             store.dispatch(
               addTempCoin({
@@ -371,26 +389,43 @@ class ConnectionInstance {
                 },
               })
             )
+          } else {
+            const splits = address.split('::')
+            const objectId = splits[0]
+            const tokenName = splits.length > 2 ? splits[2] : splits[1]
+            const res = await this.getSuiClient().getObject({ id: objectId })
+            if (res) {
+              store.dispatch(
+                addTempCoin({
+                  tempCoin: {
+                    address,
+                    decimals: 1,
+                    symbol: tokenName,
+                    name: tokenName,
+                  },
+                })
+              )
+            }
           }
         } catch (error) {
-          console.error(error)
+          console.log(error)
           const splits = address.split('::')
           const objectId = splits[0]
           const tokenName = splits.length > 2 ? splits[2] : splits[1]
-          const res = await this.getSuiClient().getObject({ id: objectId })
-          if (res) {
-            store.dispatch(
-              addTempCoin({
-                tempCoin: {
-                  address,
-                  decimals: 1,
-                  symbol: tokenName,
-                  name: tokenName,
-                },
-              })
-            )
-          }
+          // const res = await this.getSuiClient().getObject({ id: objectId })
+          // if (res) {
+          store.dispatch(
+            addTempCoin({
+              tempCoin: {
+                address,
+                decimals: 1,
+                symbol: tokenName,
+                name: tokenName,
+              },
+            })
+          )
         }
+        // }
       }
       if (isAptosChain(chainId)) {
         // Aptos add coin
