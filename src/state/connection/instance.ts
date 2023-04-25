@@ -13,7 +13,13 @@ import SDK, {
 import { Connection, JsonRpcProvider } from '@mysten/sui.js'
 import { AptosClient } from 'aptos'
 import { CHAIN_INFO } from 'constants/chainInfo'
-import { CHAIN_IDS_TO_SDK_NETWORK, isSuiChain, SUI_CHAIN_IDS_TO_SDK_NETWORK, SupportedChainId } from 'constants/chains'
+import {
+  CHAIN_IDS_TO_SDK_NETWORK,
+  isAptosChain,
+  isSuiChain,
+  SUI_CHAIN_IDS_TO_SDK_NETWORK,
+  SupportedChainId,
+} from 'constants/chains'
 import { Pair } from 'hooks/common/Pair'
 import store from 'state'
 import { addCoin, addTempCoin, setAllPairs, updatePair } from 'state/user/reducer'
@@ -302,36 +308,38 @@ class ConnectionInstance {
           const splits = address.split('::')
           const objectId = splits[0]
           const tokenName = splits.length > 2 ? splits[2] : splits[1]
-          // const res = await this.getSuiClient().getObject({ id: objectId })
-          // if (res) {
+          const res = await this.getSuiClient().getObject({ id: objectId })
+          if (res) {
+            store.dispatch(
+              addCoin({
+                coin: {
+                  address,
+                  decimals: 1,
+                  symbol: tokenName,
+                  name: tokenName,
+                },
+              })
+            )
+          }
+        }
+      }
+      if (isAptosChain(chainId)) {
+        // Aptos add coin
+        const splits = address.split('::')
+        const account = splits[0]
+        const coin: AptosCoinInfoResource = await this.getAccountResource(account, `0x1::coin::CoinInfo<${address}>`)
+        if (coin) {
           store.dispatch(
             addCoin({
               coin: {
                 address,
-                decimals: 1,
-                symbol: tokenName,
-                name: tokenName,
+                decimals: coin.decimals,
+                symbol: coin.symbol,
+                name: coin.name,
               },
             })
           )
-          // }
         }
-      }
-      // Aptos add coin
-      const splits = address.split('::')
-      const account = splits[0]
-      const coin: AptosCoinInfoResource = await this.getAccountResource(account, `0x1::coin::CoinInfo<${address}>`)
-      if (coin) {
-        store.dispatch(
-          addCoin({
-            coin: {
-              address,
-              decimals: coin.decimals,
-              symbol: coin.symbol,
-              name: coin.name,
-            },
-          })
-        )
       }
     } catch (error) {
       console.error('addCoin', error)
@@ -369,36 +377,38 @@ class ConnectionInstance {
           const splits = address.split('::')
           const objectId = splits[0]
           const tokenName = splits.length > 2 ? splits[2] : splits[1]
-          // const res = await this.getSuiClient().getObject({ id: objectId })
-          // if (res) {
+          const res = await this.getSuiClient().getObject({ id: objectId })
+          if (res) {
+            store.dispatch(
+              addTempCoin({
+                tempCoin: {
+                  address,
+                  decimals: 1,
+                  symbol: tokenName,
+                  name: tokenName,
+                },
+              })
+            )
+          }
+        }
+      }
+      if (isAptosChain(chainId)) {
+        // Aptos add coin
+        const splits = address.split('::')
+        const account = splits[0]
+        const coin: AptosCoinInfoResource = await this.getAccountResource(account, `0x1::coin::CoinInfo<${address}>`)
+        if (coin) {
           store.dispatch(
             addTempCoin({
               tempCoin: {
                 address,
-                decimals: 1,
-                symbol: tokenName,
-                name: tokenName,
+                decimals: coin.decimals,
+                symbol: coin.symbol,
+                name: coin.name,
               },
             })
           )
-          // }
         }
-      }
-      // Aptos add coin
-      const splits = address.split('::')
-      const account = splits[0]
-      const coin: AptosCoinInfoResource = await this.getAccountResource(account, `0x1::coin::CoinInfo<${address}>`)
-      if (coin) {
-        store.dispatch(
-          addTempCoin({
-            tempCoin: {
-              address,
-              decimals: coin.decimals,
-              symbol: coin.symbol,
-              name: coin.name,
-            },
-          })
-        )
       }
     } catch (error) {
       console.error('addTempCoin', error)
