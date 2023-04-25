@@ -377,7 +377,6 @@ class ConnectionInstance {
         console.log(address)
         try {
           const coin = await this.getSuiClient().getCoinMetadata({ coinType: address })
-          console.log('Azard coin', coin)
           if (coin) {
             store.dispatch(
               addTempCoin({
