@@ -243,7 +243,7 @@ export function useBestTrade(
       bestTrade.maximumAmountIn =
         tradeType === TradeType.EXACT_INPUT
           ? bestTrade.inputAmount
-          : new CoinAmount(inputCoin, Utils.d(rawPayload.arguments[3].toString()))
+          : new CoinAmount(inputCoin, Utils.d(rawPayload.arguments[4].toString()))
 
       bestTrade.miniumAmountOut =
         tradeType === TradeType.EXACT_OUTPUT
