@@ -29,13 +29,13 @@ export function getExplorerLink(chainId: SupportedChainId, data: string, type: E
   } else if (isSuiChain(chainId)) {
     switch (type) {
       case ExplorerDataType.TRANSACTION:
-        return `https://explorer.sui.io/transaction/${data}?network=${getNextworkTag(chainId)}`
+        return `https://explorer.sui.io/txblock/${data}?network=${getNextworkTag(chainId)}`
       case ExplorerDataType.ADDRESS:
         return `https://explorer.sui.io/address/${data}?network=${getNextworkTag(chainId)}`
       case ExplorerDataType.TOKEN:
         return `https://explorer.sui.io/object/${data}?network=${getNextworkTag(chainId)}`
       case ExplorerDataType.BLOCK:
-        return `https://explorer.sui.io/transaction/${data}?network=${getNextworkTag(chainId)}`
+        return `https://explorer.sui.io/txblock/${data}?network=${getNextworkTag(chainId)}`
       default:
         return `https://explorer.sui.io/?network=${getNextworkTag(chainId)}`
     }
