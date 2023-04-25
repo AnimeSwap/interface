@@ -302,19 +302,19 @@ class ConnectionInstance {
           const splits = address.split('::')
           const objectId = splits[0]
           const tokenName = splits.length > 2 ? splits[2] : splits[1]
-          const res = await this.getSuiClient().getObject({ id: objectId })
-          if (res) {
-            store.dispatch(
-              addCoin({
-                coin: {
-                  address,
-                  decimals: 1,
-                  symbol: tokenName,
-                  name: tokenName,
-                },
-              })
-            )
-          }
+          // const res = await this.getSuiClient().getObject({ id: objectId })
+          // if (res) {
+          store.dispatch(
+            addCoin({
+              coin: {
+                address,
+                decimals: 1,
+                symbol: tokenName,
+                name: tokenName,
+              },
+            })
+          )
+          // }
         }
       }
       // Aptos add coin
@@ -369,19 +369,19 @@ class ConnectionInstance {
           const splits = address.split('::')
           const objectId = splits[0]
           const tokenName = splits.length > 2 ? splits[2] : splits[1]
-          const res = await this.getSuiClient().getObject({ id: objectId })
-          if (res) {
-            store.dispatch(
-              addTempCoin({
-                tempCoin: {
-                  address,
-                  decimals: 1,
-                  symbol: tokenName,
-                  name: tokenName,
-                },
-              })
-            )
-          }
+          // const res = await this.getSuiClient().getObject({ id: objectId })
+          // if (res) {
+          store.dispatch(
+            addTempCoin({
+              tempCoin: {
+                address,
+                decimals: 1,
+                symbol: tokenName,
+                name: tokenName,
+              },
+            })
+          )
+          // }
         }
       }
       // Aptos add coin
