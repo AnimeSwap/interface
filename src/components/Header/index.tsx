@@ -6,15 +6,17 @@ import { isAptosChain, isSuiChain, SupportedChainId } from 'constants/chains'
 import useParsedQueryString from 'hooks/useParsedQueryString'
 import { darken } from 'polished'
 import { useEffect } from 'react'
-import { NavLink, useLocation } from 'react-router-dom'
+import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { Text } from 'rebass'
 import { useToggleModal } from 'state/application/hooks'
 import { ApplicationModal } from 'state/application/reducer'
+import { switchChain, useConnection } from 'state/connection/hooks'
 import ConnectionInstance from 'state/connection/instance'
 import { useChainId } from 'state/user/hooks'
 import { AutoConnectAptosWallets, AutoConnectSuiWallets, useAccount, useCoinAmount } from 'state/wallets/hooks'
 import styled from 'styled-components/macro'
 import { ExternalLink } from 'theme'
+import { replaceURLParam } from 'utils'
 import { isDevelopmentEnv } from 'utils/env'
 
 import Logo from '../../assets/logo.png'
@@ -22,7 +24,7 @@ import { ButtonPrimary } from '../Button'
 import Menu from '../Menu'
 import Row from '../Row'
 import HeaderStatus from './HeaderStatus'
-import NetworkSelector, { getParsedChainId } from './NetworkSelector'
+import NetworkSelector, { getChainNameFromId, getParsedChainId } from './NetworkSelector'
 
 const HeaderFrame = styled.div<{ showBackground: boolean }>`
   display: grid;
@@ -228,8 +230,11 @@ const ANIbutton = styled(ButtonPrimary)`
 export default function Header() {
   const account = useAccount()
   const chainId = useChainId()
+  const connection = useConnection()
+  const navigate = useNavigate()
   const { nativeCoin, stableCoin, aniCoin } = getChainInfoOrDefault(chainId)
   const nativeCoinAmount = useCoinAmount(nativeCoin.address)
+  const { search } = useLocation()
 
   // wallet
   useEffect(() => {
@@ -318,19 +323,22 @@ export default function Header() {
               <Trans>Faucet</Trans>
             </ANIbutton>
           )}
-          {/* {[SupportedChainId.APTOS].includes(chainId) && (
+          {chainId !== SupportedChainId.SUI && (
             <ANIbutton
               onClick={() => {
-                window.open('https://cbridge.celer.network/1/12360001/USDC', '_blank')
+                switchChain(connection, SupportedChainId.SUI)
+                navigate(
+                  { search: replaceURLParam(search, 'chain', getChainNameFromId(SupportedChainId.SUI)) },
+                  { replace: true }
+                )
               }}
               padding="8px 12px"
               width="100%"
               $borderRadius="12px"
             >
-              <Trans>Bridge</Trans>
-              <sup>↗</sup>
+              <Trans>{'>Sui'}</Trans>
             </ANIbutton>
-          )} */}
+          )}
           {/* {[SupportedChainId.APTOS].includes(chainId) && (
             <ANIbutton
               onClick={() => {

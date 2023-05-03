@@ -268,7 +268,7 @@ const getChainIdFromName = (name: string) => {
   return chainId ? parseInt(chainId) : undefined
 }
 
-const getChainNameFromId = (id: string | number) => {
+export const getChainNameFromId = (id: string | number) => {
   // casting here may not be right but fine to return undefined if it's not a supported chain ID
   return CHAIN_IDS_TO_NAMES[id as SupportedChainId] || ''
 }
