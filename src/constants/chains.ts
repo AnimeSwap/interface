@@ -26,7 +26,7 @@ export const CHAIN_IDS_TO_SDK_NETWORK = {
 }
 
 export const SUI_CHAIN_IDS_TO_SDK_NETWORK = {
-  [SupportedChainId.SUI]: SuiNetworkType.Testnet,
+  [SupportedChainId.SUI]: SuiNetworkType.Mainnet,
   [SupportedChainId.SUI_TESTNET]: SuiNetworkType.Testnet,
   [SupportedChainId.SUI_DEVNET]: SuiNetworkType.Devnet,
 }

@@ -78,7 +78,7 @@ export const CHAIN_INFO: ChainInfoMap = {
     nativeCoin: SUI_CoinInfo['0x2::sui::SUI'],
     aniCoin: SUI_CoinInfo['0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI'],
     defaultBuyCoin: SUI_CoinInfo['0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::AnimeCoin::ANI'],
-    stableCoin: SUI_CoinInfo['0x16fe2df00ea7dde4a63409201f7f4e536bde7bb7335526a35d05111e68aa322c::TestCoinsV1::USDT'],
+    stableCoin: SUI_CoinInfo['0xb231fcda8bbddb31f2ef02e6161444aec64a514e2c89279584ac9806ce9cf037::coin::COIN'],
   },
   [SupportedChainId.SUI_TESTNET]: {
     docs: 'https://sui.io/',
