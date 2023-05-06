@@ -536,6 +536,14 @@ export const SUI_CoinInfo: { [address: string]: Coin } = {
     logoURL: ['https://coinlist.animeswap.org/icons/BTC.webp'],
     projectURL: 'https://www.portalbridge.com/sui',
   },
+  '0xd9f9b0b4f35276eecd1eea6985bfabe2a2bbd5575f9adb9162ccbdb4ddebde7f::smove::SMOVE': {
+    address: '0x027792d9fed7f9844eb4839566001bb6f6cb4804f66aa2da6fe1ee242d896881::coin::COIN',
+    decimals: 9,
+    symbol: 'MOVE',
+    name: 'MOVE',
+    logoURL: ['https://coinlist.animeswap.org/icons/MOVE.svg'],
+    projectURL: 'https://dex.bluemove.net/',
+  },
   '0xb848cce11ef3a8f62eccea6eb5b35a12c4c2b1ee1af7755d02d7bd6218e8226f::coin::COIN': {
     address: '0xb848cce11ef3a8f62eccea6eb5b35a12c4c2b1ee1af7755d02d7bd6218e8226f::coin::COIN',
     decimals: 8,
