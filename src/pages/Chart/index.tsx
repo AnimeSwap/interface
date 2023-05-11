@@ -281,7 +281,11 @@ export default function Explore() {
                 padding="6px 8px"
                 style={{ marginTop: '0.5rem', justifySelf: 'flex-end' }}
                 onClick={() => {
-                  window.open('https://coinmarketcap.com/exchanges/animeswap/', '_blank')
+                  if (isAptosChain(chainId)) {
+                    window.open('https://coinmarketcap.com/exchanges/animeswap/', '_blank')
+                  } else {
+                    window.open('https://coinmarketcap.com/exchanges/animeswap-sui/', '_blank')
+                  }
                 }}
               >
                 <Text fontWeight={500} fontSize={16}>
